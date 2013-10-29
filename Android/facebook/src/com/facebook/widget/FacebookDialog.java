@@ -39,7 +39,7 @@ import java.util.*;
 /*
  * Provides an interface for presenting dialogs provided by the Facebook application for Android. This class
  * provides builders that present a strongly-typed interface to generate properly-formed Intents for launching
- * the appropriate Activities provided by the Facebook application.
+ * the appropriate activities provided by the Facebook application.
  */
 public class FacebookDialog {
 
