@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="user_information_input_bg_active">#007AFF</color>
+    <color name="user_information_input_bg_passive">#B8B8BC</color>
+    <color name="listNameColor">#18202B</color>
+    <color name="listSeperatorColor">#ECECEC</color>
+    <color name="tabTextColor">#6E7376</color>
+    <color name="navigationBarHeaderTextColor">#007AFF</color>
+    <color name="navigationbarBgColor">#ECECEC</color>
+</resources>
