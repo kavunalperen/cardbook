@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="fill_parent"
+              android:layout_height="84dp"
+              android:baselineAligned="false"
+              android:background="@color/cellDefault">
+
+    <TextView
+            android:layout_width="162dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Large Text"
+            android:id="@+id/tvCompany"
+            android:layout_gravity="center_vertical|left"
+            android:layout_marginLeft="15dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:linksClickable="false"
+            android:textSize="16sp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="false"
+            android:layout_centerVertical="true"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Small Text"
+            android:id="@+id/tvShoppingDate"
+            android:layout_gravity="center_vertical"
+            android:lines="1"
+            android:ellipsize="end"
+            android:textSize="10sp"
+            android:textColor="@color/listDetail"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/alisVerisListArrow"
+            android:layout_centerVertical="true"/>
+
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/alisVerisListArrow"
+            android:layout_gravity="center_vertical|right"
+            android:src="@drawable/listview_arrow"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentTop="false"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+</RelativeLayout>
