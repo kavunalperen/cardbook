@@ -1,6 +1,7 @@
 package com.abdullah.cardbook.activities;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -123,12 +124,15 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
         super.onResume();
         CardbookApp cardbookApp =(CardbookApp)getApplicationContext();
 
-        Log.i("Company length: "+ cardbookApp.getCompanies().size());
+//        Log.i("Company length: "+ cardbookApp.getCompanies().size());
     }
 
-    private View createTabView(final String menuText) {
-        View view = LayoutInflater.from(this).inflate(R.layout.tabs_icon, null);
 
+    private View createTabView(final int id, final String menuText) {
+        View view = LayoutInflater.from(this).inflate(R.layout.tabs_icon, null);
+        ImageView imageView = (ImageView) view.findViewById(R.id.tab_icon);
+        imageView.setImageDrawable(getResources().getDrawable(id));
+        imageView.bringToFront();
         TextView text=(TextView)view.findViewById(R.id.tab_text);
         text.setText(menuText);
         text.bringToFront();
@@ -137,9 +141,9 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
 
     private void setNavBarItemsStyle(){
 
-    	 Font font=new Font(this, Font.ROBOTO_MEDIUM);
+        Typeface font=Font.getFont(this, Font.ROBOTO_MEDIUM);
 
-    	navBarText.setTypeface(font.getFont());
+    	navBarText.setTypeface(font);
 
     }
     private void setNavbarItemsContent(String text, int imgId){
@@ -158,7 +162,7 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
 
         mTabHost.setCurrentTab(0);
 
-        Font font=new Font(this, Font.ROBOTO_REGULAR);
+        Typeface font=Font.getFont(this, Font.ROBOTO_REGULAR);
 
         for(int i=0; i<AppConstants.MENU.length;i++){
 	        spec = mTabHost.newTabSpec(AppConstants.MENU[i]);
@@ -167,7 +171,7 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
 	                return findViewById(android.R.id.tabcontent);
 	            }
 	        });
-//	        spec.setIndicator(createTabView(AppConstants.PASSIVE_BUTTONS[i],AppConstants.MENU[i]));
+	        spec.setIndicator(createTabView(AppConstants.PASSIVE_BUTTONS[i],AppConstants.MENU[i]));
             View view = LayoutInflater.from(this).inflate(R.layout.tabs_icon, null);
             spec.setIndicator(view);
             mTabHost.addTab(spec);
@@ -175,7 +179,7 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
 	        TextView tv;
 
 	    	tv=(TextView)mTabHost.getTabWidget().getChildAt(i).findViewById(R.id.tab_text);
-	        tv.setTypeface(font.getFont());
+	        tv.setTypeface(font);
             tv.setText(AppConstants.MENU[i]);
         }
 
@@ -183,25 +187,25 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
 
     }
 
-    /*
+
     public void changeColor(int id){
     	TextView tv;
     	ImageView img;
     	for(int i=0;i<mTabHost.getTabWidget().getChildCount();i++){
     		tv=(TextView)mTabHost.getTabWidget().getChildAt(i).findViewById(R.id.tab_text);
-            tv.setTextColor(Color.LTGRAY);
+            tv.setTextColor(getResources().getColor(R.color.listDetail));
 
             img=(ImageView)mTabHost.getTabWidget().getChildAt(i).findViewById(R.id.tab_icon);
             img.setImageResource(AppConstants.PASSIVE_BUTTONS[i]);
     	}
 
     	tv=(TextView)mTabHost.getTabWidget().getChildAt(id).findViewById(R.id.tab_text);
-        tv.setTextColor(Color.WHITE);
+        tv.setTextColor(getResources().getColor(R.color.cellHighLighted));
 
         img=(ImageView)mTabHost.getTabWidget().getChildAt(id).findViewById(R.id.tab_icon);
         img.setImageResource(AppConstants.ACTIVE_BUTTONS[id]);
     }
-    */
+
     /* Might be useful if we want to switch tab programmatically, from inside any of the fragment.*/
     public void setCurrentTab(int val){
           mTabHost.setCurrentTab(val);
@@ -374,7 +378,7 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
 		int pos = this.mTabHost.getCurrentTab();
         this.mViewPager.setCurrentItem(pos);
 
-//        changeColor(pos);
+        changeColor(pos);
         Log.i("Animation menu place: "+menuPlace);
 //        animateMask(pos);
 

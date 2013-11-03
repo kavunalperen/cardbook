@@ -13,22 +13,12 @@ public class Font {
 	public static String ROBOTO_MEDIUM="Roboto-Medium.ttf";
 	public static String ROBOTO_MEDIUM_ITALIC="Roboto-MediumItalic.ttf";
 	public static String ROBOTO_REGULAR="Roboto-Regular.ttf";
-	
-	private Context context; 
-	private String font;
-	
-	
-	public Font(Context context, String font) {
-		super();
-		this.context = context;
-		this.font = font;
-	}
 
 
-	public Typeface getFont(){
-		Typeface typeFace = Typeface.createFromAsset(this.context.getAssets(), "fonts/"+this.font);
-		
-		return typeFace;
-	}
+    public static Typeface getFont(Context context, String font){
+        Typeface typeFace = Typeface.createFromAsset(context.getAssets(), "fonts/"+font);
+
+        return typeFace;
+    }
 	
 }

@@ -1,13 +1,12 @@
 package com.abdullah.cardbook.models;
 
-import com.abdullah.cardbook.common.AppConstants;
 import com.abdullah.cardbook.common.Log;
+import com.abdullah.cardbook.models.address.Address;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class CardBookUser {
 

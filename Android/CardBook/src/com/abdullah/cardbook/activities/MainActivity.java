@@ -5,11 +5,14 @@ import com.abdullah.cardbook.CardbookApp;
 import com.abdullah.cardbook.R;
 import com.abdullah.cardbook.common.AppConstants;
 import com.abdullah.cardbook.connectivity.ConnectionManager;
-import com.abdullah.cardbook.models.Address;
+import com.abdullah.cardbook.models.Campaign;
+import com.abdullah.cardbook.models.Shopping;
+import com.abdullah.cardbook.models.address.Address;
 import com.abdullah.cardbook.models.CardBookUser;
 import com.abdullah.cardbook.common.Log;
 
 import com.abdullah.cardbook.models.Company;
+import com.abdullah.cardbook.models.address.*;
 import com.facebook.SessionDefaultAudience;
 import com.sromku.simple.fb.Permissions;
 import com.sromku.simple.fb.SimpleFacebook;
@@ -29,13 +32,16 @@ import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class MainActivity extends Activity implements OnClickListener {
@@ -175,11 +181,11 @@ public class MainActivity extends Activity implements OnClickListener {
                     user.setPhone2("");
                     user.setProfilPhotoUrl("http://graph.facebook.com/"+user.getId()+"/picture?style=large" );
 
-                    String[] location;
+                    String location;
                     if(profile.getLocation()!=null)
-                        location=profile.getLocation().getName().split(", ");
+                        location=profile.getLocation().getName();
                     else
-                        location=new String[]{"",""};
+                        location="";
 
                     Address adres=new Address(location);
                     adres.setCountryId(1);
@@ -188,10 +194,11 @@ public class MainActivity extends Activity implements OnClickListener {
                     user.setAddres(adres);
 
                     Log.i("Gender From Face:"+profile.getGender());
-//                    Log.i(profile.getLocale().toString()+", "+profile.getLocation().getName());
+                    Log.i(profile.getLocale().toString()+", "+profile.getLocation().getName());
+                    Log.i(profile.getLocale()+", "+profile.getLocation());
 
 //                    new GetAdressList().execute(null);
-
+                    CardbookApp.getInstance().setUser(user);
 				    new PostDataOperation().execute(user);
 
 
@@ -202,7 +209,7 @@ public class MainActivity extends Activity implements OnClickListener {
  		@Override
  		public void onNotAcceptingPermissions()
  		{
- 			toast("You didn't accept read permissions");
+ 			toast("İzinleri kabul etmediniz.");
  		}
  	};
 
@@ -227,7 +234,7 @@ public class MainActivity extends Activity implements OnClickListener {
         private String Content;
         private String Error = null;
         private ProgressDialog Dialog = new ProgressDialog(MainActivity.this);
-
+        private  JSONArray array;
 
 
         protected void onPreExecute() {
@@ -242,6 +249,8 @@ public class MainActivity extends Activity implements OnClickListener {
         // Call after onPreExecute method
         protected Void doInBackground(CardBookUser... user) {
 
+            CardbookApp app=CardbookApp.getInstance();
+
             ConnectionManager conManager=new ConnectionManager(MainActivity.this);
             JSONObject resultUser=conManager.postData(AppConstants.SM_CREATE_OR_UPDATE_USER,user[0].getUserInfoAsDict());
 
@@ -251,12 +260,41 @@ public class MainActivity extends Activity implements OnClickListener {
 
             JSONObject resultCampaign=conManager.postData(AppConstants.SM_GET_ALL_ACTIVE_CAMPAIGN_LIST, null);
 
-            Log.i(resultCampaign.toString());
+            ArrayList<NameValuePair> list=new ArrayList<NameValuePair>();
+           list.add(new BasicNameValuePair("userId","6"));
 
 
-            JSONArray array;
+            JSONObject resultShopping=conManager.postData(AppConstants.SM_GET_ALL_SHOPPING_LIST,list);
+            array=resultShopping.optJSONArray(AppConstants.POST_DATA);
+            for(int i=0; i<array.length();i++){
+                Shopping shopping=new Shopping(array.optJSONObject(i));
+                app.addShoppings(shopping);
+            }
+
+
+            try{
+                convertAddresList(resultAddress.getJSONObject(AppConstants.POST_DATA));
+            }
+            catch (JSONException e){
+                e.printStackTrace();
+            }
+
+            try{
+               array=resultCampaign.getJSONArray(AppConstants.POST_DATA);
+                for(int i=0; i<array.length();i++){
+                    Campaign campaing=new Campaign((JSONObject)array.get(i));
+
+                    CardbookApp.getInstance().addCampaign(campaing);
+                }
+
+            }
+            catch (JSONException e){
+                e.printStackTrace();
+            }
+
+
             try {
-                array=resultCards.getJSONArray("Data");
+                array=resultCards.getJSONArray(AppConstants.POST_DATA);
                 Log.i(((JSONObject)array.get(0)).getString("UDate"));
                 String dateString=((JSONObject)array.get(0)).getString("UDate");
                 Date date=AppConstants.parseMsTimestampToDate(dateString);
@@ -266,7 +304,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 
                 for(int i=0; i<array.length();i++){
-                    Company company=new Company((JSONObject)array.get(0));
+                    Company company=new Company((JSONObject)array.get(i));
 
                     CardbookApp.getInstance().addCompany(company);
                 }
@@ -286,20 +324,63 @@ public class MainActivity extends Activity implements OnClickListener {
             // Close progress dialog
             Dialog.dismiss();
 
-            if (Error != null) {
-
-//                uiUpdate.setText("Output : "+Error);
-
-            } else {
-
-//                uiUpdate.setText("Output : "+Content);
-
-            }
-
-            Intent intent=new Intent(MainActivity.this, AppMainTabActivity.class);
+            Intent intent=new Intent(MainActivity.this, UserInformation.class);
             startActivity(intent);
+//            if (Error != null) {
+//
+//                Intent intent=new Intent(MainActivity.this, AppMainTabActivity.class);
+//                startActivity(intent);
+//
+//            } else {
+//
+//                new AlertDialog.Builder(MainActivity.this)
+//                        .setTitle("Hata")
+//                        .setMessage("Uygulamayı daha sonra tekrar başlatın.")
+//                        .setPositiveButton("Tamam", new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                System.exit(0);
+//                            }
+//                        }).show();
+//
+//            }
+
+
         }
 
+    }
+
+    public void convertAddresList(JSONObject list){
+        try{
+            Log.i("converting is started");
+            JSONArray jCountryArray=list.getJSONArray(Country.COUNTRY_LIST);
+            JSONArray jCityArray=list.getJSONArray(City.CIYTY_LIST);
+            JSONArray jCountyArray=list.getJSONArray(County.COUNTY_LIST);
+            for(int i=0; i<jCountryArray.length();i++){
+                JSONObject jCountry=jCountryArray.getJSONObject(i);
+                Country country=new Country(jCountry);
+                Log.i("Country: "+country.getName());
+                for(int j=0; j<jCityArray.length();j++){
+                    int countryId=jCityArray.getJSONObject(j).optInt(Country.COUNTRY_ID);
+                    if(countryId==country.getId()){
+                        City city=new City(jCityArray.getJSONObject(j));
+                        Log.i("Country: "+country.getName()+", city: "+city.getName());
+                        for(int k=0; k<jCountyArray.length();k++){
+                            int cityId=jCountyArray.getJSONObject(k).optInt(City.CITY_ID);
+                            if(city.getId()==cityId){
+                                County county=new County(jCountyArray.getJSONObject(k));
+                                Log.i("Country: "+country.getName()+", city: "+city.getName()+", county: "+county.getName());
+                                city.addCounty(county);
+                            }
+                        }
+                        country.addCity(city);
+                    }
+                }
+                CardbookApp.getInstance().addCountry(country);
+            }
+        }
+        catch (JSONException e){
+            e.printStackTrace();
+        }
     }
 
     private class GetAdressList  extends AsyncTask<String, Void, Void> {

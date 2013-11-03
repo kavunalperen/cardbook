@@ -5,101 +5,117 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="@drawable/splash_bg"
-              android:gravity="center_horizontal">
+              android:gravity="center_horizontal"
+              android:paddingLeft="15dp"
+              android:paddingRight="15dp">
 
 
-    <ScrollView
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:background="@drawable/splash_logo"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp" />
+
+    <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/scrollView"
-            android:layout_gravity="center_horizontal" >
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp">
 
-
-        <LinearLayout
-                android:orientation="vertical"
+        <EditText
+                style="@style/userInformationInput"
+                android:inputType="textPersonName"
+                android:hint="İsim"
+                android:id="@+id/editFirstName"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:gravity="center_horizontal">
+                android:layout_gravity="right"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@+id/userImage"
+                android:layout_marginLeft="5dp"/>
 
-            <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/imageView"
-                    android:background="@drawable/splash_logo"
-                    android:layout_marginTop="70dp"
-                    android:layout_marginBottom="50dp" />
+        <EditText
+                style="@style/userInformationInput"
+                android:hint="Soyisim"
+                android:id="@+id/editLastName"
+                android:layout_below="@+id/editFirstName"
+                android:layout_alignParentRight="true"
+                android:layout_alignLeft="@+id/editFirstName"
+                />
 
-            <EditText
-                    android:layout_width="@dimen/input_user_information_width"
-                    android:layout_height="@dimen/input_user_information_height"
-                    android:inputType="textPersonName"
-                    android:text="Name"
-                    android:ems="10"
-                    android:id="@+id/editFirstName"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="@dimen/input_user_information_margin_vertical"
-                    />
+        <ImageView
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:id="@+id/userImage"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/dummy_big_man"
+                android:background="@drawable/list_img_bg"/>
 
-            <EditText
-                    android:layout_width="@dimen/input_user_information_width"
-                    android:layout_height="@dimen/input_user_information_height"
-                    android:inputType="textPersonName"
-                    android:text="Name"
-                    android:ems="10"
-                    android:id="@+id/editLastName"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="@dimen/input_user_information_margin_vertical"/>
+    </RelativeLayout>
 
-            <EditText
-                    android:layout_width="@dimen/input_user_information_width"
-                    android:layout_height="@dimen/input_user_information_height"
-                    android:inputType="textEmailAddress"
-                    android:ems="10"
-                    android:id="@+id/editMail"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="@dimen/input_user_information_margin_vertical"/>
+    <EditText
+            style="@style/userInformationInput"
+            android:inputType="textEmailAddress"
+            android:hint="E-Posta"
+            android:id="@+id/editMail"
+            />
 
-            <EditText
-                    android:layout_width="@dimen/input_user_information_width"
-                    android:layout_height="@dimen/input_user_information_height"
-                    android:inputType="phone"
-                    android:ems="10"
-                    android:id="@+id/editPhoneHome"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="@dimen/input_user_information_margin_vertical"/>
+    <EditText
+            style="@style/userInformationInput"
+            android:inputType="phone"
+            android:hint="Telefon"
+            android:id="@+id/editPhone"
+            />
 
-            <EditText
-                    android:layout_width="@dimen/input_user_information_width"
-                    android:layout_height="@dimen/input_user_information_height"
-                    android:inputType="phone"
-                    android:ems="10"
-                    android:id="@+id/editPhoneMobile"
-                    android:layout_marginBottom="@dimen/input_user_information_margin_vertical"/>
+    <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/btn_user_information_height"
+            android:id="@+id/spCountry"
+            android:layout_gravity="center"
+            android:prompt="@string/input_hint_last_country"
+            />
 
-            <EditText
-                    android:layout_width="@dimen/input_user_information_width"
-                    android:layout_height="@dimen/input_user_information_height"
-                    android:inputType="date"
-                    android:ems="10"
-                    android:id="@+id/editBirthDate"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="@dimen/input_user_information_margin_vertical"/>
+    <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/btn_user_information_height"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp">
 
-            <EditText
-                    android:layout_width="@dimen/input_user_information_width"
-                    android:layout_height="@dimen/input_user_information_height"
-                    android:inputType="textPostalAddress"
-                    android:ems="10"
-                    android:id="@+id/editAddress"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="@dimen/input_user_information_margin_vertical"/>
+        <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/spCity"
+                android:layout_weight="1"
+                android:prompt="@string/input_hint_last_city"/>
 
-            <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="New Button"
-                    android:id="@+id/button"
-                    android:layout_gravity="right"/>
-        </LinearLayout>
-    </ScrollView>
+        <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/spCounty"
+                android:layout_gravity="center"
+                android:prompt="@string/input_hint_last_county"
+                android:layout_marginLeft="5dp"/>
+
+    </LinearLayout>
+
+    <EditText
+            style="@style/userInformationInput"
+            android:inputType="textPostalAddress"
+            android:hint="Adres"
+            android:id="@+id/editAddress"
+            android:layout_marginTop="5dp"/>
+
+    <Button
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:text="Güncelle"
+            android:id="@+id/btnUserInfoUpdate"
+            android:layout_gravity="right"
+            android:background="@drawable/btn_update_bg"
+            android:layout_marginTop="15dp"
+            android:textSize="14sp"
+            android:textColor="@color/btnUpdateTextColor"/>
 </LinearLayout>

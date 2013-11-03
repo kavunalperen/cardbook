@@ -8,6 +8,8 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 
+import com.abdullah.cardbook.R;
+
 import org.apache.http.message.BasicNameValuePair;
 
 import java.text.SimpleDateFormat;
@@ -38,6 +40,7 @@ public class AppConstants {
 	public static String SM_GET_ADDRESS_LIST = "GetAddressLists";
 
     public static String POST_DATA_ERROR="postDataError";
+    public static String POST_DATA="Data";
 
 
     public static final String KARTLARIM  = "Kartlarım";
@@ -51,6 +54,10 @@ public class AppConstants {
     public static final int PROFIL_POS=3;
 
     public static final String[] MENU={KARTLARIM,KAMPANYALAR,ALIS_VERIS,PROFIL};
+    public static final int[] PASSIVE_BUTTONS={R.drawable.tabicon_mycards_normal,R.drawable.tabicon_campaign_normal,
+            R.drawable.tabicon_shopping_normal, R.drawable.tabicon_profile_normal};
+    public static final int[] ACTIVE_BUTTONS={R.drawable.tabicon_mycards_active,R.drawable.tabicon_campaign_active,
+            R.drawable.tabicon_shopping_active, R.drawable.tabicon_profile_active};
 
 
     public static Bitmap addMask(Context context, int image, int usedMask){

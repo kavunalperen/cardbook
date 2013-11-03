@@ -2,6 +2,7 @@ package com.abdullah.cardbook.adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,10 +52,10 @@ public class KartlarimListAdapter extends ArrayAdapter<Company>{
         	mImageView.setScaleType(ScaleType.CENTER);
 
         	// user name and title
-            Font font=new Font(context, Font.ROBOTO_LIGHT);
+            Typeface font=Font.getFont(context, Font.ROBOTO_MEDIUM);
             
             TextView name = (TextView) view.findViewById(R.id.kartlarimListTvName);
-            name.setTypeface(font.getFont());
+            name.setTypeface(font);
             
             if (name != null) {
                 

@@ -2,6 +2,7 @@ package com.abdullah.cardbook.adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,16 +51,13 @@ public class KampanyalarListAdapter extends ArrayAdapter<Campaign>{
         	mImageView.setScaleType(ScaleType.CENTER);
 
         	// user name and title
-            Font font=new Font(context, Font.ROBOTO_LIGHT);
+            Typeface font=Font.getFont(context, Font.ROBOTO_LIGHT);
             
             TextView name = (TextView) view.findViewById(R.id.kampanyalarListTvName);
-            name.setTypeface(font.getFont());
-//
-//            if (name != null) {
-                
-//            	name.setText(item.getCompanyName());
+            name.setTypeface(font);
 
-//            }
+           	name.setText(item.getName());
+
          }
         else{
         	

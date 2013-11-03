@@ -1,13 +1,16 @@
 package com.abdullah.cardbook.fragments;
 
 
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -20,6 +23,8 @@ import com.abdullah.cardbook.common.Font;
 import com.abdullah.cardbook.common.Log;
 import com.abdullah.cardbook.models.CardBookUserCard;
 import com.abdullah.cardbook.models.Company;
+
+
 
 import java.util.ArrayList;
 
@@ -41,15 +46,27 @@ public class Kartlarim extends BaseFragment implements OnItemClickListener{
             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.kartlarim, container, false);
 
+        LinearLayout layout = (LinearLayout) view.findViewById(R.id.kartlarimLayoutLinear);
+        layout.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL);
 
-        Font font=new Font(this.getActivity(), Font.ROBOTO_REGULAR);
+        Typeface font=Font.getFont(this.getActivity(), Font.ROBOTO_REGULAR);
 
         listView= (ListView) view.findViewById(R.id.lvKartlarim);
         listView.setDivider(null);
 
 
 
-		setList(CardbookApp.getInstance().getCompanies());
+        if(CardbookApp.getInstance().getCompanies()!=null)
+    		setList(CardbookApp.getInstance().getCompanies());
+        else{
+            Button button=new Button(getActivity());
+            button.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            button.setText("Güncelle");
+
+            layout.addView(button);
+        }
+
+
         return view;
     }
 

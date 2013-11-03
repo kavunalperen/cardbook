@@ -2,7 +2,8 @@
 <TabHost xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@android:id/tabhost"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:background="@drawable/splash_bg">
 
     <RelativeLayout
         android:id="@+id/RelativeLayout1"
@@ -13,7 +14,9 @@
             android:id="@+id/layoutNavigationBar"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@color/navigationbarBgColor" >
+            android:background="@drawable/main_navigation_bg"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp">
             
             <TextView
                 android:id="@+id/navBarTxt"
@@ -30,12 +33,25 @@
 
         </RelativeLayout>
 
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/layoutNavigationBar"
+             />
+
+        <android.support.v4.view.ViewPager
+        	android:id="@+id/viewpager"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/layoutNavigationBar"/>
+
         <RelativeLayout
             android:id="@+id/tapLayout"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
-            android:layout_below="@+id/layoutNavigationBar" >
+            android:layout_alignParentBottom="true" >
 
             <TabWidget
                 android:id="@android:id/tabs"
@@ -44,20 +60,6 @@
                 android:orientation="horizontal" >
             </TabWidget>
         </RelativeLayout>
-
-        <FrameLayout
-            android:id="@android:id/tabcontent"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_below="@+id/tapLayout"
-            android:layout_marginTop="-10dp" />
-        
-        <android.support.v4.view.ViewPager
-        	android:id="@+id/viewpager"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_below="@+id/tapLayout"
-            android:layout_marginTop="-10dp" />
     </RelativeLayout>
 
 </TabHost>

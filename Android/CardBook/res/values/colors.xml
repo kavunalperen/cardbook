@@ -8,4 +8,12 @@
     <color name="tabTextColor">#6E7376</color>
     <color name="navigationBarHeaderTextColor">#007AFF</color>
     <color name="navigationbarBgColor">#ECECEC</color>
+    <color name="cellDefault">#FFFFFF</color>
+    <color name="cellHighLighted">#007AFF</color>
+    <color name="listImageBg">#E8E8E8</color>
+    <color name="listDetail">#8E8E93</color>
+    <color name="listDate">#FF3B30</color>
+    <color name="btnUpdateDefaultBg">#7FFFFF</color>
+    <color name="btnUpdateHighlightedBg">#FFFFFF</color>
+    <color name="btnUpdateTextColor">#007AFF</color>
 </resources>

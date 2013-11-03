@@ -4,8 +4,8 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="input_user_information_width">241dp</dimen>
-    <dimen name="input_user_information_height">37dp</dimen>
-    <dimen name="input_user_information_margin_vertical">15dp</dimen>
+    <dimen name="input_user_information_height">30dp</dimen>
+    <dimen name="input_user_information_margin_vertical">5dp</dimen>
     <dimen name="btn_user_information_height">37dp</dimen>
     <dimen name="btn_user_information_width">95dp</dimen>
 
