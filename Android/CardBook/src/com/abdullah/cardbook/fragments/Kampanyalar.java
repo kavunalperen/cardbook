@@ -19,6 +19,7 @@ import com.abdullah.cardbook.R;
 import com.abdullah.cardbook.adapters.FragmentPageListener;
 import com.abdullah.cardbook.adapters.KampanyalarListAdapter;
 import com.abdullah.cardbook.adapters.KartlarimListAdapter;
+import com.abdullah.cardbook.common.AppConstants;
 import com.abdullah.cardbook.common.Font;
 import com.abdullah.cardbook.models.Campaign;
 import com.abdullah.cardbook.models.Company;
@@ -53,6 +54,7 @@ public class Kampanyalar extends BaseFragment implements OnItemClickListener {
 
         listView= (ListView) view.findViewById(R.id.lvKampanyalar);
         listView.setDivider(null);
+        listView.setOnItemClickListener(this);
 
 
 
@@ -79,6 +81,12 @@ public class Kampanyalar extends BaseFragment implements OnItemClickListener {
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		Toast.makeText(getActivity(), "Clicked at positon = " + arg2, Toast.LENGTH_SHORT).show();
+
+        Bundle data=new Bundle();
+        data.putInt("position",arg2);
+        KampanyaDetail detail=new KampanyaDetail();
+        detail.setArguments(data);
+        pageListener.onSwitchToNextFragment(AppConstants.KAMPANYALAR,detail, this);
 //		adapter.setSelectedPosition(arg2);
 //		adapter.notifyDataSetChanged();
 	}

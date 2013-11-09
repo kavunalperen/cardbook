@@ -3,7 +3,7 @@
     android:id="@android:id/tabhost"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/splash_bg">
+    android:background="@drawable/main_bg">
 
     <RelativeLayout
         android:id="@+id/RelativeLayout1"
@@ -38,13 +38,14 @@
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/layoutNavigationBar"
-             />
+            android:layout_above="@+id/tapLayout"/>
 
         <android.support.v4.view.ViewPager
         	android:id="@+id/viewpager"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/layoutNavigationBar"/>
+            android:layout_below="@+id/layoutNavigationBar"
+            android:layout_above="@+id/tapLayout"/>
 
         <RelativeLayout
             android:id="@+id/tapLayout"

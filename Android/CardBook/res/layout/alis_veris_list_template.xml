@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="horizontal"
-              android:layout_width="fill_parent"
-              android:layout_height="84dp"
-              android:baselineAligned="false"
-              android:background="@color/cellDefault">
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:focusableInTouchMode="false"
+         >
+    <View
+            android:id="@+id/header"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+    <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/listview_content_bg">
 
     <TextView
             android:layout_width="162dp"
@@ -21,7 +31,9 @@
             android:textSize="16sp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="false"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"/>
 
     <TextView
             android:layout_width="wrap_content"
@@ -33,7 +45,7 @@
             android:lines="1"
             android:ellipsize="end"
             android:textSize="10sp"
-            android:textColor="@color/listDetail"
+            android:textColor="@color/color8E8E93"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/alisVerisListArrow"
             android:layout_centerVertical="true"/>
@@ -49,4 +61,18 @@
             android:layout_alignParentTop="false"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"/>
+
+
 </RelativeLayout>
+
+    <View
+            android:id="@+id/seperator"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorE8E8E8" />
+    <View
+            android:id="@+id/footer"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+
+</LinearLayout>

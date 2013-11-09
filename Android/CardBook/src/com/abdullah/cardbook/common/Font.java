@@ -13,6 +13,7 @@ public class Font {
 	public static String ROBOTO_MEDIUM="Roboto-Medium.ttf";
 	public static String ROBOTO_MEDIUM_ITALIC="Roboto-MediumItalic.ttf";
 	public static String ROBOTO_REGULAR="Roboto-Regular.ttf";
+    public static String ROBOTO_BLACK="Roboto-Black.ttf";
 
 
     public static Typeface getFont(Context context, String font){

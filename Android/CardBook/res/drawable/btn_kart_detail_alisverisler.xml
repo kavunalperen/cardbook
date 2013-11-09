@@ -2,21 +2,17 @@
 <selector
         xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item>
-        <shape>
-            <solid android:color="@color/listDetail" ></solid>
-
-            <corners
-                    android:radius="3dp" />
-        </shape>
-    </item>
-
     <item android:state_pressed="true">
         <shape>
             <solid android:color="@color/btnSaveHighlighted" ></solid>
+            <corners android:radius="5dp" />
+        </shape>
+    </item>
 
-            <corners
-                    android:radius="3dp" />
+    <item>
+        <shape>
+            <solid android:color="@color/color8E8E93" ></solid>
+            <corners android:radius="5dp" />
         </shape>
     </item>
 </selector>

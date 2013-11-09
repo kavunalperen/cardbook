@@ -193,9 +193,9 @@ public class MainActivity extends Activity implements OnClickListener {
                     adres.setCountId(4);
                     user.setAddres(adres);
 
-                    Log.i("Gender From Face:"+profile.getGender());
-                    Log.i(profile.getLocale().toString()+", "+profile.getLocation().getName());
-                    Log.i(profile.getLocale()+", "+profile.getLocation());
+//                    Log.i("Gender From Face:"+profile.getGender());
+//                    Log.i(profile.getLocale().toString()+", "+profile.getLocation().getName());
+//                    Log.i(profile.getLocale()+", "+profile.getLocation());
 
 //                    new GetAdressList().execute(null);
                     CardbookApp.getInstance().setUser(user);
@@ -251,20 +251,19 @@ public class MainActivity extends Activity implements OnClickListener {
 
             CardbookApp app=CardbookApp.getInstance();
 
-            ConnectionManager conManager=new ConnectionManager(MainActivity.this);
-            JSONObject resultUser=conManager.postData(AppConstants.SM_CREATE_OR_UPDATE_USER,user[0].getUserInfoAsDict());
+            JSONObject resultUser=ConnectionManager.postData2(AppConstants.SM_CREATE_OR_UPDATE_USER,user[0].getUserInfoAsDict());
 
-            JSONObject resultAddress=conManager.postData(AppConstants.SM_GET_ADDRESS_LIST,null);
+            JSONObject resultAddress=ConnectionManager.postData2(AppConstants.SM_GET_ADDRESS_LIST,null);
 
-            JSONObject resultCards=conManager.postData(AppConstants.SM_GET_COMPANY_LIST,null);
+            JSONObject resultCards=ConnectionManager.postData2(AppConstants.SM_GET_COMPANY_LIST,null);
 
-            JSONObject resultCampaign=conManager.postData(AppConstants.SM_GET_ALL_ACTIVE_CAMPAIGN_LIST, null);
+            JSONObject resultCampaign=ConnectionManager.postData2(AppConstants.SM_GET_ALL_ACTIVE_CAMPAIGN_LIST, null);
 
             ArrayList<NameValuePair> list=new ArrayList<NameValuePair>();
            list.add(new BasicNameValuePair("userId","6"));
 
 
-            JSONObject resultShopping=conManager.postData(AppConstants.SM_GET_ALL_SHOPPING_LIST,list);
+            JSONObject resultShopping=ConnectionManager.postData2(AppConstants.SM_GET_ALL_SHOPPING_LIST,list);
             array=resultShopping.optJSONArray(AppConstants.POST_DATA);
             for(int i=0; i<array.length();i++){
                 Shopping shopping=new Shopping(array.optJSONObject(i));
@@ -403,8 +402,8 @@ public class MainActivity extends Activity implements OnClickListener {
 
         // Call after onPreExecute method
         protected Void doInBackground(String... string) {
-            ConnectionManager conManager=new ConnectionManager(MainActivity.this);
-            JSONObject result=conManager.postData(AppConstants.SM_GET_ADDRESS_LIST,null);
+
+            JSONObject result=ConnectionManager.postData2(AppConstants.SM_GET_ADDRESS_LIST,null);
 //            Log.i("Adres list: "+result.toString());
 
             return null;

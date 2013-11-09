@@ -193,14 +193,14 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
     	ImageView img;
     	for(int i=0;i<mTabHost.getTabWidget().getChildCount();i++){
     		tv=(TextView)mTabHost.getTabWidget().getChildAt(i).findViewById(R.id.tab_text);
-            tv.setTextColor(getResources().getColor(R.color.listDetail));
+            tv.setTextColor(getResources().getColor(R.color.color8E8E93));
 
             img=(ImageView)mTabHost.getTabWidget().getChildAt(i).findViewById(R.id.tab_icon);
             img.setImageResource(AppConstants.PASSIVE_BUTTONS[i]);
     	}
 
     	tv=(TextView)mTabHost.getTabWidget().getChildAt(id).findViewById(R.id.tab_text);
-        tv.setTextColor(getResources().getColor(R.color.cellHighLighted));
+        tv.setTextColor(getResources().getColor(R.color.color007AFF));
 
         img=(ImageView)mTabHost.getTabWidget().getChildAt(id).findViewById(R.id.tab_icon);
         img.setImageResource(AppConstants.ACTIVE_BUTTONS[id]);

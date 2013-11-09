@@ -7,6 +7,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -24,7 +25,7 @@ import com.abdullah.cardbook.models.Shopping;
 import java.util.ArrayList;
 
 
-public class AlisVeris extends BaseFragment{
+public class AlisVeris extends BaseFragment implements AdapterView.OnItemClickListener{
 
 
     private ListView listView;
@@ -50,6 +51,7 @@ public class AlisVeris extends BaseFragment{
 
         listView= (ListView) view.findViewById(R.id.lvAlisVeris);
         listView.setDivider(null);
+        listView.setOnItemClickListener(this);
 
 
 
@@ -74,4 +76,12 @@ public class AlisVeris extends BaseFragment{
     }
 
 
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Bundle data=new Bundle();
+        data.putInt("position",i);
+        AlisverisDetail detail=new AlisverisDetail();
+        detail.setArguments(data);
+        pageListener.onSwitchToNextFragment(AppConstants.ALIS_VERIS,detail, this);
+    }
 }

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.abdullah.cardbook.CardbookApp;
 import com.abdullah.cardbook.R;
@@ -18,6 +19,7 @@ import com.abdullah.cardbook.common.AppConstants;
 import com.abdullah.cardbook.common.Font;
 import com.abdullah.cardbook.common.Log;
 import com.abdullah.cardbook.connectivity.ConnectionManager;
+import com.abdullah.cardbook.models.Campaign;
 import com.abdullah.cardbook.models.Company;
 import com.abdullah.cardbook.models.promotion.Coupon;
 
@@ -32,12 +34,10 @@ import java.util.ArrayList;
 
 public class KampanyaDetail extends BaseFragment{
 
-	ListView couponListView;
-    int position;
+    TextView tvHeader, tvDescriptionHeader, tvDate, tvDescription, tvRequimentHeader,tvRequiments;
     CardbookApp app;
-	Company company;
+    int position;
 
-    Button btnKampanyalar, btnAlisverisler, btnSave;
 
 	public KampanyaDetail(){
 
@@ -50,125 +50,67 @@ public class KampanyaDetail extends BaseFragment{
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.kart_detail, container, false);
-
-        Typeface regular=Font.getFont(getActivity(),Font.ROBOTO_REGULAR);
-        Typeface medium=Font.getFont(getActivity(),Font.ROBOTO_MEDIUM);
-        Typeface light=Font.getFont(getActivity(),Font.ROBOTO_LIGHT);
-
-        btnAlisverisler=(Button) view.findViewById(R.id.btnkartDetailAlisveris);
-        btnAlisverisler.setTypeface(regular);
-        btnKampanyalar=(Button) view.findViewById(R.id.btnKartDetailKampanyalar);
-        btnKampanyalar.setTypeface(regular);
-        btnSave=(Button)view.findViewById(R.id.btnkartDetailSave);
-        btnSave.setTypeface(regular);
-
-
+        View view = inflater.inflate(R.layout.kampanya_detail, container, false);
 
         Bundle bundle=this.getArguments();
         position=bundle.getInt("position",0);
 
         app=CardbookApp.getInstance();
+        Campaign campain=app.getCampaigns().get(position);
 
-        Log.i("KertDetail positioın: "+position);
-        couponListView=(ListView)view.findViewById(R.id.kartDetailListView);
-        couponListView.setDivider(null);
+        Typeface regular=Font.getFont(getActivity(),Font.ROBOTO_REGULAR);
+        Typeface medium=Font.getFont(getActivity(),Font.ROBOTO_MEDIUM);
+        Typeface light=Font.getFont(getActivity(),Font.ROBOTO_LIGHT);
+        Typeface black=Font.getFont(getActivity(),Font.ROBOTO_BLACK);
 
-        company=CardbookApp.getInstance().getCompanies().get(position);
-        new PostDataOperation().execute(0);
+        tvHeader=(TextView)view.findViewById(R.id.tvKampanyaDetayHeader);
+        tvHeader.setTypeface(black);
+        tvHeader.setText(campain.getCompanyId());
+
+        tvDescriptionHeader=(TextView)view.findViewById(R.id.tvKampanyaDetailRequimentHeader);
+        tvDescriptionHeader.setTypeface(medium);
+        tvDescriptionHeader.setText("Kampanya başlığı");
+
+        tvDescription=(TextView)view.findViewById(R.id.tvKampanyaDetailDesription);
+        tvDescription.setTypeface(regular);
+        tvDescription.setText(campain.getDescription());
+        tvDescription.setText("Buaraya gelecek alan sunucdan tarafımıza gelmiyor. Bu sebeple bu yazıyı görüyorsunuz.");
+
+        tvDate=(TextView)view.findViewById(R.id.tvKapmanyaDetailDate);
+        tvDate.setTypeface(light);
+
+        tvRequimentHeader=(TextView)view.findViewById(R.id.tvKampanyaDetailRequimentHeader);
+        tvRequimentHeader.setTypeface(light);
+
+
+        tvRequiments=(TextView)view.findViewById(R.id.tvKampanyaDetailRequiment);
+        tvRequiments.setTypeface(light);
+        String requiments=getRequiements(campain.getDetailList());
+        tvRequiments.setText(requiments);
+
         return view;
 	}
 
-    private void setList(ArrayList<Coupon> list){
 
-        KartlarimDetailListAdapter adapter=new KartlarimDetailListAdapter(getActivity(),R.layout.kartlarim_detail_list_template,list);
-
-        couponListView.setAdapter(adapter);
-    }
     @Override
     public void backPressed() {
-        pageListener.onSwitchBeforeFragment(AppConstants.KARTLARIM);
+        pageListener.onSwitchBeforeFragment(AppConstants.KAMPANYALAR);
     }
 
+    public String getRequiements(ArrayList<String> requiments){
 
-    private class PostDataOperation  extends AsyncTask<Integer, Void, Void> {
+        requiments=new ArrayList<String>();
+        requiments.add("Öyle aman aman bir koşulumuz yok. Ne zaman istiyorsan gel verelim ürünü.");
+        requiments.add("Öyle aman aman bir koşulumuz yok. Ne zaman istiyorsan gel verelim ürünü.");
 
-        private final HttpClient Client = new DefaultHttpClient();
-        private String Content;
-        private String Error = null;
-        private ProgressDialog Dialog = new ProgressDialog(KampanyaDetail.this.getActivity());
-        private JSONObject jsonObject;
-        private JSONArray jsonArray;
+        StringBuilder txtRequiments=new StringBuilder();
+        if(requiments==null)
+            return "";
 
-
-        protected void onPreExecute() {
-            // NOTE: You can call UI Element here.
-
-            //UI Element
-
-            Dialog.setMessage("Downloading source..");
-            Dialog.show();
+        for(String s:requiments){
+            txtRequiments.append(s).append("\n");
         }
 
-        // Call after onPreExecute method
-        protected Void doInBackground(Integer... item) {
-
-
-
-            ConnectionManager conManager=new ConnectionManager(KampanyaDetail.this.getActivity());
-
-            ArrayList<NameValuePair> list=new ArrayList<NameValuePair>();
-            list.add(new BasicNameValuePair("userId","6"));
-            list.add(new BasicNameValuePair("companyId",String.valueOf(company.getCompanyId())));
-
-
-            JSONObject companyDetail=conManager.postData(AppConstants.SM_GET_COMPANY_DETAIL,list);
-
-            jsonObject=companyDetail.optJSONObject(AppConstants.POST_DATA);
-            jsonArray=jsonObject.optJSONArray(Company.SHOPPING_PROMOTION_COUPON_LIST);
-            company=app.getCompanies().get(position);
-            company.setCouponList(jsonArray);
-
-//
-//            for(int i=0; i<array.length();i++){
-//                Shopping shopping=new Shopping(array.optJSONObject(i));
-//                app.addShoppings(shopping);
-//            }
-
-
-            return null;
-        }
-
-        protected void onPostExecute(Void unused) {
-            // NOTE: You can call UI Element here.
-
-            // Close progress dialog
-            setList(company.getCouponList());
-            Dialog.dismiss();
-
-//            if (Error != null) {
-//
-//                Intent intent=new Intent(MainActivity.this, AppMainTabActivity.class);
-//                startActivity(intent);
-//
-//            } else {
-//
-//                new AlertDialog.Builder(MainActivity.this)
-//                        .setTitle("Hata")
-//                        .setMessage("Uygulamayı daha sonra tekrar başlatın.")
-//                        .setPositiveButton("Tamam", new DialogInterface.OnClickListener() {
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                System.exit(0);
-//                            }
-//                        }).show();
-//
-//            }
-
-
-        }
-
+        return txtRequiments.toString();
     }
-
-
-
 }

@@ -1,7 +1,13 @@
 package com.abdullah.cardbook.models;
 
+import com.abdullah.cardbook.common.Log;
+import com.abdullah.cardbook.models.promotion.Coupon;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * Created by abdullah on 10/26/13.
@@ -31,12 +37,12 @@ public class Company {
     private static String U_USER="UUser";
     private static String CARDBOOK_USER_CARD="CardbookUserCard";
     private static String COMPANY_ID="CompanyId";
-    private static String SHOPPING_PROMOTION_CREDIT_LIST="ShoppingPromotionCreditList";
+    public static String SHOPPING_PROMOTION_CREDIT_LIST="ShoppingPromotionCreditList";
     private static String U_DATE= "UDate";
     private static String COMPANY_NAME="CompanyName";
     private static String COMPANY_CODE="CompanyCode";
     private static String COMPANY_DESCRIPTION="CompanyDescription";
-    private static String SHOPPING_PROMOTION_COUPON_LIST="CompanyCode";
+    public static String SHOPPING_PROMOTION_COUPON_LIST="ShoppingPromotionCouponList";
     private static String USER_WANT_NOTIFICATION="UserWantNotification";
     private static String STATUS="Status";
     private static String COMPANY_LOGO="CompanyLogo";
@@ -52,6 +58,7 @@ public class Company {
     private String companyName;
     private String companyLogoURL;
     private String companyDetail;
+    private ArrayList<Coupon> couponList;
     private boolean isUserWantNotification;
 
 
@@ -63,6 +70,9 @@ public class Company {
         this.companyName=object.optString(COMPANY_NAME);
         this.companyLogoURL=object.optString(COMPANY_LOGO);
         this.companyDetail=object.optString(COMPANY_DETAIL);
+
+        JSONArray couponArray=object.optJSONArray(SHOPPING_PROMOTION_COUPON_LIST);
+
         this.isUserWantNotification=object.optBoolean(USER_WANT_NOTIFICATION,false);
 
     }
@@ -116,6 +126,38 @@ public class Company {
         this.companyDetail = companyDetail;
     }
 
+    public ArrayList<Coupon> getCouponList() {
+        return couponList;
+    }
+
+    public void setCouponList(ArrayList<Coupon> couponList) {
+        this.couponList = couponList;
+    }
+
+    public void addCouponList(Coupon coupon){
+        if(this.couponList==null)
+            this.couponList=new ArrayList<Coupon>();
+        this.couponList.add(coupon);
+    }
+
+    public void setCouponList(JSONArray list){
+        Log.i("setCouponList");
+        if(list!=null){
+            Log.i("setCouponList list not null");
+            int length=list.length();
+            ArrayList<Coupon> couponList=new ArrayList<Coupon>();
+            for(int i=0; i<length;i++){
+                Coupon c=new Coupon(list.optJSONObject(i));
+                couponList.add(c);
+
+            }
+            this.couponList= couponList;
+            Log.i("setCouponList done");
+        }
+
+        Log.i("setCouponList is null");
+    }
+
     public boolean isUserWantNotification() {
         return isUserWantNotification;
     }
@@ -123,4 +165,6 @@ public class Company {
     public void setUserWantNotification(boolean userWantNotification) {
         isUserWantNotification = userWantNotification;
     }
+
+
 }

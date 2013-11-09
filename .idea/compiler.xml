@@ -6,6 +6,7 @@
       <directory url="file://$PROJECT_DIR$/Android/facebook/gen" includeSubdirectories="true" />
       <directory url="file://$PROJECT_DIR$/Android/CardBook/gen" includeSubdirectories="true" />
       <directory url="file://$PROJECT_DIR$/Android/Simple Facebook/gen" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/Android/volley/gen" includeSubdirectories="true" />
     </excludeFromCompile>
     <resourceExtensions />
     <wildcardResourcePatterns>

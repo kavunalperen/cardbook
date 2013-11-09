@@ -77,14 +77,18 @@ public class Kartlarim extends BaseFragment implements OnItemClickListener{
 		super.onStart();
 		
 		
-//		listView.setClickable(true);
-//		listView.setEnabled(true);
-//		listView.setFocusable(true);
-//		listView.setOnItemClickListener(this);
+		listView.setClickable(true);
+		listView.setEnabled(true);
+		listView.setFocusable(true);
+		listView.setOnItemClickListener(this);
 	}
 
 	public void setList(ArrayList<Company> cards){
-		KartlarimListAdapter adapter=new KartlarimListAdapter(this.getActivity(),R.layout.kartlarim_list_template, cards);
+
+        ArrayList<Company> cardList=cards;
+        cardList.addAll(cards);
+
+		KartlarimListAdapter adapter=new KartlarimListAdapter(this.getActivity(),R.layout.kartlarim_list_template, cardList);
 		listView.setAdapter(adapter);
 	}
 	@Override
@@ -93,7 +97,10 @@ public class Kartlarim extends BaseFragment implements OnItemClickListener{
 //		Toast.makeText(getActivity(), "Clicked at positon = " + position, Toast.LENGTH_SHORT).show();
 
 
+        Bundle data=new Bundle();
+        data.putInt("position",position);
         KartDetail kartDetail=new KartDetail();
+        kartDetail.setArguments(data);
 		pageListener.onSwitchToNextFragment(AppConstants.KARTLARIM,kartDetail, this);
 
 

@@ -6,9 +6,12 @@ import android.support.v4.app.Fragment;
 
 import com.abdullah.cardbook.adapters.FragmentPageListener;
 import com.abdullah.cardbook.activities.AppMainTabActivity;
+import com.abdullah.cardbook.connectivity.RequestCallBack;
+
+import org.json.JSONObject;
 
 
-public class BaseFragment extends Fragment {
+public class BaseFragment extends Fragment implements RequestCallBack {
 	public AppMainTabActivity mActivity;
     protected static FragmentPageListener pageListener;
 
@@ -37,5 +40,20 @@ public class BaseFragment extends Fragment {
 
     public static void setFirstPageListener(FragmentPageListener firstPageListener) {
         BaseFragment.pageListener = firstPageListener;
+    }
+
+    @Override
+    public void onRequestStart() {
+
+    }
+
+    @Override
+    public void onRequestComplete(JSONObject result) {
+
+    }
+
+    @Override
+    public void onRequestError() {
+
     }
 }

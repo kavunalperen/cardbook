@@ -11,6 +11,8 @@ import com.abdullah.cardbook.models.Shopping;
 import com.abdullah.cardbook.models.address.City;
 import com.abdullah.cardbook.models.address.Country;
 import com.abdullah.cardbook.models.address.County;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 
 import java.util.ArrayList;
 
@@ -27,11 +29,13 @@ public class CardbookApp extends Application {
     private ArrayList<Shopping> shoppings;
 
     private static CardbookApp singleton;
+    private RequestQueue requestQuee;
 
     @Override
     public void onCreate() {
         super.onCreate();
         singleton=this;
+        requestQuee= Volley.newRequestQueue(getApplicationContext());
         Log.i("app is created");
     }
 
@@ -42,6 +46,10 @@ public class CardbookApp extends Application {
 
     public static CardbookApp getInstance(){
         return singleton;
+    }
+
+    public RequestQueue getRequestQuee() {
+        return requestQuee;
     }
 
     public CardBookUser getUser() {

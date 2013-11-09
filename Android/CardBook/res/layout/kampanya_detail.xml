@@ -3,6 +3,139 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:layout_marginLeft="15dp"
+              android:layout_marginRight="15dp"
+              android:layout_marginBottom="15dp"
+              android:paddingLeft="15dp"
+              android:paddingRight="15dp">
 
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Header"
+            android:id="@+id/tvKampanyaDetayHeader"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:background="@drawable/main_bigcell_detail_header_bg"
+            android:gravity="center_vertical|left"
+            android:textSize="17sp"
+            android:paddingLeft="15dp"
+            android:textColor="@color/navigationBarHeaderTextColor"/>
+
+    <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/scrollView"
+            >
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+
+            <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="218dp"
+                    android:id="@+id/imageView"/>
+
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/campaign_detail_white"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="15dp">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Large Text"
+                        android:id="@+id/tvKampanyaDetailDescriptionHeader"
+                        android:textSize="17sp"
+                        android:textColor="@android:color/black"/>
+
+                <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+
+                    <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/imageView2"
+                            android:background="@drawable/shopping_tarih_icon"
+                            android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="30 Temmuz - 30 Kasım"
+                            android:id="@+id/tvKapmanyaDetailDate"
+                            android:textSize="14sp"
+                            android:textColor="@color/colorFF3B30"/>
+                </LinearLayout>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Kampanya Açıklaması"
+                        android:id="@+id/tvKampanyaDetailDesription"
+                        android:textSize="11sp"
+                        android:textColor="@color/color686868"/>
+
+            </LinearLayout>
+
+            <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView3"
+                    android:background="@drawable/campaign_detail_white_bottom"/>
+
+            <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView5"
+                    android:background="@drawable/campaign_detail_desc_top"/>
+
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/campaign_detail_desc_bg"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp">
+
+                <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="Kampanya Koşulları"
+                        android:id="@+id/tvKampanyaDetailRequimentHeader"
+                        android:textSize="10sp"
+                        android:textColor="@color/colorFF3B30"/>
+
+                <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Bu bir kampanya koşulu"
+                        android:id="@+id/tvKampanyaDetailRequiment"
+                        android:textSize="10sp"
+                        android:textColor="@color/color8E8E93"/>
+            </LinearLayout>
+
+            <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView4"
+                    android:background="@drawable/campaign_detail_desc_bottom"
+                    android:layout_marginBottom="15dp"/>
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

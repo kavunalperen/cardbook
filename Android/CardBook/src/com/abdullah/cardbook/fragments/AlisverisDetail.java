@@ -13,12 +13,13 @@ import com.abdullah.cardbook.adapters.FragmentPageListener;
 import com.abdullah.cardbook.common.AppConstants;
 import com.abdullah.cardbook.common.Font;
 import com.abdullah.cardbook.models.Campaign;
+import com.abdullah.cardbook.models.Shopping;
 
 import java.util.ArrayList;
 
 public class AlisverisDetail extends BaseFragment{
 
-    TextView tvHeader, tvDescriptionHeader, tvDate, tvDescription, tvRequimentHeader,tvRequiments;
+    TextView tvHeader, tvDate, tvKazanilanPK,tvKazanilanPP, tvKullanilanPK,tvKullanilanPP;
     CardbookApp app;
     int position;
 
@@ -34,43 +35,42 @@ public class AlisverisDetail extends BaseFragment{
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.kampanya_detail, container, false);
+        View view = inflater.inflate(R.layout.alisveris_detay, container, false);
 
         Bundle bundle=this.getArguments();
         position=bundle.getInt("position",0);
 
         app=CardbookApp.getInstance();
-        Campaign campain=app.getCampaigns().get(position);
+        Shopping shopping=app.getShoppings().get(position);
 
         Typeface regular=Font.getFont(getActivity(),Font.ROBOTO_REGULAR);
-        Typeface medium=Font.getFont(getActivity(),Font.ROBOTO_MEDIUM);
+        Typeface bold=Font.getFont(getActivity(),Font.ROBOTO_BOLD);
         Typeface light=Font.getFont(getActivity(),Font.ROBOTO_LIGHT);
         Typeface black=Font.getFont(getActivity(),Font.ROBOTO_BLACK);
 
-        tvHeader=(TextView)view.findViewById(R.id.tvKampanyaDetayHeader);
+        tvHeader=(TextView)view.findViewById(R.id.tvAlisverisHeader);
         tvHeader.setTypeface(black);
-        tvHeader.setText(campain.getCompanyId());
+//        tvHeader.setText(shopping.getCompanyId());
 
-        tvDescriptionHeader=(TextView)view.findViewById(R.id.tvKampanyaDetailRequimentHeader);
-        tvDescriptionHeader.setTypeface(medium);
-        tvDescriptionHeader.setText("Kampanya başlığı");
-
-        tvDescription=(TextView)view.findViewById(R.id.tvKampanyaDetailDesription);
-        tvDescription.setTypeface(regular);
-        tvDescription.setText(campain.getDescription());
-        tvDescription.setText("Buaraya gelecek alan sunucdan tarafımıza gelmiyor. Bu sebeple bu yazıyı görüyorsunuz.");
-
-        tvDate=(TextView)view.findViewById(R.id.tvKapmanyaDetailDate);
+        tvDate=(TextView)view.findViewById(R.id.tvAlisverisDate);
         tvDate.setTypeface(light);
 
-        tvRequimentHeader=(TextView)view.findViewById(R.id.tvKampanyaDetailRequimentHeader);
-        tvRequimentHeader.setTypeface(light);
+        tvKazanilanPK=(TextView)view.findViewById(R.id.tvAlisverisDetayKazanilaPK);
+        tvKazanilanPK.setTypeface(bold);
+        tvKazanilanPK.setText(shopping.getWonCoupon().getCompanyPromotionText());
 
+        tvKazanilanPP=(TextView)view.findViewById(R.id.tvAlisverisDetayKazanilaPP);
+        tvKazanilanPP.setTypeface(bold);
+//        tvKazanilanPP.setText(shopping.getWonCredit().getPromotionAmount());
 
-        tvRequiments=(TextView)view.findViewById(R.id.tvKampanyaDetailRequiment);
-        tvRequiments.setTypeface(light);
-        String requiments=getRequiements(campain.getDetailList());
-        tvRequiments.setText(requiments);
+        tvKullanilanPP=(TextView)view.findViewById(R.id.tvAlisverisDetayKullanilanPP);
+        tvKullanilanPP.setTypeface(bold);
+//        tvKullanilanPP.setText(shopping.getUsedCredit().getPromotionAmount());
+
+        tvKullanilanPK=(TextView)view.findViewById(R.id.tvAlisverisDetayKullanilanPK);
+        tvKullanilanPK.setTypeface(bold);
+//        tvKullanilanPK.setText(shopping.getUsedCoupon().getCompanyPromotionText());
+
 
         return view;
 	}
