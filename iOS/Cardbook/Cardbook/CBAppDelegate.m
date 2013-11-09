@@ -7,12 +7,29 @@
 //
 
 #import "CBAppDelegate.h"
+#import <FacebookSDK/FacebookSDK.h>
+#import "CBLoginViewController.h"
+#import "CBRegisterViewController.h"
 
 @implementation CBAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     // Override point for customization after application launch.
+    
+    NSBundle *bundle = [NSBundle mainBundle];
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:bundle];
+    
+    if (YES) {
+        CBLoginViewController* loginView = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+        self.window.rootViewController = loginView;
+    } else {
+        CBRegisterViewController* registerView = [storyboard instantiateViewControllerWithIdentifier:@"RegisterViewController"];
+        self.window.rootViewController = registerView;
+    }
+    [self.window makeKeyAndVisible];
     return YES;
 }
 							
@@ -27,7 +44,12 @@
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
-
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    BOOL wasHandled = [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
+    
+    return wasHandled;
+}
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
