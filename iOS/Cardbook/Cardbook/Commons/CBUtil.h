@@ -17,8 +17,29 @@
 #define USER_INFOS_COUNTY @"county"
 #define USER_INFOS_EMAIL @"email"
 
+// register view
+#define REGISTER_VIEW_INPUT_FONT [UIFont fontWithName:@"Roboto-Regular" size:14.0]
+#define REGISTER_VIEW_BUTTON_FONT [UIFont fontWithName:@"Roboto-Bold" size:14.0]
+#define REGISTER_VIEW_BUTTON_NORMAL_COLOR [UIColor colorWithRed:122.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0]
+#define REGISTER_VIEW_BUTTON_HIGHLIGHTED_COLOR [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0]
+#define REGISTER_VIEW_BUTTON_TITLE_COLOR [UIColor colorWithRed:0.0/255.0 green:122.0/255.0 blue:255.0/255.0 alpha:1.0]
+#define REGISTER_VIEW_PICKER_BACKGROUND_COLOR [UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:0.7]
+
+// tabbar related macros
+#define TABBAR_TINT_COLOR [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:0.6]
+#define TABBAR_PASSIVE_COLOR [UIColor colorWithRed:142.0/255.0 green:142.0/255.0 blue:147.0/255.0 alpha:1.0]
+#define TABBAR_ACTIVE_COLOR [UIColor colorWithRed:0.0/255.0 green:122.0/255.0 blue:255.0/255.0 alpha:1.0]
+
+#define TABBAR_NORMAL_FONT [UIFont fontWithName:@"Roboto-Regular" size:11.0]
+#define TABBAR_SELECTED_FONT [UIFont fontWithName:@"Roboto-Regular" size:11.0]
+
 #import <Foundation/Foundation.h>
 
 @interface CBUtil : NSObject
+
++ (CBUtil*)sharedInstance;
+
+- (UIImage*)UIImageWithUIColor:(UIColor*)color;
+- (UIImage*) maskImage:(UIImage *)image withMask:(UIImage *)maskImage;
 
 @end

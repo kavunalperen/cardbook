@@ -10,10 +10,10 @@
 
 #import "MKNetworkEngine.h"
 
-typedef void (^CompletionBlock) (NSDictionary *responseDictionary, NSError* error);
-typedef void (^ProductsBlock) (NSArray *responseArray);
-typedef void (^QuestionsBlock) (NSArray *responseArray);
+typedef void (^CompletionBlock) (NSDictionary *responseDictionary);
 typedef void (^ErrorBlock) (NSError *error);
+typedef void (^ImageBlock) (UIImage *resultImage);
+typedef void (^AddressListsBlock) (NSMutableArray* allCountries);;
 
 @interface APIManager : MKNetworkEngine
 
@@ -28,11 +28,35 @@ typedef void (^ErrorBlock) (NSError *error);
                                               onCompletion:(CompletionBlock)completionBlock
                                                    onError:(ErrorBlock)errorBlock;
 
+- (MKNetworkOperation *)getImageWithURLString:(NSString *)urlString
+                                 onCompletion:(ImageBlock)completionBlock
+                                      onError:(ErrorBlock)errorBlock;
+
 - (void) postRequestWithParams:(NSDictionary*) params
                   andOperation:(NSString*)opearation
             andCompletionBlock:(CompletionBlock) completionBlock
                  andErrorBlock:(ErrorBlock)errorBlock;
 
-- (void) getAddressListsWithCompletionBlock:(CompletionBlock)completionBlock;
+- (void) getAddressListsWithCompletionBlock:(AddressListsBlock)completionBlock
+                                    onError:(ErrorBlock)errorBlock;
+
+- (void) createOrUpdateUserWithFacebookId:(NSString*)facebookId
+                        andMobileDeviceId:(NSString*)mobileDeviceId
+                                  andName:(NSString*)name
+                               andSurname:(NSString*)surname
+                                 andEmail:(NSString*)email
+                             andBirthDate:(NSString*)birthDate
+                     andProfilePictureUrl:(NSString*)profilePictureUrl
+                                andPhone1:(NSString*)phone1
+                                andPhone2:(NSString*)phone2
+                                andGender:(NSString*)gender
+                             andCountryId:(NSInteger)countryId
+                                andCityId:(NSInteger)cityId
+                              andCountyId:(NSInteger)countyId
+                           andAddressLine:(NSString*)addressLine
+                             onCompletion:(CompletionBlock)completionBlock
+                                  onError:(ErrorBlock)errorBlock;
+
+- (void) addAuthorizationTokenAndTimeToDictionary:(NSMutableDictionary*)dictionary;
 
 @end

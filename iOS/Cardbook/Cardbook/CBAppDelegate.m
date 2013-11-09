@@ -10,6 +10,8 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "CBLoginViewController.h"
 #import "CBRegisterViewController.h"
+#import "CBNavigationController.h"
+#import "CBDummyViewController.h"
 
 @implementation CBAppDelegate
 
@@ -23,8 +25,11 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:bundle];
     
     if (YES) {
-        CBLoginViewController* loginView = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-        self.window.rootViewController = loginView;
+        CBDummyViewController* dummyController = [storyboard instantiateViewControllerWithIdentifier:@"DummyViewController"];
+        self.window.rootViewController = dummyController;
+//        CBLoginViewController* loginView = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+//        self.window.rootViewController = loginView;
+//        [self.window pre]
     } else {
         CBRegisterViewController* registerView = [storyboard instantiateViewControllerWithIdentifier:@"RegisterViewController"];
         self.window.rootViewController = registerView;

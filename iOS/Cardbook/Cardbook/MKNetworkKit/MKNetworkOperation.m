@@ -989,7 +989,7 @@
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
   
-  NSUInteger size = [self.response expectedContentLength] < 0 ? 0 : [self.response expectedContentLength];
+  long long int size = [self.response expectedContentLength] < 0 ? 0 : [self.response expectedContentLength];
   self.response = (NSHTTPURLResponse*) response;
   
   // dont' save data if the operation was created to download directly to a stream.

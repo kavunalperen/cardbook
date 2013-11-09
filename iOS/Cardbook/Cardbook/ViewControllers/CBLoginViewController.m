@@ -82,13 +82,19 @@
         userInfos = [NSMutableDictionary dictionary];
         [userInfos setObject:[result objectForKey:@"first_name"] forKey:@"first_name"];
         [userInfos setObject:[result objectForKey:@"last_name"] forKey:@"last_name"];
+        [userInfos setObject:[result objectForKey:@"gender"] forKey:@"gender"];
+        [userInfos setObject:[result objectForKey:@"email"] forKey:@"email"];
+        [userInfos setObject:[result objectForKey:@"birthday"] forKey:@"birthdate"];
+        [userInfos setObject:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture/style=large",[result objectForKey:@"id"]] forKey:@"image_url"];
+        [userInfos setObject:[result objectForKey:@"id"] forKey:@"facebook_id"];
         [self performSegueWithIdentifier:@"LoginToRegisterSegue" sender:self];
     }];
 }
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"LoginToRegisterSegue"]) {
-//        CBRegisterViewController* registerViewController = [segue destinationViewController];
+        CBRegisterViewController* registerViewController = [segue destinationViewController];
+        [registerViewController setUserInfos:userInfos];
     }
 }
 - (void)loginViewFetchedUserInfo:(FBLoginView *)loginView user:(id<FBGraphUser>)user

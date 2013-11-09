@@ -8,6 +8,9 @@
 
 #import "APIManager.h"
 #import <CommonCrypto/CommonDigest.h>
+#import "County.h"
+#import "City.h"
+#import "Country.h"
 
 @implementation APIManager
 
@@ -52,15 +55,6 @@ static APIManager *sharedInstance = nil;
     return sharedInstance;
 }
 
-#pragma mark - Caching
-
-//- (NSString*) cacheDirectoryName {
-//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-//    NSString *documentsDirectory = [paths objectAtIndex:0];
-//    NSString *cacheDirectoryName = [documentsDirectory stringByAppendingPathComponent:@"dimAPICache"];
-//    return cacheDirectoryName;
-//}
-
 #pragma mark - Helpers
 
 - (NSString *)pathForOperation:(NSString *)operation
@@ -84,12 +78,11 @@ static APIManager *sharedInstance = nil;
         if([[responseDictionary valueForKey:@"error"] boolValue] == true){
             NSError *apiError = [NSError errorWithDomain:@"APIError"
                                                     code:[[responseDictionary objectForKey:@"error_code"] intValue]
-                                 //                                                userInfo:@{NSLocalizedDescriptionKey : [responseDictionary valueForKey:operationName]}];
                                                 userInfo:@{NSLocalizedDescriptionKey : [responseDictionary valueForKey:@"error_message"]}];
             errorBlock(apiError);
         }
         else{
-            completionBlock(responseDictionary,nil);
+            completionBlock(responseDictionary);
         }
     } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
         if (error.domain == NSURLErrorDomain && error.code == -1009) {
@@ -106,35 +99,104 @@ static APIManager *sharedInstance = nil;
     return op;
     
 }
-
-- (void) addQuestionWithQuestion:(NSString *)question
-                       andAnswer:(NSString *)answer
-              andCompletionBlock:(CompletionBlock) completionBlock
-                         onError:(ErrorBlock) errorBlock
+- (void) getAddressListsWithCompletionBlock:(AddressListsBlock)completionBlock
+                                    onError:(ErrorBlock)errorBlock
 {
-    [self postRequestWithParams:@{
-//            @"auth_token" : [[[AuthenticationManager sharedInstance] getLastLoggedUser] token],
-            @"question" : question,
-            @"answer" : answer
-                                }
-                   andOperation:@"your_questions/add_question"
-             andCompletionBlock:completionBlock
-                  andErrorBlock:errorBlock];
+    NSMutableDictionary* paramsDictionary = @{}.mutableCopy;
+    [self addAuthorizationTokenAndTimeToDictionary:paramsDictionary];
+    
+    [self postRequestWithParams:paramsDictionary
+                   andOperation:@"GetAddressLists"
+             andCompletionBlock:^(NSDictionary *responseDictionary) {
+                 if ([[responseDictionary objectForKey:@"ResultCode"] isEqualToString:@"00"]) {
+                     NSDictionary* counties = [[responseDictionary objectForKey:@"Data"] objectForKey:@"CountyList"];
+                     NSDictionary* cities = [[responseDictionary objectForKey:@"Data"] objectForKey:@"CityList"];
+                     NSDictionary* countries = [[responseDictionary objectForKey:@"Data"] objectForKey:@"CountryList"];
+                     
+                     for (NSDictionary* d in counties) {
+                         [County CountyWithDictionary:d];
+                     }
+                     
+                     for (NSDictionary* d in cities) {
+                         [City CityWithDictionary:d];
+                     }
+                     
+                     for (NSDictionary* d in countries) {
+                         [Country CountryWithDictionary:d];
+                     }
+                     
+                     completionBlock([Country GetAllCountries]);
+                 } else {
+                     // handle errors
+                 }
+             }
+                  andErrorBlock:^(NSError *error) {
+                      errorBlock(error);
+                  }];
 }
-- (void) getAddressListsWithCompletionBlock:(CompletionBlock)completionBlock
+
+- (void) createOrUpdateUserWithFacebookId:(NSString*)facebookId
+                        andMobileDeviceId:(NSString*)mobileDeviceId
+                                  andName:(NSString*)name
+                               andSurname:(NSString*)surname
+                                 andEmail:(NSString*)email
+                             andBirthDate:(NSString*)birthDate
+                     andProfilePictureUrl:(NSString*)profilePictureUrl
+                                andPhone1:(NSString*)phone1
+                                andPhone2:(NSString*)phone2
+                                andGender:(NSString*)gender
+                             andCountryId:(NSInteger)countryId
+                                andCityId:(NSInteger)cityId
+                              andCountyId:(NSInteger)countyId
+                           andAddressLine:(NSString*)addressLine
+                             onCompletion:(CompletionBlock)completionBlock
+                                  onError:(ErrorBlock)errorBlock
+{
+    
+    
+    NSMutableDictionary* paramsDictionary = @{@"FacebookId":facebookId,
+                                              @"Name":name,
+                                              @"Surname":surname,
+                                              @"Email":email,
+                                              @"BirthDate":birthDate,
+                                              @"ProfilePhotoUrl":profilePictureUrl,
+                                              @"Phone1":phone1,
+                                              @"Phone2":phone2,
+                                              @"Gender":gender,
+                                              @"CountryId":[NSNumber numberWithInt:countryId],
+                                              @"CityId":[NSNumber numberWithInt:cityId],
+                                              @"CountyId":[NSNumber numberWithInt:countyId],
+                                              @"AddressLine":addressLine}.mutableCopy;
+    
+    [self addAuthorizationTokenAndTimeToDictionary:paramsDictionary];
+    
+    [self postRequestWithParams:paramsDictionary
+                   andOperation:@"CreateOrUpdateUser"
+             andCompletionBlock:^(NSDictionary *responseDictionary) {
+                 if ([[responseDictionary objectForKey:@"ResultCode"] isEqualToString:@"00"]) {
+                     completionBlock(responseDictionary);
+                 } else {
+                     // handle errors
+                 }
+             }
+                  andErrorBlock:^(NSError *error) {
+                      errorBlock(error);
+                  }];
+}
+- (void) addAuthorizationTokenAndTimeToDictionary:(NSMutableDictionary*)dictionary
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     
     NSString* stringFromDate = [formatter stringFromDate:[NSDate date]];
     
-    [self postRequestWithParams:@{@"authorizationToken" : AUTHORIZATION_TOKEN, @"authorizationTime" : stringFromDate} andOperation:@"GetAddressLists" andCompletionBlock:^(NSDictionary *responseDictionary, NSError* error) {
-        completionBlock([responseDictionary objectForKey:@"Data"],nil);
-    } andErrorBlock:^(NSError *error) {
-        completionBlock(nil,error);
-    }];
+    [dictionary setObject:AUTHORIZATION_TOKEN forKey:@"authorizationToken"];
+    [dictionary setObject:stringFromDate forKey:@"authorizationTime"];
 }
-- (void) postRequestWithParams:(NSDictionary*) params andOperation:(NSString*)operation andCompletionBlock:(CompletionBlock) completionBlock andErrorBlock:(ErrorBlock)errorBlock
+- (void) postRequestWithParams:(NSDictionary*) params
+                  andOperation:(NSString*)operation
+            andCompletionBlock:(CompletionBlock) completionBlock
+                 andErrorBlock:(ErrorBlock)errorBlock
 {
     MKNetworkOperation *op = [self operationWithPath:[self pathForOperation:operation]
                                               params:params
@@ -151,7 +213,7 @@ static APIManager *sharedInstance = nil;
                 errorBlock(apiError);
         }
         else{
-            completionBlock(responseDictionary,nil);
+            completionBlock(responseDictionary);
         }
         
     } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
@@ -186,5 +248,22 @@ static APIManager *sharedInstance = nil;
         [output appendFormat:@"%02x", digest[i]];
     
     return output;
+}
+
+#pragma mark - Getting images
+
+- (MKNetworkOperation *)getImageWithURLString:(NSString *)urlString
+                                 onCompletion:(ImageBlock)completionBlock
+                                      onError:(ErrorBlock)errorBlock {
+    MKNetworkOperation *op = [self operationWithURLString:urlString];
+    [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {
+        completionBlock([completedOperation responseImage]);
+    } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
+        errorBlock(error);
+    }];
+    
+    [self enqueueOperation:op];
+    
+    return op;
 }
 @end
