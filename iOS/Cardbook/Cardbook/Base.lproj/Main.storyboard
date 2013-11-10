@@ -41,7 +41,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <segue destination="0Nb-rZ-E5T" kind="modal" identifier="RegisterToTabbarSegue" animates="NO" id="acu-T9-cCN"/>
+                        <segue destination="rp8-ee-ddP" kind="modal" identifier="RegisterToTabbarSegue" animates="NO" id="Te3-pG-aSu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L5G-WZ-KKQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -62,34 +62,19 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <segue destination="0Nb-rZ-E5T" kind="modal" identifier="DummyToTabbarSegue" animates="NO" id="BsO-QG-GIs"/>
+                        <segue destination="rp8-ee-ddP" kind="modal" identifier="DummyToTabbarSegue" animates="NO" id="GMc-6F-DL4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yO9-MJ-qvO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-71" y="792"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="iBg-F3-LhU">
-            <objects>
-                <navigationController storyboardIdentifier="CBNavigationController" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0Nb-rZ-E5T" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bfu-vJ-0qv">
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="rp8-ee-ddP" kind="relationship" relationship="rootViewController" id="ldX-MZ-m0E"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="HLu-Kz-zD0" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="383" y="792"/>
+            <point key="canvasLocation" x="68" y="1012"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="qRx-XJ-Sgh">
             <objects>
                 <tabBarController definesPresentationContext="YES" id="rp8-ee-ddP" customClass="CBTabBarController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="9KT-WQ-YlW"/>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="k3C-Q3-CTV">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -222,10 +207,32 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="LXa-1A-Rzh"/>
+                    <connections>
+                        <segue destination="2Yv-Wd-cge" kind="push" identifier="MyCardsDetailsSegue" id="dup-HY-dIe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AW6-am-jjf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1993" y="63"/>
+        </scene>
+        <!--My Cards Detail View Controller-->
+        <scene sceneID="Ial-gH-qyh">
+            <objects>
+                <viewController id="2Yv-Wd-cge" customClass="CBMyCardsDetailViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="reA-LR-Aqx"/>
+                        <viewControllerLayoutGuide type="bottom" id="bgg-K5-s0o"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8cB-gG-B43">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="zdG-OH-ElY"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VZg-uf-PJK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2423" y="63"/>
         </scene>
         <!--Campaign View Controller-->
         <scene sceneID="Z2m-ta-C7J">
@@ -253,6 +260,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="BsO-QG-GIs"/>
+        <segue reference="Te3-pG-aSu"/>
     </inferredMetricsTieBreakers>
 </document>

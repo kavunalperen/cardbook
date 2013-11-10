@@ -34,10 +34,12 @@
 {
     UITabBar* appTabbar = self.tabBar;
     
+//    [[UITabBar appearance] setBarTintColor:[UIColor greenColor]];
+    
     [appTabbar setBarTintColor:TABBAR_TINT_COLOR];
     [appTabbar setTranslucent:YES];
-    [appTabbar setBackgroundImage:[[UIImage alloc] init]];
-    [appTabbar setShadowImage:[[UIImage alloc] init]];
+//    [appTabbar setBackgroundImage:[[UIImage alloc] init]];
+//    [appTabbar setShadowImage:[[UIImage alloc] init]];
     
     [appTabbar setSelectionIndicatorImage:[[UIImage alloc] init]];
     

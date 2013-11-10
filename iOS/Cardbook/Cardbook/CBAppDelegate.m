@@ -12,6 +12,7 @@
 #import "CBRegisterViewController.h"
 #import "CBNavigationController.h"
 #import "CBDummyViewController.h"
+#import "CBUtil.h"
 
 @implementation CBAppDelegate
 
@@ -23,6 +24,13 @@
     NSBundle *bundle = [NSBundle mainBundle];
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:bundle];
+    
+//    if(IS_IPHONE_5){
+//        _window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"main_bg-568h.jpg"]];
+//    }
+//    else{
+//        _window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"main_bg.jpg"]];
+//    }
     
     if (YES) {
         CBDummyViewController* dummyController = [storyboard instantiateViewControllerWithIdentifier:@"DummyViewController"];

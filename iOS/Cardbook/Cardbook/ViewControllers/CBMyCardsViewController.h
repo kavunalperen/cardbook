@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CBBaseViewController.h"
 
-@interface CBMyCardsViewController : UIViewController
+@interface CBMyCardsViewController : CBBaseViewController <UITableViewDataSource, UITableViewDelegate>
+
+@property UITableView* tableView;
 
 @end
