@@ -44,6 +44,47 @@
 #define MY_CARDS_CELL_NAME_TEXT_COLOR [UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:1.0]
 #define MY_CARDS_CELL_NAME_SELECTED_TEXT_COLOR [UIColor colorWithRed:0.0/255.0 green:122.0/255.0 blue:255.0/255.0 alpha:1.0]
 
+// cards detail related macros
+#define CARD_DETAIL_THUMBNAIL_BORDER_COLOR [UIColor colorWithRed:232.0/255.0 green:232.0/255.0 blue:232.0/255.0 alpha:1.0]
+
+#define CARD_DETAIL_COMPANY_NAME_FONT [UIFont fontWithName:@"Roboto-Black" size:14.0]
+#define CARD_DETAIL_COMPANY_NAME_TEXT_COLOR [UIColor colorWithRed:0.0/255.0 green:122.0/255.0 blue:232.0/255.0 alpha:1.0]
+
+#define CARD_DETAIL_COMPANY_POINT_TITLE_FONT [UIFont fontWithName:@"Roboto-Regular" size:10.0]
+#define CARD_DETAIL_COMPANY_POINT_TITLE_TEXT_COLOR [UIColor colorWithRed:112.0/255.0 green:112.0/255.0 blue:116.0/255.0 alpha:1.0]
+
+#define CARD_DETAIL_COMPANY_REMAINING_POINT_FONT [UIFont fontWithName:@"Roboto-Black" size:25.0]
+#define CARD_DETAIL_COMPANY_REMAINING_POINT_TEXT_COLOR [UIColor colorWithRed:255.0/255.0 green:59.0/255.0 blue:48.0/255.0 alpha:1.0]
+#define CARD_DETAIL_COMPANY_TOTAL_POINT_FONT [UIFont fontWithName:@"Roboto-Bold" size:10.0]
+#define CARD_DETAIL_COMPANY_TOTAL_POINT_TEXT_COLOR [UIColor colorWithRed:255.0/255.0 green:59.0/255.0 blue:48.0/255.0 alpha:1.0]
+
+#define CARD_DETAIL_COMPANY_NOTIFICATION_STATUS_FONT [UIFont fontWithName:@"Roboto-Regular" size:9.0]
+#define CARD_DETAIL_COMPANY_NOTIFICATION_STATUS_TEXT_COLOR [UIColor colorWithRed:112.0/255.0 green:112.0/255.0 blue:116.0/255.0 alpha:1.0]
+
+#define CARD_DETAIL_CARD_NUMBER_TITLE_FONT [UIFont fontWithName:@"Roboto-Regular" size:12.0]
+#define CARD_DETAIL_CARD_NUMBER_TITLE_TEXT_COLOR [UIColor colorWithRed:142.0/255.0 green:142.0/255.0 blue:147.0/255.0 alpha:1.0]
+#define CARD_DETAIL_CARD_NUMBER_FONT [UIFont fontWithName:@"Roboto-Medium" size:12.0]
+#define CARD_DETAIL_CARD_NUMBER_TEXT_COLOR [UIColor colorWithRed:142.0/255.0 green:142.0/255.0 blue:147.0/255.0 alpha:1.0]
+
+#define CARD_DETAIL_SAVE_BUTTON_NORMAL_COLOR [UIColor colorWithRed:142.0/255.0 green:142.0/255.0 blue:147.0/255.0 alpha:1.0]
+#define CARD_DETAIL_SAVE_BUTTON_HIGHLIGHTED_COLOR [UIColor colorWithRed:10.0/255.0 green:170.0/255.0 blue:248.0/255.0 alpha:1.0]
+#define CARD_DETAIL_SAVE_BUTTON_FONT [UIFont fontWithName:@"Roboto-Regular" size:12.0]
+
+#define CARD_DETAIL_CAMPAIGNS_LINK_BUTTON_NORMAL_COLOR [UIColor colorWithRed:142.0/255.0 green:142.0/255.0 blue:147.0/255.0 alpha:1.0]
+#define CARD_DETAIL_CAMPAIGNS_LINK_BUTTON_HIGHLIGHTED_COLOR [UIColor colorWithRed:10.0/255.0 green:170.0/255.0 blue:248.0/255.0 alpha:1.0]
+#define CARD_DETAIL_CAMPAIGNS_LINK_BUTTON_FONT [UIFont fontWithName:@"Roboto-Regular" size:14.0]
+
+#define CARD_DETAIL_SHOPPINGS_LINK_BUTTON_NORMAL_COLOR [UIColor colorWithRed:142.0/255.0 green:142.0/255.0 blue:147.0/255.0 alpha:1.0]
+#define CARD_DETAIL_SHOPPINGS_LINK_BUTTON_HIGHLIGHTED_COLOR [UIColor colorWithRed:10.0/255.0 green:170.0/255.0 blue:248.0/255.0 alpha:1.0]
+#define CARD_DETAIL_SHOPPINGS_LINK_BUTTON_FONT [UIFont fontWithName:@"Roboto-Regular" size:14.0]
+
+#define CARD_DETAIL_COUPON_CELL_MAIN_LABEL_FONT [UIFont fontWithName:@"Roboto-Medium" size:14.0]
+#define CARD_DETAIL_COUPON_CELL_MAIN_LABEL_TEXT_COLOR [UIColor colorWithRed:10.0/255.0 green:170.0/255.0 blue:248.0/255.0 alpha:1.0]
+#define CARD_DETAIL_COUPON_CELL_SUBTITLE_LABEL_FONT [UIFont fontWithName:@"Roboto-Light" size:12.0]
+#define CARD_DETAIL_COUPON_CELL_SUBTITLE_LABEL_TEXT_COLOR [UIColor colorWithRed:142.0/255.0 green:142.0/255.0 blue:147.0/255.0 alpha:1.0]
+#define CARD_DETAIL_COUPON_CELL_SEPERATOR_COLOR [UIColor colorWithRed:229.0/255.0 green:229.0/255.0 blue:229.0/255.0 alpha:1.0]
+
+
 #import <Foundation/Foundation.h>
 
 @interface CBUtil : NSObject

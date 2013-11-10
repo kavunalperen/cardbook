@@ -12,21 +12,24 @@
 
 @implementation CBTextField
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)frame andForRegister:(BOOL)forRegister
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        
-        [self setFont:REGISTER_VIEW_INPUT_FONT];
-        [self setBackgroundColor:[UIColor whiteColor]];
-        [self.layer setCornerRadius:5.0];
-        [self.layer setMasksToBounds:YES];
-        [self.layer setShouldRasterize:YES];
-        [self.layer setRasterizationScale:[UIScreen mainScreen].scale];
-        _requiredView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"input_zorunlu_icon.png"]];
-        [_requiredView setFrame:CGRectMake(self.frame.size.width-10.0, 0.0, 10.0, 30.0)];
-        [self addSubview:_requiredView];
+        if (forRegister) {
+            [self setFont:REGISTER_VIEW_INPUT_FONT];
+            [self setBackgroundColor:[UIColor whiteColor]];
+            [self.layer setCornerRadius:5.0];
+            [self.layer setMasksToBounds:YES];
+            [self.layer setShouldRasterize:YES];
+            [self.layer setRasterizationScale:[UIScreen mainScreen].scale];
+            _requiredView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"input_zorunlu_icon.png"]];
+            [_requiredView setFrame:CGRectMake(self.frame.size.width-10.0, 0.0, 10.0, 30.0)];
+            [self addSubview:_requiredView];
+        } else {
+            
+        }
     }
     return self;
 }

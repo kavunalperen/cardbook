@@ -12,4 +12,6 @@
 
 @property UIImageView* requiredView;
 
+- (id)initWithFrame:(CGRect)frame andForRegister:(BOOL)forRegister;
+
 @end

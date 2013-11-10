@@ -511,7 +511,7 @@
 }
 - (CBTextField*)createTextFieldWithFrame:(CGRect)frame andPlaceHolderText:(NSString*)placeHolderText
 {
-    CBTextField* textField = [[CBTextField alloc] initWithFrame:frame];
+    CBTextField* textField = [[CBTextField alloc] initWithFrame:frame andForRegister:YES];
     [textField setPlaceholder:placeHolderText];
     textField.delegate = self;
     

@@ -40,6 +40,8 @@
     [self.thumbnail setBackgroundColor:[UIColor clearColor]];
     [self.thumbnail.layer setCornerRadius:5.0];
     [self.thumbnail setClipsToBounds:YES];
+    [self.thumbnail.layer setShouldRasterize:YES];
+    [self.thumbnail.layer setRasterizationScale:[UIScreen mainScreen].scale];
     [self.thumbnail setImage:[UIImage imageNamed:@"dummy_brand.jpg"]];
     
     self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(120.0, 0.0, 140.0, 90.0)];

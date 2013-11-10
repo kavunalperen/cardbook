@@ -7,7 +7,11 @@
 //
 
 #import "CBBaseViewController.h"
+#import "CBTextField.h"
 
-@interface CBMyCardsDetailViewController : CBBaseViewController
+@interface CBMyCardsDetailViewController : CBBaseViewController <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate>
+
+@property UITableView* tableView;
+@property CBTextField* cardNumberField;
 
 @end

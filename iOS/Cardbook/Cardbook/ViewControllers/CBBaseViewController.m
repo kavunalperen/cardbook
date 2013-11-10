@@ -42,18 +42,6 @@
     UIImageView* navBackView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"main_navigation_bg.png"]];
     [self.myNavigationBar addSubview:navBackView];
     [self.view addSubview:self.myNavigationBar];
-}
-- (void)stylizeForMainView
-{
-    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15.0, 0.0, 160.0, 44.0)];
-    [_titleLabel setBackgroundColor:[UIColor clearColor]];
-    [_titleLabel setFont:NAVBAR_TITLE_FONT];
-    [_titleLabel setTextColor:NAVBAR_TITLE_TEXT_COLOR];
-    [_titleLabel.layer setShadowColor:[UIColor whiteColor].CGColor];
-    [_titleLabel.layer setShadowOffset:CGSizeMake(0.0, 1.0)];
-    [_titleLabel.layer setShadowOpacity:0.4];
-    [_titleLabel.layer setShadowRadius:0.0];
-    [self.myNavigationBar addSubview:_titleLabel];
     
     UIImage* backImage;
     
@@ -65,6 +53,26 @@
     
     backImageView = [[UIImageView alloc] initWithImage:backImage];
     [self.view insertSubview:backImageView belowSubview:self.myNavigationBar];
+    
+//    UIImage* topMask = [UIImage imageNamed:@"top_maske.png"];
+//    
+//    UIImageView* topMaskView = [[UIImageView alloc] initWithImage:topMask];
+//    [topMaskView setFrame:CGRectMake(-15.0, 38.0, 320.0, 12.0)];
+//    [self.myNavigationBar addSubview:topMaskView];
+}
+- (void)stylizeForMainView
+{
+    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15.0, 0.0, 160.0, 44.0)];
+    [_titleLabel setBackgroundColor:[UIColor clearColor]];
+    [_titleLabel setFont:NAVBAR_TITLE_FONT];
+    [_titleLabel setTextColor:NAVBAR_TITLE_TEXT_COLOR];
+    [_titleLabel.layer setShadowColor:[UIColor whiteColor].CGColor];
+    [_titleLabel.layer setShadowOffset:CGSizeMake(0.0, 1.0)];
+    [_titleLabel.layer setShadowOpacity:0.4];
+    [_titleLabel.layer setShadowRadius:0.0];
+    [_titleLabel.layer setShouldRasterize:YES];
+    [_titleLabel.layer setRasterizationScale:[UIScreen mainScreen].scale];
+    [self.myNavigationBar addSubview:_titleLabel];
     
 }
 - (void)stylizeForDetailView
@@ -81,23 +89,14 @@
     [titleButtonLabel setBackgroundColor:[UIColor clearColor]];
     [titleButtonLabel setFont:NAVBAR_DETAIL_TITLE_FONT];
     [titleButtonLabel setTextColor:NAVBAR_DETAIL_TITLE_TEXT_COLOR];
-    [_titleLabel.layer setShadowColor:[UIColor whiteColor].CGColor];
-    [_titleLabel.layer setShadowOffset:CGSizeMake(0.0, 1.0)];
-    [_titleLabel.layer setShadowOpacity:0.4];
-    [_titleLabel.layer setShadowRadius:0.0];
+    [titleButtonLabel.layer setShadowColor:[UIColor whiteColor].CGColor];
+    [titleButtonLabel.layer setShadowOffset:CGSizeMake(0.0, 1.0)];
+    [titleButtonLabel.layer setShadowOpacity:0.4];
+    [titleButtonLabel.layer setShadowRadius:0.0];
+    [titleButtonLabel.layer setShouldRasterize:YES];
+    [titleButtonLabel.layer setRasterizationScale:[UIScreen mainScreen].scale];
     [_titleButton addSubview:titleButtonLabel];
     [self.myNavigationBar addSubview:_titleButton];
-    
-    UIImage* backImage;
-    
-    if (IS_IPHONE_5) {
-        backImage = [UIImage imageNamed:@"main_bg-568h.jpg"];
-    } else {
-        backImage = [UIImage imageNamed:@"main_bg.jpg"];
-    }
-    
-    backImageView = [[UIImageView alloc] initWithImage:backImage];
-    [self.view insertSubview:backImageView belowSubview:self.myNavigationBar];
     
 }
 - (void) setTitleText:(NSString*)text

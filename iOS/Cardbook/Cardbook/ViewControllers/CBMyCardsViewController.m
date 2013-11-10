@@ -63,7 +63,7 @@
     [self.tableView setShowsVerticalScrollIndicator:NO];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
-    [self.view addSubview:self.tableView];
+    [self.view insertSubview:self.tableView belowSubview:self.myNavigationBar];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
