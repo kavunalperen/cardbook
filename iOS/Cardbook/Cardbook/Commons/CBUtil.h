@@ -84,6 +84,45 @@
 #define CARD_DETAIL_COUPON_CELL_SUBTITLE_LABEL_TEXT_COLOR [UIColor colorWithRed:142.0/255.0 green:142.0/255.0 blue:147.0/255.0 alpha:1.0]
 #define CARD_DETAIL_COUPON_CELL_SEPERATOR_COLOR [UIColor colorWithRed:229.0/255.0 green:229.0/255.0 blue:229.0/255.0 alpha:1.0]
 
+// campaigns related macros
+#define MY_CAMPAIGNS_CELL_NAME_FONT [UIFont fontWithName:@"Roboto-Medium" size:16.0]
+#define MY_CAMPAIGNS_CELL_NAME_TEXT_COLOR [UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:1.0]
+#define MY_CAMPAIGNS_CELL_NAME_SELECTED_TEXT_COLOR [UIColor colorWithRed:0.0/255.0 green:122.0/255.0 blue:255.0/255.0 alpha:1.0]
+
+#define MY_CAMPAIGNS_CELL_DETAIL_LABEL_FONT [UIFont fontWithName:@"Roboto-Regular" size:12.0]
+#define MY_CAMPAIGNS_CELL_DETAIL_LABEL_TEXT_COLOR [UIColor colorWithRed:142.0/255.0 green:142.0/255.0 blue:147.0/255.0 alpha:1.0]
+
+#define MY_CAMPAIGNS_CELL_DATE_LABEL_FONT [UIFont fontWithName:@"Roboto-Regular" size:9.0]
+#define MY_CAMPAIGNS_CELL_DATE_LABEL_TEXT_COLOR [UIColor colorWithRed:255.0/255.0 green:59.0/255.0 blue:48.0/255.0 alpha:1.0]
+
+// campaign detail screen related macros
+#define MY_CAMPAIGNS_DETAILS_TITLE_LABEL_FONT [UIFont fontWithName:@"Roboto-Black" size:17.0]
+#define MY_CAMPAIGNS_DETAILS_TITLE_LABEL_TEXT_COLOR [UIColor colorWithRed:0.0/255.0 green:122.0/255.0 blue:255.0/255.0 alpha:1.0]
+
+#define MY_CAMPAIGNS_DETAILS_LITTLE_INFO_TITLE_LABEL_FONT [UIFont fontWithName:@"Roboto-Medium" size:17.0]
+#define MY_CAMPAIGNS_DETAILS_LITTLE_INFO_TITLE_LABEL_TEXT_COLOR [UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:1.0]
+
+#define MY_CAMPAIGNS_DETAILS_LITTLE_INFO_DATE_LABEL_FONT [UIFont fontWithName:@"Roboto-Light" size:14.0]
+#define MY_CAMPAIGNS_DETAILS_LITTLE_INFO_DATE_LABEL_TEXT_COLOR [UIColor colorWithRed:255.0/255.0 green:59.0/255.0 blue:48.0/255.0 alpha:1.0]
+
+#define MY_CAMPAIGNS_DETAILS_LITTLE_INFO_DESCRIPTION_LABEL_FONT [UIFont fontWithName:@"Roboto-Regular" size:11.0]
+#define MY_CAMPAIGNS_DETAILS_LITTLE_INFO_DESCRIPTION_LABEL_TEXT_COLOR [UIColor colorWithRed:104.0/255.0 green:104.0/255.0 blue:104.0/255.0 alpha:1.0]
+
+#define MY_CAMPAIGNS_DETAILS_DETAIL_INFO_TITLE_LABEL_FONT [UIFont fontWithName:@"Roboto-Light" size:10.0]
+#define MY_CAMPAIGNS_DETAILS_DETAIL_INFO_TITLE_LABEL_TEXT_COLOR [UIColor colorWithRed:255.0/255.0 green:59.0/255.0 blue:48.0/255.0 alpha:1.0]
+
+#define MY_CAMPAIGNS_DETAILS_DETAIL_INFO_DESCRIPTION_LABEL_FONT [UIFont fontWithName:@"Roboto-Light" size:10.0]
+#define MY_CAMPAIGNS_DETAILS_DETAIL_INFO_DESCRIPTION_LABEL_TEXT_COLOR [UIColor colorWithRed:104.0/255.0 green:104.0/255.0 blue:104.0/255.0 alpha:1.0]
+
+// shoppings related macros
+#define MY_SHOPPINGS_CELL_NAME_FONT [UIFont fontWithName:@"Roboto-Medium" size:16.0]
+#define MY_SHOPPINGS_CELL_NAME_NORMAL_TEXT_COLOR [UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:1.0]
+#define MY_SHOPPINGS_CELL_NAME_SELECTED_TEXT_COLOR [UIColor colorWithRed:0.0/255.0 green:122.0/255.0 blue:255.0/255.0 alpha:1.0]
+
+#define MY_SHOPPINGS_CELL_DATE_LABEL_FONT [UIFont fontWithName:@"Roboto-Light" size:10.0]
+#define MY_SHOPPINGS_CELL_DATE_LABEL_TEXT_COLOR [UIColor colorWithRed:142.0/255.0 green:142.0/255.0 blue:147.0/255.0 alpha:1.0]
+
+#define MY_SHOPPINGS_CELL_SEPERATOR_COLOR [UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1.0]
 
 #import <Foundation/Foundation.h>
 

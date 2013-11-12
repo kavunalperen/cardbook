@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CBBaseViewController.h"
 
-@interface CBCampaignViewController : UIViewController
+@interface CBCampaignViewController : CBBaseViewController <UITableViewDataSource, UITableViewDelegate>
+
+@property UITableView* tableView;
 
 @end

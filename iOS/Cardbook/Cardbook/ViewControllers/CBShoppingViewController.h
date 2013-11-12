@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CBBaseViewController.h"
 
-@interface CBShoppingViewController : UIViewController
+@interface CBShoppingViewController : CBBaseViewController <UITableViewDataSource, UITableViewDelegate>
+
+@property UITableView* tableView;
 
 @end

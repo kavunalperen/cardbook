@@ -149,6 +149,8 @@
     UIView* headerHolder = [[UIView alloc] initWithFrame:[self headerImageViewFrame]];
     [headerHolder setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:headerHolder];
+    [headerHolder.layer setShouldRasterize:YES];
+    [headerHolder.layer setRasterizationScale:[UIScreen mainScreen].scale];
     
     companyThumbnail = [[UIImageView alloc] initWithFrame:[self companyThumbnailFrame]];
     [companyThumbnail setBackgroundColor:[UIColor clearColor]];
@@ -166,6 +168,8 @@
     [companyNameLabel setFont:CARD_DETAIL_COMPANY_NAME_FONT];
     [companyNameLabel setTextColor:CARD_DETAIL_COMPANY_NAME_TEXT_COLOR];
     [companyNameLabel setText:@"CINEMAXIMUM"];
+    [companyNameLabel.layer setShouldRasterize:YES];
+    [companyNameLabel.layer setRasterizationScale:[UIScreen mainScreen].scale];
     [headerHolder addSubview:companyNameLabel];
     
     UILabel* companyPointTitleLabel = [[UILabel alloc] initWithFrame:[self companyPointTitleLabelFrame]];
@@ -173,6 +177,8 @@
     [companyPointTitleLabel setFont:CARD_DETAIL_COMPANY_POINT_TITLE_FONT];
     [companyPointTitleLabel setTextColor:CARD_DETAIL_COMPANY_POINT_TITLE_TEXT_COLOR];
     [companyPointTitleLabel setText:@"Marka Puanınız"];
+    [companyPointTitleLabel.layer setShouldRasterize:YES];
+    [companyPointTitleLabel.layer setRasterizationScale:[UIScreen mainScreen].scale];
     [headerHolder addSubview:companyPointTitleLabel];
     
     remainingPointLabel = [[UILabel alloc] initWithFrame:[self remainingPointLabelFrame]];
@@ -180,6 +186,8 @@
     [remainingPointLabel setFont:CARD_DETAIL_COMPANY_REMAINING_POINT_FONT];
     [remainingPointLabel setTextColor:CARD_DETAIL_COMPANY_REMAINING_POINT_TEXT_COLOR];
     [remainingPointLabel setText:@"1600"];
+    [remainingPointLabel.layer setShouldRasterize:YES];
+    [remainingPointLabel.layer setRasterizationScale:[UIScreen mainScreen].scale];
     [headerHolder addSubview:remainingPointLabel];
     
     totalPointLabel = [[UILabel alloc] initWithFrame:[self totalPointLabelFrame]];
@@ -187,6 +195,8 @@
     [totalPointLabel setFont:CARD_DETAIL_COMPANY_TOTAL_POINT_FONT];
     [totalPointLabel setTextColor:CARD_DETAIL_COMPANY_TOTAL_POINT_TEXT_COLOR];
     [totalPointLabel setText:@"/ 3876"];
+    [totalPointLabel.layer setShouldRasterize:YES];
+    [totalPointLabel.layer setRasterizationScale:[UIScreen mainScreen].scale];
     [headerHolder addSubview:totalPointLabel];
     
     UILabel* notificationStatusLabel = [[UILabel alloc] initWithFrame:[self notificationStatusLabelFrame]];
@@ -194,6 +204,8 @@
     [notificationStatusLabel setFont:CARD_DETAIL_COMPANY_NOTIFICATION_STATUS_FONT];
     [notificationStatusLabel setTextColor:CARD_DETAIL_COMPANY_NOTIFICATION_STATUS_TEXT_COLOR];
     [notificationStatusLabel setText:@"Bildirim Durumu"];
+    [notificationStatusLabel.layer setShouldRasterize:YES];
+    [notificationStatusLabel.layer setRasterizationScale:[UIScreen mainScreen].scale];
     [headerHolder addSubview:notificationStatusLabel];
     
     notificationStatusImageView = [[UIImageView alloc] initWithFrame:[self notificationStatusImageFrame]];
@@ -211,6 +223,8 @@
     [cardNumberTitleLabel setFont:CARD_DETAIL_CARD_NUMBER_TITLE_FONT];
     [cardNumberTitleLabel setTextColor:CARD_DETAIL_CARD_NUMBER_TITLE_TEXT_COLOR];
     [cardNumberTitleLabel setText:@"Kart No:"];
+    [cardNumberTitleLabel.layer setShouldRasterize:YES];
+    [cardNumberTitleLabel.layer setRasterizationScale:[UIScreen mainScreen].scale];
     [headerHolder addSubview:cardNumberTitleLabel];
     
     self.cardNumberField = [[CBTextField alloc] initWithFrame:[self cardNumberFieldFrame] andForRegister:NO];
@@ -248,6 +262,8 @@
     UIView* footerHolder = [[UIView alloc] initWithFrame:[self footerImageViewFrame]];
     [footerHolder setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:footerHolder];
+    [footerHolder.layer setShouldRasterize:YES];
+    [footerHolder.layer setRasterizationScale:[UIScreen mainScreen].scale];
     
     campaignsButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [campaignsButton setFrame:[self campaignsButtonFrame]];
