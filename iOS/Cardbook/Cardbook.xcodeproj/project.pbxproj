@@ -10,6 +10,7 @@
 		054342551830190200CC1FE3 /* notification_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 054342531830190200CC1FE3 /* notification_off@2x.png */; };
 		054342561830190200CC1FE3 /* notification_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 054342541830190200CC1FE3 /* notification_on@2x.png */; };
 		054342591830255F00CC1FE3 /* CBCardDetailsCouponCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 054342581830255F00CC1FE3 /* CBCardDetailsCouponCell.m */; };
+		054391841832CC8700140624 /* CBShoppingDetailsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 054391831832CC8700140624 /* CBShoppingDetailsCell.m */; };
 		056D0B7118315C8600A398B6 /* campaign_detail_desc_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 056D0B6A18315C8600A398B6 /* campaign_detail_desc_bg@2x.png */; };
 		056D0B7218315C8600A398B6 /* campaign_detail_desc_bottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 056D0B6B18315C8600A398B6 /* campaign_detail_desc_bottom@2x.png */; };
 		056D0B7318315C8600A398B6 /* campaign_detail_desc_top@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 056D0B6C18315C8600A398B6 /* campaign_detail_desc_top@2x.png */; };
@@ -32,6 +33,7 @@
 		05780B181832AFDC0018A1FA /* shopping_harcama_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 05780B0C1832AFDC0018A1FA /* shopping_harcama_icon@2x.png */; };
 		05780B191832AFDC0018A1FA /* shopping_kazanma_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 05780B0D1832AFDC0018A1FA /* shopping_kazanma_icon@2x.png */; };
 		05780B1A1832AFDC0018A1FA /* shopping_tarih_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 05780B0E1832AFDC0018A1FA /* shopping_tarih_icon@2x.png */; };
+		05780B1D1832BA430018A1FA /* CBShoppingDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05780B1C1832BA430018A1FA /* CBShoppingDetailViewController.m */; };
 		0591722B181FDB0600BEE519 /* splash_face_btn_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0591722A181FDB0600BEE519 /* splash_face_btn_normal@2x.png */; };
 		0591722D181FE45900BEE519 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0591722C181FE45900BEE519 /* FacebookSDK.framework */; };
 		0591723018201C0F00BEE519 /* CBRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0591722F18201C0F00BEE519 /* CBRegisterViewController.m */; };
@@ -128,6 +130,8 @@
 		054342541830190200CC1FE3 /* notification_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification_on@2x.png"; sourceTree = "<group>"; };
 		054342571830255F00CC1FE3 /* CBCardDetailsCouponCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCardDetailsCouponCell.h; sourceTree = "<group>"; };
 		054342581830255F00CC1FE3 /* CBCardDetailsCouponCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCardDetailsCouponCell.m; sourceTree = "<group>"; };
+		054391821832CC8700140624 /* CBShoppingDetailsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBShoppingDetailsCell.h; sourceTree = "<group>"; };
+		054391831832CC8700140624 /* CBShoppingDetailsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBShoppingDetailsCell.m; sourceTree = "<group>"; };
 		056D0B6A18315C8600A398B6 /* campaign_detail_desc_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "campaign_detail_desc_bg@2x.png"; sourceTree = "<group>"; };
 		056D0B6B18315C8600A398B6 /* campaign_detail_desc_bottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "campaign_detail_desc_bottom@2x.png"; sourceTree = "<group>"; };
 		056D0B6C18315C8600A398B6 /* campaign_detail_desc_top@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "campaign_detail_desc_top@2x.png"; sourceTree = "<group>"; };
@@ -153,6 +157,8 @@
 		05780B0C1832AFDC0018A1FA /* shopping_harcama_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopping_harcama_icon@2x.png"; sourceTree = "<group>"; };
 		05780B0D1832AFDC0018A1FA /* shopping_kazanma_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopping_kazanma_icon@2x.png"; sourceTree = "<group>"; };
 		05780B0E1832AFDC0018A1FA /* shopping_tarih_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopping_tarih_icon@2x.png"; sourceTree = "<group>"; };
+		05780B1B1832BA430018A1FA /* CBShoppingDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBShoppingDetailViewController.h; sourceTree = "<group>"; };
+		05780B1C1832BA430018A1FA /* CBShoppingDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBShoppingDetailViewController.m; sourceTree = "<group>"; };
 		0591722A181FDB0600BEE519 /* splash_face_btn_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash_face_btn_normal@2x.png"; sourceTree = "<group>"; };
 		0591722C181FE45900BEE519 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		0591722E18201C0F00BEE519 /* CBRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBRegisterViewController.h; sourceTree = "<group>"; };
@@ -470,6 +476,8 @@
 				056D0B7C183161A900A398B6 /* CBShoppingsCell.m */,
 				054342571830255F00CC1FE3 /* CBCardDetailsCouponCell.h */,
 				054342581830255F00CC1FE3 /* CBCardDetailsCouponCell.m */,
+				054391821832CC8700140624 /* CBShoppingDetailsCell.h */,
+				054391831832CC8700140624 /* CBShoppingDetailsCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -613,6 +621,8 @@
 				05780B0018329BF30018A1FA /* CBMyCampaignsDetailViewController.m */,
 				059C94BD182EDC530010651B /* CBShoppingViewController.h */,
 				059C94BE182EDC530010651B /* CBShoppingViewController.m */,
+				05780B1B1832BA430018A1FA /* CBShoppingDetailViewController.h */,
+				05780B1C1832BA430018A1FA /* CBShoppingDetailViewController.m */,
 				059C94C0182EDC5E0010651B /* CBProfileViewController.h */,
 				059C94C1182EDC5E0010651B /* CBProfileViewController.m */,
 				059C94C7182EE53B0010651B /* CBBaseViewController.h */,
@@ -804,6 +814,7 @@
 				059C94BF182EDC530010651B /* CBShoppingViewController.m in Sources */,
 				059C9474182E3B920010651B /* MKNetworkEngine.m in Sources */,
 				059172341820266800BEE519 /* APIManager.m in Sources */,
+				05780B1D1832BA430018A1FA /* CBShoppingDetailViewController.m in Sources */,
 				059C947D182E402F0010651B /* Country.m in Sources */,
 				059C94BC182EDC420010651B /* CBCampaignViewController.m in Sources */,
 				054342591830255F00CC1FE3 /* CBCardDetailsCouponCell.m in Sources */,
@@ -812,6 +823,7 @@
 				059C9485182E83F60010651B /* CBTextField.m in Sources */,
 				0591723018201C0F00BEE519 /* CBRegisterViewController.m in Sources */,
 				059C94C9182EE53B0010651B /* CBBaseViewController.m in Sources */,
+				054391841832CC8700140624 /* CBShoppingDetailsCell.m in Sources */,
 				05D81F74181FD6CE00F3A7AD /* CBUtil.m in Sources */,
 				059C9476182E3B920010651B /* Reachability.m in Sources */,
 				05D81F3F181FD16B00F3A7AD /* CBAppDelegate.m in Sources */,

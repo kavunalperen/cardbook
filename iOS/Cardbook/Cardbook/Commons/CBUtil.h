@@ -124,6 +124,41 @@
 
 #define MY_SHOPPINGS_CELL_SEPERATOR_COLOR [UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1.0]
 
+// shopping details related macros
+#define MY_SHOPPINGS_DETAILS_HEADER_TITLE_LABEL_FONT [UIFont fontWithName:@"Roboto-Black" size:17.0]
+#define MY_SHOPPINGS_DETAILS_HEADER_TITLE_TEXT_COLOR [UIColor colorWithRed:0.0/255.0 green:122.0/255.0 blue:255.0/255.0 alpha:1.0]
+
+#define MY_SHOPPINGS_DETAILS_HEADER_DATE_LABEL_FONT [UIFont fontWithName:@"Roboto-Light" size:12.0]
+#define MY_SHOPPINGS_DETAILS_HEADER_DATE_TEXT_COLOR [UIColor colorWithRed:104.0/255.0 green:104.0/255.0 blue:104.0/255.0 alpha:1.0]
+
+#define MY_SHOPPINGS_DETAILS_HEADER_PRODUCTS_LABEL_FONT [UIFont fontWithName:@"Roboto-Light" size:14.0]
+#define MY_SHOPPINGS_DETAILS_HEADER_PRODUCTS_TEXT_COLOR [UIColor colorWithRed:255.0/255.0 green:59.0/255.0 blue:48.0/255.0 alpha:1.0]
+
+#define MY_SHOPPINGS_DETAILS_CELL_NAME_LABEL_FONT [UIFont fontWithName:@"Roboto-Light" size:12.0]
+#define MY_SHOPPINGS_DETAILS_CELL_NAME_LABEL_TEXT_COLOR [UIColor colorWithRed:104.0/255.0 green:104.0/255.0 blue:104.0/255.0 alpha:1.0]
+
+#define MY_SHOPPINGS_DETAILS_CELL_PRICE_LABEL_FONT [UIFont fontWithName:@"Roboto-Regular" size:12.0]
+#define MY_SHOPPINGS_DETAILS_CELL_PRICE_LABEL_TEXT_COLOR [UIColor colorWithRed:104.0/255.0 green:104.0/255.0 blue:104.0/255.0 alpha:1.0]
+
+#define MY_SHOPPINGS_DETAILS_EARNED_POINTS_TITLE_LABEL_FONT [UIFont fontWithName:@"Roboto-Light" size:12.0]
+#define MY_SHOPPINGS_DETAILS_EARNED_POINTS_TITLE_LABEL_TEXT_COLOR [UIColor colorWithRed:255.0/255.0 green:149.0/255.0 blue:0.0/255.0 alpha:1.0]
+
+#define MY_SHOPPINGS_DETAILS_EARNED_POINTS_OTHER_TITLE_LABELS_FONT [UIFont fontWithName:@"Roboto-Light" size:19.0]
+#define MY_SHOPPINGS_DETAILS_EARNED_POINTS_OTHER_TITLE_LABELS_TEXT_COLOR [UIColor colorWithRed:104.0/255.0 green:104.0/255.0 blue:104.0/255.0 alpha:1.0]
+
+#define MY_SHOPPINGS_DETAILS_EARNED_POINTS_POINTS_LABELS_FONT [UIFont fontWithName:@"Roboto-Bold" size:19.0]
+#define MY_SHOPPINGS_DETAILS_EARNED_POINTS_POINTS_LABELS_TEXT_COLOR [UIColor colorWithRed:255.0/255.0 green:149.0/255.0 blue:0.0/255.0 alpha:1.0]
+
+
+#define MY_SHOPPINGS_DETAILS_SPENT_POINTS_TITLE_LABEL_FONT [UIFont fontWithName:@"Roboto-Light" size:12.0]
+#define MY_SHOPPINGS_DETAILS_SPENT_POINTS_TITLE_LABEL_TEXT_COLOR [UIColor colorWithRed:0.0/255.0 green:122.0/255.0 blue:255.0/255.0 alpha:1.0]
+
+#define MY_SHOPPINGS_DETAILS_SPENT_POINTS_OTHER_TITLE_LABELS_FONT [UIFont fontWithName:@"Roboto-Light" size:19.0]
+#define MY_SHOPPINGS_DETAILS_SPENT_POINTS_OTHER_TITLE_LABELS_TEXT_COLOR [UIColor colorWithRed:104.0/255.0 green:104.0/255.0 blue:104.0/255.0 alpha:1.0]
+
+#define MY_SHOPPINGS_DETAILS_SPENT_POINTS_POINTS_LABELS_FONT [UIFont fontWithName:@"Roboto-Bold" size:19.0]
+#define MY_SHOPPINGS_DETAILS_SPENT_POINTS_POINTS_LABELS_TEXT_COLOR [UIColor colorWithRed:0.0/255.0 green:122.0/255.0 blue:255.0/255.0 alpha:1.0]
+
 #import <Foundation/Foundation.h>
 
 @interface CBUtil : NSObject

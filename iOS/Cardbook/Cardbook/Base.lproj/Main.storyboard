@@ -188,10 +188,32 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="YVM-ow-8sP"/>
+                    <connections>
+                        <segue destination="KVK-4g-UEy" kind="push" identifier="MyShoppingsDetailSegue" id="USy-zM-9fs"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8CO-Ui-NGH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1993" y="1486"/>
+        </scene>
+        <!--Shopping Detail View Controller-->
+        <scene sceneID="J0H-nF-A4g">
+            <objects>
+                <viewController id="KVK-4g-UEy" customClass="CBShoppingDetailViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4Ld-xt-P8g"/>
+                        <viewControllerLayoutGuide type="bottom" id="7dS-75-YFY"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="RRD-Ma-MLW">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="7a8-XQ-Pkk"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sVU-Zs-rMv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2423" y="1486"/>
         </scene>
         <!--My Cards View Controller-->
         <scene sceneID="ftz-0U-CP7">

@@ -112,7 +112,7 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //    [self performSegueWithIdentifier:@"MyCardsDetailsSegue" sender:self];
+    [self performSegueWithIdentifier:@"MyShoppingsDetailSegue" sender:self];
 }
 - (void)didReceiveMemoryWarning
 {
