@@ -8,13 +8,32 @@
         android:id="@+id/kampanyalarLayoutLinear"
         android:background="@android:color/transparent" >
 
+    <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_navigation_bg"
+            style="@style/layout"
+            >
+
+        <TextView
+                android:id="@+id/navBarTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
+                android:text="Kampanyalar"
+                android:textAlignment="gravity"
+                android:textColor="@color/navigationBarHeaderTextColor"
+                android:textSize="20dp"/>
+    </RelativeLayout>
+
     <ListView
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:id="@+id/lvKampanyalar"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
             android:cacheColorHint="#00000000"
             android:background="#00000000"
-            android:scrollbars="none"/>
+            android:scrollbars="none"
+            style="@style/layout"/>
 </LinearLayout>

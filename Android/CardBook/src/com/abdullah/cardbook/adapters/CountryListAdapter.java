@@ -50,7 +50,7 @@ public class CountryListAdapter extends ArrayAdapter<String>{
 
         if (item!= null) {
         	// user name and title
-            Typeface font=Font.getFont(context, Font.ROBOTO_LIGHT);
+            Typeface font=Font.getFont(context, Font.ROBOTO_REGULAR);
             
             TextView name = (TextView) view.findViewById(R.id.addressAdapterName);
             name.setTypeface(font);

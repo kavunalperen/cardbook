@@ -58,7 +58,7 @@ public class KartlarimDetailListAdapter extends ArrayAdapter<Coupon>{
             if (couponName != null) {
 
                 couponName.setText(item.getCompanyPromotionId());
-                couponDetail.setText(item.getCompanyPromotionText());
+//                couponDetail.setText(item.getCompanyPromotionText());
 
             }
          }

@@ -4,11 +4,27 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:layout_marginLeft="15dp"
-              android:layout_marginRight="15dp"
               android:layout_marginBottom="15dp"
               android:paddingLeft="15dp"
               android:paddingRight="15dp">
+
+    <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_navigation_bg">
+
+        <TextView
+                android:id="@+id/navBarTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
+                android:text="Kampanyalar"
+                android:textAlignment="gravity"
+                android:textColor="@color/navigationBarHeaderTextColor"
+                android:textSize="20dp"/>
+    </RelativeLayout>
 
     <TextView
             android:layout_width="fill_parent"
@@ -27,6 +43,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:id="@+id/scrollView"
+            android:scrollbars="none"
             >
 
         <LinearLayout

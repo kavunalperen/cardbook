@@ -22,6 +22,8 @@ package com.abdullah.cardbook.models.address;
 	{"CountyId":3,"CountyName":"Şişli","CityId":1
  */
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -41,6 +43,17 @@ public class Address {
 	private String addressLine;
 
     private String[] locateFromFacebook;
+
+    public Address(){}
+
+    public Address(JSONObject object){
+
+        if(object!=null){
+            this.countryId=object.optInt("CountryId");
+            this.cityId=object.optInt("CityId");
+            this.countId=object.optInt("CountyId");
+        }
+    }
 
     public Address(String locate){
         String[] array=locate.trim().split(",");

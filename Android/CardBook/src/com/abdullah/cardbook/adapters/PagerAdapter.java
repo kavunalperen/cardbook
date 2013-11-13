@@ -47,8 +47,8 @@ public class PagerAdapter extends FragmentPagerAdapter {
             Stack<Fragment> stack=fragments.get(fragmentGroup);
             Log.i("Fragment Size in Stack: "+stack.size());
 
-            fragments.get(fragmentGroup).pop();
-            fragments.get(fragmentGroup).push(oldFragment);
+//            fragments.get(fragmentGroup).pop();
+//            fragments.get(fragmentGroup).push(oldFragment);
             mFragmentManager.beginTransaction().remove(stack.get(stack.size()-1)).commit();
 
 

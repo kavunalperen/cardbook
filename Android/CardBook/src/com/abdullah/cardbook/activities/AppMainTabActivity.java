@@ -23,10 +23,12 @@ import android.widget.TextView;
 import com.abdullah.cardbook.CardbookApp;
 import com.abdullah.cardbook.R;
 import com.abdullah.cardbook.adapters.FragmentCommunicator;
+import com.abdullah.cardbook.adapters.KampanyaListener;
 import com.abdullah.cardbook.adapters.PagerAdapter;
 import com.abdullah.cardbook.common.*;
 
 import com.abdullah.cardbook.fragments.*;
+import com.abdullah.cardbook.models.Company;
 
 import java.util.HashMap;
 import java.util.Stack;
@@ -34,10 +36,10 @@ import java.util.Timer;
 
 public class AppMainTabActivity extends FragmentActivity implements OnTabChangeListener, OnPageChangeListener, OnClickListener{
 
-    public FragmentCommunicator fragmentCommunicator;
+    public KampanyaListener kampanyaListener;
 	PagerAdapter pageAdapter;
-	private ViewPager mViewPager;
-	private TabHost mTabHost;
+	public ViewPager mViewPager;
+	public TabHost mTabHost;
 
     /* A HashMap of stacks, where we use tab identifier as keys..*/
     private HashMap<String, Stack<Fragment>> mStacks;
@@ -57,7 +59,7 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
     private static int IMAGE_NULL=-1;
 
     Button navBarButton;
-    TextView navBarText;
+//    TextView navBarText;
 
     private AppMainTabActivity lastinstance;
     public static AppMainTabActivity lastIntance(){
@@ -95,12 +97,12 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
         mTabHost.getTabWidget().setStripEnabled(false);
         mTabHost.getTabWidget().setDividerDrawable(null);
 
-        navBarText=(TextView)findViewById(R.id.navBarTxt);
+//        navBarText=(TextView)findViewById(R.id.navBarTxt);
 
         TabWidget tabwidget=(TabWidget)findViewById(android.R.id.tabs);
         tabwidget.bringToFront();
 
-		setNavBarItemsStyle();
+//		setNavBarItemsStyle();
 
         initializeTabs();
 
@@ -140,12 +142,14 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
     }
 
     private void setNavBarItemsStyle(){
-
+        TextView navBarText;
+        navBarText=(TextView)findViewById(R.id.navBarTxt);
         Typeface font=Font.getFont(this, Font.ROBOTO_MEDIUM);
 
     	navBarText.setTypeface(font);
 
     }
+    /*
     private void setNavbarItemsContent(String text, int imgId){
     	Log.i("Navbar text: "+text);
 
@@ -157,6 +161,7 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
     		navBarButton.setBackgroundResource(imgId);
     	}
     }
+    */
     public void initializeTabs(){
         /* Setup your tab icons and content views.. Nothing special in this..*/
 
@@ -231,7 +236,7 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
       ft.replace(android.R.id.tabcontent, fragment);
       ft.commit();
 
-      setNavbarItemsContent(tag, IMAGE_NULL);
+//      setNavbarItemsContent(tag, IMAGE_NULL);
     }
 
     public void popFragments(){
@@ -382,7 +387,7 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
         Log.i("Animation menu place: "+menuPlace);
 //        animateMask(pos);
 
-        setNavbarItemsContent(AppConstants.MENU[pos], IMAGE_NULL);
+//        setNavbarItemsContent(AppConstants.MENU[pos], IMAGE_NULL);
 
 	}
 
@@ -391,9 +396,14 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
 	public void onClick(View v) {
 		System.out.println("ONCLICK view: "+v.getClass());
 
-        fragmentCommunicator.passDataToFragment("Bastım arkdaş");
+
 
 
 	}
+
+
+   public void openCampaign(Company company){
+       kampanyaListener.openCampaign(company.getCompanyId());
+   }
 
 }

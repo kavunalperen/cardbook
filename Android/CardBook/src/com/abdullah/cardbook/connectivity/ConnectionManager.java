@@ -17,6 +17,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
@@ -27,6 +28,7 @@ import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -51,7 +53,7 @@ public class ConnectionManager {
     }
 
     // adding default parameters
-    private static Map<String,String> addDefaultParameters(Context context, Map<String,String> params){
+    public static Map<String,String> addDefaultParameters(Map<String,String> params){
 
         params.put(AUTHORIZATION_TOKEN_KEY, AUTHORIZATION_TOKEN_VALUE);
 
@@ -61,7 +63,7 @@ public class ConnectionManager {
         return params;
     }
 
-    private static ArrayList addDefaultParameters(ArrayList arraylist){
+    public static ArrayList addDefaultParameters(ArrayList arraylist){
         BasicNameValuePair basicnamevaluepair = new BasicNameValuePair(AUTHORIZATION_TOKEN_KEY, AUTHORIZATION_TOKEN_VALUE);
         arraylist.add(basicnamevaluepair);
         String s = getFormattedDate(new Date());
@@ -69,6 +71,20 @@ public class ConnectionManager {
         arraylist.add(basicnamevaluepair1);
         return arraylist;
 
+
+
+    }
+
+    public static JSONObject addDefaultParameters(JSONObject list){
+        try {
+            list.put(AUTHORIZATION_TOKEN_KEY, AUTHORIZATION_TOKEN_VALUE);
+            String s = getFormattedDate(new Date());
+            list.put(AUTHORIZATION_TIME, s);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 
     public static boolean isOnline(Context context) {
@@ -83,16 +99,18 @@ public class ConnectionManager {
 
     public static void postData(final Context context,final RequestCallBack callback, String method, Map<String, String> parameters  ){
 
-        Map<String, String> result =addDefaultParameters(context,parameters);
+        Map<String, String> result =addDefaultParameters(parameters);
 
         StringBuilder adress=new StringBuilder(AppConstants.API_ADDRESS).append(method);
 
+        Log.i("post Data: "+method+": "+new JSONObject(result).toString());
         JsonObjectRequest request=new JsonObjectRequest(adress.toString(),new JSONObject(result),
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.i("Send broadCast response: "+response);
-                        callback.onRequestComplete(response);
+                        Log.i("post Data response: "+response);
+                        if(callback!=null)
+                            callback.onRequestComplete(response);
                     }
                 },
                 new Response.ErrorListener() {
@@ -104,8 +122,34 @@ public class ConnectionManager {
         CardbookApp.getInstance().getRequestQuee().add(request);
     }
 
+    public static void postData(final Context context,final RequestCallBack callback, String method, JSONObject parameters  ){
 
-    public static JSONObject postData2(String method, ArrayList<NameValuePair> parameterList) {
+        callback.onRequestStart();
+        StringBuilder adress=new StringBuilder(AppConstants.API_ADDRESS).append(method);
+
+        Log.i("post Data: "+parameters.toString());
+        JsonObjectRequest request=new JsonObjectRequest(adress.toString(),parameters,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.i("Send Data response: "+response);
+                        if(callback!=null)
+                            callback.onRequestComplete(response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        if(callback!=null)
+                            callback.onRequestError();
+                    }
+                });
+
+        CardbookApp.getInstance().getRequestQuee().add(request);
+    }
+
+
+    public static JSONObject postData2(String method,  ArrayList<NameValuePair> parameterList) {
 
         // Create a new HttpClient and Post Header
         HttpClient httpclient = new DefaultHttpClient();

@@ -1,12 +1,19 @@
 package com.abdullah.cardbook.models;
 
+import com.abdullah.cardbook.common.AppConstants;
 import com.abdullah.cardbook.common.Log;
 import com.abdullah.cardbook.models.address.Address;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CardBookUser {
 
@@ -20,6 +27,7 @@ public class CardBookUser {
     public static String PHONE_1="Phone1";
     public static String PHONE_2="Phone2";
     public static String GENDER="Gender";
+    public static String BARCODE_URL="UserBarcodeUrl";
 
     public static String COUNTRY_ID="CountryId";
     public static String CITY_ID="CityId";
@@ -27,37 +35,62 @@ public class CardBookUser {
     public static String ADDRESS_LINE="AddressLine";
     public static String ADDRESS="Address";
 
+
+    public static String WANT_NOTIFICATION="UserWantNotification";
+
     private String id;
 	private String deviceId;
 	private String name;
     private String surname;
 	private String email;
-	private String birthDate;
+	private Date birthDate;
 	private String profilPhotoUrl;
 	private String phone1;
 	private String phone2;
-	private String gender; // M or F
+	private String gender; // M or F,
+    private String barcodeUrl;
 	private Address addres;
 
-    public ArrayList<NameValuePair> getUserInfoAsDict(){
 
-        ArrayList<NameValuePair> list=new ArrayList<NameValuePair>();
-        list.add(new BasicNameValuePair(ID,this.id));
-        list.add(new BasicNameValuePair(DEVICE_ID,this.deviceId));
-        list.add(new BasicNameValuePair(NAME,this.name));
-        list.add(new BasicNameValuePair(SURNAME,this.surname));
-        list.add(new BasicNameValuePair(EMAIL,this.email));
-        list.add(new BasicNameValuePair(BIRTH_DATE,this.birthDate));
-        list.add(new BasicNameValuePair(PROFILE_PHOTO_URL,this.profilPhotoUrl));
-        list.add(new BasicNameValuePair(PHONE_1,this.phone1));
-        list.add(new BasicNameValuePair(PHONE_2,this.phone2));
-        list.add(new BasicNameValuePair(GENDER,this.gender));
+    public CardBookUser(){
+
+    }
+    public CardBookUser(JSONObject object){
+        this.id=object.optString(ID);
+        this.deviceId=object.optString(DEVICE_ID);
+        this.name=object.optString(NAME);
+        this.surname=object.optString(SURNAME);
+        this.email=object.optString(EMAIL);
+        this.birthDate= AppConstants.parseMsTimestampToDate(object.optString(BIRTH_DATE));
+        this.profilPhotoUrl=object.optString(PROFILE_PHOTO_URL);
+        this.phone1=object.optString(PHONE_1);
+        this.phone2=object.optString(PHONE_2);
+        this.gender=object.optString(GENDER);
+        this.barcodeUrl=object.optString(BARCODE_URL);
+        this.addres=new Address(object.optJSONObject(ADDRESS));
+    }
+
+    public Map<String,String> getUserInfoAsDict(){
+
+        Map<String,String> list=new HashMap<String, String>();
+
+        list.put(ID,this.id);
+        list.put(DEVICE_ID,this.deviceId);
+        list.put(NAME,this.name);
+        list.put(SURNAME,this.surname);
+        list.put(EMAIL,this.email);
+        list.put(BIRTH_DATE,getBirthDate());
+        list.put(PROFILE_PHOTO_URL,this.profilPhotoUrl);
+        list.put(PHONE_1,this.phone1);
+        list.put(PHONE_2,this.phone2);
+        list.put(GENDER,this.gender);
+        list.put(BARCODE_URL,this.barcodeUrl);
 
 //        ArrayList<NameValuePair> addressList=new ArrayList<NameValuePair>();
-        list.add(new BasicNameValuePair(COUNTRY_ID,Integer.toString(addres.getCountryId())));
-        list.add(new BasicNameValuePair(CITY_ID,Integer.toString(addres.getCityId())));
-        list.add(new BasicNameValuePair(COUNTY_ID,Integer.toString(addres.getCountId())));
-        list.add(new BasicNameValuePair(ADDRESS_LINE,"karakaya mah"));
+        list.put(COUNTRY_ID,Integer.toString(addres.getCountryId()));
+        list.put(CITY_ID,Integer.toString(addres.getCityId()));
+        list.put(COUNTY_ID,Integer.toString(addres.getCountId()));
+        list.put(ADDRESS_LINE,addres.getAddressLine());
 
 //      list.add(new BasicNameValuePair(ADDRESS,addressList.toString()));
 
@@ -107,12 +140,31 @@ public class CardBookUser {
     }
 
     public String getBirthDate() {
-        return birthDate;
+        SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy");
+        return format.format(this.birthDate);
     }
 
     public void setBirthDate(String birthDate) {
+
         birthDate=birthDate.replace("/","-");
-        this.birthDate = birthDate;
+        SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy");
+        try {
+            this.birthDate=format.parse(birthDate);
+        } catch (ParseException e) {
+
+            e.printStackTrace();
+        }
+
+    }
+
+    public void setBirthDateFromJson(String birthDate) {
+
+
+
+        Date date=AppConstants.parseMsTimestampToDate(birthDate);
+        this.birthDate=date;
+
+
     }
 
     public String getProfilPhotoUrl() {
@@ -151,6 +203,14 @@ public class CardBookUser {
         else
             gender="M";
         this.gender = gender;
+    }
+
+    public String getBarcodeUrl() {
+        return barcodeUrl;
+    }
+
+    public void setBarcodeUrl(String barcodeUrl) {
+        this.barcodeUrl = barcodeUrl;
     }
 
     public Address getAddres() {

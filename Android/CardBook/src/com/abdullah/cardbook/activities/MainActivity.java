@@ -5,6 +5,7 @@ import com.abdullah.cardbook.CardbookApp;
 import com.abdullah.cardbook.R;
 import com.abdullah.cardbook.common.AppConstants;
 import com.abdullah.cardbook.connectivity.ConnectionManager;
+import com.abdullah.cardbook.connectivity.RequestCallBack;
 import com.abdullah.cardbook.models.Campaign;
 import com.abdullah.cardbook.models.Shopping;
 import com.abdullah.cardbook.models.address.Address;
@@ -43,6 +44,8 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends Activity implements OnClickListener {
 
@@ -86,6 +89,24 @@ public class MainActivity extends Activity implements OnClickListener {
      			.build();
 
      		SimpleFacebook.setConfiguration(configuration);
+
+
+        String userInformation=AppConstants.getUserInformation(this);
+        if(userInformation!=null){
+            JSONObject obje;
+            try {
+                obje=new JSONObject(userInformation);
+
+                CardBookUser user=new CardBookUser(obje);
+                CardbookApp.getInstance().setUser(user);
+                new PostDataOperation().execute(user);
+            }
+            catch(JSONException e){
+
+            }
+
+
+        }
 
     }
 
@@ -171,50 +192,73 @@ public class MainActivity extends Activity implements OnClickListener {
 				public void onComplete(Profile profile) {
                     CardBookUser user=new CardBookUser();
                     user.setId(profile.getId());
-                    user.setDeviceId("123456789");
+                    user.setDeviceId("0");
                     user.setName(profile.getFirstName());
                     user.setSurname(profile.getLastName());
                     user.setEmail(profile.getEmail());
                     user.setBirthDate(profile.getBirthday());
                     user.setGender(profile.getGender());
-                    user.setPhone1("5059519915");
-                    user.setPhone2("");
                     user.setProfilPhotoUrl("http://graph.facebook.com/"+user.getId()+"/picture?style=large" );
 
-                    String location;
-                    if(profile.getLocation()!=null)
-                        location=profile.getLocation().getName();
-                    else
-                        location="";
+                    CardbookApp app=CardbookApp.getInstance();
+                    app.setUser(user);
 
-                    Address adres=new Address(location);
-                    adres.setCountryId(1);
-                    adres.setCityId(2);
-                    adres.setCountId(4);
-                    user.setAddres(adres);
+                    getAddressList();
+//                    Intent intent=new Intent(MainActivity.this, UserInformation.class);
+//                    startActivity(intent);
 
 //                    Log.i("Gender From Face:"+profile.getGender());
 //                    Log.i(profile.getLocale().toString()+", "+profile.getLocation().getName());
 //                    Log.i(profile.getLocale()+", "+profile.getLocation());
 
 //                    new GetAdressList().execute(null);
-                    CardbookApp.getInstance().setUser(user);
-				    new PostDataOperation().execute(user);
+
+//				    new PostDataOperation().execute(user);
 
 
 				}
 			});
  		}
 
- 		@Override
+    		@Override
  		public void onNotAcceptingPermissions()
  		{
  			toast("İzinleri kabul etmediniz.");
  		}
  	};
 
+    public void getAddressList(){
+        RequestCallBack callback= new RequestCallBack() {
+            @Override
+            public void onRequestStart() {
 
- 	private void toast(String message)
+            }
+
+            @Override
+            public void onRequestComplete(JSONObject result) {
+
+                try{
+                    convertAddresList(result.getJSONObject(AppConstants.POST_DATA));
+                }
+                catch (JSONException e){
+                    e.printStackTrace();
+                }
+
+                Intent intent=new Intent(MainActivity.this, UserInformation.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onRequestError() {
+
+            }
+        };
+        ConnectionManager.postData(getApplicationContext(), callback,AppConstants.SM_GET_ADDRESS_LIST,new HashMap<String, String>());
+    }
+
+
+
+    private void toast(String message)
 	{
 		Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
 	}
@@ -228,7 +272,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 
-    private class PostDataOperation  extends AsyncTask<CardBookUser, Void, Void> {
+    public class PostDataOperation  extends AsyncTask<CardBookUser, Void, Void> {
 
         private final HttpClient Client = new DefaultHttpClient();
         private String Content;
@@ -251,7 +295,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
             CardbookApp app=CardbookApp.getInstance();
 
-            JSONObject resultUser=ConnectionManager.postData2(AppConstants.SM_CREATE_OR_UPDATE_USER,user[0].getUserInfoAsDict());
+//            JSONObject resultUser=ConnectionManager.postData2(AppConstants.SM_CREATE_OR_UPDATE_USER,user[0].getUserInfoAsDict());
 
             JSONObject resultAddress=ConnectionManager.postData2(AppConstants.SM_GET_ADDRESS_LIST,null);
 
@@ -260,7 +304,7 @@ public class MainActivity extends Activity implements OnClickListener {
             JSONObject resultCampaign=ConnectionManager.postData2(AppConstants.SM_GET_ALL_ACTIVE_CAMPAIGN_LIST, null);
 
             ArrayList<NameValuePair> list=new ArrayList<NameValuePair>();
-           list.add(new BasicNameValuePair("userId","6"));
+            list.add(new BasicNameValuePair("userId", "6"));
 
 
             JSONObject resultShopping=ConnectionManager.postData2(AppConstants.SM_GET_ALL_SHOPPING_LIST,list);
@@ -297,7 +341,7 @@ public class MainActivity extends Activity implements OnClickListener {
                 Log.i(((JSONObject)array.get(0)).getString("UDate"));
                 String dateString=((JSONObject)array.get(0)).getString("UDate");
                 Date date=AppConstants.parseMsTimestampToDate(dateString);
-                SimpleDateFormat ft = new SimpleDateFormat ("E yyyy.MM.dd 'at' hh:mm:ss a zzz");
+                SimpleDateFormat ft = new SimpleDateFormat ("dd.mm.yyyy");
 
                 Log.i("Current Date: "+ft.format(date));
 
@@ -323,7 +367,7 @@ public class MainActivity extends Activity implements OnClickListener {
             // Close progress dialog
             Dialog.dismiss();
 
-            Intent intent=new Intent(MainActivity.this, UserInformation.class);
+            Intent intent=new Intent(MainActivity.this, AppMainTabActivity.class);
             startActivity(intent);
 //            if (Error != null) {
 //
@@ -348,7 +392,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
     }
 
-    public void convertAddresList(JSONObject list){
+    public static void convertAddresList(JSONObject list){
         try{
             Log.i("converting is started");
             JSONArray jCountryArray=list.getJSONArray(Country.COUNTRY_LIST);

@@ -1,19 +1,18 @@
 package com.abdullah.cardbook.common;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.util.DisplayMetrics;
+import android.widget.Toast;
 
 import com.abdullah.cardbook.R;
 
-import org.apache.http.message.BasicNameValuePair;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -59,6 +58,8 @@ public class AppConstants {
     public static final int[] ACTIVE_BUTTONS={R.drawable.tabicon_mycards_active,R.drawable.tabicon_campaign_active,
             R.drawable.tabicon_shopping_active, R.drawable.tabicon_profile_active};
 
+    public static final String CARDBOOK_SHARED_PREFERENCES ="com.cardbook.android";
+    public static final String USER_INFORMATION ="com.cardbook.android.authenticationToken";
 
     public static Bitmap addMask(Context context, int image, int usedMask){
         Bitmap mask = BitmapFactory.decodeResource(context.getResources(), usedMask);
@@ -83,6 +84,29 @@ public class AppConstants {
         return result;
     }
 
+    public static Bitmap addMask(Context context, Bitmap image, int usedMask){
+
+        Bitmap mask = BitmapFactory.decodeResource(context.getResources(), usedMask);
+        Bitmap original = image;
+
+        Bitmap resizedbitmap = Bitmap.createScaledBitmap(original, mask.getWidth(), mask.getHeight(), true);
+        original=resizedbitmap;
+
+
+        Bitmap result = Bitmap.createBitmap(mask.getWidth(), mask.getHeight(), Bitmap.Config.ARGB_8888);
+
+        Canvas mCanvas = new Canvas(result);
+
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
+
+        mCanvas.drawBitmap(original, 0, 0, null);
+        mCanvas.drawBitmap(mask, 0, 0, paint);
+
+        paint.setXfermode(null);
+
+        return result;
+    }
 
     public static Date parseMsTimestampToDate(final String msJsonDateTime) {
         if(msJsonDateTime == null) return null;
@@ -93,6 +117,35 @@ public class AppConstants {
         String ts = matcher.replaceAll("$2");
         Log.i("TS: "+ts);
         Date retValue = new Date(new Long(ts));
+
         return retValue;
+    }
+
+    public static int getCacheSize(Context context) {
+        final DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        final int screenWidth = displayMetrics.widthPixels;
+        final int screenHeight = displayMetrics.heightPixels;
+        final int screenBytes = screenWidth * screenHeight * 4; // 4 bytes per pixel
+        Log.i("CacheSize: "+screenBytes*30);
+        return screenBytes * 3;
+    }
+
+    public static void ErrorToast(Context context){
+        Toast.makeText(context, "Sunucu kaynaklı bir hata ile karşılaşıldı; lütfen işleminizi daha sonra tekrar deneyiniz.", Toast.LENGTH_LONG).show();
+    }
+
+    public static void setUserInformation(Context context,String info){
+        SharedPreferences sp=context.getSharedPreferences(CARDBOOK_SHARED_PREFERENCES,Context.MODE_PRIVATE);
+//        if(sp.getString(USER_INFORMATION,null)==null){
+        SharedPreferences.Editor editor=sp.edit();
+        editor.putString(USER_INFORMATION,info).commit();
+//        }
+//
+    }
+
+    public static String getUserInformation(Context context){
+        SharedPreferences sp=context.getSharedPreferences(CARDBOOK_SHARED_PREFERENCES,Context.MODE_PRIVATE);
+
+        return sp.getString(USER_INFORMATION,null);
     }
 }

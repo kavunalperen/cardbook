@@ -36,14 +36,14 @@ public class Company {
 
     private static String U_USER="UUser";
     private static String CARDBOOK_USER_CARD="CardbookUserCard";
-    private static String COMPANY_ID="CompanyId";
+    public static String COMPANY_ID="CompanyId";
     public static String SHOPPING_PROMOTION_CREDIT_LIST="ShoppingPromotionCreditList";
     private static String U_DATE= "UDate";
     private static String COMPANY_NAME="CompanyName";
     private static String COMPANY_CODE="CompanyCode";
     private static String COMPANY_DESCRIPTION="CompanyDescription";
     public static String SHOPPING_PROMOTION_COUPON_LIST="ShoppingPromotionCouponList";
-    private static String USER_WANT_NOTIFICATION="UserWantNotification";
+    public static String USER_WANT_NOTIFICATION="UserWantNotification";
     private static String STATUS="Status";
     private static String COMPANY_LOGO="CompanyLogo";
     private static String COMPANY_DETAIL="CompanyDetail";

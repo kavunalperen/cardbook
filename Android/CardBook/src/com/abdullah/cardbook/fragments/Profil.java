@@ -1,23 +1,65 @@
 package com.abdullah.cardbook.fragments;
 
 
+import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.abdullah.cardbook.CardbookApp;
 import com.abdullah.cardbook.R;
+import com.abdullah.cardbook.activities.AppMainTabActivity;
+import com.abdullah.cardbook.activities.Barcode;
+import com.abdullah.cardbook.activities.UserInformation;
 import com.abdullah.cardbook.adapters.FragmentPageListener;
 import com.abdullah.cardbook.common.AppConstants;
+import com.abdullah.cardbook.common.Font;
+import com.abdullah.cardbook.common.Log;
+import com.abdullah.cardbook.connectivity.BitmapLruCache;
+import com.abdullah.cardbook.models.CardBookUser;
+import com.abdullah.cardbook.models.address.City;
+import com.abdullah.cardbook.models.address.Country;
+import com.abdullah.cardbook.models.address.County;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
 
 
-public class Profil extends BaseFragment {
+public class Profil extends BaseFragment implements OnClickListener {
 
+    View view;
+    TextView name,surname, mailH, mail, dateH, date, genderH, gender, phoneH, phone,
+            countryH, country, cityH, city,countyH, county, addressH, address;
 
-    private Button mGotoButton;
+    ImageButton btnUpdate, btnLogout, btnBarcode;
 
+    CardbookApp app;
+    CardBookUser user;
+
+    private RequestQueue requestQueue;
+    private ImageLoader imageLoader;
+    BitmapLruCache cache;
+
+    int btnUpdateId=99;
+    int btnLogoutId=66;
+    int btnBarcodeId=33;
 
     public Profil(){
 
@@ -30,19 +72,188 @@ public class Profil extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        View view       =   inflater.inflate(R.layout.app_tab_d_first_screen, container, false);
+        view = inflater.inflate(R.layout.profiilim, container, false);
 
-        mGotoButton =   (Button) view.findViewById(R.id.id_next_tab_a_button);
-        mGotoButton.setOnClickListener(listener);
-
+        setContent();
         return view;
     }
 
-    private OnClickListener listener        =   new OnClickListener(){
-        @Override
-        public void onClick(View v){
-            /* Go to next fragment in navigation stack*/
-//            mActivity.pushFragments(AppConstants.PROFIL, new AppTabASecondFragment(),true,true);
+    public void setContent(){
+        app=CardbookApp.getInstance();
+        user=app.getUser();
+
+        if(user==null){
+            Log.i("User is null");
+            user=CardbookApp.getInstance().getUser();
         }
-    };
+
+        Typeface regular, light;
+        regular= Font.getFont(getActivity(), Font.ROBOTO_REGULAR);
+        light=Font.getFont(getActivity(), Font.ROBOTO_LIGHT);
+
+        name=(TextView) view.findViewById(R.id.tvProfilName);
+        surname=(TextView) view.findViewById(R.id.tvProfilSurname);
+        mailH=(TextView) view.findViewById(R.id.tvProfilMailHeader);
+        mail=(TextView) view.findViewById(R.id.tvProfilMail);
+        dateH=(TextView) view.findViewById(R.id.tvProfilDateHeader);
+        date=(TextView) view.findViewById(R.id.tvProfilDate);
+        genderH=(TextView) view.findViewById(R.id.tvProfilGenderHeader);
+        gender=(TextView) view.findViewById(R.id.tvProfilGender);
+        phoneH=(TextView) view.findViewById(R.id.tvProfilPhoneHeader);
+        phone=(TextView) view.findViewById(R.id.tvProfilPhoone);
+        countryH=(TextView) view.findViewById(R.id.tvProfilCountryHeader);
+        country=(TextView) view.findViewById(R.id.tvProfilCountry);
+        cityH=(TextView) view.findViewById(R.id.tvProfilCityHeader);
+        city=(TextView) view.findViewById(R.id.tvProfilCity);
+        countyH=(TextView) view.findViewById(R.id.tvProfilCountyHeader);
+        county=(TextView) view.findViewById(R.id.tvProfilCounty);
+        addressH=(TextView) view.findViewById(R.id.tvProfilAddressLineHeader);
+        address=(TextView) view.findViewById(R.id.tvProfilAdressLine);
+
+        btnUpdate=(ImageButton)view.findViewById(R.id.btnProfilUpdate);
+        btnUpdate.setId(btnUpdateId);
+        btnUpdate.setOnClickListener(this);
+
+        btnLogout=(ImageButton)view.findViewById(R.id.btnLogout);
+        btnLogout.setId(btnLogoutId);
+        btnLogout.setOnClickListener(this);
+
+        btnLogout=(ImageButton)view.findViewById(R.id.btnBarcode);
+        btnLogout.setId(btnBarcodeId);
+        btnLogout.setOnClickListener(this);
+
+        TextView[] regularArray={mailH,dateH,genderH,phoneH, countryH,countyH,cityH, addressH, name,surname};
+        TextView[] ligthArray={mail,date,gender,phone, country,county,city, address};
+
+        for(TextView tv:regularArray)
+            tv.setTypeface(regular);
+
+        for(TextView tv:ligthArray)
+            tv.setTypeface(light);
+
+        Country mcountry=getCountry(user.getAddres().getCountryId());
+        City mcity=getCity(user.getAddres().getCityId(),mcountry.getId());
+        County mcounty=getCounty(user.getAddres().getCountId(), mcity.getId(),mcountry.getId());
+
+        String strGender=user.getGender().equals("M")?"Erkek":"Kadın";
+
+
+        TextView[] textViews={name,surname,mail,date,gender,phone, country,county,city, address};
+        String[] contentArray={user.getName(),user.getSurname(), user.getEmail(), user.getBirthDate(),
+                strGender, user.getPhone1(), mcountry.getName(), mcity.getName(), mcounty.getName(), user.getAddres().getAddressLine()};
+
+        for(int i=0; i<textViews.length;i++)
+            textViews[i].setText(contentArray[i]);
+
+
+
+        requestQueue= CardbookApp.getInstance().getRequestQuee();
+        int cacheSize=AppConstants.getCacheSize(getActivity());
+
+        this.cache=new BitmapLruCache(cacheSize);
+
+        setNavBarItemsStyle(view);
+        addImage();
+    }
+
+
+    public void showBarcode(){
+
+        Intent i=new Intent(getActivity(), Barcode.class);
+        startActivity(i);
+    }
+
+
+    public static Country getCountry(int id){
+        Country result=null;
+        ArrayList<Country> countries=CardbookApp.getInstance().getCountries();
+        for(Country contry: countries){
+            if(contry.getId()==id){
+                result=contry;
+                break;
+            }
+
+        }
+        return result;
+    }
+
+    public static City getCity(int cityId, int countryId){
+        City result=null;
+        ArrayList<City> cities=getCountry(countryId).getCities();
+        for(City city: cities){
+            if(city.getId()==cityId){
+                result=city;
+                break;
+            }
+
+        }
+        return result;
+    }
+
+    public static County getCounty(int countyId, int cityId, int countryId){
+        County result=null;
+        ArrayList<County> counties=getCity(cityId, countryId).getCounties();
+        for(County county: counties){
+            if(county.getId()==countyId){
+                result=county;
+                break;
+            }
+
+        }
+        return result;
+    }
+
+    public void addImage(){
+        Log.i("addımage: " + user.getProfilPhotoUrl());
+        imageLoader=new ImageLoader(requestQueue, this.cache);
+        final ImageView mImageView= (ImageView)view.findViewById(R.id.userImage);
+        imageLoader.get(user.getProfilPhotoUrl(), new ImageLoader.ImageListener() {
+            @Override
+            public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
+                Log.i("Image Response is done ");
+
+
+                if(response.getBitmap()!=null){
+//                    Bitmap result=AppConstants.addMask(Profil.this.getActivity(), response.getBitmap(), R.drawable.listview_photomask);
+//
+                    mImageView.setImageBitmap(response.getBitmap());
+                    mImageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                }
+            }
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i("Image Response Error");
+            }
+        });
+    }
+
+
+    public void logout(){
+
+        try{
+            AppConstants.setUserInformation(getActivity(),null);
+            Toast.makeText(getActivity(),"Hesabınız başarıyla silindi.",Toast.LENGTH_LONG).show();
+        }
+        catch (Exception e){
+            Toast.makeText(getActivity(),"Hata oluştu; lütfen daha sonra tekrar deneyin.",Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        if(view.getId()==btnUpdateId){
+
+            Intent intent=new Intent(getActivity(), UserInformation.class);
+            intent.putExtra("isFromProfil",true);
+            startActivity(intent);
+        }
+        else if(view.getId()==btnLogoutId)
+            logout();
+        else if(view.getId()==btnBarcodeId)
+            showBarcode();
+
+    }
 }

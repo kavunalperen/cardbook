@@ -87,7 +87,7 @@ public class KampanyaDetail extends BaseFragment{
         tvRequiments.setTypeface(light);
         String requiments=getRequiements(campain.getDetailList());
         tvRequiments.setText(requiments);
-
+        setNavBarItemsStyle(view);
         return view;
 	}
 

@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 
 import com.abdullah.cardbook.CardbookApp;
@@ -55,7 +56,7 @@ public class AlisVeris extends BaseFragment implements AdapterView.OnItemClickLi
 
 
 
-        if(CardbookApp.getInstance().getCompanies()!=null)
+        if(CardbookApp.getInstance().getShoppings()!=null)
             setList(CardbookApp.getInstance().getShoppings());
         else{
             Button button=new Button(getActivity());
@@ -65,9 +66,10 @@ public class AlisVeris extends BaseFragment implements AdapterView.OnItemClickLi
             layout.addView(button);
         }
 
-
+            setNavBarItemsStyle(view);
         return view;
     }
+
 
 
     public void setList(ArrayList<Shopping> item){

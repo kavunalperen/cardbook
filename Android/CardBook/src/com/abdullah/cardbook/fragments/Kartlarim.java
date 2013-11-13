@@ -54,7 +54,7 @@ public class Kartlarim extends BaseFragment implements OnItemClickListener{
         listView= (ListView) view.findViewById(R.id.lvKartlarim);
         listView.setDivider(null);
 
-
+        setNavBarItemsStyle(view);
 
         if(CardbookApp.getInstance().getCompanies()!=null)
     		setList(CardbookApp.getInstance().getCompanies());

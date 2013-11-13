@@ -10,42 +10,19 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" >
 
-        <RelativeLayout
-            android:id="@+id/layoutNavigationBar"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/main_navigation_bg"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp">
-            
-            <TextView
-                android:id="@+id/navBarTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:layout_marginLeft="10dp"
-                android:gravity="center_vertical"
-                android:text="Cardbook"
-                android:textAlignment="gravity"
-                android:textColor="@color/navigationBarHeaderTextColor"
-                android:textSize="20dp" />
-
-
-
-        </RelativeLayout>
-
         <FrameLayout
             android:id="@android:id/tabcontent"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/layoutNavigationBar"
-            android:layout_above="@+id/tapLayout"/>
+            android:layout_above="@+id/tapLayout"
+                />
 
         <android.support.v4.view.ViewPager
         	android:id="@+id/viewpager"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/layoutNavigationBar"
-            android:layout_above="@+id/tapLayout"/>
+            android:layout_above="@+id/tapLayout"
+                />
 
         <RelativeLayout
             android:id="@+id/tapLayout"

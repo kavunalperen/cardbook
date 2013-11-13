@@ -2,7 +2,395 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+        >
+
+    <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_navigation_bg"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp">
+
+        <TextView
+                android:id="@+id/navBarTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
+                android:text="Profil"
+                android:textAlignment="gravity"
+                android:textColor="@color/navigationBarHeaderTextColor"
+                android:textSize="20dp"/>
+
+        <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnLogout"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/btn_profil_logout_bg"
+                android:layout_marginRight="60dp"
+                android:layout_alignWithParentIfMissing="false"/>
+
+        <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnProfilUpdate"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/btn_profil_update_bg"
+                android:layout_marginRight="20dp"/>
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            style="@style/layout">
+
+        <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView2"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/listview_top_bg"/>
+
+        <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/listview_content_bg"
+                android:paddingLeft="15dp">
+
+            <ImageView
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:id="@+id/userImage"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/profil_image_bg"
+                    />
+
+            <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="İsim"
+                        android:id="@+id/tvProfilName"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Soyisim"
+                        android:id="@+id/tvProfilSurname"/>
+
+                <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btnBarcode"
+                        android:background="@drawable/profile_barcode"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="17dp"
+                android:background="@drawable/listview_content_bg">
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="2dp"
+                android:background="#E5E5E5"
+                android:paddingTop="17dp"
+                android:layout_gravity="bottom"
+                android:layout_alignParentBottom="true"/>
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollView"
+            android:layout_gravity="center_horizontal">
+
+
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center_horizontal">
+
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:background="@drawable/listview_content_bg">
+
+            <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="35dp"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:layout_gravity="center_vertical"
+                    >
+
+                <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="E-Posta"
+                        android:id="@+id/tvProfilMailHeader"
+                        android:textSize="14sp"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/color626262"/>
+
+                <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Medium Text"
+                        android:id="@+id/tvProfilMail"
+                        android:textSize="14sp"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/color626262"/>
+            </LinearLayout>
+
+            <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="#E5E5E5"/>
+
+            <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="35dp"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:layout_gravity="center_vertical">
+
+                <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="Doğum Tarihi"
+                        android:id="@+id/tvProfilDateHeader"
+                        android:textSize="14sp"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/color626262"/>
+
+                <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Medium Text"
+                        android:id="@+id/tvProfilDate"
+                        android:textSize="14sp"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/color626262"/>
+            </LinearLayout>
+
+            <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="#E5E5E5"/>
+
+                <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="35dp"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:id="@+id/linearLayout">
+
+                    <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="Cinsiyet"
+                            android:id="@+id/tvProfilGenderHeader"
+                            android:textSize="14sp"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="@color/color626262"/>
+
+                    <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Medium Text"
+                            android:id="@+id/tvProfilGender"
+                            android:textSize="14sp"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="@color/color626262"/>
+                </LinearLayout>
+                <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1dp"
+                        android:background="#E5E5E5"/>
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="35dp"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:layout_gravity="center_vertical">
+
+                <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="Telefon No"
+                        android:id="@+id/tvProfilPhoneHeader"
+                        android:textSize="14sp"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/color626262"/>
+
+                <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Medium Text"
+                        android:id="@+id/tvProfilPhoone"
+                        android:textSize="14sp"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/color626262"/>
+            </LinearLayout>
+
+            <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="#E5E5E5"/>
+                <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="35dp"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="20dp"
+                        android:layout_gravity="center_vertical">
+
+                    <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="Ülke"
+                            android:id="@+id/tvProfilCountryHeader"
+                            android:textSize="14sp"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="@color/color626262"/>
+
+                    <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Medium Text"
+                            android:id="@+id/tvProfilCountry"
+                            android:textSize="14sp"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="@color/color626262"/>
+                </LinearLayout>
+
+                <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1dp"
+                        android:background="#E5E5E5"/>
+            <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="35dp"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:layout_gravity="center_vertical">
+
+                <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="Sehir"
+                        android:id="@+id/tvProfilCityHeader"
+                        android:textSize="14sp"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/color626262"/>
+
+                <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Medium Text"
+                        android:id="@+id/tvProfilCity"
+                        android:textSize="14sp"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/color626262"/>
+            </LinearLayout>
+
+            <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="#E5E5E5"
+                    android:paddingTop="17dp"/>
+
+            <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="35dp"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:layout_gravity="center_vertical">
+
+                <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="İlçe"
+                        android:id="@+id/tvProfilCountyHeader"
+                        android:textSize="14sp"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/color626262"/>
+
+                <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Medium Text"
+                        android:id="@+id/tvProfilCounty"
+                        android:textSize="14sp"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/color626262"/>
+            </LinearLayout>
+
+            <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="#E5E5E5"/>
+            <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="35dp"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:layout_gravity="center_vertical">
+
+                <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="Adres"
+                        android:id="@+id/tvProfilAddressLineHeader"
+                        android:textSize="14sp"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/color626262"/>
+
+                <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Medium Text"
+                        android:id="@+id/tvProfilAdressLine"
+                        android:textSize="14sp"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/color626262"
+                        android:ellipsize="end"
+                        android:maxLines="2"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+            <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView2"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/profile_footer"/>
+        </LinearLayout>
+    </ScrollView>
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -3,15 +3,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="wrap_content"
+        >
 
     <TextView
             android:layout_width="fill_parent"
-            android:layout_height="@dimen/btn_user_information_height"
+            android:layout_height="30dp"
             android:text="Large Text"
             android:id="@+id/addressAdapterName"
             android:gravity="left|center_vertical"
             android:textSize="14sp"
+            android:paddingLeft="5dp"
             android:textColor="@color/user_info_spinner"
-            android:paddingLeft="10dp" />
+            android:layout_gravity="center_vertical"/>
 </LinearLayout>
