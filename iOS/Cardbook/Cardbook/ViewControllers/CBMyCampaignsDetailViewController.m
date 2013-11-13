@@ -152,7 +152,7 @@
     NSLog(@"my campaigns details");
     [self stylizeNavigationBar];
     [self stylizeForDetailView];
-    [self setTitleButtonText:@"KAMPANYALARIM"];
+    [self setTitleButtonText:@"Kampanyalarım"];
     [self.titleButton addTarget:self action:@selector(goBacktoCampaigns) forControlEvents:UIControlEventTouchUpInside];
     
     [self initCommonViews];

@@ -165,7 +165,7 @@
 	// Do any additional setup after loading the view.
     [self stylizeNavigationBar];
     [self stylizeForDetailView];
-    [self setTitleButtonText:@"ALIŞVERİŞLERİM"];
+    [self setTitleButtonText:@"Alışverişlerim"];
     [self.titleButton addTarget:self action:@selector(goBacktoShoppings) forControlEvents:UIControlEventTouchUpInside];
     [self initHeaderComponents];
     [self initContentComponents];
@@ -368,7 +368,7 @@
     [facebookButton setFrame:[self facebookButtonFrame]];
     [facebookButton setBackgroundColor:[UIColor clearColor]];
     [facebookButton setImage:[UIImage imageNamed:@"share_button_normal.png"] forState:UIControlStateNormal];
-    [facebookButton setImage:[UIImage imageNamed:@"share_button_highlighted.png"] forState:UIControlStateNormal];
+    [facebookButton setImage:[UIImage imageNamed:@"share_button_highlighted.png"] forState:UIControlStateHighlighted];
     [facebookButton addTarget:self action:@selector(shareOnFacebook) forControlEvents:UIControlEventTouchUpInside];
     [facebookHolder addSubview:facebookButton];
 }

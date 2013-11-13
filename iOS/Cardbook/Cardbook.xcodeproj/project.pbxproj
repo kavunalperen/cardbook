@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0531301B183362DB008F7C83 /* profile_barcode@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 05313017183362DB008F7C83 /* profile_barcode@2x.png */; };
+		0531301C183362DB008F7C83 /* profile_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 05313018183362DB008F7C83 /* profile_bg@2x.png */; };
+		0531301D183362DB008F7C83 /* profile_update_btn_highlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 05313019183362DB008F7C83 /* profile_update_btn_highlighted@2x.png */; };
+		0531301E183362DB008F7C83 /* profile_update_btn_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0531301A183362DB008F7C83 /* profile_update_btn_normal@2x.png */; };
 		054342551830190200CC1FE3 /* notification_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 054342531830190200CC1FE3 /* notification_off@2x.png */; };
 		054342561830190200CC1FE3 /* notification_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 054342541830190200CC1FE3 /* notification_on@2x.png */; };
 		054342591830255F00CC1FE3 /* CBCardDetailsCouponCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 054342581830255F00CC1FE3 /* CBCardDetailsCouponCell.m */; };
@@ -126,6 +130,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		05313017183362DB008F7C83 /* profile_barcode@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile_barcode@2x.png"; sourceTree = "<group>"; };
+		05313018183362DB008F7C83 /* profile_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile_bg@2x.png"; sourceTree = "<group>"; };
+		05313019183362DB008F7C83 /* profile_update_btn_highlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile_update_btn_highlighted@2x.png"; sourceTree = "<group>"; };
+		0531301A183362DB008F7C83 /* profile_update_btn_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile_update_btn_normal@2x.png"; sourceTree = "<group>"; };
 		054342531830190200CC1FE3 /* notification_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification_off@2x.png"; sourceTree = "<group>"; };
 		054342541830190200CC1FE3 /* notification_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification_on@2x.png"; sourceTree = "<group>"; };
 		054342571830255F00CC1FE3 /* CBCardDetailsCouponCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCardDetailsCouponCell.h; sourceTree = "<group>"; };
@@ -299,6 +307,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		05313016183362DB008F7C83 /* profile */ = {
+			isa = PBXGroup;
+			children = (
+				05313017183362DB008F7C83 /* profile_barcode@2x.png */,
+				05313018183362DB008F7C83 /* profile_bg@2x.png */,
+				05313019183362DB008F7C83 /* profile_update_btn_highlighted@2x.png */,
+				0531301A183362DB008F7C83 /* profile_update_btn_normal@2x.png */,
+			);
+			path = profile;
+			sourceTree = "<group>";
+		};
 		056D0B6918315C8600A398B6 /* campaigns */ = {
 			isa = PBXGroup;
 			children = (
@@ -587,6 +606,7 @@
 				059C94D3182EE6230010651B /* tableview */,
 				059C94A6182ED8B80010651B /* tabbar */,
 				059C9498182E876C0010651B /* register */,
+				05313016183362DB008F7C83 /* profile */,
 				059C94C3182EDF8B0010651B /* main_bg@2x.jpg */,
 				059C94C5182EDFD30010651B /* main_bg-568h@2x.jpg */,
 				05D81F64181FD40F00F3A7AD /* splash_bg-568h@2x.jpg */,
@@ -741,6 +761,7 @@
 				059C94E2182EE62F0010651B /* main_navigation_bg@2x.png in Resources */,
 				059C9493182E85D80010651B /* Roboto-Light.ttf in Resources */,
 				05780B181832AFDC0018A1FA /* shopping_harcama_icon@2x.png in Resources */,
+				0531301C183362DB008F7C83 /* profile_bg@2x.png in Resources */,
 				059C94B2182ED8B80010651B /* tabicon_mycards_normal@2x.png in Resources */,
 				059C94B4182ED8B80010651B /* tabicon_profile_normal@2x.png in Resources */,
 				05780B101832AFDC0018A1FA /* share_button_normal@2x.png in Resources */,
@@ -748,6 +769,7 @@
 				056D0B7618315C8600A398B6 /* campaign_detail_white_bottom@2x.png in Resources */,
 				05D81F6B181FD40F00F3A7AD /* splash_logo@2x.png in Resources */,
 				05D81F68181FD40F00F3A7AD /* splash_bg-568h@2x.jpg in Resources */,
+				0531301B183362DB008F7C83 /* profile_barcode@2x.png in Resources */,
 				05A55E1D182F89BA00CE6D08 /* top_maske@2x.png in Resources */,
 				05A55E17182EFA8100CE6D08 /* dummy_brand@2x.jpg in Resources */,
 				05D81F69181FD40F00F3A7AD /* splash_face_btn_highlighted@2x.png in Resources */,
@@ -765,12 +787,14 @@
 				05780B131832AFDC0018A1FA /* shopping_detail_blue_bg@2x.png in Resources */,
 				054342551830190200CC1FE3 /* notification_off@2x.png in Resources */,
 				05A55E24182F9AF000CE6D08 /* mycards_detail_header@2x.png in Resources */,
+				0531301D183362DB008F7C83 /* profile_update_btn_highlighted@2x.png in Resources */,
 				059C9497182E85D80010651B /* Roboto-Regular.ttf in Resources */,
 				056D0B7418315C8600A398B6 /* campaign_detail_header@2x.png in Resources */,
 				05780B171832AFDC0018A1FA /* shopping_firma_icon@2x.png in Resources */,
 				05A55E1A182F02BB00CE6D08 /* cell_detail_arrow_highlighted@2x.png in Resources */,
 				059C9490182E85D80010651B /* Roboto-Bold.ttf in Resources */,
 				059C94B5182ED8B80010651B /* tabicon_shopping_active@2x.png in Resources */,
+				0531301E183362DB008F7C83 /* profile_update_btn_normal@2x.png in Resources */,
 				059C94DE182EE6230010651B /* main_bigcell_bg@2x.png in Resources */,
 				056D0B7518315C8600A398B6 /* campaign_detail_white@2x.png in Resources */,
 				059C94B6182ED8B80010651B /* tabicon_shopping_normal@2x.png in Resources */,

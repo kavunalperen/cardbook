@@ -159,6 +159,19 @@
 #define MY_SHOPPINGS_DETAILS_SPENT_POINTS_POINTS_LABELS_FONT [UIFont fontWithName:@"Roboto-Bold" size:19.0]
 #define MY_SHOPPINGS_DETAILS_SPENT_POINTS_POINTS_LABELS_TEXT_COLOR [UIColor colorWithRed:0.0/255.0 green:122.0/255.0 blue:255.0/255.0 alpha:1.0]
 
+// profile screen related macros
+
+#define PROFILE_IMAGE_BORDER_COLOR [UIColor colorWithRed:231.0/255.0 green:231.0/255.0 blue:231.0/255.0 alpha:1.0]
+
+#define PROFILE_NAME_LABEL_FONT [UIFont fontWithName:@"Roboto-Regular" size:14.0]
+#define PROFILE_NAME_LABEL_TEXT_COLOR [UIColor colorWithRed:0.0/255.0 green:122.0/255.0 blue:255.0/255.0 alpha:1.0]
+
+#define PROFILE_INFO_TITLE_LABELS_FONT [UIFont fontWithName:@"Roboto-Regular" size:14.0]
+#define PROFILE_INFO_TITLE_LABELS_TEXT_COLOR [UIColor colorWithRed:98.0/255.0 green:98.0/255.0 blue:98.0/255.0 alpha:1.0]
+
+#define PROFILE_INFO_LABELS_FONT [UIFont fontWithName:@"Roboto-Light" size:14.0]
+#define PROFILE_INFO_LABELS_TEXT_COLOR [UIColor colorWithRed:98.0/255.0 green:98.0/255.0 blue:98.0/255.0 alpha:1.0]
+
 #import <Foundation/Foundation.h>
 
 @interface CBUtil : NSObject

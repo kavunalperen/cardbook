@@ -117,7 +117,7 @@
     NSLog(@"mycards detail");
     [self stylizeNavigationBar];
     [self stylizeForDetailView];
-    [self setTitleButtonText:@"KARTLARIM"];
+    [self setTitleButtonText:@"Kartlarım"];
     [self.titleButton addTarget:self action:@selector(goBackToCards) forControlEvents:UIControlEventTouchUpInside];
     [self initCommonViews];
     [self initHeaderComponents];

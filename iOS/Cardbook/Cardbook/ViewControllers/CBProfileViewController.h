@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CBBaseViewController.h"
 
-@interface CBProfileViewController : UIViewController
+@interface CBProfileViewController : CBBaseViewController <UIScrollViewDelegate>
+
+@property UIScrollView* scrollView;
 
 @end
