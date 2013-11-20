@@ -7,6 +7,7 @@ import com.abdullah.cardbook.models.promotion.Credit;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -89,7 +90,9 @@ public class Shopping {
         this.company = company;
     }
 
-    public Date getDate() {
+    public String getDate() {
+        SimpleDateFormat format=new SimpleDateFormat("dd MMMM yyyy");
+        String date=format.format(this.date);
         return date;
     }
 

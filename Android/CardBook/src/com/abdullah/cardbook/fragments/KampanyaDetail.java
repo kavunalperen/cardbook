@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,10 +19,14 @@ import com.abdullah.cardbook.adapters.KartlarimDetailListAdapter;
 import com.abdullah.cardbook.common.AppConstants;
 import com.abdullah.cardbook.common.Font;
 import com.abdullah.cardbook.common.Log;
+import com.abdullah.cardbook.connectivity.BitmapLruCache;
 import com.abdullah.cardbook.connectivity.ConnectionManager;
 import com.abdullah.cardbook.models.Campaign;
 import com.abdullah.cardbook.models.Company;
 import com.abdullah.cardbook.models.promotion.Coupon;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -38,6 +43,10 @@ public class KampanyaDetail extends BaseFragment{
     CardbookApp app;
     int position;
 
+    private RequestQueue requestQueue;
+    private ImageLoader imageLoader;
+    BitmapLruCache cache;
+    ImageView mImageView;
 
 	public KampanyaDetail(){
 
@@ -45,12 +54,19 @@ public class KampanyaDetail extends BaseFragment{
 
 	public KampanyaDetail(FragmentPageListener listener){
 		super.pageListener = listener;
-		
+
+
 	}
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.kampanya_detail, container, false);
+
+        requestQueue= CardbookApp.getInstance().getRequestQuee();
+        int cacheSize=AppConstants.getCacheSize(getActivity());
+
+        this.cache=new BitmapLruCache(cacheSize);
+
 
         Bundle bundle=this.getArguments();
         position=bundle.getInt("position",0);
@@ -63,33 +79,71 @@ public class KampanyaDetail extends BaseFragment{
         Typeface light=Font.getFont(getActivity(),Font.ROBOTO_LIGHT);
         Typeface black=Font.getFont(getActivity(),Font.ROBOTO_BLACK);
 
+        String companyName="";
+        ArrayList<Company> companies=app.getCompanies();
+        for(Company cp:companies)
+            if(String.valueOf(cp.getCompanyId())==campain.getCompanyId())
+                companyName=cp.getCompanyName();
+
         tvHeader=(TextView)view.findViewById(R.id.tvKampanyaDetayHeader);
         tvHeader.setTypeface(black);
-        tvHeader.setText(campain.getCompanyId());
+        tvHeader.setText(companyName);
 
-        tvDescriptionHeader=(TextView)view.findViewById(R.id.tvKampanyaDetailRequimentHeader);
+        mImageView=(ImageView)view.findViewById(R.id.campainBanner);
+
+        tvDescriptionHeader=(TextView)view.findViewById(R.id.tvKampanyaDetailDescriptionHeader);
         tvDescriptionHeader.setTypeface(medium);
-        tvDescriptionHeader.setText("Kampanya başlığı");
+        tvDescriptionHeader.setText("Desrpition Header");
 
         tvDescription=(TextView)view.findViewById(R.id.tvKampanyaDetailDesription);
         tvDescription.setTypeface(regular);
         tvDescription.setText(campain.getDescription());
-        tvDescription.setText("Buaraya gelecek alan sunucdan tarafımıza gelmiyor. Bu sebeple bu yazıyı görüyorsunuz.");
+        tvDescription.setText(campain.getDescription());
 
         tvDate=(TextView)view.findViewById(R.id.tvKapmanyaDetailDate);
         tvDate.setTypeface(light);
+        tvDate.setText(campain.getStartDate()+" - "+campain.getEndDate());
 
         tvRequimentHeader=(TextView)view.findViewById(R.id.tvKampanyaDetailRequimentHeader);
         tvRequimentHeader.setTypeface(light);
+        tvRequimentHeader.setText("Kampanya Şartları");
 
 
         tvRequiments=(TextView)view.findViewById(R.id.tvKampanyaDetailRequiment);
         tvRequiments.setTypeface(light);
         String requiments=getRequiements(campain.getDetailList());
         tvRequiments.setText(requiments);
+
+        addImage(campain.getBannerUrl());
         setNavBarItemsStyle(view);
         return view;
 	}
+
+    public void addImage(String url){
+
+        imageLoader=new ImageLoader(requestQueue, this.cache);
+
+        imageLoader.get(url, new ImageLoader.ImageListener() {
+            @Override
+            public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
+                Log.i("Image Response is done ");
+
+
+                if(response.getBitmap()!=null){
+//                    Bitmap result=AppConstants.addMask(KartDetail.this.getActivity(), response.getBitmap(), R.drawable.listview_photomask);
+
+                    mImageView.setImageBitmap(response.getBitmap());
+                    mImageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                }
+            }
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i("Image Response Error");
+            }
+        });
+    }
+
 
 
     @Override

@@ -56,6 +56,9 @@ public class MainActivity extends Activity implements OnClickListener {
 	private SimpleFacebook mSimpleFacebook;
 	private ImageButton btnLogin;
 //	private TextView mTextStatus;
+    private ProgressDialog dialog;
+
+    String userInformation;
 
 
     @Override
@@ -63,43 +66,50 @@ public class MainActivity extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+        userInformation=AppConstants.getUserInformation(this);
 
+        dialog = new ProgressDialog(this);
         btnLogin=(ImageButton) findViewById(R.id.btnLogin);
 //        mTextStatus=(TextView) findViewById(R.id.tvStatus);
-        
-        btnLogin.setOnClickListener(this);
-        
-        
-     // initialize facebook configuration
-     		Permissions[] permissions = new Permissions[]
-     		{
-     			Permissions.BASIC_INFO,
-     			Permissions.EMAIL,
-     			Permissions.USER_BIRTHDAY,
-     			Permissions.USER_PHOTOS,
-     			Permissions.PUBLISH_ACTION,
-     			Permissions.PUBLISH_STREAM
-     		};
 
-     		SimpleFacebookConfiguration configuration = new SimpleFacebookConfiguration.Builder()
-     			.setAppId(APP_ID)
-     			.setNamespace(APP_NAMESPACE)
-     			.setPermissions(permissions)
-     			.setDefaultAudience(SessionDefaultAudience.FRIENDS)
-     			.build();
+        if(userInformation==null){
+            btnLogin.setOnClickListener(this);
 
-     		SimpleFacebook.setConfiguration(configuration);
+            // initialize facebook configuration
+            Permissions[] permissions = new Permissions[]
+                    {
+                            Permissions.BASIC_INFO,
+                            Permissions.EMAIL,
+                            Permissions.USER_BIRTHDAY,
+                            Permissions.USER_PHOTOS,
+                            Permissions.PUBLISH_ACTION,
+                            Permissions.PUBLISH_STREAM
+                    };
+
+            SimpleFacebookConfiguration configuration = new SimpleFacebookConfiguration.Builder()
+                    .setAppId(APP_ID)
+                    .setNamespace(APP_NAMESPACE)
+                    .setPermissions(permissions)
+                    .setDefaultAudience(SessionDefaultAudience.FRIENDS)
+                    .build();
+
+            SimpleFacebook.setConfiguration(configuration);
 
 
-        String userInformation=AppConstants.getUserInformation(this);
-        if(userInformation!=null){
+        }
+        else{
+            btnLogin.setVisibility(View.INVISIBLE);
+
             JSONObject obje;
             try {
                 obje=new JSONObject(userInformation);
 
                 CardBookUser user=new CardBookUser(obje);
                 CardbookApp.getInstance().setUser(user);
-                new PostDataOperation().execute(user);
+                if(ConnectionManager.isOnline(this))
+                    new PostDataOperation().execute(user);
+                else
+                    AppConstants.NotOnlineToast(this);
             }
             catch(JSONException e){
 
@@ -107,6 +117,8 @@ public class MainActivity extends Activity implements OnClickListener {
 
 
         }
+
+
 
     }
 
@@ -122,6 +134,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	protected void onResume()
 	{
 		super.onResume();
+        if(userInformation==null)
 		mSimpleFacebook = SimpleFacebook.getInstance(this);
 
 
@@ -131,6 +144,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
+        if(userInformation==null)
 		mSimpleFacebook.onActivityResult(this, requestCode, resultCode, data);
 		super.onActivityResult(requestCode, resultCode, data);
 	}
@@ -166,30 +180,36 @@ public class MainActivity extends Activity implements OnClickListener {
  			// change the state of the button or do whatever you want
 // 			mTextStatus.setText("Logged in");
  			
- 			toast("You are logged in");
+
  			
  			mSimpleFacebook.getProfile(new OnProfileRequestListener() {
 				
 				@Override
 				public void onFail(String reason) {
 					// TODO Auto-generated method stub
+                    toast("Facebook girişi başarısız oldu: "+reason);
 					
 				}
 				
 				@Override
 				public void onException(Throwable throwable) {
 					// TODO Auto-generated method stub
+                    toast("Facebook girişi sırasında hala oluştu: "+throwable.toString());
+
 					
 				}
 				
 				@Override
 				public void onThinking() {
-					toast("Prfil on thinilkng");
+					toast("Yanıt bekleniyor.");
 					
 				}
 				
 				@Override
 				public void onComplete(Profile profile) {
+
+                    toast("Facebook girişi tamamlandı.");
+
                     CardBookUser user=new CardBookUser();
                     user.setId(profile.getId());
                     user.setDeviceId("0");
@@ -231,7 +251,9 @@ public class MainActivity extends Activity implements OnClickListener {
         RequestCallBack callback= new RequestCallBack() {
             @Override
             public void onRequestStart() {
-
+                dialog.setMessage("Adres bilgileri indiriliyor...");
+                dialog.show();
+                Log.i("Adres bilgileri indiriliyor.");
             }
 
             @Override
@@ -243,13 +265,15 @@ public class MainActivity extends Activity implements OnClickListener {
                 catch (JSONException e){
                     e.printStackTrace();
                 }
-
+                dialog.dismiss();
                 Intent intent=new Intent(MainActivity.this, UserInformation.class);
                 startActivity(intent);
             }
 
             @Override
             public void onRequestError() {
+                dialog.dismiss();
+                AppConstants.ErrorToast(getApplicationContext());
 
             }
         };
@@ -260,7 +284,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
     private void toast(String message)
 	{
-		Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+		Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
 	}
 
 
@@ -286,8 +310,8 @@ public class MainActivity extends Activity implements OnClickListener {
 
             //UI Element
 
-            Dialog.setMessage("Downloading source..");
-            Dialog.show();
+            dialog.setMessage("Bilgiler alınıyor...");
+            dialog.show();
         }
 
         // Call after onPreExecute method
@@ -297,6 +321,11 @@ public class MainActivity extends Activity implements OnClickListener {
 
 //            JSONObject resultUser=ConnectionManager.postData2(AppConstants.SM_CREATE_OR_UPDATE_USER,user[0].getUserInfoAsDict());
 
+            if(!ConnectionManager.isOnline(MainActivity.this)){
+                AppConstants.NotOnlineToast(MainActivity.this);
+                cancel(true);
+
+            }
             JSONObject resultAddress=ConnectionManager.postData2(AppConstants.SM_GET_ADDRESS_LIST,null);
 
             JSONObject resultCards=ConnectionManager.postData2(AppConstants.SM_GET_COMPANY_LIST,null);
@@ -365,7 +394,7 @@ public class MainActivity extends Activity implements OnClickListener {
             // NOTE: You can call UI Element here.
 
             // Close progress dialog
-            Dialog.dismiss();
+            dialog.dismiss();
 
             Intent intent=new Intent(MainActivity.this, AppMainTabActivity.class);
             startActivity(intent);
@@ -470,5 +499,11 @@ public class MainActivity extends Activity implements OnClickListener {
             }
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        moveTaskToBack(true);
     }
 }

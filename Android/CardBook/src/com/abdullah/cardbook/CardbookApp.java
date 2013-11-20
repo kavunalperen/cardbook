@@ -2,6 +2,7 @@ package com.abdullah.cardbook;
 
 import android.app.Application;
 
+import com.abdullah.cardbook.common.AppConstants;
 import com.abdullah.cardbook.common.Log;
 import com.abdullah.cardbook.models.Campaign;
 import com.abdullah.cardbook.models.CardBookUser;
@@ -13,6 +14,9 @@ import com.abdullah.cardbook.models.address.Country;
 import com.abdullah.cardbook.models.address.County;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -36,12 +40,20 @@ public class CardbookApp extends Application {
         super.onCreate();
         singleton=this;
         requestQuee= Volley.newRequestQueue(getApplicationContext());
+
+        try{
+            if(AppConstants.getUserInformation(this)!=null)
+                this.user= new CardBookUser(new JSONObject(AppConstants.getUserInformation(this)));
+        }
+        catch(JSONException e){
+           e.printStackTrace();
+        }
         Log.i("app is created");
     }
 
     public CardbookApp() {
         super();
-        Log.i("CardbookApp cınstructor is called ");
+        Log.i("CardbookApp constructor is called ");
     }
 
     public static CardbookApp getInstance(){

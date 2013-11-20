@@ -190,7 +190,7 @@ public class KartDetail extends BaseFragment implements View.OnClickListener {
 
         super.onRequestStart();
         dialog.setMessage("Kart Detayı geliyor...");
-        dialog.show();
+//        dialog.show();
     }
 
     @Override
@@ -203,6 +203,15 @@ public class KartDetail extends BaseFragment implements View.OnClickListener {
 
         wantNotification=jsonObject.optBoolean(CardBookUser.WANT_NOTIFICATION);
         company.setUserWantNotification(wantNotification);
+
+        JSONObject jCard=jsonObject.optJSONObject(CardBookUserCard.USER_CARD);
+        if(jCard!=null){
+            CardBookUserCard card=new CardBookUserCard(jsonObject.optJSONObject(CardBookUserCard.USER_CARD));
+            etKartNo.setText(card.getCardNumber());
+            etKartNo.setEnabled(false);
+            btnSave.setEnabled(false);
+        }
+
 
         if(wantNotification==true){
             Log.i("Notification is true");
@@ -232,15 +241,16 @@ public class KartDetail extends BaseFragment implements View.OnClickListener {
         }
         else if(view.getId()==BTN_KAMPANYALAR){
 
-//            Bundle data=new Bundle();
-//            data.putInt("company",company.getCompanyId());
-//            Kampanyalar detail=new Kampanyalar();
-//            detail.setArguments(data);
-//            pageListener.onSwitchToNextFragment(AppConstants.KAMPANYALAR,detail, this);
-
             mActivity.mViewPager.setCurrentItem(1);
             mActivity.mTabHost.setCurrentTab(1);
             mActivity.openCampaign(company);
+
+        }
+        else if(view.getId()==BTN_ALISVERISLER){
+
+            mActivity.mViewPager.setCurrentItem(2);
+            mActivity.mTabHost.setCurrentTab(2);
+            mActivity.openShopping(company);
 
         }
 
@@ -259,10 +269,11 @@ public class KartDetail extends BaseFragment implements View.OnClickListener {
                 Log.i("kart kaydetme: "+result.toString());
                 if(result.optString(ConnectionManager.RESULT_CODE).equals(ConnectionManager.RESULT_CODE_OK)){
                     Toast.makeText(getActivity(),"Kartınız kaydedildi.",Toast.LENGTH_LONG).show();
+                    dialog.dismiss();
 
                 }
                 else
-                    Toast.makeText(getActivity(),"Kayıt işleminde hata oluştu; lütfen tekrar deneyiniz.",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(),"Hata oluştu: "+result.optString(ConnectionManager.RESULT_MESSAGE),Toast.LENGTH_LONG).show();
 
             }
 
@@ -317,7 +328,7 @@ public class KartDetail extends BaseFragment implements View.OnClickListener {
                     Toast.makeText(getActivity(),"Ayarlarınız kaydedildi.",Toast.LENGTH_LONG).show();
                 }
                 else
-                    Toast.makeText(getActivity(),"Kayıt işleminde hata oluştu; lütfen tekrar deneyiniz.",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(),"Hata oluştu: "+result.optString(ConnectionManager.RESULT_MESSAGE),Toast.LENGTH_LONG).show();
 
                 dialog.dismiss();
             }

@@ -1,5 +1,7 @@
 package com.abdullah.cardbook.models;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,11 +10,18 @@ public class CardBookUserCard {
     private static String USER_ID="UserId";
     private static String COMPANY_ID="CompanyId";
     private static String CARD_NUMBER="CardNumber";
+    public static String USER_CARD="CardbookUserCard";
 
     private int userId;
     private int companyId;
     private String companyName;
     private String cardNumber;
+
+    public CardBookUserCard(JSONObject object){
+        this.userId=object.optInt(USER_ID);
+        this.companyId=object.optInt(COMPANY_ID);
+        this.cardNumber=object.optString(CARD_NUMBER);
+    }
 
     public CardBookUserCard(int userId, int companyId, String cardNumber){
         this.userId=userId;

@@ -1,6 +1,7 @@
 package com.abdullah.cardbook.fragments;
 
 
+import android.app.Activity;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -17,16 +18,26 @@ import android.widget.TextView;
 
 import com.abdullah.cardbook.CardbookApp;
 import com.abdullah.cardbook.R;
+import com.abdullah.cardbook.activities.AppMainTabActivity;
 import com.abdullah.cardbook.adapters.AlisVerisListAdapter;
+import com.abdullah.cardbook.adapters.AlisverisListener;
 import com.abdullah.cardbook.common.AppConstants;
 import com.abdullah.cardbook.adapters.FragmentPageListener;
 import com.abdullah.cardbook.common.Font;
+import com.abdullah.cardbook.common.Log;
+import com.abdullah.cardbook.connectivity.ConnectionManager;
+import com.abdullah.cardbook.connectivity.RequestCallBack;
+import com.abdullah.cardbook.models.Campaign;
 import com.abdullah.cardbook.models.Shopping;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 
-public class AlisVeris extends BaseFragment implements AdapterView.OnItemClickListener{
+public class AlisVeris extends BaseFragment implements AdapterView.OnItemClickListener, AlisverisListener {
 
 
     private ListView listView;
@@ -55,22 +66,75 @@ public class AlisVeris extends BaseFragment implements AdapterView.OnItemClickLi
         listView.setOnItemClickListener(this);
 
 
+        Bundle bundle=getArguments();
 
-        if(CardbookApp.getInstance().getShoppings()!=null)
-            setList(CardbookApp.getInstance().getShoppings());
-        else{
-            Button button=new Button(getActivity());
-            button.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            button.setText("Güncelle");
+        if(bundle!=null){
+            Log.i("BUndle dolu");
+            int companyId=bundle.getInt("companyId",0);
+            JSONObject object=new JSONObject();
+            try {
+                object.put("companyId",companyId);
+                object.put("userId",6);
+                object= ConnectionManager.addDefaultParameters(object);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
-            layout.addView(button);
+            ArrayList<Shopping>allList=CardbookApp.getInstance().getShoppings();
+            ArrayList<Shopping>list=new ArrayList<Shopping>();
+
+            for(Shopping cp:allList){
+                if(cp.getCompanyId()==companyId)
+                    list.add(cp);
+
+            }
+            setList(list);
+
+//            ConnectionManager.postData(getActivity(),new RequestCallBack() {
+//                @Override
+//                public void onRequestStart() {
+//
+//                }
+//
+//                @Override
+//                public void onRequestComplete(JSONObject result) {
+//                    Log.i("Company shopping Lİst is done");
+//                    ArrayList<Shopping>list=new ArrayList<Shopping>();
+//                    JSONArray resultArray=result.optJSONArray(AppConstants.POST_DATA);
+//                    for(int i=0;i<resultArray.length();i++)
+//                        list.add(new Shopping(resultArray.optJSONObject(i)));
+//
+//                    setList(list);
+//                }
+//
+//                @Override
+//                public void onRequestError() {
+//                    Log.i("Company shopping Lİst is error");
+//                }
+//            },AppConstants.SM_GET_COMPANY_SHOPPING_LIST,object);
+        }else{
+
+            if(CardbookApp.getInstance().getShoppings()!=null)
+                setList(CardbookApp.getInstance().getShoppings());
+            else{
+                Button button=new Button(getActivity());
+                button.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                button.setText("Güncelle");
+
+                layout.addView(button);
+            }
         }
 
             setNavBarItemsStyle(view);
         return view;
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
 
+        ((AppMainTabActivity)this.getActivity()).alisverisListener=this;
+    }
 
     public void setList(ArrayList<Shopping> item){
         AlisVerisListAdapter adapter=new AlisVerisListAdapter(this.getActivity(),R.layout.alis_veris_list_template, item);
@@ -85,5 +149,19 @@ public class AlisVeris extends BaseFragment implements AdapterView.OnItemClickLi
         AlisverisDetail detail=new AlisverisDetail();
         detail.setArguments(data);
         pageListener.onSwitchToNextFragment(AppConstants.ALIS_VERIS,detail, this);
+    }
+
+    @Override
+    public void openShopping(int companyId) {
+        Bundle data=new Bundle();
+        data.putInt("companyId", companyId);
+        AlisVeris detail=new AlisVeris();
+        detail.setArguments(data);
+        pageListener.onSwitchToNextFragment(AppConstants.ALIS_VERIS,detail, this);
+    }
+
+    @Override
+    public void backPressed() {
+        getActivity().moveTaskToBack(true);
     }
 }

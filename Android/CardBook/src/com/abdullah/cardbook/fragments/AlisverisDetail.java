@@ -18,6 +18,7 @@ import com.abdullah.cardbook.common.AppConstants;
 import com.abdullah.cardbook.common.Font;
 import com.abdullah.cardbook.common.Log;
 import com.abdullah.cardbook.models.Campaign;
+import com.abdullah.cardbook.models.Product;
 import com.abdullah.cardbook.models.Shopping;
 import com.sromku.simple.fb.SimpleFacebook;
 import com.sromku.simple.fb.entities.Feed;
@@ -30,6 +31,7 @@ public class AlisverisDetail extends BaseFragment implements View.OnClickListene
     ImageButton btnShare;
     private ProgressDialog dialog;
     CardbookApp app;
+    Shopping shopping;
     int position;
     private SimpleFacebook mSimpleFacebook;
 
@@ -50,7 +52,7 @@ public class AlisverisDetail extends BaseFragment implements View.OnClickListene
         position=bundle.getInt("position",0);
 
         app=CardbookApp.getInstance();
-        Shopping shopping=app.getShoppings().get(position);
+        shopping=app.getShoppings().get(position);
 
         Log.i("Shoping: "+shopping.getId());
 
@@ -65,6 +67,7 @@ public class AlisverisDetail extends BaseFragment implements View.OnClickListene
 
         tvDate=(TextView)view.findViewById(R.id.tvAlisverisDate);
         tvDate.setTypeface(light);
+        tvDate.setText(shopping.getDate());
 
         tvKazanilanPK=(TextView)view.findViewById(R.id.tvAlisverisDetayKazanilaPK);
         tvKazanilanPK.setTypeface(bold);
@@ -164,12 +167,27 @@ public class AlisverisDetail extends BaseFragment implements View.OnClickListene
         };
 
 // build feed
+
+        StringBuilder str=new StringBuilder();
+        str.append("Cardbook aracılığı ile ").append(shopping.getCompany().getCompanyName()).append("'den");
+        ArrayList<Product> list=shopping.getProductsList();
+        for(int i=0; i<list.size();i++){
+            Product p=list.get(i);
+            if(i<list.size()-1)
+                str.append(p.getName());
+            else
+                str.append(p.getName()).append(", ");
+        }
+        str.append(" aldım ve").append(shopping.getWonCredit().getPromotionAmount()).append(" puan kazandım.");
+
+
+
         Feed feed = new Feed.Builder()
-                .setMessage("Alışveriş...")
-                .setName("Cardbook ile alişverişs ")
-                .setCaption("caption")
-                .setDescription("Buu uygulama ile neler aldım neler.")
-                .setPicture("https://raw.github.com/sromku/android-simple-facebook/master/Refs/android_facebook_sdk_logo.png")
+                .setMessage(str.toString())
+                .setName(shopping.getCompany().getCompanyName())
+                .setCaption("www.cardbook.com.tr")
+                .setDescription("")
+                .setPicture(shopping.getCompany().getCompanyLogoURL())
                 .setLink("cardbook.com")
                 .build();
 

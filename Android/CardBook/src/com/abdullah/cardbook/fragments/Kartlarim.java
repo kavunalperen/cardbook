@@ -32,6 +32,7 @@ import java.util.ArrayList;
 public class Kartlarim extends BaseFragment implements OnItemClickListener{
 
     private ListView listView;
+    KartlarimListAdapter adapter;
 
     public Kartlarim(){
     	
@@ -56,8 +57,10 @@ public class Kartlarim extends BaseFragment implements OnItemClickListener{
 
         setNavBarItemsStyle(view);
 
-        if(CardbookApp.getInstance().getCompanies()!=null)
+        if(CardbookApp.getInstance().getCompanies()!=null){
     		setList(CardbookApp.getInstance().getCompanies());
+            Log.i("companies are null");
+        }
         else{
             Button button=new Button(getActivity());
             button.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -75,8 +78,7 @@ public class Kartlarim extends BaseFragment implements OnItemClickListener{
 	public void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-		
-		
+
 		listView.setClickable(true);
 		listView.setEnabled(true);
 		listView.setFocusable(true);
@@ -85,17 +87,14 @@ public class Kartlarim extends BaseFragment implements OnItemClickListener{
 
 	public void setList(ArrayList<Company> cards){
 
-        ArrayList<Company> cardList=cards;
-        cardList.addAll(cards);
-
-		KartlarimListAdapter adapter=new KartlarimListAdapter(this.getActivity(),R.layout.kartlarim_list_template, cardList);
+	    adapter=new KartlarimListAdapter(this.getActivity(),R.layout.kartlarim_list_template, cards);
 		listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 	}
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position,
 			long arg3) {
 //		Toast.makeText(getActivity(), "Clicked at positon = " + position, Toast.LENGTH_SHORT).show();
-
 
         Bundle data=new Bundle();
         data.putInt("position",position);
@@ -103,12 +102,10 @@ public class Kartlarim extends BaseFragment implements OnItemClickListener{
         kartDetail.setArguments(data);
 		pageListener.onSwitchToNextFragment(AppConstants.KARTLARIM,kartDetail, this);
 
-
-		
 	}
 
     @Override
-    public boolean onBackPressed() {
-        return super.onBackPressed();
+    public void backPressed() {
+        getActivity().moveTaskToBack(true);
     }
 }

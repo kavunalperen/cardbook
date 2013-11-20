@@ -86,27 +86,37 @@ public class Kampanyalar extends BaseFragment implements OnItemClickListener, Ka
                 e.printStackTrace();
             }
 
-            ConnectionManager.postData(getActivity(),new RequestCallBack() {
-                @Override
-                public void onRequestStart() {
+            ArrayList<Campaign>allList=CardbookApp.getInstance().getCampaigns();
+            ArrayList<Campaign>list=new ArrayList<Campaign>();
 
-                }
+            for(Campaign cp:allList){
+                if(cp.getCompanyId()==String.valueOf(companyId))
+                    list.add(cp);
 
-                @Override
-                public void onRequestComplete(JSONObject result) {
-                    ArrayList<Campaign>list=new ArrayList<Campaign>();
-                    JSONArray resultArray=result.optJSONArray(AppConstants.POST_DATA);
-                    for(int i=0;i<resultArray.length();i++)
-                        list.add(new Campaign(resultArray.optJSONObject(i)));
+            }
+            setList(list);
 
-                    setList(list);
-                }
-
-                @Override
-                public void onRequestError() {
-
-                }
-            },AppConstants.SM_GET_COMPANY_ACTIVE_CAMPAIGN_LIST,object);
+//            ConnectionManager.postData(getActivity(),new RequestCallBack() {
+//                @Override
+//                public void onRequestStart() {
+//
+//                }
+//
+//                @Override
+//                public void onRequestComplete(JSONObject result) {
+//                    ArrayList<Campaign>list=new ArrayList<Campaign>();
+//                    JSONArray resultArray=result.optJSONArray(AppConstants.POST_DATA);
+//                    for(int i=0;i<resultArray.length();i++)
+//                        list.add(new Campaign(resultArray.optJSONObject(i)));
+//
+//                    setList(list);
+//                }
+//
+//                @Override
+//                public void onRequestError() {
+//
+//                }
+//            },AppConstants.SM_GET_COMPANY_ACTIVE_CAMPAIGN_LIST,object);
         }
         else{
 
@@ -142,7 +152,7 @@ public class Kampanyalar extends BaseFragment implements OnItemClickListener, Ka
     }
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		Toast.makeText(getActivity(), "Clicked at positon = " + arg2, Toast.LENGTH_SHORT).show();
+//		Toast.makeText(getActivity(), "Clicked at positon = " + arg2, Toast.LENGTH_SHORT).show();
 
         Bundle data=new Bundle();
         data.putInt("position",arg2);
@@ -163,5 +173,8 @@ public class Kampanyalar extends BaseFragment implements OnItemClickListener, Ka
         pageListener.onSwitchToNextFragment(AppConstants.KAMPANYALAR,detail, this);
     }
 
-
+    @Override
+    public void backPressed() {
+        getActivity().moveTaskToBack(true);
+    }
 }

@@ -81,11 +81,11 @@ public class AlisVerisListAdapter extends ArrayAdapter<Shopping>{
             TextView date=(TextView) view.findViewById(R.id.tvShoppingDate);
             date.setTypeface(Font.getFont(context, Font.ROBOTO_LIGHT));
 
-            SimpleDateFormat ft=new SimpleDateFormat("dd MMM yyyy");
+
             
             if (name != null) {
             	name.setText(item.getCompany().getCompanyName());
-                date.setText(ft.format(item.getDate()));
+                date.setText(item.getDate());
             }
          }
         else{

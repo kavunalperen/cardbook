@@ -16,11 +16,6 @@
 
 package com.abdullah.cardbook.services;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import com.google.android.gms.gcm.GoogleCloudMessaging;
-
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -37,6 +32,13 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+
+import com.abdullah.cardbook.R;
+import com.abdullah.cardbook.activities.AppMainTabActivity;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * This {@code IntentService} does the actual handling of the GCM message.
@@ -103,16 +105,16 @@ public class GcmIntentService extends IntentService {
        
     	Resources res = getResources();
     	BitmapDrawable icon = new BitmapDrawable(res,"ic_launcher.png");
-    	Bitmap icon2=BitmapFactory.decodeResource(this.getResources(), R.drawable.ic_launcher);
+    	Bitmap icon2=BitmapFactory.decodeResource(this.getResources(), R.drawable.app_icon);
     	mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
 
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, DemoActivity.class), 0);
+                new Intent(this, AppMainTabActivity.class), 0);
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
-        .setSmallIcon(R.drawable.ic_stat_gcm)
+        .setSmallIcon(R.drawable.app_icon)
         .setLargeIcon(icon2)
         .setContentTitle("Mesaj Geldi Hanım")
         .setStyle(new NotificationCompat.BigTextStyle()

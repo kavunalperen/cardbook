@@ -1,7 +1,12 @@
 package com.abdullah.cardbook.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -9,6 +14,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.*;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,21 +28,45 @@ import android.widget.TextView;
 
 import com.abdullah.cardbook.CardbookApp;
 import com.abdullah.cardbook.R;
+import com.abdullah.cardbook.adapters.AlisverisListener;
 import com.abdullah.cardbook.adapters.FragmentCommunicator;
 import com.abdullah.cardbook.adapters.KampanyaListener;
 import com.abdullah.cardbook.adapters.PagerAdapter;
 import com.abdullah.cardbook.common.*;
 
+import com.abdullah.cardbook.common.Log;
+import com.abdullah.cardbook.connectivity.ConnectionManager;
 import com.abdullah.cardbook.fragments.*;
 import com.abdullah.cardbook.models.Company;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Stack;
 import java.util.Timer;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class AppMainTabActivity extends FragmentActivity implements OnTabChangeListener, OnPageChangeListener, OnClickListener{
 
+
+    public static final String EXTRA_MESSAGE = "message";
+    public static final String PROPERTY_REG_ID = "registration_id";
+    private static final String PROPERTY_APP_VERSION = "appVersion";
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+
+    GoogleCloudMessaging gcm;
+    AtomicInteger msgId = new AtomicInteger();
+    Context context;
+    String SENDER_ID = "411171807542";
+    String regid;
+
     public KampanyaListener kampanyaListener;
+    public AlisverisListener alisverisListener;
 	PagerAdapter pageAdapter;
 	public ViewPager mViewPager;
 	public TabHost mTabHost;
@@ -76,11 +106,6 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
 
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
 
-        /*
-         *  Navigation stacks for each tab gets created..
-         *  tab identifier is used as key to get respective stack for each tab
-         */
-
         maskLeftCurrentPosition=0;
         mStacks = new HashMap<String, Stack<Fragment>>();
         mStacks.put(AppConstants.KARTLARIM, new Stack<Fragment>());
@@ -102,9 +127,9 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
         TabWidget tabwidget=(TabWidget)findViewById(android.R.id.tabs);
         tabwidget.bringToFront();
 
-//		setNavBarItemsStyle();
+//		setNavBarItemsStyle(); // Navbar artıık her bir fragment içinde
 
-        initializeTabs();
+
 
      // Fragments and ViewPager Initialization
 //        List<Fragment> fragments = mStacks;
@@ -116,6 +141,21 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
         RelativeLayout tabLayout=(RelativeLayout)findViewById(R.id.tapLayout);
         tabLayout.bringToFront();
 
+        initializeTabs();
+
+        context = getApplicationContext();
+
+        // Check device for Play Services APK. If check succeeds, proceed with GCM registration.
+        if (checkPlayServices()) {
+            gcm = GoogleCloudMessaging.getInstance(this);
+            regid = getRegistrationId(context);
+
+            if (regid.isEmpty()) {
+                registerInBackground();
+            }
+        } else {
+            Log.i("No valid Google Play Services APK found.");
+        }
 
         this.lastinstance=this;
 
@@ -170,6 +210,7 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
         Typeface font=Font.getFont(this, Font.ROBOTO_REGULAR);
 
         for(int i=0; i<AppConstants.MENU.length;i++){
+            Log.i("initalize tabp");
 	        spec = mTabHost.newTabSpec(AppConstants.MENU[i]);
 	        spec.setContent(new TabHost.TabContentFactory() {
 	            public View createTabContent(String tag) {
@@ -177,8 +218,8 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
 	            }
 	        });
 	        spec.setIndicator(createTabView(AppConstants.PASSIVE_BUTTONS[i],AppConstants.MENU[i]));
-            View view = LayoutInflater.from(this).inflate(R.layout.tabs_icon, null);
-            spec.setIndicator(view);
+//            View view = LayoutInflater.from(this).inflate(R.layout.tabs_icon, null);
+//            spec.setIndicator(view);
             mTabHost.addTab(spec);
 
 	        TextView tv;
@@ -406,4 +447,127 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
        kampanyaListener.openCampaign(company.getCompanyId());
    }
 
+    public void openShopping(Company company){
+        alisverisListener.openShopping(company.getCompanyId());
+    }
+
+
+    private boolean checkPlayServices() {
+        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
+                GooglePlayServicesUtil.getErrorDialog(resultCode, this,
+                        PLAY_SERVICES_RESOLUTION_REQUEST).show();
+            } else {
+                Log.i("This device is not supported.");
+                finish();
+            }
+            return false;
+        }
+        return true;
+    }
+    private void registerInBackground() {
+        new AsyncTask<Void, Void, String>() {
+            @Override
+            protected String doInBackground(Void... params) {
+                String msg = "";
+                try {
+                    if (gcm == null) {
+                        gcm = GoogleCloudMessaging.getInstance(context);
+                    }
+                    regid = gcm.register(SENDER_ID);
+
+                    Log.i("Register id" + regid);
+                    // You should send the registration ID to your server over HTTP, so it
+                    // can use GCM/HTTP or CCS to send messages to your app.
+                    sendRegistrationIdToBackend();
+
+                    // For this demo: we don't need to send it because the device will send
+                    // upstream messages to a server that echo back the message using the
+                    // 'from' address in the message.
+
+                    // Persist the regID - no need to register again.
+                    storeRegistrationId(context, regid);
+                } catch (IOException ex) {
+                    msg = "Error :" + ex.getMessage();
+                    // If there is an error, don't just keep trying to register.
+                    // Require the user to click a button again, or perform
+                    // exponential back-off.
+                }
+                return msg;
+            }
+
+            @Override
+            protected void onPostExecute(String msg) {
+
+            }
+        }.execute(null, null, null);
+    }
+
+    private String getRegistrationId(Context context) {
+        final SharedPreferences prefs = getGcmPreferences(context);
+        String registrationId = prefs.getString(PROPERTY_REG_ID, "");
+        if (registrationId.isEmpty()) {
+            Log.i( "Registration not found.");
+            return "";
+        }
+        // Check if app was updated; if so, it must clear the registration ID
+        // since the existing regID is not guaranteed to work with the new
+        // app version.
+        int registeredVersion = prefs.getInt(PROPERTY_APP_VERSION, Integer.MIN_VALUE);
+        int currentVersion = getAppVersion(context);
+        if (registeredVersion != currentVersion) {
+            Log.i("App version changed.");
+            return "";
+        }
+        return registrationId;
+    }
+
+    private void storeRegistrationId(Context context, String regId) {
+        final SharedPreferences prefs = getGcmPreferences(context);
+        int appVersion = getAppVersion(context);
+        Log.i("Saving regId on app version " + appVersion);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(PROPERTY_REG_ID, regId);
+        editor.putInt(PROPERTY_APP_VERSION, appVersion);
+        editor.commit();
+    }
+
+    private static int getAppVersion(Context context) {
+        try {
+            PackageInfo packageInfo = context.getPackageManager()
+                    .getPackageInfo(context.getPackageName(), 0);
+            return packageInfo.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            // should never happen
+            throw new RuntimeException("Could not get package name: " + e);
+        }
+    }
+
+    /**
+     * @return Application's {@code SharedPreferences}.
+     */
+    private SharedPreferences getGcmPreferences(Context context) {
+        // This sample app persists the registration ID in shared preferences, but
+        // how you store the regID in your app is up to you.
+        return getSharedPreferences(AppMainTabActivity.class.getSimpleName(),
+                Context.MODE_PRIVATE);
+    }
+    /**
+     * Sends the registration ID to your server over HTTP, so it can use GCM/HTTP or CCS to send
+     * messages to your app. Not needed for this demo since the device sends upstream messages
+     * to a server that echoes back the message using the 'from' address in the message.
+     */
+    private void sendRegistrationIdToBackend() {
+        JSONObject object=new JSONObject();
+        try {
+            object.put("userId",CardbookApp.getInstance().getUser().getId());
+            object.put("mobileDeviceId", regid);
+            object=ConnectionManager.addDefaultParameters(object);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        ConnectionManager.postData(getApplicationContext(), null,AppConstants.SM_UPDATE_DEVICE_ID,object);
+    }
 }

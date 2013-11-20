@@ -37,6 +37,7 @@ public class AppConstants {
 	public static String SM_SET_SHARE_THIS_SHOPPING_ON_FACEBOOK = "ShareThisShoppingOnFacebook";
 	public static String SM_SET_SHARE_THIS_SHOPPING_ON_TWTITER = "ShareThisShoppingOnTwitter";
 	public static String SM_GET_ADDRESS_LIST = "GetAddressLists";
+    public static String SM_UPDATE_DEVICE_ID="UpdateMobileDeviceId";
 
     public static String POST_DATA_ERROR="postDataError";
     public static String POST_DATA="Data";
@@ -132,6 +133,10 @@ public class AppConstants {
 
     public static void ErrorToast(Context context){
         Toast.makeText(context, "Sunucu kaynaklı bir hata ile karşılaşıldı; lütfen işleminizi daha sonra tekrar deneyiniz.", Toast.LENGTH_LONG).show();
+    }
+
+    public static void NotOnlineToast(Context context){
+        Toast.makeText(context,"İnternet bağlantısı bulunmuyor; lütfen internete bağlanın.",Toast.LENGTH_LONG);
     }
 
     public static void setUserInformation(Context context,String info){

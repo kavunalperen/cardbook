@@ -173,7 +173,8 @@
                 android:gravity="center_vertical|center_horizontal"
                 android:layout_toRightOf="@+id/tvKartDetailKartNoHeader"
                 android:layout_marginLeft="5dp"
-                android:textColor="@color/color8E8E93">
+                android:textColor="@color/color8E8E93"
+                android:inputType="number">
                 <requestFocus />
                 </EditText>
 

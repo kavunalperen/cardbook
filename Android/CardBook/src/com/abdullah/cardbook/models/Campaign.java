@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -127,16 +128,20 @@ public class Campaign {
         this.description = description;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public String getStartDate() {
+        SimpleDateFormat format=new SimpleDateFormat("dd MMMM");
+        String date=format.format(this.startDate);
+        return date;
     }
 
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
-        return endDate;
+    public String getEndDate() {
+        SimpleDateFormat format=new SimpleDateFormat("dd MMMM");
+        String date=format.format(this.endDate);
+        return date;
     }
 
     public void setEndDate(Date endDate) {

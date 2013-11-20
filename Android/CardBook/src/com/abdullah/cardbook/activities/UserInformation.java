@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.abdullah.cardbook.CardbookApp;
 import com.abdullah.cardbook.R;
 import com.abdullah.cardbook.adapters.CountryListAdapter;
+import com.abdullah.cardbook.adapters.UserInformationListener;
 import com.abdullah.cardbook.common.AppConstants;
 import com.abdullah.cardbook.common.Log;
 import com.abdullah.cardbook.connectivity.BitmapLruCache;
@@ -68,6 +69,7 @@ Gender *
  */
 public class UserInformation extends Activity implements View.OnClickListener{
 
+    public static UserInformationListener informationListener;
     private ProgressDialog dialog;
     private ImageView userImage;
     private EditText name, surname, mail, phoneNumber,date, addressLine;
@@ -83,6 +85,7 @@ public class UserInformation extends Activity implements View.OnClickListener{
     private ImageLoader mImageLoader;
     BitmapLruCache cache;
     private boolean isFromProfil;
+    private boolean isChangeProgramatically;
 
     private int year, month, day;
 
@@ -92,7 +95,7 @@ public class UserInformation extends Activity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_information);
 
-        boolean isFromProfil=false;
+        isFromProfil=false;
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             isFromProfil=extras.getBoolean("isFromProfil");
@@ -158,17 +161,34 @@ public class UserInformation extends Activity implements View.OnClickListener{
         addGender();
 
 
-        if(!isFromProfil)
-            addCountry(countryList);
-        else{
-            setCountry(user.getAddres().getCountryId());
-        }
-//        addCity(dummyCountryList.get(0).getCities());
-//        addCounty(dummyCountryList.get(0).getCities().get(0).getCounties());
 
+
+        if(!isFromProfil)
+            addCountry(countryList, 0);
+        else{
+            isChangeProgramatically=true;
+            int countryPosition=setCountryPosition(user.getAddres().getCountryId());
+            addCountry(countryList, countryPosition);
+
+            int cityPosition=setCityPosition(user.getAddres().getCityId(),user.getAddres().getCountryId());
+            addCity(countryList.get(countryPosition-1).getCities(),cityPosition);
+
+            int countyPosition=setCountyPosition(user.getAddres().getCountId(),user.getAddres().getCityId(), user.getAddres().getCountryId());
+            addCounty(countryList.get(countryPosition-1).getCities().get(cityPosition-1).getCounties(),countyPosition);
+
+
+        }
 
         dialog = new ProgressDialog(this);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
+    }
+
 
 
     public void checkForValidate(){
@@ -229,17 +249,25 @@ public class UserInformation extends Activity implements View.OnClickListener{
                     Toast.makeText(getApplicationContext(),"Bilgileriniz kaydedildi.",Toast.LENGTH_LONG).show();
 
                     AppConstants.setUserInformation(getApplicationContext(),result.optJSONObject(AppConstants.POST_DATA).toString());
+                    user.setBarcodeUrl(result.optJSONObject(AppConstants.POST_DATA).optString(CardBookUser.BARCODE_URL));
+                    CardbookApp.getInstance().setUser(user);
 
 
                     if(!isFromProfil){
+                        Log.i("Validate is not from Profil");
                         new PostDataOperation().execute(user);
                     }
-                    else
-                        moveTaskToBack(true);
+                    else{
+                        Log.i("Validate is from Profil");
+                        if(informationListener!=null)
+                            informationListener.updateInformations();
+                        onBackPressed();
+
+                    }
 
                 }
                 else
-                    Toast.makeText(getApplicationContext(),"Kayıt işleminde hata oluştu; lütfen tekrar deneyiniz.",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Hata oluştu: "+result.optString(ConnectionManager.RESULT_MESSAGE),Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -330,7 +358,7 @@ public class UserInformation extends Activity implements View.OnClickListener{
 
     }
 
-    public void addCountry(final ArrayList<Country> countries) {
+    public void addCountry(final ArrayList<Country> countries,final int selection) {
         ArrayList<String> item=new ArrayList<String>();
         for(int i=0; i<countries.size();i++){
             if(i==0)
@@ -339,27 +367,29 @@ public class UserInformation extends Activity implements View.OnClickListener{
             Log.i("Contries: "+countries.get(i).getName()+", "+countries.size());
         }
 
-//        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-//                android.R.layout.simple_spinner_item, item);
-//        // set the view for the Drop down list
-//        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        // set the ArrayAdapter to the spinner
-
-        CountryListAdapter dataAdapter=new CountryListAdapter(this,R.layout.address_adapter,item);
+        final CountryListAdapter dataAdapter=new CountryListAdapter(this,R.layout.address_adapter,item);
         spCountry.setAdapter(dataAdapter);
         spCounty.setTag("Country");
+        spCountry.setSelection(selection);
+
         spCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 positionCountry=i;
                 countCountry++;
                 Log.i("İtem Selected Country: "+i);
+
+                if(isChangeProgramatically)
+                    return;
+
                 if(i!=0){
                     spCity.setEnabled(true);
-                    addCity(countries.get(i-1).getCities());
+                    addCity(countries.get(i-1).getCities(),0);
                 }
                 else
-                    addCity(countries.get(i+1).getCities());
+                    addCity(countries.get(i+1).getCities(),0);
+
+                dataAdapter.setNotifyOnChange(true);
             }
 
             @Override
@@ -367,21 +397,26 @@ public class UserInformation extends Activity implements View.OnClickListener{
             }
         });
 
+
+
     }
-    public void addCity(final ArrayList<City> cities) {
-        Log.i("addCity: ");
+    public void addCity(final ArrayList<City> cities, final int selection) {
+        Log.i("Add City with selection: "+selection);
         ArrayList<String> item=new ArrayList<String>();
         for(int i=0; i<cities.size();i++){
             if(i==0)
                 item.add("İl");
             item.add(cities.get(i).getName());
-            Log.i("Cities: "+cities.get(i).getName()+", "+cities.size());
+//            Log.i("Cities: "+cities.get(i).getName()+", "+cities.size());
         }
 
-        CountryListAdapter dataAdapter=new CountryListAdapter(this,R.layout.address_adapter,item);
+        final CountryListAdapter dataAdapter=new CountryListAdapter(this,R.layout.address_adapter,item);
         spCity.setAdapter(dataAdapter);
         spCity.setTag("City");
-//        spCountry.setSelection(1);
+
+        spCity.setSelection(selection);
+
+
 
 
         spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -391,12 +426,17 @@ public class UserInformation extends Activity implements View.OnClickListener{
 
                 Log.i("İtem Selected City: "+i);
 
+                if(isChangeProgramatically)
+                    return;
+
                 if(i!=0){
                     spCounty.setEnabled(true);
-                    addCounty(cities.get(i-1).getCounties());
+                    addCounty(cities.get(i-1).getCounties(),0);
                 }
                 else
-                    addCounty(cities.get(i+1).getCounties());
+                    addCounty(cities.get(i+1).getCounties(),0);
+
+                dataAdapter.setNotifyOnChange(true);
 
             }
 
@@ -406,26 +446,39 @@ public class UserInformation extends Activity implements View.OnClickListener{
             }
         });
 
+
+
     }
-    public void addCounty(ArrayList<County> countries) {
+    public void addCounty(ArrayList<County> countries, int selection) {
+        Log.i("Add County with selection: "+selection);
         ArrayList<String> item=new ArrayList<String>();
         for(int i=0; i<countries.size();i++){
             if(i==0)
                 item.add("İlçe");
             item.add(countries.get(i).getName());
-            Log.i("Contries: "+countries.get(i).getName()+", "+countries.size());
+//            Log.i("Contries: "+countries.get(i).getName()+", "+countries.size());
         }
 
-        CountryListAdapter dataAdapter=new CountryListAdapter(this,R.layout.address_adapter,item);
+        final CountryListAdapter dataAdapter=new CountryListAdapter(this,R.layout.address_adapter,item);
         // set the ArrayAdapter to the spinner
         spCounty.setAdapter(dataAdapter);
         spCounty.setTag("County");
-//        spCountry.setSelection(1);
+        spCounty.setSelection(selection);
+
+
+
         spCounty.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                if(isChangeProgramatically){
+                    isChangeProgramatically=false;
+                    return;
+                }
+
                 positionCounty=i;
                 Log.i("İtem Selected County: "+i);
+
             }
 
             @Override
@@ -433,6 +486,7 @@ public class UserInformation extends Activity implements View.OnClickListener{
 
             }
         });
+
 
     }
 
@@ -456,7 +510,7 @@ public class UserInformation extends Activity implements View.OnClickListener{
         }
     }
 
-    private void setCountry(int id){
+    private int setCountryPosition(int id){
         Country result=null;
         int position=0;
         ArrayList<Country> countries=CardbookApp.getInstance().getCountries();
@@ -468,13 +522,16 @@ public class UserInformation extends Activity implements View.OnClickListener{
             }
 
         }
-        addCountry(countries);
-        spCountry.setSelection(position);
-        setCity(user.getAddres().getCityId(),user.getAddres().getCountryId());
+        Log.i("set Country result: "+result.getName());
 
+//        addCountry(countries);
+//        spCountry.setSelection(position);
+//        setCity(user.getAddres().getCityId(),user.getAddres().getCountryId());
+
+        return position;
     }
 
-    private void setCity(int cityId, int countryId){
+    private int setCityPosition(int cityId, int countryId){
         City result=null;
         int position=0;
         ArrayList<City> cities= Profil.getCountry(countryId).getCities();
@@ -487,15 +544,18 @@ public class UserInformation extends Activity implements View.OnClickListener{
 
         }
 
-        addCity(cities);
+//        addCity(cities, position);
 
 
-        spCity.setSelection(position);
-        Log.i("setCity is runned: "+result.getName()+", p: "+position);
-        setCounty(user.getAddres().getCountId(),cityId,countryId);
+//        spCity.setSelection(position);
+//        Log.i("setCity is runned: "+result.getName()+", p: "+position);
+//        Log.i("setCity adapter: "+spCity.getAdapter().toString());
+//        setCounty(user.getAddres().getCountId(),cityId,countryId);
+
+        return position;
     }
 
-    private void setCounty(int countyId, int cityId, int countryId){
+    private int setCountyPosition(int countyId, int cityId, int countryId){
         County result=null;
         int position=0;
         ArrayList<County> counties=Profil.getCity(cityId, countryId).getCounties();
@@ -509,9 +569,11 @@ public class UserInformation extends Activity implements View.OnClickListener{
         }
 
 
-        addCounty(counties);
-        Log.i("setCounty is runned: "+result.getName()+", p: "+position);
-        spCounty.setSelection(position);
+//        addCounty(counties,position);
+//        Log.i("setCounty is runned: "+result.getName()+", p: "+position);
+//        spCounty.setSelection(position);
+
+        return position;
 
     }
 
@@ -541,7 +603,7 @@ public class UserInformation extends Activity implements View.OnClickListener{
 
             //UI Element
 
-            Dialog.setMessage("Downloading source..");
+            Dialog.setMessage("Bilgiler yükleniyor...");
             Dialog.show();
         }
 
@@ -552,6 +614,11 @@ public class UserInformation extends Activity implements View.OnClickListener{
 
 //            JSONObject resultUser=ConnectionManager.postData2(AppConstants.SM_CREATE_OR_UPDATE_USER,user[0].getUserInfoAsDict());
 
+            if(!ConnectionManager.isOnline(UserInformation.this)){
+                Toast.makeText(UserInformation.this,"İnternet bağlantısı bulunmuyor; lütfen internete bağlanın.",Toast.LENGTH_LONG);
+                cancel(true);
+
+            }
 
 
             JSONObject resultCards=ConnectionManager.postData2(AppConstants.SM_GET_COMPANY_LIST,null);
@@ -640,5 +707,12 @@ public class UserInformation extends Activity implements View.OnClickListener{
     }
 
 
+    @Override
+    public void onBackPressed() {
+        if(isFromProfil)
+            super.onBackPressed();
+        else
+            moveTaskToBack(true);
+    }
 }
 

@@ -4,6 +4,7 @@ package com.abdullah.cardbook.connectivity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.widget.Toast;
 
 import com.abdullah.cardbook.CardbookApp;
 import com.abdullah.cardbook.common.AppConstants;
@@ -99,6 +100,14 @@ public class ConnectionManager {
 
     public static void postData(final Context context,final RequestCallBack callback, String method, Map<String, String> parameters  ){
 
+        if(!isOnline(context)){
+            Toast.makeText(context,"İnternet bağlantısı bulunmuyor; lütfen internete bağlanın.",Toast.LENGTH_LONG);
+            return;
+        }
+
+        if(callback!=null)
+            callback.onRequestStart();
+
         Map<String, String> result =addDefaultParameters(parameters);
 
         StringBuilder adress=new StringBuilder(AppConstants.API_ADDRESS).append(method);
@@ -124,7 +133,13 @@ public class ConnectionManager {
 
     public static void postData(final Context context,final RequestCallBack callback, String method, JSONObject parameters  ){
 
-        callback.onRequestStart();
+        if(!isOnline(context)){
+            Toast.makeText(context,"İnternet bağlantısı bulunmuyor; lütfen internete bağlanın.",Toast.LENGTH_LONG);
+            return;
+        }
+
+        if(callback!=null)
+            callback.onRequestStart();
         StringBuilder adress=new StringBuilder(AppConstants.API_ADDRESS).append(method);
 
         Log.i("post Data: "+parameters.toString());
@@ -150,6 +165,8 @@ public class ConnectionManager {
 
 
     public static JSONObject postData2(String method,  ArrayList<NameValuePair> parameterList) {
+
+
 
         // Create a new HttpClient and Post Header
         HttpClient httpclient = new DefaultHttpClient();

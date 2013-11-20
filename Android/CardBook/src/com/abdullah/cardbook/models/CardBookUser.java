@@ -54,6 +54,7 @@ public class CardBookUser {
 
     public CardBookUser(){
 
+
     }
     public CardBookUser(JSONObject object){
         this.id=object.optString(ID);
@@ -62,7 +63,7 @@ public class CardBookUser {
         this.surname=object.optString(SURNAME);
         this.email=object.optString(EMAIL);
         this.birthDate= AppConstants.parseMsTimestampToDate(object.optString(BIRTH_DATE));
-        this.profilPhotoUrl=object.optString(PROFILE_PHOTO_URL);
+        this.profilPhotoUrl="http://graph.facebook.com/"+id+"/picture?style=large";
         this.phone1=object.optString(PHONE_1);
         this.phone2=object.optString(PHONE_2);
         this.gender=object.optString(GENDER);

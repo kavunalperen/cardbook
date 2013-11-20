@@ -1,18 +1,22 @@
 package com.abdullah.cardbook.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.abdullah.cardbook.CardbookApp;
 import com.abdullah.cardbook.R;
 import com.abdullah.cardbook.common.AppConstants;
 import com.abdullah.cardbook.common.Log;
 import com.abdullah.cardbook.connectivity.BitmapLruCache;
+import com.abdullah.cardbook.connectivity.ConnectionManager;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
@@ -25,8 +29,9 @@ import java.io.OutputStream;
 /**
  * Created by abdullah on 11/12/13.
  */
-public class Barcode extends Activity {
+public class Barcode extends Activity implements View.OnClickListener{
 
+    private ProgressBar progressBarBarcode;
     private RequestQueue requestQueue;
     private ImageLoader imageLoader;
     BitmapLruCache cache;
@@ -36,12 +41,17 @@ public class Barcode extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.barcode);
-        imgView=(ImageView)findViewById(R.id.imgBarcode);
 
+        progressBarBarcode=(ProgressBar)findViewById(R.id.progressBarcode);
+
+        imgView=(ImageView)findViewById(R.id.imgBarcode);
+        imgView.setOnClickListener(this);
         requestQueue= CardbookApp.getInstance().getRequestQuee();
         int cacheSize= AppConstants.getCacheSize(this);
 
@@ -49,10 +59,13 @@ public class Barcode extends Activity {
 
 
         Bitmap bitmap = BitmapFactory.decodeFile(getExternalCacheDir().toString()+"/barcode.PNG");
-        if(bitmap!=null)
+        if(bitmap!=null){
             imgView.setImageBitmap(bitmap);
+            progressBarBarcode.setVisibility(View.INVISIBLE);
+        }
         else
             saveBarcode();
+
 
 
     }
@@ -63,6 +76,23 @@ public class Barcode extends Activity {
         Log.i("Saveboarcode is started");
         imageLoader=new ImageLoader(requestQueue, this.cache);
 
+        if(CardbookApp.getInstance().getUser()==null){
+            Log.i("User is null");
+        }
+        else{
+            if(CardbookApp.getInstance().getUser().getBarcodeUrl()==null)
+                Log.i("Barcodeurl is null");
+            else{
+
+              getBarcode();
+            }
+
+        }
+
+    }
+
+
+    public void getBarcode(){
         imageLoader.get(CardbookApp.getInstance().getUser().getBarcodeUrl(), new ImageLoader.ImageListener() {
             @Override
             public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
@@ -70,8 +100,11 @@ public class Barcode extends Activity {
 
 
                 if(response.getBitmap()!=null){
-//                    Bitmap result=AppConstants.addMask(Profil.this.getActivity(), response.getBitmap(), R.drawable.listview_photomask);
-//
+
+                    progressBarBarcode.setVisibility(View.INVISIBLE);
+
+                    //                    Bitmap result=AppConstants.addMask(Profil.this.getActivity(), response.getBitmap(), R.drawable.listview_photomask);
+                    //
                     imgView.setImageBitmap(response.getBitmap());
 
                     Bitmap bbicon;
@@ -99,9 +132,31 @@ public class Barcode extends Activity {
             }
         });
 
+    }
 
+    @Override
+    public void onClick(View view) {
+        String navigation=this.getIntent().getStringExtra("Navigation");
+
+        if(navigation.equals("AppMainTabActivity")){
+//            Intent intent=new Intent(this, AppMainTabActivity.class);
+//            startActivity(intent);
+            onBackPressed();
+        }
+        else if (navigation.equals("MainActivity")){
+            Intent intent=new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
 
     }
 
+    @Override
+    public void onBackPressed() {
 
+        String navigation=this.getIntent().getStringExtra("Navigation");
+        if(navigation.equals("AppMainTabActivity"))
+            super.onBackPressed();
+        else
+            moveTaskToBack(true);
+    }
 }

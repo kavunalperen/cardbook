@@ -1,6 +1,7 @@
 package com.abdullah.cardbook.fragments;
 
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -24,6 +25,7 @@ import com.abdullah.cardbook.activities.AppMainTabActivity;
 import com.abdullah.cardbook.activities.Barcode;
 import com.abdullah.cardbook.activities.UserInformation;
 import com.abdullah.cardbook.adapters.FragmentPageListener;
+import com.abdullah.cardbook.adapters.UserInformationListener;
 import com.abdullah.cardbook.common.AppConstants;
 import com.abdullah.cardbook.common.Font;
 import com.abdullah.cardbook.common.Log;
@@ -42,7 +44,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 
 
-public class Profil extends BaseFragment implements OnClickListener {
+public class Profil extends BaseFragment implements OnClickListener, UserInformationListener {
 
     View view;
     TextView name,surname, mailH, mail, dateH, date, genderH, gender, phoneH, phone,
@@ -116,7 +118,7 @@ public class Profil extends BaseFragment implements OnClickListener {
 
         btnLogout=(ImageButton)view.findViewById(R.id.btnLogout);
         btnLogout.setId(btnLogoutId);
-        btnLogout.setOnClickListener(this);
+//        btnLogout.setOnClickListener(this);
 
         btnLogout=(ImageButton)view.findViewById(R.id.btnBarcode);
         btnLogout.setId(btnBarcodeId);
@@ -131,19 +133,7 @@ public class Profil extends BaseFragment implements OnClickListener {
         for(TextView tv:ligthArray)
             tv.setTypeface(light);
 
-        Country mcountry=getCountry(user.getAddres().getCountryId());
-        City mcity=getCity(user.getAddres().getCityId(),mcountry.getId());
-        County mcounty=getCounty(user.getAddres().getCountId(), mcity.getId(),mcountry.getId());
-
-        String strGender=user.getGender().equals("M")?"Erkek":"Kadın";
-
-
-        TextView[] textViews={name,surname,mail,date,gender,phone, country,county,city, address};
-        String[] contentArray={user.getName(),user.getSurname(), user.getEmail(), user.getBirthDate(),
-                strGender, user.getPhone1(), mcountry.getName(), mcity.getName(), mcounty.getName(), user.getAddres().getAddressLine()};
-
-        for(int i=0; i<textViews.length;i++)
-            textViews[i].setText(contentArray[i]);
+        updateInformations();
 
 
 
@@ -156,10 +146,35 @@ public class Profil extends BaseFragment implements OnClickListener {
         addImage();
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        UserInformation.informationListener=this;
+    }
+
+    @Override
+    public void updateInformations() {
+
+        Country mcountry=getCountry(user.getAddres().getCountryId());
+        City mcity=getCity(user.getAddres().getCityId(),mcountry.getId());
+        County mcounty=getCounty(user.getAddres().getCountId(), mcity.getId(),mcountry.getId());
+
+        String strGender=user.getGender().equals("M")?"Erkek":"Kadın";
+
+
+        TextView[] textViews={name,surname,mail,date,gender,phone, country,city,county, address};
+        String[] contentArray={user.getName(),user.getSurname(), user.getEmail(), user.getBirthDate(),
+                strGender, user.getPhone1(), mcountry.getName(), mcity.getName(), mcounty.getName(), user.getAddres().getAddressLine()};
+
+        for(int i=0; i<textViews.length;i++)
+            textViews[i].setText(contentArray[i]);
+
+    }
 
     public void showBarcode(){
 
         Intent i=new Intent(getActivity(), Barcode.class);
+        i.putExtra("Navigation","AppMainTabActivity");
         startActivity(i);
     }
 
@@ -256,4 +271,11 @@ public class Profil extends BaseFragment implements OnClickListener {
             showBarcode();
 
     }
+
+    @Override
+    public void backPressed() {
+        getActivity().moveTaskToBack(true);
+    }
+
+
 }

@@ -28,4 +28,11 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
             android:visibility="invisible"/>
+
+    <ProgressBar
+        android:id="@+id/progressBarcode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:layout_centerInParent="true" />
 </RelativeLayout>

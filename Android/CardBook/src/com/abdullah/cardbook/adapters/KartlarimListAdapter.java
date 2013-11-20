@@ -22,6 +22,7 @@ import com.abdullah.cardbook.models.Company;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class KartlarimListAdapter extends ArrayAdapter<Company>{
     private RequestQueue requestQueue;
     private ImageLoader imageLoader;
     BitmapLruCache cache;
-    ImageView mImageView;
+    NetworkImageView mImageView;
     View view;
 	
 	public KartlarimListAdapter(Context context, int layout, ArrayList<Company> items) {
@@ -61,9 +62,33 @@ public class KartlarimListAdapter extends ArrayAdapter<Company>{
         Company item = items.get(position);
         if (item!= null) {
         	// user image and mask
-        	mImageView= (ImageView)view.findViewById(R.id.kartlarimListCardImage);
+        	mImageView= (NetworkImageView)view.findViewById(R.id.kartlarimListCardImage);
 
-            addImage(item.getCompanyLogoURL());
+//            addImage(item.getCompanyLogoURL());
+
+            imageLoader=new ImageLoader(requestQueue, this.cache);
+
+
+            mImageView.setImageUrl(item.getCompanyLogoURL(),imageLoader);
+//            imageLoader.get(item.getCompanyLogoURL(), new ImageLoader.ImageListener() {
+//                @Override
+//                public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
+//                    Log.i("Image Response is done ");
+//
+//
+//                    if(response.getBitmap()!=null){
+////                    Bitmap result=AppConstants.addMask(KartDetail.this.getActivity(), response.getBitmap(), R.drawable.listview_photomask);
+//
+//                        mImageView.setImageBitmap(response.getBitmap());
+//                        mImageView.setScaleType(ImageView.ScaleType.FIT_XY);
+//                    }
+//                }
+//
+//                @Override
+//                public void onErrorResponse(VolleyError error) {
+//                    Log.i("Image Response Error");
+//                }
+//            });
 //        	Bitmap result=AppConstants.addMask(this.context, R.drawable.dummy_big_man, R.drawable.listview_photomask);
         	
         	//mImageView.setImageBitmap(result);
@@ -87,7 +112,7 @@ public class KartlarimListAdapter extends ArrayAdapter<Company>{
 
         return view;
     }
-
+/*
     public void addImage(String url){
 
         imageLoader=new ImageLoader(requestQueue, this.cache);
@@ -112,7 +137,7 @@ public class KartlarimListAdapter extends ArrayAdapter<Company>{
             }
         });
     }
-
+*/
 
     @Override
 	public boolean isEnabled(int position)
