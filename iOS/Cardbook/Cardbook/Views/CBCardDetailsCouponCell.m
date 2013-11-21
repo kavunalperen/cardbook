@@ -35,10 +35,10 @@
     [self.seperatorView setBackgroundColor:CARD_DETAIL_COUPON_CELL_SEPERATOR_COLOR];
     [self addSubview:self.seperatorView];
     
-    self.thumbnail = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 10.0, 13.0, 13.0)];
-    [self.thumbnail setBackgroundColor:[UIColor greenColor]];
+    self.thumbnail = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 10.0, 15.0, 13.0)];
+    [self.thumbnail setBackgroundColor:[UIColor clearColor]];
     [self.thumbnail setClipsToBounds:YES];
-//    [self.thumbnail setImage:[UIImage imageNamed:@""]];
+    [self.thumbnail setImage:[UIImage imageNamed:@"mycards_detail_coupon.png"]];
     
     self.mainLabel = [[UILabel alloc] initWithFrame:CGRectMake(15.0, 10.0, 150.0, 13.0)];
     [self.mainLabel setBackgroundColor:[UIColor clearColor]];

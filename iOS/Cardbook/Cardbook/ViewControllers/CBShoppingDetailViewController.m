@@ -399,7 +399,7 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self performSegueWithIdentifier:@"MyShoppingsDetailSegue" sender:self];
+//    [self performSegueWithIdentifier:@"MyShoppingsDetailSegue" sender:self];
 }
 
 - (void) goBacktoShoppings

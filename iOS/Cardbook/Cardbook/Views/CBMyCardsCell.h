@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "APIManager.h"
 
 #define MY_CARDS_CELL_IDENTIFIER @"MyCardsCellIdentifier"
 #define MY_CARDS_LAST_CELL_IDENTIFIER @"MyCardsLastCellIdentifier"
@@ -15,5 +16,10 @@
 
 @property UIImageView* thumbnail;
 @property UILabel* nameLabel;
+@property NSString* loadingImageUrlString;
+@property MKNetworkOperation* imageLoadingOperation;
+
+- (void) setImageOfTheCell:(NSString*)imageUrl;
+- (void) prepareForReuse;
 
 @end

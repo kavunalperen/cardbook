@@ -13,7 +13,8 @@
 typedef void (^CompletionBlock) (NSDictionary *responseDictionary);
 typedef void (^ErrorBlock) (NSError *error);
 typedef void (^ImageBlock) (UIImage *resultImage);
-typedef void (^AddressListsBlock) (NSMutableArray* allCountries);;
+typedef void (^AddressListsBlock) (NSMutableArray* allCountries);
+typedef void (^CardsBlock) (NSMutableArray* allCards);
 
 @interface APIManager : MKNetworkEngine
 
@@ -56,6 +57,9 @@ typedef void (^AddressListsBlock) (NSMutableArray* allCountries);;
                            andAddressLine:(NSString*)addressLine
                              onCompletion:(CompletionBlock)completionBlock
                                   onError:(ErrorBlock)errorBlock;
+
+- (void) getCompanyListWithCompletionBlock:(CardsBlock)completionBlock
+                                   onError:(ErrorBlock)errorBlock;
 
 - (void) addAuthorizationTokenAndTimeToDictionary:(NSMutableDictionary*)dictionary;
 

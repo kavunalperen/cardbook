@@ -72,7 +72,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="qRx-XJ-Sgh">
             <objects>
-                <tabBarController definesPresentationContext="YES" id="rp8-ee-ddP" customClass="CBTabBarController" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabbarController" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rp8-ee-ddP" customClass="CBTabBarController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="9KT-WQ-YlW"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="k3C-Q3-CTV">

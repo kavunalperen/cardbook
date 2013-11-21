@@ -11,6 +11,7 @@
 #import "County.h"
 #import "City.h"
 #import "Country.h"
+#import "CBCard.h"
 
 @implementation APIManager
 
@@ -38,7 +39,8 @@ static APIManager *sharedInstance = nil;
     
     if (self) {
         // Initialization code here.
-        //        [self useCache];
+        
+        [self useCache];
     }
     
     return self;
@@ -54,7 +56,13 @@ static APIManager *sharedInstance = nil;
     
     return sharedInstance;
 }
-
+#pragma mark - Caching
+- (NSString*) cacheDirectoryName {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *cacheDirectoryName = [documentsDirectory stringByAppendingPathComponent:@"CardbookAPICache"];
+    return cacheDirectoryName;
+}
 #pragma mark - Helpers
 
 - (NSString *)pathForOperation:(NSString *)operation
@@ -78,20 +86,28 @@ static APIManager *sharedInstance = nil;
         if([[responseDictionary valueForKey:@"error"] boolValue] == true){
             NSError *apiError = [NSError errorWithDomain:@"APIError"
                                                     code:[[responseDictionary objectForKey:@"error_code"] intValue]
-                                                userInfo:@{NSLocalizedDescriptionKey : [responseDictionary valueForKey:@"error_message"]}];
-            errorBlock(apiError);
+                                                userInfo:nil];
+            if (![completedOperation isCachedResponse]) {
+                errorBlock(apiError);
+            }
         }
         else{
-            completionBlock(responseDictionary);
+            if (![completedOperation isCachedResponse]) {
+                completionBlock(responseDictionary);
+            }
         }
     } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
         if (error.domain == NSURLErrorDomain && error.code == -1009) {
             NSError *connectionError = [NSError errorWithDomain:@"ConnectionError"
                                                            code:-102
                                                        userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"CONNECTION_ERROR", nil)}];
-            errorBlock(connectionError);
+            if (![completedOperation isCachedResponse]) {
+                errorBlock(connectionError);
+            }
         } else {
-            errorBlock(error);
+            if (![completedOperation isCachedResponse]) {
+                errorBlock(error);
+            }
         }
     }];
     
@@ -183,6 +199,32 @@ static APIManager *sharedInstance = nil;
                       errorBlock(error);
                   }];
 }
+- (void) getCompanyListWithCompletionBlock:(CardsBlock)completionBlock
+                                   onError:(ErrorBlock)errorBlock
+{
+    NSMutableDictionary* paramsDictionary = @{}.mutableCopy;
+    
+    [self addAuthorizationTokenAndTimeToDictionary:paramsDictionary];
+    
+    [self postRequestWithParams:paramsDictionary
+                   andOperation:@"GetCompanyList"
+             andCompletionBlock:^(NSDictionary *responseDictionary) {
+                 if ([[responseDictionary objectForKey:@"ResultCode"] isEqualToString:@"00"]) {
+                     for (NSDictionary* dict in [responseDictionary objectForKey:@"Data"]) {
+                         [CBCard CBCardWithDictionary:dict];
+                     }
+                     if (completionBlock != nil) {
+                         completionBlock([CBCard GetAllCards]);
+                     }
+                 } else {
+                     // handle errors
+                 }
+             }
+                  andErrorBlock:^(NSError *error) {
+                      ;
+                  }];
+}
+
 - (void) addAuthorizationTokenAndTimeToDictionary:(NSMutableDictionary*)dictionary
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -193,6 +235,7 @@ static APIManager *sharedInstance = nil;
     [dictionary setObject:AUTHORIZATION_TOKEN forKey:@"authorizationToken"];
     [dictionary setObject:stringFromDate forKey:@"authorizationTime"];
 }
+
 - (void) postRequestWithParams:(NSDictionary*) params
                   andOperation:(NSString*)operation
             andCompletionBlock:(CompletionBlock) completionBlock
@@ -204,33 +247,36 @@ static APIManager *sharedInstance = nil;
     
     [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {
         NSDictionary *responseDictionary = [completedOperation responseJSON];
-
+        
         if([[responseDictionary valueForKey:@"error"] boolValue] == true){
             NSError *apiError = [NSError errorWithDomain:@"APIError"
                                                     code:[[responseDictionary objectForKey:@"error_code"] intValue]
-                                                userInfo:@{NSLocalizedDescriptionKey : [responseDictionary valueForKey:@"error_message"]}];
-            if(errorBlock != nil)
+                                                userInfo:nil];
+            if (![completedOperation isCachedResponse]) {
                 errorBlock(apiError);
+            }
         }
         else{
-            completionBlock(responseDictionary);
+            if (![completedOperation isCachedResponse]) {
+                completionBlock(responseDictionary);
+            }
         }
-        
     } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
         if (error.domain == NSURLErrorDomain && error.code == -1009) {
             NSError *connectionError = [NSError errorWithDomain:@"ConnectionError"
                                                            code:-102
                                                        userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"CONNECTION_ERROR", nil)}];
-            if(errorBlock != nil)
+            if (![completedOperation isCachedResponse]) {
                 errorBlock(connectionError);
+            }
         } else {
-            if(errorBlock != nil)
+            if (![completedOperation isCachedResponse]) {
                 errorBlock(error);
+            }
         }
     }];
     
     [self enqueueOperation:op];
-
 }
 
 -(NSString*) sha1:(NSString*)input

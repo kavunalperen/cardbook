@@ -42,7 +42,7 @@
     [self.thumbnail setClipsToBounds:YES];
     [self.thumbnail.layer setShouldRasterize:YES];
     [self.thumbnail.layer setRasterizationScale:[UIScreen mainScreen].scale];
-    [self.thumbnail setImage:[UIImage imageNamed:@"dummy_brand.jpg"]];
+//    [self.thumbnail setImage:[UIImage imageNamed:@"dummy_brand.jpg"]];
     
     self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(120.0, 0.0, 140.0, 90.0)];
     [self.nameLabel setBackgroundColor:[UIColor clearColor]];
@@ -71,6 +71,32 @@
     backgroundView = [UIImageView new];
     [backgroundView setImage:[UIImage imageNamed:@"main_bigcell_footer_bg.png"]];
     [self setBackgroundView:backgroundView];
+}
+- (void) setImageOfTheCell:(NSString*)imageUrl
+{
+    self.loadingImageUrlString = imageUrl;
+
+    self.imageLoadingOperation = [[APIManager sharedInstance] imageAtURL:[NSURL URLWithString:self.loadingImageUrlString] onCompletion:^(UIImage *fetchedImage, NSURL *url, BOOL isInCache) {
+        if ([self.loadingImageUrlString isEqualToString:[url absoluteString]]) {
+//                //            Util* sharedUtil = [Util sharedInstance];
+//                //            UIImage* image = [sharedUtil maskImage:fetchedImage withMask:[UIImage imageNamed:@"mask.png"]];
+//                //            self.thumbnail.image = fetchedImage;
+            self.thumbnail.image = fetchedImage;
+        }
+    }];
+    
+//    self.imageLoadingOperation = [[APIManager sharedInstance] getImageWithURLString:self.loadingImageUrlString
+//                                                                       onCompletion:^(UIImage *resultImage) {
+//                                                                           self.thumbnail.image = resultImage;
+//                                                                       }
+//                                                                            onError:^(NSError *error) {
+//                                                                                NSLog(@"an error occured");
+//                                                                            }];
+}
+- (void) prepareForReuse
+{
+//    self.thumbnail.image = nil;
+    [self.imageLoadingOperation cancel];
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {

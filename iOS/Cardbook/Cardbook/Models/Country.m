@@ -13,13 +13,15 @@ static NSMutableArray* allCountries = nil;
 
 @implementation Country
 
-
 - (id) initWithCountryId:(NSInteger)countryId
           andCountryName:(NSString*)countryName
 {
     if (self = [super init]) {
         _countryId = countryId;
         _countryName = countryName;
+        if (allCountries == nil) {
+            allCountries = [NSMutableArray array];
+        }
     }
     
     return self;
@@ -52,7 +54,6 @@ static NSMutableArray* allCountries = nil;
         
         [allCountries addObject:country];
     }
-    
     return country;
 }
 

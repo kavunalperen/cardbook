@@ -13,6 +13,7 @@
 #import "CBNavigationController.h"
 #import "CBDummyViewController.h"
 #import "CBUtil.h"
+#import "CBTabBarController.h"
 
 @implementation CBAppDelegate
 
@@ -25,22 +26,12 @@
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:bundle];
     
-//    if(IS_IPHONE_5){
-//        _window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"main_bg-568h.jpg"]];
-//    }
-//    else{
-//        _window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"main_bg.jpg"]];
-//    }
-    
     if (YES) {
-        CBDummyViewController* dummyController = [storyboard instantiateViewControllerWithIdentifier:@"DummyViewController"];
-        self.window.rootViewController = dummyController;
-//        CBLoginViewController* loginView = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-//        self.window.rootViewController = loginView;
-//        [self.window pre]
+        CBTabBarController* tabbarController = [storyboard instantiateViewControllerWithIdentifier:@"TabbarController"];
+        self.window.rootViewController = tabbarController;
     } else {
-        CBRegisterViewController* registerView = [storyboard instantiateViewControllerWithIdentifier:@"RegisterViewController"];
-        self.window.rootViewController = registerView;
+        CBLoginViewController* loginView = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+        self.window.rootViewController = loginView;
     }
     [self.window makeKeyAndVisible];
     return YES;

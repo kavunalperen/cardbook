@@ -10,13 +10,17 @@
 #import "CBMyCardsDetailViewController.h"
 #import "CBUtil.h"
 #import "CBMyCardsCell.h"
+#import "APIManager.h"
+#import "CBCard.h"
 
 @interface CBMyCardsViewController ()
 
 @end
 
 @implementation CBMyCardsViewController
-
+{
+    NSMutableArray* myAllCards;
+}
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -43,6 +47,13 @@
     if (self.tableView.indexPathForSelectedRow) {
         [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
     }
+    
+    [[APIManager sharedInstance] getCompanyListWithCompletionBlock:^(NSMutableArray *allCards) {
+        myAllCards = allCards;
+        [self.tableView reloadData];
+    } onError:^(NSError *error) {
+        ;
+    }];
 }
 - (void) initializeTableView
 {
@@ -67,7 +78,7 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return [myAllCards count];
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -86,8 +97,14 @@
         cell = [tableView dequeueReusableCellWithIdentifier:MY_CARDS_CELL_IDENTIFIER];
     }
     
+    CBCard* currentCard = [myAllCards objectAtIndex:indexPath.row];
     
-    [cell.nameLabel setText:@"ADİDAS"];
+    [cell.nameLabel setText:[currentCard companyName]];
+    
+    [cell prepareForReuse];
+    if ([currentCard companyImageUrl] != nil && ![[currentCard companyImageUrl] isEqualToString:@""]) {
+        [cell setImageOfTheCell:[currentCard companyImageUrl]];
+    }
     
     return cell;
 }

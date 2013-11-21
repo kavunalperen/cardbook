@@ -9,6 +9,7 @@
 #import "CBProfileViewController.h"
 #import "CBUtil.h"
 #import <QuartzCore/QuartzCore.h>
+#import "CBUser.h"
 
 @interface CBProfileViewController ()
 
@@ -142,6 +143,32 @@
     [self initHeaderComponents];
     [self initInfoComponents];
 }
+- (void) viewWillAppear:(BOOL)animated
+{
+    [self fillViewsWithUserInfos];
+}
+- (void) fillViewsWithUserInfos
+{
+    CBUser* sharedUser = [CBUser sharedUser];
+    
+    [nameLabel setText:[NSString stringWithFormat:@"%@ %@",sharedUser.name,sharedUser.surname]];
+    
+    [emailLabel setText:[sharedUser email]];
+    
+    [birthdateLabel setText:[sharedUser birthdateString]];
+    
+    [genderLabel setText:[sharedUser genderString]];
+    
+    [phoneLabel setText:[sharedUser phone]];
+    
+    [countryLabel setText:[sharedUser countryString]];
+    
+    [cityLabel setText:[sharedUser cityString]];
+    
+    [countyLabel setText:[sharedUser countyString]];
+    
+    [addressLabel setText:[sharedUser address]];
+}
 - (void) initMainComponents
 {
     self.scrollView = [[UIScrollView alloc] initWithFrame:[self scrollViewFrame]];
@@ -158,7 +185,7 @@
 - (void) initHeaderComponents
 {
     profileImageView = [[UIImageView alloc] initWithFrame:[self profileImageViewFrame]];
-    [profileImageView setBackgroundColor:[UIColor orangeColor]];
+    [profileImageView setBackgroundColor:[UIColor clearColor]];
     [profileImageView.layer setCornerRadius:7.0];
     [profileImageView.layer setBorderWidth:1.0];
     [profileImageView.layer setShouldRasterize:YES];
@@ -172,7 +199,7 @@
     [nameLabel setFont:PROFILE_NAME_LABEL_FONT];
     [nameLabel setTextColor:PROFILE_NAME_LABEL_TEXT_COLOR];
     [nameLabel setNumberOfLines:2];
-    [nameLabel setText:@"Egemen Ebuzer DURSUN"];
+//    [nameLabel setText:@"Egemen Ebuzer DURSUN"];
     [self.scrollView addSubview:nameLabel];
     
     barcodeView = [[UIImageView alloc] initWithFrame:[self barcodeViewFrame]];
@@ -198,7 +225,7 @@
     [emailLabel setBackgroundColor:[UIColor clearColor]];
     [emailLabel setFont:PROFILE_INFO_LABELS_FONT];
     [emailLabel setTextColor:PROFILE_INFO_LABELS_TEXT_COLOR];
-    [emailLabel setText:@"eedursun@gmail.com"];
+//    [emailLabel setText:@"eedursun@gmail.com"];
     [infoHolder addSubview:emailLabel];
     
     
@@ -213,7 +240,7 @@
     [birthdateLabel setBackgroundColor:[UIColor clearColor]];
     [birthdateLabel setFont:PROFILE_INFO_LABELS_FONT];
     [birthdateLabel setTextColor:PROFILE_INFO_LABELS_TEXT_COLOR];
-    [birthdateLabel setText:@"12 / 05 / 1977"];
+//    [birthdateLabel setText:@"12 / 05 / 1977"];
     [infoHolder addSubview:birthdateLabel];
     
     UILabel* genderTitleLabel = [[UILabel alloc] initWithFrame:[self genderTitleLabelFrame]];
@@ -227,7 +254,7 @@
     [genderLabel setBackgroundColor:[UIColor clearColor]];
     [genderLabel setFont:PROFILE_INFO_LABELS_FONT];
     [genderLabel setTextColor:PROFILE_INFO_LABELS_TEXT_COLOR];
-    [genderLabel setText:@"Erkek"];
+//    [genderLabel setText:@"Erkek"];
     [infoHolder addSubview:genderLabel];
     
     UILabel* phoneTitleLabel = [[UILabel alloc] initWithFrame:[self phoneTitleLabelFrame]];
@@ -241,7 +268,7 @@
     [phoneLabel setBackgroundColor:[UIColor clearColor]];
     [phoneLabel setFont:PROFILE_INFO_LABELS_FONT];
     [phoneLabel setTextColor:PROFILE_INFO_LABELS_TEXT_COLOR];
-    [phoneLabel setText:@"+905323337420"];
+//    [phoneLabel setText:@"+905323337420"];
     [infoHolder addSubview:phoneLabel];
     
     UILabel* countryTitleLabel = [[UILabel alloc] initWithFrame:[self countryTitleLabelFrame]];
@@ -255,7 +282,7 @@
     [countryLabel setBackgroundColor:[UIColor clearColor]];
     [countryLabel setFont:PROFILE_INFO_LABELS_FONT];
     [countryLabel setTextColor:PROFILE_INFO_LABELS_TEXT_COLOR];
-    [countryLabel setText:@"Türkiye"];
+//    [countryLabel setText:@"Türkiye"];
     [infoHolder addSubview:countryLabel];
     
     UILabel* cityTitleLabel = [[UILabel alloc] initWithFrame:[self cityTitleLabelFrame]];
@@ -269,7 +296,7 @@
     [cityLabel setBackgroundColor:[UIColor clearColor]];
     [cityLabel setFont:PROFILE_INFO_LABELS_FONT];
     [cityLabel setTextColor:PROFILE_INFO_LABELS_TEXT_COLOR];
-    [cityLabel setText:@"Ankara"];
+//    [cityLabel setText:@"Ankara"];
     [infoHolder addSubview:cityLabel];
     
     UILabel* countyTitleLabel = [[UILabel alloc] initWithFrame:[self countyTitleLabelFrame]];
@@ -283,7 +310,7 @@
     [countyLabel setBackgroundColor:[UIColor clearColor]];
     [countyLabel setFont:PROFILE_INFO_LABELS_FONT];
     [countyLabel setTextColor:PROFILE_INFO_LABELS_TEXT_COLOR];
-    [countyLabel setText:@"Çankaya"];
+//    [countyLabel setText:@"Çankaya"];
     [infoHolder addSubview:countyLabel];
     
     UILabel* addressTitleLabel = [[UILabel alloc] initWithFrame:[self addressTitleLabelFrame]];
@@ -298,7 +325,7 @@
     [addressLabel setFont:PROFILE_INFO_LABELS_FONT];
     [addressLabel setTextColor:PROFILE_INFO_LABELS_TEXT_COLOR];
     [addressLabel setNumberOfLines:2];
-    [addressLabel setText:@"1059 cd. No: 30 / 11 Aşağı Öveçler Çankaya / Ankara PK: 06543"];
+//    [addressLabel setText:@"1059 cd. No: 30 / 11 Aşağı Öveçler Çankaya / Ankara PK: 06543"];
     [infoHolder addSubview:addressLabel];
 }
 - (void) stylizeNavigationBar

@@ -20,6 +20,7 @@
 #import "CBAppDelegate.h"
 #import "CBTabBarController.h"
 #import "CBNavigationController.h"
+#import "CBUser.h"
 
 @interface CBRegisterViewController ()
 
@@ -457,9 +458,9 @@
     NSDate* birthdate = [self.birthDatePicker date];
     NSString* gender = (selectedGenderRow == 0) ? @"M" : @"F";
     NSString* phoneNumber = [self.phoneNumberField text];
-    NSInteger selectedCountry = selectedCountryRow;
-    NSInteger selectedCity = selectedCityRow;
-    NSInteger selectedCounty = selectedCountyRow;
+    NSInteger selectedCountry = [[myCountries objectAtIndex:selectedCountryRow] countryId];
+    NSInteger selectedCity = [[[[myCountries objectAtIndex:selectedCountryRow] cities] objectAtIndex:selectedCityRow] cityId];
+    NSInteger selectedCounty = [[[[[[myCountries objectAtIndex:selectedCountryRow] cities] objectAtIndex:selectedCityRow] counties] objectAtIndex:selectedCountyRow] countyId];
     NSString* addressLine = [self.addressField text];
     
     NSCalendar* calendar = [NSCalendar currentCalendar];
@@ -471,43 +472,26 @@
     NSString* birthDateStr = [NSString stringWithFormat:@"%ld-%ld-%ld",(long)dayInt,(long)monthInt,(long)yearInt];
     
     [[APIManager sharedInstance] createOrUpdateUserWithFacebookId:facebookId
-                                                andMobileDeviceId:@"1234567899"
-                                                          andName:name
-                                                       andSurname:surname
-                                                         andEmail:email
-                                                     andBirthDate:birthDateStr
-                                             andProfilePictureUrl:image_url
-                                                        andPhone1:phoneNumber
-                                                        andPhone2:@""
-                                                        andGender:gender
-                                                     andCountryId:selectedCountry
-                                                        andCityId:selectedCity
-                                                      andCountyId:selectedCounty
-                                                   andAddressLine:addressLine
-                                                     onCompletion:^(NSDictionary *responseDictionary) {
-                                                         NSLog(@"done!");
-//                                                         NSString* birthDateStr = [[responseDictionary objectForKey:@"Data"] objectForKey:@"BirthDate"];
-//                                                         birthDateStr = [birthDateStr stringByReplacingOccurrencesOfString:@"/Date(" withString:@""];
-//                                                         birthDateStr = [birthDateStr stringByReplacingOccurrencesOfString:@")" withString:@""];
-//                                                         double timestamp = [birthDateStr  doubleValue];
-//                                                         timestamp /= 1000;
-//                                                         
-//                                                         NSDate* date = [NSDate dateWithTimeIntervalSince1970:timestamp];
-//                                                         
-//                                                         NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-//                                                         [formatter setLocale:[NSLocale currentLocale]];
-//                                                         [formatter setDateFormat:@"dd-MM-yyyy"];
-//                                                         
-//                                                         NSString* lastString = [formatter stringFromDate:date];
-//                                                         
-//                                                         [[NSUserDefaults standardUserDefaults] setObject:facebookId forKey:@"CardbookUserId"];
-//                                                         [[NSUserDefaults standardUserDefaults] synchronize];
-//                                                         CBAppDelegate* appDelegate = (CBAppDelegate*)[[UIApplication sharedApplication] delegate];
-//                                                         [appDelegate.window setRootViewController:[[CBNavigationController alloc] init]];
-                                                         [self performSegueWithIdentifier:@"RegisterToTabbarSegue" sender:self];
-                                                     } onError:^(NSError *error) {
-                                                         ;
-                                                     }];
+            andMobileDeviceId:@"1234567899"
+                      andName:name
+                   andSurname:surname
+                     andEmail:email
+                 andBirthDate:birthDateStr
+         andProfilePictureUrl:image_url
+                    andPhone1:phoneNumber
+                    andPhone2:@""
+                    andGender:gender
+                 andCountryId:selectedCountry
+                    andCityId:selectedCity
+                  andCountyId:selectedCounty
+               andAddressLine:addressLine
+                 onCompletion:^(NSDictionary *responseDictionary) {
+                     NSDictionary* data = [responseDictionary objectForKey:@"Data"];
+                     [CBUser CBUserWithDictionary:data];
+                     [self performSegueWithIdentifier:@"RegisterToTabbarSegue" sender:self];
+                 } onError:^(NSError *error) {
+                     // error handling here
+                 }];
 }
 - (CBTextField*)createTextFieldWithFrame:(CGRect)frame andPlaceHolderText:(NSString*)placeHolderText
 {
