@@ -61,6 +61,7 @@ public class AppConstants {
 
     public static final String CARDBOOK_SHARED_PREFERENCES ="com.cardbook.android";
     public static final String USER_INFORMATION ="com.cardbook.android.authenticationToken";
+    public static final String ADDRESS_LIST ="com.cardbook.android.addressList";
 
     public static Bitmap addMask(Context context, int image, int usedMask){
         Bitmap mask = BitmapFactory.decodeResource(context.getResources(), usedMask);
@@ -152,5 +153,20 @@ public class AppConstants {
         SharedPreferences sp=context.getSharedPreferences(CARDBOOK_SHARED_PREFERENCES,Context.MODE_PRIVATE);
 
         return sp.getString(USER_INFORMATION,null);
+    }
+
+    public static void setAddressList(Context context,String info){
+        SharedPreferences sp=context.getSharedPreferences(CARDBOOK_SHARED_PREFERENCES,Context.MODE_PRIVATE);
+//        if(sp.getString(USER_INFORMATION,null)==null){
+        SharedPreferences.Editor editor=sp.edit();
+        editor.putString(ADDRESS_LIST,info).commit();
+//        }
+//
+    }
+
+    public static String getAdressList(Context context){
+        SharedPreferences sp=context.getSharedPreferences(CARDBOOK_SHARED_PREFERENCES,Context.MODE_PRIVATE);
+
+        return sp.getString(ADDRESS_LIST,null);
     }
 }

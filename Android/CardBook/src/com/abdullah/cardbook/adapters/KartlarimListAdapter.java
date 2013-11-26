@@ -25,6 +25,8 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class KartlarimListAdapter extends ArrayAdapter<Company>{
@@ -64,12 +66,17 @@ public class KartlarimListAdapter extends ArrayAdapter<Company>{
         	// user image and mask
         	mImageView= (NetworkImageView)view.findViewById(R.id.kartlarimListCardImage);
 
+
 //            addImage(item.getCompanyLogoURL());
 
             imageLoader=new ImageLoader(requestQueue, this.cache);
 
 
             mImageView.setImageUrl(item.getCompanyLogoURL(),imageLoader);
+
+//            imageLoader.get(item.getCompanyLogoURL(),ImageLoader.ImageListener)
+
+
 //            imageLoader.get(item.getCompanyLogoURL(), new ImageLoader.ImageListener() {
 //                @Override
 //                public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
@@ -77,9 +84,9 @@ public class KartlarimListAdapter extends ArrayAdapter<Company>{
 //
 //
 //                    if(response.getBitmap()!=null){
-////                    Bitmap result=AppConstants.addMask(KartDetail.this.getActivity(), response.getBitmap(), R.drawable.listview_photomask);
+//                    Bitmap result=AppConstants.addMask(context, response.getBitmap(), R.drawable.listview_photomask);
 //
-//                        mImageView.setImageBitmap(response.getBitmap());
+//                        mImageView.setImageBitmap(result);
 //                        mImageView.setScaleType(ImageView.ScaleType.FIT_XY);
 //                    }
 //                }

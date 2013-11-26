@@ -229,9 +229,13 @@ public class UserInformation extends Activity implements View.OnClickListener{
         Address adrs=new Address();
         adrs.setAddressLine(addressLine.getText().toString());
         adrs.setCountryId(ct.getId());
-        adrs.setCityId(ct.getCities().get(spCity.getSelectedItemPosition()-1).getId());
-        adrs.setCountId(ct.getCities().get(spCity.getSelectedItemPosition()-1).getCounties().get(spCounty.getSelectedItemPosition()-1).getId());
+//        adrs.setCountry(ct.getName());
 
+        adrs.setCityId(ct.getCities().get(spCity.getSelectedItemPosition()-1).getId());
+//        adrs.setCity(ct.getCities().get(spCity.getSelectedItemPosition()-1).getName());
+
+        adrs.setCountId(ct.getCities().get(spCity.getSelectedItemPosition()-1).getCounties().get(spCounty.getSelectedItemPosition()-1).getId());
+//        adrs.setCounty(ct.getCities().get(spCity.getSelectedItemPosition()-1).getCounties().get(spCounty.getSelectedItemPosition()-1).getName());
         user.setAddres(adrs);
 
         ConnectionManager.postData(this, new RequestCallBack() {
@@ -676,9 +680,7 @@ public class UserInformation extends Activity implements View.OnClickListener{
         }
 
         protected void onPostExecute(Void unused) {
-            // NOTE: You can call UI Element here.
 
-            // Close progress dialog
             Dialog.dismiss();
 
             Intent intent=new Intent(UserInformation.this, AppMainTabActivity.class);

@@ -2,6 +2,7 @@ package com.abdullah.cardbook;
 
 import android.app.Application;
 
+import com.abdullah.cardbook.activities.MainActivity;
 import com.abdullah.cardbook.common.AppConstants;
 import com.abdullah.cardbook.common.Log;
 import com.abdullah.cardbook.models.Campaign;
@@ -126,6 +127,13 @@ public class CardbookApp extends Application {
     }
 
     public ArrayList<Country> getCountries() {
+        if (this.countries==null || this.countries.size()==0){
+            try {
+                MainActivity.convertAddresList(new JSONObject(AppConstants.getAdressList(getApplicationContext())));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
         return countries;
     }
 

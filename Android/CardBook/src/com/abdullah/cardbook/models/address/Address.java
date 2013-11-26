@@ -37,9 +37,9 @@ public class Address {
 	private int cityId;     // Şehir
 	private int countId;    // İlçe
 
-    private String country;  // Ülke
-    private String city;     // Şehir
-    private String county;
+//    private String country;  // Ülke
+//    private String city;     // Şehir
+//    private String county;
 	private String addressLine;
 
     private String[] locateFromFacebook;

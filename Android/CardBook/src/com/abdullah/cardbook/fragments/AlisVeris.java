@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.abdullah.cardbook.CardbookApp;
@@ -83,12 +84,16 @@ public class AlisVeris extends BaseFragment implements AdapterView.OnItemClickLi
             ArrayList<Shopping>allList=CardbookApp.getInstance().getShoppings();
             ArrayList<Shopping>list=new ArrayList<Shopping>();
 
-            for(Shopping cp:allList){
-                if(cp.getCompanyId()==companyId)
-                    list.add(cp);
+            if(allList!=null && allList.size()>0){
+                for(Shopping cp:allList){
+                    if(cp.getCompanyId()==companyId)
+                        list.add(cp);
 
+                }
+                setList(list);
             }
-            setList(list);
+            else
+                Toast.makeText(getActivity(),"Alışverişiniz bulunmamaktadır.", Toast.LENGTH_SHORT).show();
 
 //            ConnectionManager.postData(getActivity(),new RequestCallBack() {
 //                @Override

@@ -55,7 +55,8 @@
             <ImageView
                     android:layout_width="fill_parent"
                     android:layout_height="218dp"
-                    android:id="@+id/campainBanner"/>
+                    android:id="@+id/campainBanner"
+                    android:background="@drawable/campaign_detail_dummy"/>
 
             <LinearLayout
                     android:orientation="vertical"
@@ -133,7 +134,7 @@
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="Kampanya Koşulları"
                         android:id="@+id/tvKampanyaDetailRequimentHeader"
-                        android:textSize="10sp"
+                        android:textSize="12sp"
                         android:textColor="@color/colorFF3B30"/>
 
                 <TextView
@@ -142,7 +143,7 @@
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="Bu bir kampanya koşulu"
                         android:id="@+id/tvKampanyaDetailRequiment"
-                        android:textSize="10sp"
+                        android:textSize="12sp"
                         android:textColor="@color/color8E8E93"/>
             </LinearLayout>
 

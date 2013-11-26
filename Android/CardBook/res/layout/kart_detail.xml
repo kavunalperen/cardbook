@@ -164,7 +164,7 @@
                 android:textColor="@color/color8E8E93"/>
 
         <EditText
-                android:layout_width="147dp"
+                android:layout_width="match_parent"
                 android:layout_height="22dp"
                 android:hint="0000 0000 0000 0000"
                 android:id="@+id/editKartDetailKartNo"
@@ -174,7 +174,9 @@
                 android:layout_toRightOf="@+id/tvKartDetailKartNoHeader"
                 android:layout_marginLeft="5dp"
                 android:textColor="@color/color8E8E93"
-                android:inputType="number">
+                android:inputType="number"
+            android:layout_toLeftOf="@+id/btnkartDetailSave"
+            android:layout_marginRight="5dp">
                 <requestFocus />
                 </EditText>
 
@@ -233,7 +235,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:id="@+id/linearLayout"
+                    android:id="@+id/linearLayoutButtons"
                     android:layout_below="@+id/imageView3"
                     android:layout_marginTop="15dp"
                     android:layout_alignParentLeft="true">

@@ -327,6 +327,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
             }
             JSONObject resultAddress=ConnectionManager.postData2(AppConstants.SM_GET_ADDRESS_LIST,null);
+            AppConstants.setAddressList(getApplicationContext(),resultAddress.optJSONObject(AppConstants.POST_DATA).toString());
 
             JSONObject resultCards=ConnectionManager.postData2(AppConstants.SM_GET_COMPANY_LIST,null);
 
