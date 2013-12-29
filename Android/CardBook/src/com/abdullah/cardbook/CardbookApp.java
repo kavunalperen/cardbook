@@ -128,7 +128,7 @@ public class CardbookApp extends Application {
 
     public ArrayList<Country> getCountries() {
         if (this.countries==null || this.countries.size()==0){
-            try {
+            try { // SON HATA
                 MainActivity.convertAddresList(new JSONObject(AppConstants.getAdressList(getApplicationContext())));
             } catch (JSONException e) {
                 e.printStackTrace();

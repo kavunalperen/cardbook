@@ -141,7 +141,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Bu bir kampanya koşulu"
+                        android:text="..."
                         android:id="@+id/tvKampanyaDetailRequiment"
                         android:textSize="12sp"
                         android:textColor="@color/color8E8E93"/>

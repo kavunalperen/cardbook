@@ -32,6 +32,7 @@ import com.abdullah.cardbook.models.CardBookUser;
 import com.abdullah.cardbook.models.CardBookUserCard;
 import com.abdullah.cardbook.models.Company;
 import com.abdullah.cardbook.models.promotion.Coupon;
+import com.abdullah.cardbook.models.promotion.Credit;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
@@ -124,27 +125,26 @@ public class KartDetail extends BaseFragment implements View.OnClickListener {
         setNavBarItemsStyle(view);
 
         Bundle bundle=this.getArguments();
-        position=bundle.getInt("position",0);
+        company=(Company)bundle.getSerializable(Company.COMPANY);
 
         app=CardbookApp.getInstance();
         user=app.getUser();
 
-        Log.i("KertDetail positioın: "+position);
+        Log.i("KertDetail positioın: "+company.getCompanyName());
         couponListView=(ListView)view.findViewById(R.id.kartDetailListView);
         couponListView.setDivider(null);
 
-        company=CardbookApp.getInstance().getCompanies().get(position);
+//        company=CardbookApp.getInstance().getCompanies().get(position);
 
 
-
-        getCompanyDetail();
-
+//        getCompanyDetail();
 
         requestQueue= CardbookApp.getInstance().getRequestQuee();
         int cacheSize=AppConstants.getCacheSize(getActivity());
 
         this.cache=new BitmapLruCache(cacheSize);
 
+        setContent();
         return view;
 	}
 
@@ -157,12 +157,26 @@ public class KartDetail extends BaseFragment implements View.OnClickListener {
 
     }
     private void setContent(){
+
+//        int pay=0;
+//        ArrayList<Credit> credits=company.getCreditList();
+//        for(int i=0; i<credits.size();i++){
+//            pay+=credits.get(i).getPromotionAmount();
+//        }
+
+
         companyName.setText(company.getCompanyName());
-        puanPay.setText("1000");
-        puanPayda.setText(" / 2000");
+        puanPay.setText(String.valueOf(company.getUsableCredit()));
+        puanPayda.setText(" / "+company.getTotalCredit());
         wantNotification=company.isUserWantNotification();
         addImage();
         setNotification();
+
+        etKartNo.setText(company.getCard().getCardNumber());
+//        etKartNo.setEnabled(false);
+//        btnSave.setEnabled(false);
+
+        setList(company.getCouponList());
 
 
     }
@@ -176,10 +190,13 @@ public class KartDetail extends BaseFragment implements View.OnClickListener {
 
     private void setList(ArrayList<Coupon> list){
 
-        KartlarimDetailListAdapter adapter=new KartlarimDetailListAdapter(getActivity(),R.layout.kartlarim_detail_list_template,list);
+        if(list==null)
+            return;
 
+        KartlarimDetailListAdapter adapter=new KartlarimDetailListAdapter(getActivity(),R.layout.kartlarim_detail_list_template,list);
         couponListView.setAdapter(adapter);
     }
+
     @Override
     public void backPressed() {
         pageListener.onSwitchBeforeFragment(AppConstants.KARTLARIM);
@@ -279,6 +296,7 @@ public class KartDetail extends BaseFragment implements View.OnClickListener {
 
             @Override
             public void onRequestError() {
+                AppConstants.ErrorToast(getActivity());
                 dialog.dismiss();
             }
         };
@@ -350,7 +368,7 @@ public class KartDetail extends BaseFragment implements View.OnClickListener {
 
 
     public void addImage(){
-        Log.i("addımage: " + user.getProfilPhotoUrl());
+        Log.i("addımage: " +company.getCompanyLogoURL());
         imageLoader=new ImageLoader(requestQueue, this.cache);
         final ImageView mImageView= (ImageView)view.findViewById(R.id.kartDetailCompanyImage);
         imageLoader.get(company.getCompanyLogoURL(), new ImageLoader.ImageListener() {

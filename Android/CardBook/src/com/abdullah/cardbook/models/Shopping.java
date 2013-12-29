@@ -7,6 +7,7 @@ import com.abdullah.cardbook.models.promotion.Credit;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,8 +15,9 @@ import java.util.Date;
 /**
  * Created by abdullah on 10/26/13.
  */
-public class Shopping {
+public class Shopping implements Serializable{
 
+    public static String SHOPPING="shopping";
     public static String ID="ShoppingId";
     public static String USER_ID="UserId";
     public static String COMPANY_ID="CompanyId";

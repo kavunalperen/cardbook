@@ -8,6 +8,7 @@ import android.widget.ImageButton;
 
 import com.abdullah.cardbook.R;
 import com.abdullah.cardbook.common.AppConstants;
+import com.abdullah.cardbook.common.Log;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -43,7 +44,7 @@ public class FirstActivity extends Activity {
                     @Override
                     public void run() {
                         String  userInformation= AppConstants.getUserInformation(FirstActivity.this);
-
+                        Log.i("FirstActivity: User: " + userInformation);
                         if(userInformation==null){
                             Intent intent=new Intent(FirstActivity.this, MainActivity.class);
                             startActivity(intent);

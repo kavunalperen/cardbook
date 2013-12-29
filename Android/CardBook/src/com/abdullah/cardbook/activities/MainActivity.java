@@ -72,28 +72,30 @@ public class MainActivity extends Activity implements OnClickListener {
         btnLogin=(ImageButton) findViewById(R.id.btnLogin);
 //        mTextStatus=(TextView) findViewById(R.id.tvStatus);
 
+        // initialize facebook configuration
+        Permissions[] permissions = new Permissions[]
+                {
+                        Permissions.BASIC_INFO,
+                        Permissions.EMAIL,
+                        Permissions.USER_BIRTHDAY,
+                        Permissions.USER_PHOTOS,
+                        Permissions.PUBLISH_ACTION,
+                        Permissions.PUBLISH_STREAM,
+                };
+
+        SimpleFacebookConfiguration configuration = new SimpleFacebookConfiguration.Builder()
+                .setAppId(APP_ID)
+                .setNamespace(APP_NAMESPACE)
+                .setPermissions(permissions)
+                .setDefaultAudience(SessionDefaultAudience.FRIENDS)
+                .build();
+
+        SimpleFacebook.setConfiguration(configuration);
+
         if(userInformation==null){
             btnLogin.setOnClickListener(this);
 
-            // initialize facebook configuration
-            Permissions[] permissions = new Permissions[]
-                    {
-                            Permissions.BASIC_INFO,
-                            Permissions.EMAIL,
-                            Permissions.USER_BIRTHDAY,
-                            Permissions.USER_PHOTOS,
-                            Permissions.PUBLISH_ACTION,
-                            Permissions.PUBLISH_STREAM
-                    };
 
-            SimpleFacebookConfiguration configuration = new SimpleFacebookConfiguration.Builder()
-                    .setAppId(APP_ID)
-                    .setNamespace(APP_NAMESPACE)
-                    .setPermissions(permissions)
-                    .setDefaultAudience(SessionDefaultAudience.FRIENDS)
-                    .build();
-
-            SimpleFacebook.setConfiguration(configuration);
 
 
         }
@@ -106,8 +108,10 @@ public class MainActivity extends Activity implements OnClickListener {
 
                 CardBookUser user=new CardBookUser(obje);
                 CardbookApp.getInstance().setUser(user);
-                if(ConnectionManager.isOnline(this))
-                    new PostDataOperation().execute(user);
+                if(ConnectionManager.isOnline(this)){
+//                    new PostDataOperation().execute(user);
+                    getCompanyList(); // Devamında diğer bilgiler alıncak ve diğar ekrana yönelenecek.
+                }
                 else
                     AppConstants.NotOnlineToast(this);
             }
@@ -211,31 +215,19 @@ public class MainActivity extends Activity implements OnClickListener {
                     toast("Facebook girişi tamamlandı.");
 
                     CardBookUser user=new CardBookUser();
-                    user.setId(profile.getId());
+                    user.setFacebookId(profile.getId());
                     user.setDeviceId("0");
                     user.setName(profile.getFirstName());
                     user.setSurname(profile.getLastName());
                     user.setEmail(profile.getEmail());
                     user.setBirthDate(profile.getBirthday());
                     user.setGender(profile.getGender());
-                    user.setProfilPhotoUrl("http://graph.facebook.com/"+user.getId()+"/picture?style=large" );
+                    user.setProfilPhotoUrl("http://graph.facebook.com/"+user.getFacebookId()+"/picture?style=large" );
 
                     CardbookApp app=CardbookApp.getInstance();
                     app.setUser(user);
 
-                    getAddressList();
-//                    Intent intent=new Intent(MainActivity.this, UserInformation.class);
-//                    startActivity(intent);
-
-//                    Log.i("Gender From Face:"+profile.getGender());
-//                    Log.i(profile.getLocale().toString()+", "+profile.getLocation().getName());
-//                    Log.i(profile.getLocale()+", "+profile.getLocation());
-
-//                    new GetAdressList().execute(null);
-
-//				    new PostDataOperation().execute(user);
-
-
+                    openUserInformationActivity();
 				}
 			});
  		}
@@ -247,7 +239,7 @@ public class MainActivity extends Activity implements OnClickListener {
  		}
  	};
 
-    public void getAddressList(){
+    public void openUserInformationActivity(){
         RequestCallBack callback= new RequestCallBack() {
             @Override
             public void onRequestStart() {
@@ -260,7 +252,9 @@ public class MainActivity extends Activity implements OnClickListener {
             public void onRequestComplete(JSONObject result) {
 
                 try{
-                    convertAddresList(result.getJSONObject(AppConstants.POST_DATA));
+                    JSONObject resultAddress=result.getJSONObject(AppConstants.POST_DATA);
+                    convertAddresList(resultAddress);
+                    AppConstants.setAddressList(getApplicationContext(), resultAddress.toString());
                 }
                 catch (JSONException e){
                     e.printStackTrace();
@@ -279,6 +273,168 @@ public class MainActivity extends Activity implements OnClickListener {
         };
         ConnectionManager.postData(getApplicationContext(), callback,AppConstants.SM_GET_ADDRESS_LIST,new HashMap<String, String>());
     }
+
+    public void getAddressList(){
+        RequestCallBack callback= new RequestCallBack() {
+            @Override
+            public void onRequestStart() {
+                dialog.setMessage("Bilgiler indiriliyor...");
+                dialog.show();
+                Log.i("Bilgiler indiriliyor: Adres");
+            }
+
+            @Override
+            public void onRequestComplete(JSONObject result) {
+
+                try{
+                    JSONObject resultAddress=result.getJSONObject(AppConstants.POST_DATA);
+                    convertAddresList(resultAddress);
+                    AppConstants.setAddressList(getApplicationContext(), resultAddress.toString());
+//                    getCompanyList();
+                }
+                catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onRequestError() {
+                dialog.dismiss();
+                AppConstants.ErrorToast(getApplicationContext());
+
+            }
+        };
+
+        ConnectionManager.postData(getApplicationContext(), callback,AppConstants.SM_GET_ADDRESS_LIST,new JSONObject());
+    }
+
+    public void getCompanyList(){
+        RequestCallBack callback= new RequestCallBack() {
+            @Override
+            public void onRequestStart() {
+                dialog.setMessage("Bilgiler indiriliyor...");
+                dialog.show();
+                Log.i("Bilgiler indiriliyor: Company");
+            }
+
+            @Override
+            public void onRequestComplete(JSONObject result) {
+
+                try {
+                    JSONArray array=result.getJSONArray(AppConstants.POST_DATA);
+                    Log.i(((JSONObject) array.get(0)).getString("UDate"));
+                    String dateString=((JSONObject)array.get(0)).getString("UDate");
+                    Date date=AppConstants.parseMsTimestampToDate(dateString);
+                    SimpleDateFormat ft = new SimpleDateFormat ("dd.mm.yyyy");
+
+                    Log.i("Current Date: "+ft.format(date));
+
+
+                    for(int i=0; i<array.length();i++){
+                        Company company=new Company((JSONObject)array.get(i));
+
+                        CardbookApp.getInstance().addCompany(company);
+                    } 
+                    getCampanignList();
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onRequestError() {
+                dialog.dismiss();
+                AppConstants.ErrorToast(getApplicationContext());
+
+            }
+        };
+        ConnectionManager.postData(getApplicationContext(), callback,AppConstants.SM_GET_COMPANY_LIST,new JSONObject());
+    }
+
+    public void getCampanignList(){
+        RequestCallBack callback= new RequestCallBack() {
+            @Override
+            public void onRequestStart() {
+//                dialog.setMessage("Bilgiler indiriliyor...");
+//                dialog.show();
+                Log.i("Bilgiler indiriliyor: Campaign");
+            }
+
+            @Override
+            public void onRequestComplete(JSONObject result) {
+
+                try{
+                    JSONArray array=result.getJSONArray(AppConstants.POST_DATA);
+                    for(int i=0; i<array.length();i++){
+                        Campaign campaing=new Campaign((JSONObject)array.get(i));
+
+                        CardbookApp.getInstance().addCampaign(campaing);
+                    }
+                    getShoppingList();
+
+                }
+                catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onRequestError() {
+                dialog.dismiss();
+                AppConstants.ErrorToast(getApplicationContext());
+
+            }
+        };
+        ConnectionManager.postData(getApplicationContext(), callback,AppConstants.SM_GET_ALL_ACTIVE_CAMPAIGN_LIST,new JSONObject());
+    }
+
+    public void getShoppingList(){
+        RequestCallBack callback= new RequestCallBack() {
+            @Override
+            public void onRequestStart() {
+//                dialog.setMessage("Bilgiler indiriliyor...");
+//                dialog.show();
+                Log.i("Bilgiler indiriliyor: Shopings");
+            }
+
+            @Override
+            public void onRequestComplete(JSONObject result) {
+
+                JSONArray array=result.optJSONArray(AppConstants.POST_DATA);
+                for(int i=0; i<array.length();i++){
+                    Shopping shopping=new Shopping(array.optJSONObject(i));
+                    CardbookApp.getInstance().addShoppings(shopping);
+
+                    Log.i("Shopping: "+i+" "+shopping.getCompany().getCompanyName());
+                }
+
+                dialog.dismiss();
+
+                Intent intent=new Intent(MainActivity.this, AppMainTabActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onRequestError() {
+                dialog.dismiss();
+                AppConstants.ErrorToast(getApplicationContext());
+
+            }
+        };
+
+        JSONObject paramater=new JSONObject();
+        try{
+            paramater.putOpt("userId", CardbookApp.getInstance().getUser().getId());
+            ConnectionManager.postData(getApplicationContext(), callback, AppConstants.SM_GET_ALL_SHOPPING_LIST, paramater);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
 
 
 
@@ -334,7 +490,7 @@ public class MainActivity extends Activity implements OnClickListener {
             JSONObject resultCampaign=ConnectionManager.postData2(AppConstants.SM_GET_ALL_ACTIVE_CAMPAIGN_LIST, null);
 
             ArrayList<NameValuePair> list=new ArrayList<NameValuePair>();
-            list.add(new BasicNameValuePair("userId", "6"));
+            list.add(new BasicNameValuePair("userId", app.getUser().getId()));
 
 
             JSONObject resultShopping=ConnectionManager.postData2(AppConstants.SM_GET_ALL_SHOPPING_LIST,list);
@@ -342,6 +498,8 @@ public class MainActivity extends Activity implements OnClickListener {
             for(int i=0; i<array.length();i++){
                 Shopping shopping=new Shopping(array.optJSONObject(i));
                 app.addShoppings(shopping);
+
+                Log.i("Shopping: "+i+" "+shopping.getCompany().getCompanyName());
             }
 
 

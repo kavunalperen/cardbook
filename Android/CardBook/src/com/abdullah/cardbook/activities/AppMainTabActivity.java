@@ -38,6 +38,7 @@ import com.abdullah.cardbook.common.Log;
 import com.abdullah.cardbook.connectivity.ConnectionManager;
 import com.abdullah.cardbook.fragments.*;
 import com.abdullah.cardbook.models.Company;
+import com.google.analytics.tracking.android.EasyTracker;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -87,6 +88,7 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
     int menuPlace;
 
     private static int IMAGE_NULL=-1;
+    private static int offScrrenLimit=3;
 
     Button navBarButton;
 //    TextView navBarText;
@@ -105,6 +107,7 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
         setContentView(R.layout.app_main_tab_fragment_layout);
 
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        mViewPager.setOffscreenPageLimit(offScrrenLimit);
 
         maskLeftCurrentPosition=0;
         mStacks = new HashMap<String, Stack<Fragment>>();
@@ -148,11 +151,11 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
         // Check device for Play Services APK. If check succeeds, proceed with GCM registration.
         if (checkPlayServices()) {
             gcm = GoogleCloudMessaging.getInstance(this);
-            regid = getRegistrationId(context);
-
-            if (regid.isEmpty()) {
+//            regid = getRegistrationId(context);
+//            Log.i("regID: "+regid);
+//            if (regid.isEmpty()) {
                 registerInBackground();
-            }
+//            }
         } else {
             Log.i("No valid Google Play Services APK found.");
         }
@@ -169,6 +172,19 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
 //        Log.i("Company length: "+ cardbookApp.getCompanies().size());
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        EasyTracker.getInstance(this).activityStart(this);  // Add this method.
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        EasyTracker.getInstance(this).activityStop(this);  // Add this method.
+    }
 
     private View createTabView(final int id, final String menuText) {
         View view = LayoutInflater.from(this).inflate(R.layout.tabs_icon, null);
@@ -553,16 +569,13 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
         return getSharedPreferences(AppMainTabActivity.class.getSimpleName(),
                 Context.MODE_PRIVATE);
     }
-    /**
-     * Sends the registration ID to your server over HTTP, so it can use GCM/HTTP or CCS to send
-     * messages to your app. Not needed for this demo since the device sends upstream messages
-     * to a server that echoes back the message using the 'from' address in the message.
-     */
+
     private void sendRegistrationIdToBackend() {
         JSONObject object=new JSONObject();
         try {
             object.put("userId",CardbookApp.getInstance().getUser().getId());
             object.put("mobileDeviceId", regid);
+            object.put("mobileDeviceType","android");
             object=ConnectionManager.addDefaultParameters(object);
         } catch (JSONException e) {
             e.printStackTrace();

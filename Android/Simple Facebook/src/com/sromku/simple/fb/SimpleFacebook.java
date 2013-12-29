@@ -395,10 +395,7 @@ public class SimpleFacebook
 	 * 
 	 * <b>Permission:</b><br>
 	 * {@link Permissions#PUBLISH_ACTION}
-	 * 
-	 * @param feed The feed to publish. Use {@link Feed.Builder} to create a new <code>Feed</code>
-	 * @param onPublishListener The listener for publishing action
-	 * @see https://developers.facebook.com/docs/howtos/androidsdk/3.0/publish-to-feed/
+	 *
 	 */
 	public void publish(final Feed feed, final OnPublishListener onPublishListener)
 	{

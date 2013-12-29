@@ -3,6 +3,7 @@ package com.abdullah.cardbook.fragments;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -23,6 +24,7 @@ import com.abdullah.cardbook.CardbookApp;
 import com.abdullah.cardbook.R;
 import com.abdullah.cardbook.activities.AppMainTabActivity;
 import com.abdullah.cardbook.activities.Barcode;
+import com.abdullah.cardbook.activities.MainActivity;
 import com.abdullah.cardbook.activities.UserInformation;
 import com.abdullah.cardbook.adapters.FragmentPageListener;
 import com.abdullah.cardbook.adapters.UserInformationListener;
@@ -30,6 +32,8 @@ import com.abdullah.cardbook.common.AppConstants;
 import com.abdullah.cardbook.common.Font;
 import com.abdullah.cardbook.common.Log;
 import com.abdullah.cardbook.connectivity.BitmapLruCache;
+import com.abdullah.cardbook.connectivity.ConnectionManager;
+import com.abdullah.cardbook.connectivity.RequestCallBack;
 import com.abdullah.cardbook.models.CardBookUser;
 import com.abdullah.cardbook.models.address.City;
 import com.abdullah.cardbook.models.address.Country;
@@ -38,10 +42,14 @@ import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class Profil extends BaseFragment implements OnClickListener, UserInformationListener {
@@ -51,6 +59,7 @@ public class Profil extends BaseFragment implements OnClickListener, UserInforma
             countryH, country, cityH, city,countyH, county, addressH, address;
 
     ImageButton btnUpdate, btnLogout, btnBarcode;
+    private ProgressDialog dialog;
 
     CardbookApp app;
     CardBookUser user;
@@ -75,7 +84,7 @@ public class Profil extends BaseFragment implements OnClickListener, UserInforma
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.profiilim, container, false);
-
+        dialog = new ProgressDialog(getActivity());
         setContent();
         return view;
     }
@@ -155,16 +164,20 @@ public class Profil extends BaseFragment implements OnClickListener, UserInforma
     @Override
     public void updateInformations() {
 
-        Country mcountry=getCountry(user.getAddres().getCountryId());
-        City mcity=getCity(user.getAddres().getCityId(),mcountry.getId());
-        County mcounty=getCounty(user.getAddres().getCountId(), mcity.getId(),mcountry.getId());
+//        Country mcountry=getCountry(user.getAddres().getCountryId());
+//        City mcity=getCity(user.getAddres().getCityId(),mcountry.getId());
+//        County mcounty=getCounty(user.getAddres().getCountId(), mcity.getId(),mcountry.getId());
+
+        String mcountry=user.getAddres().getCountry();
+        String mcity=user.getAddres().getCity();
+        String mcounty=user.getAddres().getCounty();
 
         String strGender=user.getGender().equals("M")?"Erkek":"Kadın";
 
 
         TextView[] textViews={name,surname,mail,date,gender,phone, country,city,county, address};
         String[] contentArray={user.getName(),user.getSurname(), user.getEmail(), user.getBirthDate(),
-                strGender, user.getPhone1(), mcountry.getName(), mcity.getName(), mcounty.getName(), user.getAddres().getAddressLine()};
+                strGender, user.getPhone1(), mcountry, mcity, mcounty, user.getAddres().getAddressLine()};
 
         for(int i=0; i<textViews.length;i++)
             textViews[i].setText(contentArray[i]);
@@ -261,6 +274,8 @@ public class Profil extends BaseFragment implements OnClickListener, UserInforma
 
         if(view.getId()==btnUpdateId){
 
+
+
             Intent intent=new Intent(getActivity(), UserInformation.class);
             intent.putExtra("isFromProfil",true);
             startActivity(intent);
@@ -271,6 +286,43 @@ public class Profil extends BaseFragment implements OnClickListener, UserInforma
             showBarcode();
 
     }
+
+    public void openUserInformationActivity(){
+        RequestCallBack callback= new RequestCallBack() {
+            @Override
+            public void onRequestStart() {
+                dialog.setMessage("Adres bilgileri indiriliyor...");
+                dialog.show();
+                Log.i("Adres bilgileri indiriliyor.");
+            }
+
+            @Override
+            public void onRequestComplete(JSONObject result) {
+
+                try{
+                    MainActivity.convertAddresList(result.getJSONObject(AppConstants.POST_DATA));
+                    dialog.dismiss();
+
+                    Intent intent=new Intent(getActivity(), UserInformation.class);
+                    intent.putExtra("isFromProfil",true);
+                    startActivity(intent);
+                }
+                catch (JSONException e){
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onRequestError() {
+                dialog.dismiss();
+                AppConstants.ErrorToast(getActivity());
+
+            }
+        };
+        ConnectionManager.postData(getActivity(), callback,AppConstants.SM_GET_ADDRESS_LIST,new HashMap<String, String>());
+    }
+
 
     @Override
     public void backPressed() {

@@ -23,6 +23,7 @@ import com.abdullah.cardbook.adapters.FragmentPageListener;
 import com.abdullah.cardbook.adapters.KampanyaListener;
 import com.abdullah.cardbook.adapters.KampanyalarListAdapter;
 import com.abdullah.cardbook.adapters.KartlarimListAdapter;
+import com.abdullah.cardbook.adapters.PagerAdapter;
 import com.abdullah.cardbook.common.AppConstants;
 import com.abdullah.cardbook.common.Font;
 import com.abdullah.cardbook.common.Log;
@@ -36,6 +37,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 
 public class Kampanyalar extends BaseFragment implements OnItemClickListener, KampanyaListener {
@@ -147,15 +149,18 @@ public class Kampanyalar extends BaseFragment implements OnItemClickListener, Ka
     }
 
     public void setList(ArrayList<Campaign> campaigns){
-        KampanyalarListAdapter adapter=new KampanyalarListAdapter(this.getActivity(),R.layout.kampanyalar_list_template, campaigns);
+        Log.i("Kampanyalar list size: "+campaigns.get(0).getName());
+        adapter=new KampanyalarListAdapter(this.getActivity(),R.layout.kampanyalar_list_template, campaigns);
         listView.setAdapter(adapter);
     }
 	@Override
-	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 //		Toast.makeText(getActivity(), "Clicked at positon = " + arg2, Toast.LENGTH_SHORT).show();
 
         Bundle data=new Bundle();
-        data.putInt("position",arg2);
+        Campaign campaign=adapter.getItem(position);
+        Log.i("Açılan Kampanya: "+campaign.getName());
+        data.putSerializable(Campaign.CAMPAIGN,campaign);
         KampanyaDetail detail=new KampanyaDetail();
         detail.setArguments(data);
         pageListener.onSwitchToNextFragment(AppConstants.KAMPANYALAR,detail, this);
@@ -175,6 +180,10 @@ public class Kampanyalar extends BaseFragment implements OnItemClickListener, Ka
 
     @Override
     public void backPressed() {
-        getActivity().moveTaskToBack(true);
+        Stack stack=PagerAdapter.fragments.get(AppConstants.KAMPANYALAR);
+        if(stack.size()>1)
+            pageListener.onSwitchBeforeFragment(AppConstants.KAMPANYALAR);
+        else
+            getActivity().moveTaskToBack(true);
     }
 }

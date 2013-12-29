@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,7 +14,7 @@ import java.util.Date;
 /**
  * Created by abdullah on 10/26/13.
  */
-public class Campaign {
+public class Campaign implements Serializable{
 
     /* Gelen Bilgi
     "CampaignId":6,
@@ -36,6 +37,7 @@ public class Campaign {
     */
 
 
+    public static String CAMPAIGN="Campaign";
     private static String ID="CampaignId";
     private static String COMPANY_ID="CompanyId";
     private static String NAME="CampaignName";

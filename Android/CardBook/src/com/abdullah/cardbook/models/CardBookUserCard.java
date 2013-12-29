@@ -2,10 +2,11 @@ package com.abdullah.cardbook.models;
 
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CardBookUserCard {
+public class CardBookUserCard implements Serializable {
 
     private static String USER_ID="UserId";
     private static String COMPANY_ID="CompanyId";
@@ -18,9 +19,12 @@ public class CardBookUserCard {
     private String cardNumber;
 
     public CardBookUserCard(JSONObject object){
-        this.userId=object.optInt(USER_ID);
-        this.companyId=object.optInt(COMPANY_ID);
-        this.cardNumber=object.optString(CARD_NUMBER);
+
+        if(object!=null){
+            this.userId=object.optInt(USER_ID);
+            this.companyId=object.optInt(COMPANY_ID);
+            this.cardNumber=object.optString(CARD_NUMBER);
+        }
     }
 
     public CardBookUserCard(int userId, int companyId, String cardNumber){

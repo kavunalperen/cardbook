@@ -142,6 +142,8 @@ public class ConnectionManager {
             callback.onRequestStart();
         StringBuilder adress=new StringBuilder(AppConstants.API_ADDRESS).append(method);
 
+
+        parameters=addDefaultParameters(parameters);
         Log.i("post Data: "+parameters.toString());
         JsonObjectRequest request=new JsonObjectRequest(adress.toString(),parameters,
                 new Response.Listener<JSONObject>() {

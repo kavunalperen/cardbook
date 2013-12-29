@@ -29,7 +29,14 @@ import java.util.HashMap;
 
 public class Address {
 
-
+    public static String COUNTRY_ID="CountryId";
+    public static String CITY_ID="CityId";
+    public static String COUNTY_ID="CountyId";
+    public static String COUNTRY="Country";
+    public static String CITY="City";
+    public static String COUNTY="County";
+    public static String ADDRESS_LINE="AddressLine";
+    public static String ADDRESS="Address";
 
     public static ArrayList<Country> countArray;
 
@@ -37,9 +44,9 @@ public class Address {
 	private int cityId;     // Şehir
 	private int countId;    // İlçe
 
-//    private String country;  // Ülke
-//    private String city;     // Şehir
-//    private String county;
+    private String country;  // Ülke
+    private String city;     // Şehir
+    private String county;
 	private String addressLine;
 
     private String[] locateFromFacebook;
@@ -49,9 +56,17 @@ public class Address {
     public Address(JSONObject object){
 
         if(object!=null){
-            this.countryId=object.optInt("CountryId");
-            this.cityId=object.optInt("CityId");
-            this.countId=object.optInt("CountyId");
+            this.countryId=object.optInt(COUNTRY_ID);
+            this.cityId=object.optInt(CITY_ID);
+            this.countId=object.optInt(COUNTY_ID);
+
+            this.country=object.optString(COUNTRY);
+            this.city=object.optString(CITY);
+            this.county=object.optString(COUNTY);
+
+            this.addressLine=object.optString(ADDRESS_LINE,"");
+
+
         }
     }
 
@@ -87,6 +102,30 @@ public class Address {
         this.countId = countId;
     }
 
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCounty() {
+        return county;
+    }
+
+    public void setCounty(String county) {
+        this.county = county;
+    }
+
     public String getAddressLine() {
         return addressLine;
     }
@@ -94,6 +133,7 @@ public class Address {
     public void setAddressLine(String addressLine) {
         this.addressLine = addressLine;
     }
+
 
     public String[] getLocateFromFacebook() {
         return locateFromFacebook;

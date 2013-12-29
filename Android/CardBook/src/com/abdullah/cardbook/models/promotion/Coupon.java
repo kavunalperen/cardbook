@@ -2,10 +2,12 @@ package com.abdullah.cardbook.models.promotion;
 
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
 /**
  * Created by abdullah on 11/3/13.
  */
-public class Coupon {
+public class Coupon implements Serializable {
 
     public static String ID="ShoppingPromotionId";
     public static String USER_ID="UserId";

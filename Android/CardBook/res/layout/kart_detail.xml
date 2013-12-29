@@ -175,8 +175,8 @@
                 android:layout_marginLeft="5dp"
                 android:textColor="@color/color8E8E93"
                 android:inputType="number"
-            android:layout_toLeftOf="@+id/btnkartDetailSave"
-            android:layout_marginRight="5dp">
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="70dp">
                 <requestFocus />
                 </EditText>
 

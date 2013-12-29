@@ -2,17 +2,19 @@ package com.abdullah.cardbook.models;
 
 import com.abdullah.cardbook.common.Log;
 import com.abdullah.cardbook.models.promotion.Coupon;
+import com.abdullah.cardbook.models.promotion.Credit;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by abdullah on 10/26/13.
  */
-public class Company {
+public class Company implements Serializable {
 
     /* Gelen Bilgi
         "UUser":0,
@@ -34,10 +36,12 @@ public class Company {
         "XDate":"\/Date(1372598605403)\/"
      */
 
+    public static String COMPANY="company";
     private static String U_USER="UUser";
     private static String CARDBOOK_USER_CARD="CardbookUserCard";
     public static String COMPANY_ID="CompanyId";
     public static String SHOPPING_PROMOTION_CREDIT_LIST="ShoppingPromotionCreditList";
+    public static String PROMOTION_CREDIT_SUMMARY="PromoitonCreditSummary";
     private static String U_DATE= "UDate";
     private static String COMPANY_NAME="CompanyName";
     private static String COMPANY_CODE="CompanyCode";
@@ -52,6 +56,9 @@ public class Company {
     private static String COMPANY_LOCATION_LIST="CompanyLocationList";
     private static String X_DATE="XDate";
 
+    private static String USABLE_CREDIT="UsableCredit";
+    private static String TOTAL_CREDIT="TotalCredit";
+
     private int companyId;
     private String companyDecription;
     private String companyCode;
@@ -59,7 +66,10 @@ public class Company {
     private String companyLogoURL;
     private String companyDetail;
     private ArrayList<Coupon> couponList;
+    private ArrayList<Credit> creditList;
     private boolean isUserWantNotification;
+    private CardBookUserCard card;
+    private int usableCredit, totalCredit;
 
 
     public Company(JSONObject object){
@@ -71,9 +81,13 @@ public class Company {
         this.companyLogoURL=object.optString(COMPANY_LOGO);
         this.companyDetail=object.optString(COMPANY_DETAIL);
 
-        JSONArray couponArray=object.optJSONArray(SHOPPING_PROMOTION_COUPON_LIST);
-
         this.isUserWantNotification=object.optBoolean(USER_WANT_NOTIFICATION,false);
+        this.card=new CardBookUserCard(object.optJSONObject(CARDBOOK_USER_CARD));
+
+        setCouponList(object.optJSONArray(SHOPPING_PROMOTION_COUPON_LIST));
+        setCreditList(object.optJSONArray(SHOPPING_PROMOTION_CREDIT_LIST));
+
+        setCreditSummary(object.optJSONObject(PROMOTION_CREDIT_SUMMARY));
 
     }
 
@@ -155,9 +169,33 @@ public class Company {
             Log.i("setCouponList done");
         }
 
-        Log.i("setCouponList is null");
+//        Log.i("setCouponList is null");
     }
 
+    public ArrayList<Credit> getCreditList() {
+        return creditList;
+    }
+
+    public void setCreditList(JSONArray list) {
+        Log.i("setCreditList");
+        if(list!=null){
+            Log.i("setCreditList list not null");
+            int length=list.length();
+            ArrayList<Credit> creditList=new ArrayList<Credit>();
+            for(int i=0; i<length;i++){
+                Credit c=new Credit(list.optJSONObject(i));
+                creditList.add(c);
+
+            }
+            this.creditList= creditList;
+            Log.i("setCreditList done");
+        }
+
+    }
+
+    public void setCreditList(ArrayList<Credit> creditList) {
+        this.creditList = creditList;
+    }
     public boolean isUserWantNotification() {
         return isUserWantNotification;
     }
@@ -166,5 +204,26 @@ public class Company {
         isUserWantNotification = userWantNotification;
     }
 
+    public CardBookUserCard getCard() {
+        return card;
+    }
 
+    public void setCard(CardBookUserCard card) {
+        this.card = card;
+    }
+
+    private void setCreditSummary(JSONObject object){
+        if(object==null)
+            return;
+        this.usableCredit=object.optInt(USABLE_CREDIT);
+        this.totalCredit=object.optInt(TOTAL_CREDIT);
+    }
+
+    public int getUsableCredit() {
+        return usableCredit;
+    }
+
+    public int getTotalCredit() {
+        return totalCredit;
+    }
 }

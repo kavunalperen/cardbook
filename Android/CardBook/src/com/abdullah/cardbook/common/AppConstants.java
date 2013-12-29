@@ -23,6 +23,7 @@ public class AppConstants {
 	// API
 	public static String API_ADDRESS = "http://test.mycardbook.gen.tr/ApplicationService/";
 	public static String SM_CREATE_OR_UPDATE_USER = "CreateOrUpdateUser";
+    public static String SM_UPDATEE_USER_INFO = "UpdateUserInfo";
 	public static String SM_GET_USER_DETAIL = "GetUserDetail";
 	public static String SM_GET_COMPANY_LIST = "GetCompanyList";
 	public static String SM_GET_COMPANY_DETAIL = "GetCompanyDetailContent";
@@ -45,7 +46,7 @@ public class AppConstants {
 
     public static final String KARTLARIM  = "Kartlarım";
     public static final String KAMPANYALAR  = "Kampanyalar";
-    public static final String ALIS_VERIS  = "Alış-Veriş";
+    public static final String ALIS_VERIS  = "Alışveriş";
     public static final String PROFIL  = "Profil";
 
     public static final int KARTLARIM_POS=0;

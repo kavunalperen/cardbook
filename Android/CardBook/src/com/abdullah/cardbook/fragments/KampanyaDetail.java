@@ -21,6 +21,7 @@ import com.abdullah.cardbook.common.Font;
 import com.abdullah.cardbook.common.Log;
 import com.abdullah.cardbook.connectivity.BitmapLruCache;
 import com.abdullah.cardbook.connectivity.ConnectionManager;
+import com.abdullah.cardbook.connectivity.RequestCallBack;
 import com.abdullah.cardbook.models.Campaign;
 import com.abdullah.cardbook.models.Company;
 import com.abdullah.cardbook.models.promotion.Coupon;
@@ -41,6 +42,7 @@ public class KampanyaDetail extends BaseFragment{
 
     TextView tvHeader, tvDescriptionHeader, tvDate, tvDescription, tvRequimentHeader,tvRequiments;
     CardbookApp app;
+    Campaign campain;
     int position;
 
     private RequestQueue requestQueue;
@@ -72,9 +74,9 @@ public class KampanyaDetail extends BaseFragment{
         position=bundle.getInt("position",0);
 
         app=CardbookApp.getInstance();
-        Campaign campain=app.getCampaigns().get(position);
+        campain=(Campaign)bundle.getSerializable(Campaign.CAMPAIGN);
 
-        Typeface regular=Font.getFont(getActivity(),Font.ROBOTO_REGULAR);
+        Typeface regular=Font.getFont(getActivity(), Font.ROBOTO_REGULAR);
         Typeface medium=Font.getFont(getActivity(),Font.ROBOTO_MEDIUM);
         Typeface light=Font.getFont(getActivity(),Font.ROBOTO_LIGHT);
         Typeface black=Font.getFont(getActivity(),Font.ROBOTO_BLACK);
@@ -93,7 +95,7 @@ public class KampanyaDetail extends BaseFragment{
 
         tvDescriptionHeader=(TextView)view.findViewById(R.id.tvKampanyaDetailDescriptionHeader);
         tvDescriptionHeader.setTypeface(medium);
-        tvDescriptionHeader.setText("Desrpition Header");
+        tvDescriptionHeader.setText(campain.getName());
 
         tvDescription=(TextView)view.findViewById(R.id.tvKampanyaDetailDesription);
         tvDescription.setTypeface(regular);
@@ -111,11 +113,13 @@ public class KampanyaDetail extends BaseFragment{
 
         tvRequiments=(TextView)view.findViewById(R.id.tvKampanyaDetailRequiment);
         tvRequiments.setTypeface(light);
-        String requiments=getRequiements(campain.getDetailList());
-        tvRequiments.setText(requiments);
+
+//        String requiments=getRequiements(campain.getDetailList());
+//        tvRequiments.setText(requiments);
 
         addImage(campain.getBannerUrl());
         setNavBarItemsStyle(view);
+        getCampaignDetail();
         return view;
 	}
 
@@ -151,18 +155,52 @@ public class KampanyaDetail extends BaseFragment{
         pageListener.onSwitchBeforeFragment(AppConstants.KAMPANYALAR);
     }
 
-    public String getRequiements(ArrayList<String> requiments){
+    private void getCampaignDetail(){
 
-        requiments=new ArrayList<String>();
-        requiments.add("Öyle aman aman bir koşulumuz yok. Ne zaman istiyorsan gel verelim ürünü.");
-        requiments.add("Öyle aman aman bir koşulumuz yok. Ne zaman istiyorsan gel verelim ürünü.");
+        JSONObject param=new JSONObject();
+        try{
+        param.putOpt("campaignId",campain.getId());
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        ConnectionManager.postData(getActivity(),new RequestCallBack() {
+            @Override
+            public void onRequestStart() {
+
+            }
+
+            @Override
+            public void onRequestComplete(JSONObject result) {
+                Log.i("getCampaignDetail Request: "+result);
+
+                JSONArray jRequiements=result.optJSONObject(AppConstants.POST_DATA).optJSONArray("CampaignDetailList");
+                tvRequiments.setText(getRequiements(jRequiements));
+
+            }
+
+            @Override
+            public void onRequestError() {
+                Log.i("getCampaignDetail Error: ");
+            }
+        },AppConstants.SM_GET_CAMPAIGN_DETAIL_CONTENT,param);
+    }
+
+    public String getRequiements(JSONArray requiments){
+        Log.i("getRequiments: "+requiments.length());
+//        requiments=new ArrayList<String>();
+//        requiments.add("Öyle aman aman bir koşulumuz yok. Ne zaman istiyorsan gel verelim ürünü.");
+//        requiments.add("Öyle aman aman bir koşulumuz yok. Ne zaman istiyorsan gel verelim ürünü.");
 
         StringBuilder txtRequiments=new StringBuilder();
-        if(requiments==null)
-            return "";
+        if(requiments==null || requiments.length()==0)
+            return "Kampanya ile ilgili herhangi bir şart bulunmamaktadır.";
 
-        for(String s:requiments){
-            txtRequiments.append(s).append("\n");
+
+        for(int i=0;i<requiments.length();i++){
+            txtRequiments.append(requiments.optJSONObject(i).optString("CampaignDetailText")).append("\n");
+            Log.i("getRequiments: "+txtRequiments.toString());
         }
 
         return txtRequiments.toString();

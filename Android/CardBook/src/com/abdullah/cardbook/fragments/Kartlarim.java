@@ -1,6 +1,7 @@
 package com.abdullah.cardbook.fragments;
 
 
+import android.app.ProgressDialog;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -21,18 +22,26 @@ import com.abdullah.cardbook.adapters.KartlarimListAdapter;
 import com.abdullah.cardbook.common.AppConstants;
 import com.abdullah.cardbook.common.Font;
 import com.abdullah.cardbook.common.Log;
+import com.abdullah.cardbook.connectivity.ConnectionManager;
+import com.abdullah.cardbook.connectivity.RequestCallBack;
+import com.abdullah.cardbook.models.CardBookUser;
 import com.abdullah.cardbook.models.CardBookUserCard;
 import com.abdullah.cardbook.models.Company;
 
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
-public class Kartlarim extends BaseFragment implements OnItemClickListener{
+public class Kartlarim extends BaseFragment implements OnItemClickListener, RequestCallBack{
 
     private ListView listView;
     KartlarimListAdapter adapter;
+    private ProgressDialog dialog;
 
     public Kartlarim(){
     	
@@ -59,7 +68,7 @@ public class Kartlarim extends BaseFragment implements OnItemClickListener{
 
         if(CardbookApp.getInstance().getCompanies()!=null){
     		setList(CardbookApp.getInstance().getCompanies());
-            Log.i("companies are null");
+            Log.i("companies are not null");
         }
         else{
             Button button=new Button(getActivity());
@@ -69,7 +78,7 @@ public class Kartlarim extends BaseFragment implements OnItemClickListener{
             layout.addView(button);
         }
 
-
+        dialog = new ProgressDialog(getActivity());
         return view;
     }
 
@@ -96,13 +105,44 @@ public class Kartlarim extends BaseFragment implements OnItemClickListener{
 			long arg3) {
 //		Toast.makeText(getActivity(), "Clicked at positon = " + position, Toast.LENGTH_SHORT).show();
 
-        Bundle data=new Bundle();
-        data.putInt("position",position);
-        KartDetail kartDetail=new KartDetail();
-        kartDetail.setArguments(data);
-		pageListener.onSwitchToNextFragment(AppConstants.KARTLARIM,kartDetail, this);
+       getCompanyDetail(adapter.getItem(position));
 
 	}
+
+    private void getCompanyDetail(Company company){
+
+        CardbookApp app=CardbookApp.getInstance();
+        CardBookUser user=app.getUser();
+
+        Map<String, String> list=new HashMap<String, String>();
+        list.put("userId", user.getId());
+        list.put("companyId", String.valueOf(company.getCompanyId()));
+        ConnectionManager.postData(getActivity(), this, AppConstants.SM_GET_COMPANY_DETAIL, list);
+
+    }
+
+    @Override
+    public void onRequestStart() {
+
+        super.onRequestStart();
+        dialog.setMessage("Kart Detayı geliyor...");
+        dialog.show();
+    }
+
+    @Override
+    public void onRequestComplete(JSONObject result) {
+        super.onRequestComplete(result);
+        Log.i("onResponseComplete: "+result);
+        dialog.dismiss();
+
+        Company company=new Company(result.optJSONObject(AppConstants.POST_DATA));
+        Log.i("Gelen company detail: " + company.getCompanyName());
+        Bundle data=new Bundle();
+        data.putSerializable(Company.COMPANY,company);
+        KartDetail kartDetail=new KartDetail();
+        kartDetail.setArguments(data);
+        pageListener.onSwitchToNextFragment(AppConstants.KARTLARIM,kartDetail, this);
+    }
 
     @Override
     public void backPressed() {

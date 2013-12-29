@@ -8,20 +8,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.abdullah.cardbook.CardbookApp;
 import com.abdullah.cardbook.R;
+import com.abdullah.cardbook.adapters.AlisverisDetailListAdapter;
 import com.abdullah.cardbook.adapters.FragmentPageListener;
 import com.abdullah.cardbook.common.AppConstants;
 import com.abdullah.cardbook.common.Font;
 import com.abdullah.cardbook.common.Log;
+import com.abdullah.cardbook.connectivity.ConnectionManager;
 import com.abdullah.cardbook.models.Campaign;
 import com.abdullah.cardbook.models.Product;
 import com.abdullah.cardbook.models.Shopping;
 import com.sromku.simple.fb.SimpleFacebook;
 import com.sromku.simple.fb.entities.Feed;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -30,6 +35,7 @@ public class AlisverisDetail extends BaseFragment implements View.OnClickListene
     TextView tvHeader, tvDate, tvKazanilanPK,tvKazanilanPP, tvKullanilanPK,tvKullanilanPP;
     ImageButton btnShare;
     private ProgressDialog dialog;
+    private ListView listView;
     CardbookApp app;
     Shopping shopping;
     int position;
@@ -52,7 +58,7 @@ public class AlisverisDetail extends BaseFragment implements View.OnClickListene
         position=bundle.getInt("position",0);
 
         app=CardbookApp.getInstance();
-        shopping=app.getShoppings().get(position);
+        shopping=(Shopping)bundle.getSerializable("shopping");
 
         Log.i("Shoping: "+shopping.getId());
 
@@ -71,14 +77,23 @@ public class AlisverisDetail extends BaseFragment implements View.OnClickListene
 
         tvKazanilanPK=(TextView)view.findViewById(R.id.tvAlisverisDetayKazanilaPK);
         tvKazanilanPK.setTypeface(bold);
-        tvKazanilanPK.setText(shopping.getWonCoupon().getCompanyPromotionText());
-
+        try{
+        tvKazanilanPK.setText(shopping.getWonCoupon().getCompanyPromotionId());
+        }
+        catch (Exception e){
+            tvKazanilanPK.setText("0");
+            e.printStackTrace();
+        }
         tvKazanilanPP=(TextView)view.findViewById(R.id.tvAlisverisDetayKazanilaPP);
         tvKazanilanPP.setTypeface(bold);
 
         try{
             tvKazanilanPP.setText(shopping.getWonCredit().getPromotionAmount());
-        }catch (Exception e){}
+
+        }catch (Exception e){
+            tvKazanilanPP.setText("0");
+            e.printStackTrace();
+        }
 
 
         tvKullanilanPP=(TextView)view.findViewById(R.id.tvAlisverisDetayKullanilanPP);
@@ -86,14 +101,25 @@ public class AlisverisDetail extends BaseFragment implements View.OnClickListene
 
         try{
             tvKullanilanPP.setText(shopping.getUsedCredit().getPromotionAmount());
-        }catch (Exception e){}
+        }catch (Exception e){
+            tvKullanilanPP.setText("0");
+            e.printStackTrace();
+        }
 
         tvKullanilanPK=(TextView)view.findViewById(R.id.tvAlisverisDetayKullanilanPK);
         tvKullanilanPK.setTypeface(bold);
 
         try{
             tvKullanilanPK.setText(shopping.getUsedCoupon().getCompanyPromotionText());
-        }catch (Exception e){}
+        }catch (Exception e){
+            tvKullanilanPK.setText("0");
+            e.printStackTrace();
+        }
+
+        listView=(ListView)view.findViewById(R.id.listView);
+        AlisverisDetailListAdapter adapter=new AlisverisDetailListAdapter(getActivity(),R.layout.alisveris_detail_list_template,shopping.getProductsList());
+        listView.setAdapter(adapter);
+
 
         btnShare=(ImageButton)view.findViewById(R.id.btnAlisverisDetailShare);
         btnShare.setOnClickListener(this);
@@ -110,25 +136,6 @@ public class AlisverisDetail extends BaseFragment implements View.OnClickListene
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-    }
-
-
-
-    public String getRequiements(ArrayList<String> requiments){
-
-        requiments=new ArrayList<String>();
-        requiments.add("Öyle aman aman bir koşulumuz yok. Ne zaman istiyorsan gel verelim ürünü.");
-        requiments.add("Öyle aman aman bir koşulumuz yok. Ne zaman istiyorsan gel verelim ürünü.");
-
-        StringBuilder txtRequiments=new StringBuilder();
-        if(requiments==null)
-            return "";
-
-        for(String s:requiments){
-            txtRequiments.append(s).append("\n");
-        }
-
-        return txtRequiments.toString();
     }
 
     @Override
@@ -160,16 +167,27 @@ public class AlisverisDetail extends BaseFragment implements View.OnClickListene
             @Override
             public void onComplete(String postId)
             {
+                dialog.setMessage("Facebook paylaşımı tamamlandı.");
                 dialog.dismiss();
                 Toast.makeText(getActivity(),"İşlem tamamlandı",Toast.LENGTH_LONG);
                 Log.i("Share Published successfully. The new post id = " + postId);
+
+                try{
+                JSONObject parameter=new JSONObject();
+                parameter.putOpt("userId",CardbookApp.getInstance().getUser().getId());
+                parameter.putOpt("shoppingId", shopping.getId());
+                ConnectionManager.postData(getActivity(), null, AppConstants.SM_SET_SHARE_THIS_SHOPPING_ON_FACEBOOK, parameter);
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         };
 
 // build feed
 
         StringBuilder str=new StringBuilder();
-        str.append("Cardbook aracılığı ile ").append(shopping.getCompany().getCompanyName()).append("'den");
+        str.append("Cardbook aracılığı ile ").append(shopping.getCompany().getCompanyName()).append(" mağazasından ");
         ArrayList<Product> list=shopping.getProductsList();
         for(int i=0; i<list.size();i++){
             Product p=list.get(i);
@@ -178,7 +196,7 @@ public class AlisverisDetail extends BaseFragment implements View.OnClickListene
             else
                 str.append(p.getName()).append(", ");
         }
-        str.append(" aldım ve").append(shopping.getWonCredit().getPromotionAmount()).append(" puan kazandım.");
+        str.append(" aldım ve ").append(shopping.getWonCredit().getPromotionAmount()).append(" puan kazandım.");
 
 
 

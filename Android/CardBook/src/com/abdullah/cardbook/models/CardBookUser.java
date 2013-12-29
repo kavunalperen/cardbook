@@ -6,6 +6,7 @@ import com.abdullah.cardbook.models.address.Address;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
@@ -17,7 +18,8 @@ import java.util.Map;
 
 public class CardBookUser {
 
-    public static String ID="FacebookId";
+    public static String ID="UserId";
+    public static String FACEBOOK_ID="FacebookId";
     public static String DEVICE_ID="MobileDeviceId";
     public static String NAME="Name";
     public static String SURNAME="Surname";
@@ -29,16 +31,10 @@ public class CardBookUser {
     public static String GENDER="Gender";
     public static String BARCODE_URL="UserBarcodeUrl";
 
-    public static String COUNTRY_ID="CountryId";
-    public static String CITY_ID="CityId";
-    public static String COUNTY_ID="CountyId";
-    public static String ADDRESS_LINE="AddressLine";
-    public static String ADDRESS="Address";
-
-
     public static String WANT_NOTIFICATION="UserWantNotification";
 
     private String id;
+    private String facebookId;
 	private String deviceId;
 	private String name;
     private String surname;
@@ -58,17 +54,19 @@ public class CardBookUser {
     }
     public CardBookUser(JSONObject object){
         this.id=object.optString(ID);
+        this.facebookId=object.optString(FACEBOOK_ID);
         this.deviceId=object.optString(DEVICE_ID);
         this.name=object.optString(NAME);
         this.surname=object.optString(SURNAME);
         this.email=object.optString(EMAIL);
         this.birthDate= AppConstants.parseMsTimestampToDate(object.optString(BIRTH_DATE));
-        this.profilPhotoUrl="http://graph.facebook.com/"+id+"/picture?style=large";
+        this.profilPhotoUrl="http://graph.facebook.com/"+this.facebookId+"/picture?style=large";
         this.phone1=object.optString(PHONE_1);
         this.phone2=object.optString(PHONE_2);
         this.gender=object.optString(GENDER);
         this.barcodeUrl=object.optString(BARCODE_URL);
-        this.addres=new Address(object.optJSONObject(ADDRESS));
+
+        this.addres=new Address(object.optJSONObject(Address.ADDRESS));
     }
 
     public Map<String,String> getUserInfoAsDict(){
@@ -76,6 +74,7 @@ public class CardBookUser {
         Map<String,String> list=new HashMap<String, String>();
 
         list.put(ID,this.id);
+        list.put(FACEBOOK_ID,this.facebookId);
         list.put(DEVICE_ID,this.deviceId);
         list.put(NAME,this.name);
         list.put(SURNAME,this.surname);
@@ -88,24 +87,69 @@ public class CardBookUser {
         list.put(BARCODE_URL,this.barcodeUrl);
 
 //        ArrayList<NameValuePair> addressList=new ArrayList<NameValuePair>();
-        list.put(COUNTRY_ID,Integer.toString(addres.getCountryId()));
-        list.put(CITY_ID,Integer.toString(addres.getCityId()));
-        list.put(COUNTY_ID,Integer.toString(addres.getCountId()));
-        list.put(ADDRESS_LINE,addres.getAddressLine());
+        list.put(Address.COUNTRY_ID,Integer.toString(addres.getCountryId()));
+        list.put(Address.CITY_ID,Integer.toString(addres.getCityId()));
+        list.put(Address.COUNTY_ID,Integer.toString(addres.getCountId()));
+        list.put(Address.ADDRESS_LINE,addres.getAddressLine());
 
 //      list.add(new BasicNameValuePair(ADDRESS,addressList.toString()));
-
-
 
         return list;
     }
 
+    public JSONObject toJSON(){
+        JSONObject jsonObject=new JSONObject();
+        try{
+            jsonObject.put(ID,this.id);
+            jsonObject.put(FACEBOOK_ID,this.facebookId);
+            jsonObject.put(DEVICE_ID,this.deviceId);
+            jsonObject.put(NAME,this.name);
+            jsonObject.put(SURNAME,this.surname);
+            jsonObject.put(EMAIL,this.email);
+            jsonObject.put(BIRTH_DATE,this.birthDate.getTime());
+            jsonObject.put(PROFILE_PHOTO_URL,this.profilPhotoUrl);
+            jsonObject.put(PHONE_1,this.phone1);
+            jsonObject.put(PHONE_2,this.phone2);
+            jsonObject.put(GENDER,this.gender);
+            jsonObject.put(BARCODE_URL,this.barcodeUrl);
+
+            JSONObject address=new JSONObject();
+
+            address.put(Address.COUNTRY_ID,Integer.toString(addres.getCountryId()));
+            address.put(Address.CITY_ID,Integer.toString(addres.getCityId()));
+            address.put(Address.COUNTY_ID,Integer.toString(addres.getCountId()));
+
+            address.put(Address.COUNTRY,addres.getCountry());
+            address.put(Address.CITY,addres.getCity());
+            address.put(Address.COUNTY,addres.getCounty());
+
+            address.put(Address.ADDRESS_LINE,addres.getAddressLine());
+            jsonObject.put(Address.ADDRESS,address);
+
+        }
+        catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        Log.i("toJson: "+jsonObject);
+        return jsonObject;
+    }
+
     public String getId() {
         return id;
+//        return "4";
     }
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getFacebookId() {
+        return facebookId;
+    }
+
+    public void setFacebookId(String facebookId) {
+        this.facebookId = facebookId;
     }
 
     public String getDeviceId() {

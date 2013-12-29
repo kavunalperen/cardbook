@@ -107,6 +107,7 @@ public class UserInformation extends Activity implements View.OnClickListener{
 
 
         user=CardbookApp.getInstance().getUser();
+        // SOn HATA
         countryList=CardbookApp.getInstance().getCountries();
 
         userImage=(ImageView)findViewById(R.id.userImage);
@@ -163,8 +164,13 @@ public class UserInformation extends Activity implements View.OnClickListener{
 
 
 
-        if(!isFromProfil)
-            addCountry(countryList, 0);
+        if(!isFromProfil){
+            if(CardbookApp.getInstance().getCountries().size()==1)
+                addCountry(countryList, 1);
+            else
+                addCountry(countryList, 0);
+
+        }
         else{
             isChangeProgramatically=true;
             int countryPosition=setCountryPosition(user.getAddres().getCountryId());
@@ -229,14 +235,20 @@ public class UserInformation extends Activity implements View.OnClickListener{
         Address adrs=new Address();
         adrs.setAddressLine(addressLine.getText().toString());
         adrs.setCountryId(ct.getId());
-//        adrs.setCountry(ct.getName());
+        adrs.setCountry(ct.getName());
 
         adrs.setCityId(ct.getCities().get(spCity.getSelectedItemPosition()-1).getId());
-//        adrs.setCity(ct.getCities().get(spCity.getSelectedItemPosition()-1).getName());
+        adrs.setCity(ct.getCities().get(spCity.getSelectedItemPosition()-1).getName());
 
         adrs.setCountId(ct.getCities().get(spCity.getSelectedItemPosition()-1).getCounties().get(spCounty.getSelectedItemPosition()-1).getId());
-//        adrs.setCounty(ct.getCities().get(spCity.getSelectedItemPosition()-1).getCounties().get(spCounty.getSelectedItemPosition()-1).getName());
+        adrs.setCounty(ct.getCities().get(spCity.getSelectedItemPosition()-1).getCounties().get(spCounty.getSelectedItemPosition()-1).getName());
         user.setAddres(adrs);
+
+        String method="";
+        if(!isFromProfil)
+            method=AppConstants.SM_CREATE_OR_UPDATE_USER;
+        else
+            method=AppConstants.SM_UPDATEE_USER_INFO;
 
         ConnectionManager.postData(this, new RequestCallBack() {
             @Override
@@ -252,19 +264,25 @@ public class UserInformation extends Activity implements View.OnClickListener{
 
                     Toast.makeText(getApplicationContext(),"Bilgileriniz kaydedildi.",Toast.LENGTH_LONG).show();
 
-                    AppConstants.setUserInformation(getApplicationContext(),result.optJSONObject(AppConstants.POST_DATA).toString());
-                    user.setBarcodeUrl(result.optJSONObject(AppConstants.POST_DATA).optString(CardBookUser.BARCODE_URL));
-                    CardbookApp.getInstance().setUser(user);
-
-
                     if(!isFromProfil){
+                       CardBookUser newUser=new CardBookUser(result.optJSONObject(AppConstants.POST_DATA));
+//                        AppConstants.setUserInformation(getApplicationContext(),result.optJSONObject(AppConstants.POST_DATA).toString());
+                        newUser.setAddres(user.getAddres());
+                        user=newUser;
+                        AppConstants.setUserInformation(getApplicationContext(),user.toJSON().toString());
+//                    user.setBarcodeUrl(result.optJSONObject(AppConstants.POST_DATA).optString(CardBookUser.BARCODE_URL));
+                        CardbookApp.getInstance().setUser(user);
                         Log.i("Validate is not from Profil");
-                        new PostDataOperation().execute(user);
+                        getCompanyList();
                     }
                     else{
                         Log.i("Validate is from Profil");
                         if(informationListener!=null)
                             informationListener.updateInformations();
+
+                        AppConstants.setUserInformation(getApplicationContext(),user.toJSON().toString());
+//                    user.setBarcodeUrl(result.optJSONObject(AppConstants.POST_DATA).optString(CardBookUser.BARCODE_URL));
+                        CardbookApp.getInstance().setUser(user);
                         onBackPressed();
 
                     }
@@ -278,7 +296,7 @@ public class UserInformation extends Activity implements View.OnClickListener{
             public void onRequestError() {
                 AppConstants.ErrorToast(getApplicationContext());
             }
-        }, AppConstants.SM_CREATE_OR_UPDATE_USER, user.getUserInfoAsDict());
+        },method, user.getUserInfoAsDict());
 
     }
 
@@ -391,7 +409,7 @@ public class UserInformation extends Activity implements View.OnClickListener{
                     addCity(countries.get(i-1).getCities(),0);
                 }
                 else
-                    addCity(countries.get(i+1).getCities(),0);
+                    addCity(countries.get(i).getCities(),0);
 
                 dataAdapter.setNotifyOnChange(true);
             }
@@ -547,15 +565,6 @@ public class UserInformation extends Activity implements View.OnClickListener{
             }
 
         }
-
-//        addCity(cities, position);
-
-
-//        spCity.setSelection(position);
-//        Log.i("setCity is runned: "+result.getName()+", p: "+position);
-//        Log.i("setCity adapter: "+spCity.getAdapter().toString());
-//        setCounty(user.getAddres().getCountId(),cityId,countryId);
-
         return position;
     }
 
@@ -630,7 +639,7 @@ public class UserInformation extends Activity implements View.OnClickListener{
             JSONObject resultCampaign=ConnectionManager.postData2(AppConstants.SM_GET_ALL_ACTIVE_CAMPAIGN_LIST, null);
 
             ArrayList<NameValuePair> list=new ArrayList<NameValuePair>();
-            list.add(new BasicNameValuePair("userId", "6"));
+            list.add(new BasicNameValuePair("userId", user[0].getId()));
 
 
             JSONObject resultShopping=ConnectionManager.postData2(AppConstants.SM_GET_ALL_SHOPPING_LIST,list);
@@ -708,6 +717,134 @@ public class UserInformation extends Activity implements View.OnClickListener{
 
     }
 
+
+    public void getCompanyList(){
+        RequestCallBack callback= new RequestCallBack() {
+            @Override
+            public void onRequestStart() {
+//                dialog.setMessage("Bilgiler indiriliyor...");
+//                dialog.show();
+                Log.i("Bilgiler indiriliyor: Company");
+            }
+
+            @Override
+            public void onRequestComplete(JSONObject result) {
+
+                try {
+                    JSONArray array=result.getJSONArray(AppConstants.POST_DATA);
+                    Log.i(((JSONObject) array.get(0)).getString("UDate"));
+                    String dateString=((JSONObject)array.get(0)).getString("UDate");
+                    Date date=AppConstants.parseMsTimestampToDate(dateString);
+                    SimpleDateFormat ft = new SimpleDateFormat ("dd.mm.yyyy");
+
+                    Log.i("Current Date: "+ft.format(date));
+
+
+                    for(int i=0; i<array.length();i++){
+                        Company company=new Company((JSONObject)array.get(i));
+
+                        CardbookApp.getInstance().addCompany(company);
+                    }
+                    getCampanignList();
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onRequestError() {
+                dialog.dismiss();
+                AppConstants.ErrorToast(getApplicationContext());
+
+            }
+        };
+        ConnectionManager.postData(getApplicationContext(), callback,AppConstants.SM_GET_COMPANY_LIST,new JSONObject());
+    }
+
+    public void getCampanignList(){
+        RequestCallBack callback= new RequestCallBack() {
+            @Override
+            public void onRequestStart() {
+//                dialog.setMessage("Bilgiler indiriliyor...");
+//                dialog.show();
+                Log.i("Bilgiler indiriliyor: Campaign");
+            }
+
+            @Override
+            public void onRequestComplete(JSONObject result) {
+
+                try{
+                    JSONArray array=result.getJSONArray(AppConstants.POST_DATA);
+                    for(int i=0; i<array.length();i++){
+                        Campaign campaing=new Campaign((JSONObject)array.get(i));
+
+                        CardbookApp.getInstance().addCampaign(campaing);
+                    }
+                    getShoppingList();
+
+                }
+                catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onRequestError() {
+                dialog.dismiss();
+                AppConstants.ErrorToast(getApplicationContext());
+
+            }
+        };
+        ConnectionManager.postData(getApplicationContext(), callback,AppConstants.SM_GET_ALL_ACTIVE_CAMPAIGN_LIST,new JSONObject());
+    }
+
+    public void getShoppingList(){
+        RequestCallBack callback= new RequestCallBack() {
+            @Override
+            public void onRequestStart() {
+//                dialog.setMessage("Bilgiler indiriliyor...");
+//                dialog.show();
+                Log.i("Bilgiler indiriliyor: Shopings");
+            }
+
+            @Override
+            public void onRequestComplete(JSONObject result) {
+
+                JSONArray array=result.optJSONArray(AppConstants.POST_DATA);
+                for(int i=0; i<array.length();i++){
+                    Shopping shopping=new Shopping(array.optJSONObject(i));
+                    CardbookApp.getInstance().addShoppings(shopping);
+
+                    Log.i("Shopping: "+i+" "+shopping.getCompany().getCompanyName());
+                }
+
+                dialog.dismiss();
+
+                Intent intent=new Intent(UserInformation.this, AppMainTabActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onRequestError() {
+                dialog.dismiss();
+                AppConstants.ErrorToast(getApplicationContext());
+
+            }
+        };
+
+        JSONObject paramater=new JSONObject();
+        try{
+            paramater.putOpt("userId", CardbookApp.getInstance().getUser().getId());
+            Log.i("Shoiing userID paramatere: "+paramater.optString("userId"));
+            ConnectionManager.postData(getApplicationContext(), callback,AppConstants.SM_GET_ALL_SHOPPING_LIST,paramater);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
 
     @Override
     public void onBackPressed() {

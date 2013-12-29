@@ -1,35 +1,31 @@
 package com.abdullah.cardbook.adapters;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
 import android.widget.TextView;
 
 import com.abdullah.cardbook.R;
-import com.abdullah.cardbook.common.AppConstants;
 import com.abdullah.cardbook.common.Font;
-import com.abdullah.cardbook.models.Company;
-import com.abdullah.cardbook.models.promotion.Coupon;
+import com.abdullah.cardbook.common.Log;
+import com.abdullah.cardbook.models.Product;
 
 import java.util.ArrayList;
 
-public class KartlarimDetailListAdapter extends ArrayAdapter<Coupon>{
+public class AlisverisDetailListAdapter extends ArrayAdapter<Product>{
 
-	private ArrayList<Coupon> items;
+	private ArrayList<Product> items;
 	private Context context;
 	private int layout;
-    TextView couponName, couponDetail;
+    TextView productName, productValue;
     Typeface medium;
     Typeface light;
 
 
-	public KartlarimDetailListAdapter(Context context, int layout, ArrayList<Coupon> items) {
+	public AlisverisDetailListAdapter(Context context, int layout, ArrayList<Product> items) {
         super(context,layout, items);
         this.context = context;
         this.items = items;
@@ -46,19 +42,21 @@ public class KartlarimDetailListAdapter extends ArrayAdapter<Coupon>{
             view = inflater.inflate(this.layout, null);
         }
 
-        Coupon item = items.get(position);
+        Product item = items.get(position);
         if (item!= null) {
 
-            couponName=(TextView) view.findViewById(R.id.kartlarimDetailListTvCouponName);
-            couponDetail=(TextView) view.findViewById(R.id.kartlarimDetailListTvCouponDetail);
+            Log.i("Product name:" + item.getName());
+            Log.i("Product value:" + item.getValue());
+            productName =(TextView) view.findViewById(R.id.alisverisDetailListTvProductName);
+            productValue =(TextView) view.findViewById(R.id.alisverisDetailListTvProductValue);
 
-            couponName.setTypeface(medium);
-            couponDetail.setTypeface(light);
+            productName.setTypeface(medium);
+            productValue.setTypeface(light);
             
-            if (couponName != null) {
+            if (productName != null) {
 
-                couponName.setText(item.getCompanyPromotionId());
-                couponDetail.setText(item.getCompanyPromotionText());
+                productName.setText(item.getName());
+                productValue.setText(item.getValueWithFormat()+" TL");
 
             }
          }
@@ -72,6 +70,6 @@ public class KartlarimDetailListAdapter extends ArrayAdapter<Coupon>{
 	@Override
 	public boolean isEnabled(int position)
 	{
-		return true;
+		return false;
 	}
 }

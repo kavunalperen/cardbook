@@ -72,7 +72,8 @@ public class AlisVerisListAdapter extends ArrayAdapter<Shopping>{
                 footer.setLayoutParams(params);
 
                 View separator=view.findViewById(R.id.seperator);
-                ((LinearLayout)separator.getParent()).removeView(separator);
+                if(separator!=null)
+                    ((LinearLayout)separator.getParent()).removeView(separator);
             }
 
             TextView name = (TextView) view.findViewById(R.id.tvCompany);
@@ -98,8 +99,7 @@ public class AlisVerisListAdapter extends ArrayAdapter<Shopping>{
 	@Override
 	public boolean isEnabled(int position)
 	{
-        if(position==items.size()-1)
-            return false;
+
 		return true;
 	}
 }

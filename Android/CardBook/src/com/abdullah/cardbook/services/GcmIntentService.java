@@ -55,7 +55,7 @@ public class GcmIntentService extends IntentService {
     public GcmIntentService() {
         super("GcmIntentService");
     }
-    public static final String TAG = "GCM Demo";
+    public static final String TAG = "Cardbook GCM";
 
     @Override
     protected void onHandleIntent(Intent intent) {
@@ -116,12 +116,11 @@ public class GcmIntentService extends IntentService {
                 new NotificationCompat.Builder(this)
         .setSmallIcon(R.drawable.app_icon)
         .setLargeIcon(icon2)
-        .setContentTitle("Mesaj Geldi Hanım")
+        .setContentTitle("CardBook Title")
         .setStyle(new NotificationCompat.BigTextStyle()
         .bigText("Mesajınız var!!!"))
         .setContentText(extras.getString("message"))
-        .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-        .setNumber(5);
+        .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
 //        .setAutoCancel(true);
 //        .setFullScreenIntent(contentIntent, true);
 //        .setSound(RingtoneManager.getDefaultUri(Notification.DEFAULT_SOUND))

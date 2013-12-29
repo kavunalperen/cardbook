@@ -73,6 +73,7 @@ public class KartlarimListAdapter extends ArrayAdapter<Company>{
 
 
             mImageView.setImageUrl(item.getCompanyLogoURL(),imageLoader);
+            mImageView.setScaleType(ScaleType.FIT_XY);
 
 //            imageLoader.get(item.getCompanyLogoURL(),ImageLoader.ImageListener)
 
