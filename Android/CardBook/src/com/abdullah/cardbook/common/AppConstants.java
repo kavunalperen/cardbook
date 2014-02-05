@@ -9,6 +9,11 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.util.DisplayMetrics;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.abdullah.cardbook.R;
@@ -21,27 +26,30 @@ public class AppConstants {
 
 	
 	// API
-	public static String API_ADDRESS = "http://test.mycardbook.gen.tr/ApplicationService/";
-	public static String SM_CREATE_OR_UPDATE_USER = "CreateOrUpdateUser";
-    public static String SM_UPDATEE_USER_INFO = "UpdateUserInfo";
-	public static String SM_GET_USER_DETAIL = "GetUserDetail";
-	public static String SM_GET_COMPANY_LIST = "GetCompanyList";
-	public static String SM_GET_COMPANY_DETAIL = "GetCompanyDetailContent";
-	public static String SM_SET_USER_COMPANY_NOTIFICATION_STATUS = "SetUserCompanyNotificationStatus";
-	public static String SM_SET_USER_COMPANY_CARD = "SetUserCompanyCard";
-	public static String SM_GET_ALL_ACTIVE_CAMPAIGN_LIST = "GetAllActiveCampaignList";
-	public static String SM_GET_COMPANY_ACTIVE_CAMPAIGN_LIST = "GetCompanyActiveCampaignList";
-	public static String SM_GET_CAMPAIGN_DETAIL_CONTENT = "GetCampaignDetailContent";
-	public static String SM_GET_ALL_SHOPPING_LIST = "GetAllShoppingList";
-	public static String SM_GET_COMPANY_SHOPPING_LIST = "GetCompanyShoppingList";
-	public static String SM_GET_SHOPPING_DETAIL_CONTENT = "GetShoppingDetailContent";
-	public static String SM_SET_SHARE_THIS_SHOPPING_ON_FACEBOOK = "ShareThisShoppingOnFacebook";
-	public static String SM_SET_SHARE_THIS_SHOPPING_ON_TWTITER = "ShareThisShoppingOnTwitter";
-	public static String SM_GET_ADDRESS_LIST = "GetAddressLists";
-    public static String SM_UPDATE_DEVICE_ID="UpdateMobileDeviceId";
+	public static final String API_ADDRESS = "http://test.mycardbook.gen.tr/ApplicationService/";
+	public static final String SM_CREATE_OR_UPDATE_USER = "CreateOrUpdateUser";
+    public static final String SM_UPDATEE_USER_INFO = "UpdateUserInfo";
+	public static final String SM_GET_USER_DETAIL = "GetUserDetail";
+	public static final String SM_GET_COMPANY_LIST = "GetCompanyList";
+	public static final String SM_GET_COMPANY_DETAIL = "GetCompanyDetailContent";
+	public static final String SM_SET_USER_COMPANY_NOTIFICATION_STATUS = "SetUserCompanyNotificationStatus";
+	public static final String SM_SET_USER_COMPANY_CARD = "SetUserCompanyCard";
+	public static final String SM_GET_ALL_ACTIVE_CAMPAIGN_LIST = "GetAllActiveCampaignList";
+	public static final String SM_GET_COMPANY_ACTIVE_CAMPAIGN_LIST = "GetCompanyActiveCampaignList";
+	public static final String SM_GET_CAMPAIGN_DETAIL_CONTENT = "GetCampaignDetailContent";
+	public static final String SM_GET_ALL_SHOPPING_LIST = "GetAllShoppingList";
+	public static final String SM_GET_COMPANY_SHOPPING_LIST = "GetCompanyShoppingList";
+	public static final String SM_GET_SHOPPING_DETAIL_CONTENT = "GetShoppingDetailContent";
+	public static final String SM_SET_SHARE_THIS_SHOPPING_ON_FACEBOOK = "ShareThisShoppingOnFacebook";
+	public static final String SM_SET_SHARE_THIS_SHOPPING_ON_TWTITER = "ShareThisShoppingOnTwitter";
+	public static final String SM_GET_ADDRESS_LIST = "GetAddressLists";
+    public static final String SM_UPDATE_DEVICE_ID="UpdateMobileDeviceId";
+    public static final String SM_GET_COMPANY_LOCATION_LIST="GetCompanyLocationList";
+    public static final String SM_GET_COMPANY_INFO="GetCompanyInfo";
+    public static final String SM_SEND_MESSAGE_TO_COMPANY="SendEmailToCompany";
 
-    public static String POST_DATA_ERROR="postDataError";
-    public static String POST_DATA="Data";
+    public static final String POST_DATA_ERROR="postDataError";
+    public static final String POST_DATA="Data";
 
 
     public static final String KARTLARIM  = "Kartlarım";
@@ -62,6 +70,7 @@ public class AppConstants {
 
     public static final String CARDBOOK_SHARED_PREFERENCES ="com.cardbook.android";
     public static final String USER_INFORMATION ="com.cardbook.android.authenticationToken";
+    public static final String TUTORIAL_INFORMATION ="com.cardbook.android.tutorialInfo";
     public static final String ADDRESS_LIST ="com.cardbook.android.addressList";
 
     public static Bitmap addMask(Context context, int image, int usedMask){
@@ -156,6 +165,22 @@ public class AppConstants {
         return sp.getString(USER_INFORMATION,null);
     }
 
+    public static void setTutorialShow(Context context){
+        SharedPreferences sp=context.getSharedPreferences(CARDBOOK_SHARED_PREFERENCES,Context.MODE_PRIVATE);
+//        if(sp.getString(USER_INFORMATION,null)==null){
+        SharedPreferences.Editor editor=sp.edit();
+        editor.putBoolean(TUTORIAL_INFORMATION,true).commit();
+//        }
+//
+    }
+
+    public static boolean isTutorialShowed(Context context){
+        SharedPreferences sp=context.getSharedPreferences(CARDBOOK_SHARED_PREFERENCES,Context.MODE_PRIVATE);
+
+        return sp.getBoolean(TUTORIAL_INFORMATION,false);
+    }
+
+
     public static void setAddressList(Context context,String info){
         SharedPreferences sp=context.getSharedPreferences(CARDBOOK_SHARED_PREFERENCES,Context.MODE_PRIVATE);
 //        if(sp.getString(USER_INFORMATION,null)==null){
@@ -169,5 +194,43 @@ public class AppConstants {
         SharedPreferences sp=context.getSharedPreferences(CARDBOOK_SHARED_PREFERENCES,Context.MODE_PRIVATE);
 
         return sp.getString(ADDRESS_LIST,null);
+    }
+
+    /**
+     * Ekran geçişlerinde keybordu kapatmak için kullanılır. Her bir ekranda setupTouchForKeyBoard çalıştırılmalı.
+     * */
+    public static void hideKeyboard(Context context,View view) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    /**
+     * Ekran geçişlerinde keybordu kapatmak için kullanılır. Her bir ekranda setupTouchForKeyBoard çalıştırılmalı.
+     * */
+    public static void setupTouchForKeyBoard(final Context context, View view) {
+
+        //Set up touch listener for non-text box views to hide keyboard.
+        if(!(view instanceof EditText)) {
+
+            view.setOnTouchListener(new View.OnTouchListener() {
+
+                public boolean onTouch(View v, MotionEvent event) {
+                    hideKeyboard(context, v);
+                    return false;
+                }
+
+            });
+        }
+
+        //If a layout container, iterate over children and seed recursion.
+        if (view instanceof ViewGroup) {
+
+            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+
+                View innerView = ((ViewGroup) view).getChildAt(i);
+
+                setupTouchForKeyBoard(context,innerView);
+            }
+        }
     }
 }

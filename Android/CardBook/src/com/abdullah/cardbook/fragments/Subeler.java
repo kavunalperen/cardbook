@@ -2,36 +2,40 @@ package com.abdullah.cardbook.fragments;
 
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.location.Criteria;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.abdullah.cardbook.CardbookApp;
 import com.abdullah.cardbook.R;
+import com.abdullah.cardbook.activities.MapActivity;
 import com.abdullah.cardbook.adapters.FragmentPageListener;
 import com.abdullah.cardbook.adapters.KartlarimListAdapter;
+import com.abdullah.cardbook.adapters.LocationsListAdapter;
 import com.abdullah.cardbook.common.AppConstants;
 import com.abdullah.cardbook.common.Font;
 import com.abdullah.cardbook.common.Log;
 import com.abdullah.cardbook.connectivity.ConnectionManager;
 import com.abdullah.cardbook.connectivity.RequestCallBack;
 import com.abdullah.cardbook.models.CardBookUser;
-import com.abdullah.cardbook.models.CardBookUserCard;
 import com.abdullah.cardbook.models.Company;
 import com.abdullah.cardbook.models.Location;
 
-
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -39,17 +43,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class Kartlarim extends BaseFragment implements OnItemClickListener, RequestCallBack{
+public class Subeler extends BaseFragment implements OnItemClickListener, RequestCallBack, LocationListener{
 
     private ListView listView;
-    KartlarimListAdapter adapter;
+    LocationsListAdapter adapter;
     private ProgressDialog dialog;
+    private Company company;
 
-    public Kartlarim(){
-    	
+    private LocationManager locationManager;
+    private String provider;
+
+    public Subeler(){
+
     }
-    
-    public Kartlarim(FragmentPageListener listener) {
+
+    public Subeler(FragmentPageListener listener) {
         pageListener = listener;
     }
     
@@ -68,19 +76,37 @@ public class Kartlarim extends BaseFragment implements OnItemClickListener, Requ
 
         setNavBarItemsStyle(view);
 
-        if(CardbookApp.getInstance().getCompanies()!=null){
-    		setList(CardbookApp.getInstance().getCompanies());
-            Log.i("companies are not null");
-        }
-        else{
-            Button button=new Button(getActivity());
-            button.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            button.setText("Güncelle");
 
-            layout.addView(button);
-        }
+
+        company=((Company)getArguments().getSerializable(Company.COMPANY));
+
+        TextView navBarText=(TextView)view.findViewById(R.id.navBarTxt);
+        navBarText.setText(company.getCompanyName()+" Şubeleri");
+        setList(CardbookApp.getInstance().getLocationsForCompany(company.getCompanyId()));
+
+
 
         dialog = new ProgressDialog(getActivity());
+        dialog.setCancelable(false);
+
+        // Get the location manager
+        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        // Define the criteria how to select the locatioin provider -> use
+        // default
+//        Criteria criteria = new Criteria();
+//        provider = locationManager.getBestProvider(criteria, false);
+
+        provider = LocationManager.NETWORK_PROVIDER;
+        android.location.Location location = locationManager.getLastKnownLocation(provider);
+
+        if (location != null) {
+//            System.out.println("Provider " + provider + " has been selected.");
+            onLocationChanged(location);
+        } else {
+
+
+        }
+
         return view;
     }
 
@@ -90,25 +116,48 @@ public class Kartlarim extends BaseFragment implements OnItemClickListener, Requ
 		// TODO Auto-generated method stub
 		super.onStart();
 
-		listView.setClickable(true);
-		listView.setEnabled(true);
-		listView.setFocusable(true);
-		listView.setOnItemClickListener(this);
+
 	}
 
-	public void setList(ArrayList<Company> cards){
+    @Override
+    public void onResume() {
+        super.onResume();
 
-	    adapter=new KartlarimListAdapter(this.getActivity(),R.layout.kartlarim_list_template, cards);
+        locationManager.requestLocationUpdates(provider, 400, 1, this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        locationManager.removeUpdates(this);
+    }
+
+    public void setList(ArrayList<Location> loc){
+
+//        if(adapter!=null)
+//            adapter.clear();
+	    adapter=new LocationsListAdapter(this.getActivity(),R.layout.locations_list_template, loc);
+//        listView.setClickable(true);
+//        listView.setEnabled(true);
+        listView.setFocusable(true);
+        listView.setOnItemClickListener(this);
+//        listView.setItemsCanFocus(true);
 		listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 	}
+
     @Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position,
 			long arg3) {
 //		Toast.makeText(getActivity(), "Clicked at positon = " + position, Toast.LENGTH_SHORT).show();
 
-       getCompanyDetail(adapter.getItem(position));
-//        getLocationSList(adapter.getItem(position));
+        Intent intent=new Intent(getActivity(), MapActivity.class);
+        intent.putExtra(Location.LOCATION, adapter.getItem(position));
+        intent.putExtra(Company.COMPANY, company);
+        startActivity(intent);
+
+//       getCompanyDetail(adapter.getItem(position));
+
 	}
 
     private void getCompanyDetail(Company company){
@@ -123,12 +172,11 @@ public class Kartlarim extends BaseFragment implements OnItemClickListener, Requ
 
     }
 
-
     @Override
     public void onRequestStart() {
 
         super.onRequestStart();
-        dialog.setMessage("Bilgiler yükleniyor...");
+        dialog.setMessage("Kart Detayı geliyor...");
         dialog.show();
     }
 
@@ -145,13 +193,39 @@ public class Kartlarim extends BaseFragment implements OnItemClickListener, Requ
         KartDetail kartDetail=new KartDetail();
         kartDetail.setArguments(data);
         pageListener.onSwitchToNextFragment(AppConstants.KARTLARIM,kartDetail, this);
+    }
 
+    @Override
+    public void backPressed() {
+        pageListener.onSwitchBeforeFragment(AppConstants.KARTLARIM);
+    }
+
+    @Override
+    public void onLocationChanged(android.location.Location location) {
+        Log.i("onLocationChanged");
+
+        double lat =  (location.getLatitude());
+        double lng =  (location.getLongitude());
+
+        adapter.lat=lat;
+        adapter.lon=lng;
+        adapter.notifyDataSetChanged();
 
 
     }
 
     @Override
-    public void backPressed() {
-        getActivity().moveTaskToBack(true);
+    public void onStatusChanged(String s, int i, Bundle bundle) {
+        Log.i("onStatusChanged");
+    }
+
+    @Override
+    public void onProviderEnabled(String s) {
+        Log.i("onProviderEnabled");
+    }
+
+    @Override
+    public void onProviderDisabled(String s) {
+        Log.i("onProviderDisabled");
     }
 }

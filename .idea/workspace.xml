@@ -8,7 +8,6 @@
   <component name="AndroidLayouts">
     <shared>
       <config>
-        <locale>he</locale>
         <target>android-17</target>
       </config>
     </shared>
@@ -35,56 +34,73 @@
     </layouts>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="car" />
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="cardbook" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c2e4cc14-e7a8-4313-982d-d5fd20997ce7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/adapters/AlisverisDetailListAdapter.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/res/layout/alisveris_detail_list_template.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/res/values/analytics.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/address/Address.java" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/address/Address.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/AlisVeris.java" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/AlisVeris.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/adapters/AlisVerisListAdapter.java" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/adapters/AlisVerisListAdapter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/res/drawable-xhdpi/map_name_holder.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/res/drawable-xhdpi/mycard_ayrac.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/res/drawable-xhdpi/mycard_branch_call_highlighted.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/res/drawable-xhdpi/mycard_branch_call_normal.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/res/drawable-xhdpi/mycard_company_branch_highlighted.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/res/drawable-xhdpi/mycard_company_branch_normal.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/res/drawable-xhdpi/mycard_company_call_highlighted.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/res/drawable-xhdpi/mycard_company_call_normal.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/res/drawable-xhdpi/mycard_company_info_highlighted.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/res/drawable-xhdpi/mycard_company_info_normal.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/res/drawable-xhdpi/tutorial_1.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/res/drawable-xhdpi/tutorial_2.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/res/drawable-xhdpi/tutorial_3.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/res/drawable-xhdpi/tutorial_4.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/res/drawable-xhdpi/tutorial_5.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/res/drawable-xhdpi/tutorial_6.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/CompanyInfo.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/common/DepthPageTransformer.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/Hakkinda.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/Iletisim.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/Location.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/adapters/LocationsListAdapter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/activities/MapActivity.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/Subeler.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/activities/TutorialActivity.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/TutorialFragment.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/res/values/arrays.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/res/drawable/btn_branch_call.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/res/drawable/btn_hakkinda.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/res/drawable/btn_iletisim.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/res/drawable/btn_subeler.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/google_play_services.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/res/layout/hakkinda.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/res/layout/iletisim.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/res/layout/locations_list_template.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/res/layout/map.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/res/layout/tutorial.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/CardBook/res/layout/tutorial_main.xml" />
+      <change type="DELETED" beforePath="D:\Ortak Projeler\cardbook\Android\CardBook\libs\google-play-services.jar" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/res/drawable-xhdpi/notification_off.png" afterPath="$PROJECT_DIR$/Android/CardBook/res/drawable-xhdpi/notification_off.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/res/drawable-xhdpi/notification_on.png" afterPath="$PROJECT_DIR$/Android/CardBook/res/drawable-xhdpi/notification_on.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/AlisverisDetail.java" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/AlisverisDetail.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/AndroidManifest.xml" afterPath="$PROJECT_DIR$/Android/CardBook/AndroidManifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/common/AppConstants.java" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/common/AppConstants.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/activities/AppMainTabActivity.java" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/activities/AppMainTabActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/Campaign.java" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/Campaign.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/CardBook.iml" afterPath="$PROJECT_DIR$/Android/CardBook/CardBook.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/CardBookUser.java" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/CardBookUser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/CardBookUserCard.java" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/CardBookUserCard.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/CardbookApp.java" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/CardbookApp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/Company.java" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/Company.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/connectivity/ConnectionManager.java" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/connectivity/ConnectionManager.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/promotion/Coupon.java" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/promotion/Coupon.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/activities/FirstActivity.java" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/activities/FirstActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/services/GcmIntentService.java" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/services/GcmIntentService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/KampanyaDetail.java" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/KampanyaDetail.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/Kampanyalar.java" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/Kampanyalar.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/KartDetail.java" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/KartDetail.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/Kartlarim.java" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/Kartlarim.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/adapters/KartlarimDetailListAdapter.java" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/adapters/KartlarimDetailListAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/adapters/KartlarimListAdapter.java" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/adapters/KartlarimListAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/common/Log.java" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/common/Log.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/activities/MainActivity.java" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/activities/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/Product.java" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/Product.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/Profil.java" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/Profil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/Shopping.java" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/Shopping.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/Simple Facebook/Simple Facebook.iml" afterPath="$PROJECT_DIR$/Android/Simple Facebook/Simple Facebook.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/Simple Facebook/src/com/sromku/simple/fb/SimpleFacebook.java" afterPath="$PROJECT_DIR$/Android/Simple Facebook/src/com/sromku/simple/fb/SimpleFacebook.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/activities/UserInformation.java" afterPath="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/activities/UserInformation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/res/layout/alis_veris.xml" afterPath="$PROJECT_DIR$/Android/CardBook/res/layout/alis_veris.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/res/layout/alisveris_detay.xml" afterPath="$PROJECT_DIR$/Android/CardBook/res/layout/alisveris_detay.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/res/values/colors.xml" afterPath="$PROJECT_DIR$/Android/CardBook/res/values/colors.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/facebook/facebook.iml" afterPath="$PROJECT_DIR$/Android/facebook/facebook.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/res/layout/kampanya_detail.xml" afterPath="$PROJECT_DIR$/Android/CardBook/res/layout/kampanya_detail.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/res/layout/kart_detail.xml" afterPath="$PROJECT_DIR$/Android/CardBook/res/layout/kart_detail.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/libs.xml" afterPath="$PROJECT_DIR$/.idea/libraries/libs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/project.properties" afterPath="$PROJECT_DIR$/Android/CardBook/project.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/Simple Facebook/project.properties" afterPath="$PROJECT_DIR$/Android/Simple Facebook/project.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/facebook/project.properties" afterPath="$PROJECT_DIR$/Android/facebook/project.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/volley/project.properties" afterPath="$PROJECT_DIR$/Android/volley/project.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/res/values/styles.xml" afterPath="$PROJECT_DIR$/Android/CardBook/res/values/styles.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/CardBook/res/layout/user_information.xml" afterPath="$PROJECT_DIR$/Android/CardBook/res/layout/user_information.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Android/volley/volley.iml" afterPath="$PROJECT_DIR$/Android/volley/volley.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -141,6 +157,53 @@
       </breakpoint>
     </breakpoint_any>
     <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <line_breakpoints>
+      <breakpoint url="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/KartDetail.java" line="272" class="com.abdullah.cardbook.fragments.KartDetail" package="com.abdullah.cardbook.fragments">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/KartDetail.java" line="282" class="com.abdullah.cardbook.fragments.KartDetail" package="com.abdullah.cardbook.fragments">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/KartDetail.java" line="295" class="com.abdullah.cardbook.fragments.KartDetail" package="com.abdullah.cardbook.fragments">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </line_breakpoints>
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -150,63 +213,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="AlisVerisListAdapter.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/adapters/AlisVerisListAdapter.java">
+      <file leaf-file-name="AlisverisDetail.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/AlisverisDetail.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="74" column="23" selection-start="2604" selection-end="2604" vertical-scroll-proportion="0.0" vertical-offset="575" max-vertical-offset="1530">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CardbookApp.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/CardbookApp.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="130" column="25" selection-start="3612" selection-end="3612" vertical-scroll-proportion="0.0" vertical-offset="133" max-vertical-offset="2091">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Android/CardBook/AndroidManifest.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="34" column="35" selection-start="1496" selection-end="1496" vertical-scroll-proportion="1.0763501" vertical-offset="0" max-vertical-offset="1802">
-              <folding>
-                <element signature="e#1366#1384#0" expanded="true" />
-                <element signature="e#1596#1614#0" expanded="true" />
-                <element signature="e#1999#2017#0" expanded="true" />
-                <element signature="e#2402#2420#0" expanded="true" />
-                <element signature="e#2800#2818#0" expanded="true" />
-                <element signature="e#3179#3204#0" expanded="true" />
-                <element signature="e#3281#3299#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Log.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/common/Log.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="38" selection-start="146" selection-end="146" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="306">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AppConstants.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/common/AppConstants.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="157" column="0" selection-start="6822" selection-end="6822" vertical-scroll-proportion="0.0" vertical-offset="1901" max-vertical-offset="2788">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AlisVeris.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/AlisVeris.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="186" column="51" selection-start="6067" selection-end="6067" vertical-scroll-proportion="0.0" vertical-offset="2227" max-vertical-offset="2975">
+            <state line="266" column="26" selection-start="9193" selection-end="9193" vertical-scroll-proportion="0.7573222" vertical-offset="3514" max-vertical-offset="4182">
               <folding />
             </state>
           </provider>
@@ -220,8 +230,8 @@
     </FindUsagesManager>
   </component>
   <component name="GenerateSignedApkSettings">
-    <option name="KEY_STORE_PATH" value="C:\Users\abdullah\Documents\e-sandik" />
-    <option name="KEY_ALIAS" value="halicibilgiıslemas" />
+    <option name="KEY_STORE_PATH" value="C:\Users\abdullah\Documents\cardbook" />
+    <option name="KEY_ALIAS" value="Cardbook" />
     <option name="REMEMBER_PASSWORDS" value="true" />
   </component>
   <component name="Git.Settings">
@@ -235,47 +245,62 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/Android/CardBook/res/layout/address_adapter.xml" />
-        <option value="$PROJECT_DIR$/Android/CardBook/res/layout/tabs_icon.xml" />
-        <option value="$PROJECT_DIR$/Android/CardBook/res/layout/kartlarim_list_template.xml" />
-        <option value="$PROJECT_DIR$/Android/Simple Facebook/src/com/sromku/simple/fb/SimpleFacebook.java" />
-        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/CardBookUserCard.java" />
-        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/Campaign.java" />
-        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/Kampanyalar.java" />
-        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/Shopping.java" />
-        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/Kartlarim.java" />
-        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/activities/FirstActivity.java" />
-        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/connectivity/ConnectionManager.java" />
-        <option value="$PROJECT_DIR$/Android/CardBook/res/layout/alis_veris.xml" />
-        <option value="$PROJECT_DIR$/Android/CardBook/res/layout/alisveris_detay.xml" />
-        <option value="$PROJECT_DIR$/Android/CardBook/res/layout/kart_detail.xml" />
-        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/adapters/KartlarimListAdapter.java" />
-        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/KampanyaDetail.java" />
-        <option value="$PROJECT_DIR$/Android/CardBook/res/layout/kampanya_detail.xml" />
-        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/adapters/KartlarimDetailListAdapter.java" />
-        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/AlisVeris.java" />
-        <option value="$PROJECT_DIR$/Android/CardBook/res/layout/alisveris_detail_list_template.xml" />
-        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/adapters/AlisverisDetailListAdapter.java" />
-        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/address/Address.java" />
         <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/Profil.java" />
         <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/Product.java" />
-        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/KartDetail.java" />
         <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/Company.java" />
-        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/common/AppConstants.java" />
-        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/promotion/Coupon.java" />
-        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/AlisverisDetail.java" />
         <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/services/GcmIntentService.java" />
-        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/CardbookApp.java" />
         <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/activities/MainActivity.java" />
-        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/activities/AppMainTabActivity.java" />
         <option value="$PROJECT_DIR$/Android/CardBook/res/values/analytics.xml" />
         <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/CardBookUser.java" />
-        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/activities/UserInformation.java" />
         <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/adapters/AlisVerisListAdapter.java" />
-        <option value="$PROJECT_DIR$/Android/CardBook/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/common/Log.java" />
+        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/Şubeler.java" />
+        <option value="$PROJECT_DIR$/Android/CardBook/res/drawable/btn_login_bg.xml" />
+        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/activities/MapActivity.java" />
+        <option value="$PROJECT_DIR$/Android/CardBook/res/drawable/btn_hakkinda.xml" />
+        <option value="$PROJECT_DIR$/Android/CardBook/res/drawable/btn_subeler.xml" />
+        <option value="$PROJECT_DIR$/Android/CardBook/res/drawable/btn_iletisim.xml" />
+        <option value="$PROJECT_DIR$/Android/CardBook/res/layout/map.xml" />
+        <option value="$PROJECT_DIR$/Android/CardBook/res/layout/alis_veris_list_template.xml" />
+        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/activities/AppMainTabActivity.java" />
+        <option value="$PROJECT_DIR$/Android/CardBook/res/values/colors.xml" />
+        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/Location.java" />
+        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/CompanyInfo.java" />
+        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/CardbookApp.java" />
+        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/hakkinda.java" />
+        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/Kartlarim.java" />
+        <option value="$PROJECT_DIR$/Android/CardBook/res/layout/user_information.xml" />
+        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/activities/UserInformation.java" />
+        <option value="$PROJECT_DIR$/Android/CardBook/res/layout/alisveris_detay.xml" />
+        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/promotion/Coupon.java" />
+        <option value="$PROJECT_DIR$/Android/CardBook/res/values/styles.xml" />
+        <option value="$PROJECT_DIR$/Android/CardBook/res/drawable/btn_branchCall.xml" />
+        <option value="$PROJECT_DIR$/Android/CardBook/res/layout/kart_detail.xml" />
+        <option value="$PROJECT_DIR$/Android/CardBook/res/layout/hakkinda.xml" />
+        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/Hakkinda.java" />
+        <option value="$PROJECT_DIR$/Android/CardBook/res/layout/iletisim.xml" />
+        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/Iletisim.java" />
+        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/KartDetail.java" />
+        <option value="$PROJECT_DIR$/Android/CardBook/res/layout/locations_list_template.xml" />
+        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/adapters/LocationsListAdapter.java" />
+        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/Subeler.java" />
+        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/tutorialFragment.java" />
+        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/common/AppConstants.java" />
+        <option value="$PROJECT_DIR$/Android/CardBook/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/common/DepthPageTransformer.java" />
+        <option value="$PROJECT_DIR$/Android/CardBook/res/layout/tutorial_main.xml" />
+        <option value="$PROJECT_DIR$/Android/CardBook/res/values/Arrays.xml" />
+        <option value="$PROJECT_DIR$/Android/CardBook/res/values/arrays.xml" />
+        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/TutorialFragment.java" />
+        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/activities/TutorialActivity.java" />
+        <option value="$PROJECT_DIR$/Android/CardBook/res/layout/tutorial.xml" />
+        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/activities/FirstActivity.java" />
+        <option value="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/AlisverisDetail.java" />
       </list>
     </option>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState />
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
@@ -298,6 +323,7 @@
   </component>
   <component name="ProjectStructureProblems">
     <ignored-problems>
+      <problem id="library-invalid-classes-path(library:project:libs)" />
       <problem id="unused-library(library:project:android-support-v4)" />
     </ignored-problems>
   </component>
@@ -315,7 +341,6 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -370,125 +395,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="services" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cardbook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CardBook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cardbook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cardbook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CardBook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cardbook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="promotion" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cardbook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CardBook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cardbook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="address" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cardbook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CardBook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cardbook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="fragments" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cardbook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CardBook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cardbook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="connectivity" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -532,80 +439,13 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="adapters" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cardbook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CardBook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cardbook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="activities" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cardbook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CardBook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cardbook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CardBook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="values" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cardbook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CardBook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="libs" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -616,34 +456,36 @@
     <property name="MemberChooser.showClasses" value="true" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="recentsLimit" value="5" />
-    <property name="restartRequiresConfirmation" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Documents/e-sandik" />
+    <property name="last_opened_file_path" value="$USER_HOME$/.android/debug.keystore" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="FullScreen" value="false" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="CB5A1TLWR1" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="AVD_for_Nexus_4_by_Google" />
+    <property name="FullScreen" value="false" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+    <property name="ExportedModule" value="CardBook" />
+    <property name="ExportedApkPath" value="D:\Ortak Projeler\cardbook\Android\CardBook\CardBook.apk" />
+    <property name="AndroidRunProguardForReleaseBuild" value="false" />
+    <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager2.WIDTH" value="356" />
     <property name="OverrideImplement.combined" value="true" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
-    <property name="ExportedModule" value="CardBook" />
-    <property name="ExportedApkPath" value="D:\Projeler\Ortak Projeler\cardbook\Android\CardBook\CardBook.apk" />
-    <property name="AndroidRunProguardForReleaseBuild" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.abdullah.cardbook.adapters" />
       <recent name="com.abdullah.cardbook.fragments" />
+      <recent name="com.abdullah.cardbook.adapters" />
       <recent name="com.abdullah.cardbook.Activities" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Ortak Projeler\cardbook\Android\CardBook\res\drawable" />
+      <recent name="D:\Ortak Projeler\cardbook\Android\CardBook\res\layout" />
       <recent name="D:\Projeler\Ortak Projeler\cardbook\Android\CardBook\res\layout" />
       <recent name="$PROJECT_DIR$/Android/CardBook/res/drawable-xhdpi" />
       <recent name="$PROJECT_DIR$/Android/CardBook/libs" />
-      <recent name="$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/services" />
-      <recent name="$PROJECT_DIR$/Android/CardBook/res/drawable" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Ortak Projeler\cardbook\Android\CardBook\res\drawable-xhdpi" />
       <recent name="$PROJECT_DIR$/Android/CardBook/res/drawable-hdpi" />
       <recent name="$PROJECT_DIR$/Android/CardBook/res/drawable" />
       <recent name="$PROJECT_DIR$/Android/CardBook/res/color" />
@@ -679,19 +521,6 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method />
-    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -717,6 +546,19 @@
       <envs />
       <properties />
       <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -835,42 +677,62 @@
     </task>
     <servers />
   </component>
+  <component name="TodoView" selected-index="0">
+    <todo-panel id="selected-file">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="default-changelist">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1066" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995495" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33812568" sideWeight="0.8643703" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4479737" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4590336" sideWeight="0.50963855" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4479737" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4479737" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995495" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1988743" sideWeight="0.42905405" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21844128" sideWeight="0.49036145" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25520262" sideWeight="0.48987207" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.27222833" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" x="161" y="1004" width="1266" height="614" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2495886" sideWeight="0.6707865" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32968238" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24920128" sideWeight="0.6707865" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32960597" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22251868" sideWeight="0.5698198" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3819978" sideWeight="0.49216866" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25079873" sideWeight="0.5698198" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.381161" sideWeight="0.49216866" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="162" y="223" width="1462" height="856" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33876017" sideWeight="0.8643703" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3277027" sideWeight="0.49879518" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3274918" sideWeight="0.49879518" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
-    <option name="RECENTLY_FILTERED_USERS">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
       <collection />
     </option>
   </component>
@@ -883,103 +745,157 @@
     </option>
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <breakpoints-dialog>
+        <breakpoints-dialog />
+      </breakpoints-dialog>
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/services/GcmIntentService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="38" selection-start="1015" selection-end="1015" vertical-scroll-proportion="0.0" vertical-offset="459" max-vertical-offset="2635" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/activities/UserInformation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="528" column="55" selection-start="18058" selection-end="18058" vertical-scroll-proportion="0.0" vertical-offset="8976" max-vertical-offset="12342" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/connectivity/BitmapLruCache.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="13" selection-start="926" selection-end="926" vertical-scroll-proportion="-4.179798" vertical-offset="2267" max-vertical-offset="2772" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Android/facebook/src/com/facebook/Session.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="0" selection-start="984" selection-end="984" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="33949" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Android/Simple Facebook/src/com/sromku/simple/fb/SimpleFacebook.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1121" column="46" selection-start="27453" selection-end="27453" vertical-scroll-proportion="0.0" vertical-offset="18221" max-vertical-offset="24480" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Android/volley/src/com/android/volley/toolbox/ImageLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="193" column="0" selection-start="8251" selection-end="8251" vertical-scroll-proportion="0.22041763" vertical-offset="2615" max-vertical-offset="7412" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/CardBookUserCard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="7" selection-start="602" selection-end="704" vertical-scroll-proportion="0.10869565" vertical-offset="282" max-vertical-offset="1054" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/adapters/PagerAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="13" selection-start="650" selection-end="650" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2703" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/Campaign.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="5" selection-start="448" selection-end="448" vertical-scroll-proportion="0.0" vertical-offset="14" max-vertical-offset="2516" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/res/layout/kampanyalar.xml">
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/res/layout/alisveris_detail_list_template.xml">
       <provider selected="true" editor-type-id="android-designer">
         <state />
       </provider>
       <provider editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="748" />
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="918">
+          <folding />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/adapters/AlisverisListener.java">
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/res/layout/alis_veris_list_template.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="17" selection-start="102" selection-end="102" vertical-scroll-proportion="0.123188406" vertical-offset="0" max-vertical-offset="690" />
+        <state line="75" column="51" selection-start="2589" selection-end="2924" vertical-scroll-proportion="0.79911697" vertical-offset="913" max-vertical-offset="1411">
+          <folding />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/res/values/styles.xml">
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/res/drawable/list_img_bg.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.35507247" vertical-offset="245" max-vertical-offset="935" />
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="478">
+          <folding />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/adapters/KampanyalarListAdapter.java">
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/res/drawable/profil_image_bg.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="13" selection-start="963" selection-end="963" vertical-scroll-proportion="-0.37971014" vertical-offset="330" max-vertical-offset="1581" />
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="478">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/res/drawable/user_information_input_bg.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="478">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/res/values/colors.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="30" selection-start="204" selection-end="217" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="527">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/res/drawable/btn_kart_detail_save.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="478">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/Company.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="54" column="41" selection-start="2100" selection-end="2100" vertical-scroll-proportion="0.0" vertical-offset="696" max-vertical-offset="3094">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/CompanyInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="34" selection-start="1161" selection-end="1161" vertical-scroll-proportion="0.5849462" vertical-offset="306" max-vertical-offset="2584">
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#2539#2540#0" expanded="false" />
+            <element signature="e#2571#2572#0" expanded="false" />
+            <element signature="e#2618#2619#0" expanded="false" />
+            <element signature="e#2660#2661#0" expanded="false" />
+            <element signature="e#2696#2697#0" expanded="false" />
+            <element signature="e#2728#2729#0" expanded="false" />
+            <element signature="e#2778#2779#0" expanded="false" />
+            <element signature="e#2820#2821#0" expanded="false" />
+            <element signature="e#2852#2853#0" expanded="false" />
+            <element signature="e#2880#2881#0" expanded="false" />
+            <element signature="e#2922#2923#0" expanded="false" />
+            <element signature="e#2956#2957#0" expanded="false" />
+            <element signature="e#2987#2988#0" expanded="false" />
+            <element signature="e#3014#3015#0" expanded="false" />
+            <element signature="e#3054#3055#0" expanded="false" />
+            <element signature="e#3086#3087#0" expanded="false" />
+            <element signature="e#3124#3125#0" expanded="false" />
+            <element signature="e#3158#3159#0" expanded="false" />
+            <element signature="e#3212#3213#0" expanded="false" />
+            <element signature="e#3258#3259#0" expanded="false" />
+            <element signature="e#3295#3296#0" expanded="false" />
+            <element signature="e#3328#3329#0" expanded="false" />
+            <element signature="e#3380#3381#0" expanded="false" />
+            <element signature="e#3424#3425#0" expanded="false" />
+            <element signature="e#3459#3460#0" expanded="false" />
+            <element signature="e#3490#3491#0" expanded="false" />
+            <element signature="e#3538#3539#0" expanded="false" />
+            <element signature="e#3578#3579#0" expanded="false" />
+            <element signature="e#3616#3617#0" expanded="false" />
+            <element signature="e#3650#3651#0" expanded="false" />
+            <element signature="e#3704#3705#0" expanded="false" />
+            <element signature="e#3750#3751#0" expanded="false" />
+            <element signature="e#3785#3786#0" expanded="false" />
+            <element signature="e#3816#3817#0" expanded="false" />
+            <element signature="e#3864#3865#0" expanded="false" />
+            <element signature="e#3904#3905#0" expanded="false" />
+            <element signature="e#3940#3941#0" expanded="false" />
+            <element signature="e#3972#3973#0" expanded="false" />
+            <element signature="e#4022#4023#0" expanded="false" />
+            <element signature="e#4064#4065#0" expanded="false" />
+          </folding>
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/Kampanyalar.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="0" selection-start="254" selection-end="343" vertical-scroll-proportion="0.24492754" vertical-offset="1" max-vertical-offset="3315" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/res/layout/kart_detail.xml">
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state line="176" column="42" selection-start="7705" selection-end="7705" vertical-scroll-proportion="0.0" vertical-offset="2492" max-vertical-offset="4930" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/adapters/KartlarimListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="83" column="55" selection-start="2818" selection-end="2818" vertical-scroll-proportion="-0.50928074" vertical-offset="1391" max-vertical-offset="2278" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/res/values/dimens.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="860" />
+        <state line="42" column="13" selection-start="1455" selection-end="1455" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2703">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/KampanyaDetail.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="177" column="82" selection-start="6036" selection-end="6036" vertical-scroll-proportion="0.0" vertical-offset="1907" max-vertical-offset="2635" />
+        <state line="40" column="13" selection-start="1453" selection-end="1453" vertical-scroll-proportion="0.076662906" vertical-offset="0" max-vertical-offset="3026">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/connectivity/ConnectionManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="37" column="13" selection-start="1132" selection-end="1132" vertical-scroll-proportion="-3.3430963" vertical-offset="1734" max-vertical-offset="3332">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/adapters/AlisVerisListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="67" column="63" selection-start="2335" selection-end="2335" vertical-scroll-proportion="0.0" vertical-offset="347" max-vertical-offset="1530">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/CardbookApp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="178" column="70" selection-start="5145" selection-end="5145" vertical-scroll-proportion="0.0" vertical-offset="1817" max-vertical-offset="2856">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Android/CardBook/res/layout/kampanya_detail.xml">
@@ -987,240 +903,341 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state line="148" column="0" selection-start="6557" selection-end="6557" vertical-scroll-proportion="-12.76" vertical-offset="2197" max-vertical-offset="2788" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/res/layout/alis_veris.xml">
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="748" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/adapters/KartlarimDetailListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="61" column="0" selection-start="2052" selection-end="2052" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1122" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/res/layout/alis_veris_list_template.xml">
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1411" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/res/layout/alisveris_detay.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="122" column="8" selection-start="4622" selection-end="4622" vertical-scroll-proportion="0.33280507" vertical-offset="1864" max-vertical-offset="5661" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/Shopping.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="37" selection-start="499" selection-end="499" vertical-scroll-proportion="0.0" vertical-offset="1122" max-vertical-offset="2057" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/res/layout/alisveris_detail_list_template.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="57" selection-start="1100" selection-end="1168" vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="918" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/adapters/AlisverisDetailListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="56" selection-start="970" selection-end="970" vertical-scroll-proportion="0.0" vertical-offset="294" max-vertical-offset="1156">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/activities/Barcode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="13" selection-start="911" selection-end="911" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2465">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/address/Address.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="59" column="47" selection-start="1782" selection-end="1782" vertical-scroll-proportion="0.0" vertical-offset="432" max-vertical-offset="2142">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/Profil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="307" column="42" selection-start="10458" selection-end="10458" vertical-scroll-proportion="0.0" vertical-offset="3960" max-vertical-offset="4947">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2788">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/Product.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="45" selection-start="218" selection-end="218" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="714">
+        <state line="38" column="39" selection-start="740" selection-end="860" vertical-scroll-proportion="1.0313808" vertical-offset="0" max-vertical-offset="714">
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#532#533#0" expanded="false" />
+            <element signature="e#559#560#0" expanded="false" />
+            <element signature="e#599#600#0" expanded="false" />
+            <element signature="e#631#632#0" expanded="false" />
+            <element signature="e#662#663#0" expanded="false" />
+            <element signature="e#690#691#0" expanded="false" />
+            <element signature="e#943#944#0" expanded="false" />
+            <element signature="e#977#978#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/res/layout/alisveris_detay.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state line="39" column="36" selection-start="1431" selection-end="1431" vertical-scroll-proportion="0.0" vertical-offset="829" max-vertical-offset="5678">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/Kartlarim.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="135" column="25" selection-start="4164" selection-end="4181" vertical-scroll-proportion="0.0" vertical-offset="1197" max-vertical-offset="2108">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/KartDetail.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="164" column="11" selection-start="5578" selection-end="5764" vertical-scroll-proportion="0.0" vertical-offset="1907" max-vertical-offset="6103">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/Company.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="215" column="18" selection-start="6669" selection-end="6669" vertical-scroll-proportion="0.0" vertical-offset="2069" max-vertical-offset="2567" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/promotion/Credit.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="13" selection-start="189" selection-end="189" vertical-scroll-proportion="0.047413792" vertical-offset="97" max-vertical-offset="561">
+        <state line="142" column="33" selection-start="4502" selection-end="4502" vertical-scroll-proportion="0.0" vertical-offset="1375" max-vertical-offset="2176">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/promotion/Coupon.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="43" selection-start="194" selection-end="194" vertical-scroll-proportion="0.036637932" vertical-offset="136" max-vertical-offset="1156">
+        <state line="84" column="52" selection-start="2380" selection-end="2380" vertical-scroll-proportion="0.7866109" vertical-offset="678" max-vertical-offset="1292">
           <folding>
-            <element signature="imports" expanded="false" />
+            <element signature="e#2429#2430#0" expanded="false" />
+            <element signature="e#2515#2516#0" expanded="false" />
+            <element signature="e#2593#2594#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/AlisverisDetail.java">
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/Shopping.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="178" column="126" selection-start="6277" selection-end="6277" vertical-scroll-proportion="0.0" vertical-offset="2261" max-vertical-offset="3366">
+        <state line="17" column="13" selection-start="427" selection-end="427" vertical-scroll-proportion="-0.61715484" vertical-offset="414" max-vertical-offset="2057">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/services/GcmBroadcastReceiver.java">
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/adapters/AlisverisDetailListAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="13" selection-start="1260" selection-end="1260" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="578">
+        <state line="55" column="38" selection-start="1862" selection-end="1862" vertical-scroll-proportion="0.9309623" vertical-offset="269" max-vertical-offset="1156">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/services/GcmIntentService.java">
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/res/values/styles.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="122" column="83" selection-start="5311" selection-end="5311" vertical-scroll-proportion="0.0" vertical-offset="1185" max-vertical-offset="2006">
+        <state line="34" column="40" selection-start="1562" selection-end="1562" vertical-scroll-proportion="0.0" vertical-offset="241" max-vertical-offset="935">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/activities/FirstActivity.java">
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/res/layout/user_information.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="25" selection-start="1584" selection-end="1584" vertical-scroll-proportion="0.54002255" vertical-offset="371" max-vertical-offset="1258">
+        <state line="103" column="8" selection-start="3907" selection-end="3907" vertical-scroll-proportion="-0.58278143" vertical-offset="2015" max-vertical-offset="2907">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/connectivity/ConnectionManager.java">
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/res/drawable/btn_iletisim.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="208" column="64" selection-start="7689" selection-end="7689" vertical-scroll-proportion="0.0" vertical-offset="2470" max-vertical-offset="3332">
+        <state line="5" column="11" selection-start="0" selection-end="291" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="187">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/res/drawable/btn_branch_call.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="63" selection-start="274" selection-end="274" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="187">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/res/layout/kart_detail.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="125" column="12" selection-start="5190" selection-end="5190" vertical-scroll-proportion="0.7240618" vertical-offset="1712" max-vertical-offset="3910">
+          <folding>
+            <element signature="tag#ImageView#0;tag#LinearLayout#0;tag#LinearLayout#0;tag#LinearLayout#0" expanded="false" />
+            <element signature="tag#RelativeLayout#1;tag#LinearLayout#0;tag#LinearLayout#0" expanded="false" />
+            <element signature="tag#ImageView#0;tag#RelativeLayout#1;tag#LinearLayout#0;tag#LinearLayout#0" expanded="false" />
+            <element signature="tag#ListView#0;tag#RelativeLayout#1;tag#LinearLayout#0;tag#LinearLayout#0" expanded="false" />
+            <element signature="tag#ImageView#1;tag#RelativeLayout#1;tag#LinearLayout#0;tag#LinearLayout#0" expanded="false" />
+            <element signature="tag#LinearLayout#0;tag#RelativeLayout#1;tag#LinearLayout#0;tag#LinearLayout#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/res/layout/hakkinda.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state line="58" column="18" selection-start="2132" selection-end="2132" vertical-scroll-proportion="0.0" vertical-offset="703" max-vertical-offset="1224">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/Hakkinda.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="67" column="0" selection-start="1949" selection-end="1949" vertical-scroll-proportion="0.035564855" vertical-offset="646" max-vertical-offset="1224">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/res/layout/iletisim.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="129" column="46" selection-start="5681" selection-end="5681" vertical-scroll-proportion="-6.72" vertical-offset="2025" max-vertical-offset="3519">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/Iletisim.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="151" column="50" selection-start="4950" selection-end="4950" vertical-scroll-proportion="0.0" vertical-offset="1633" max-vertical-offset="3145">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/KartDetail.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="217" column="0" selection-start="7595" selection-end="7595" vertical-scroll-proportion="0.035564855" vertical-offset="2516" max-vertical-offset="7871">
+          <folding>
+            <element signature="method#setContent#0;class#KartDetail#0" expanded="false" />
+            <element signature="method#setNotification#0;class#KartDetail#0" expanded="false" />
+            <element signature="method#setList#0;class#KartDetail#0" expanded="false" />
+            <element signature="e#16560#16576#0" expanded="true" />
+            <element signature="method#addImage#0;class#KartDetail#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/res/layout/kartlarim.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="44" selection-start="818" selection-end="818" vertical-scroll-proportion="0.82560706" vertical-offset="0" max-vertical-offset="748">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/res/layout/locations_list_template.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="49" column="45" selection-start="1829" selection-end="1829" vertical-scroll-proportion="0.5121413" vertical-offset="601" max-vertical-offset="1360">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/Location.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="26" selection-start="1393" selection-end="1393" vertical-scroll-proportion="0.035564855" vertical-offset="765" max-vertical-offset="1972">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/adapters/LocationsListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="114" column="0" selection-start="3774" selection-end="3774" vertical-scroll-proportion="-0.35146442" vertical-offset="1766" max-vertical-offset="2244">
+          <folding>
+            <element signature="e#4081#4439#0" expanded="true" />
+            <element signature="e#4424#4425#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/Subeler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="152" column="0" selection-start="4698" selection-end="4698" vertical-scroll-proportion="0.6443515" vertical-offset="1613" max-vertical-offset="3366">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/activities/UserInformation.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="170" column="41" selection-start="5539" selection-end="5539" vertical-scroll-proportion="-1.0081395" vertical-offset="2890" max-vertical-offset="13719">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/models/CardBookUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="67" column="0" selection-start="2248" selection-end="2248" vertical-scroll-proportion="-0.2767442" vertical-offset="1139" max-vertical-offset="3604">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/activities/AppMainTabActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="184" column="0" selection-start="6171" selection-end="6171" vertical-scroll-proportion="-0.63255817" vertical-offset="2822" max-vertical-offset="9180">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/res/values/analytics.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="1" selection-start="371" selection-end="371" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
+        <state line="280" column="13" selection-start="9878" selection-end="9878" vertical-scroll-proportion="0.0" vertical-offset="3449" max-vertical-offset="13719">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/activities/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="324" column="74" selection-start="10077" selection-end="10077" vertical-scroll-proportion="-0.843292" vertical-offset="5508" max-vertical-offset="10710">
-          <folding>
-            <element signature="e#15620#15635#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/adapters/AlisVerisListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="74" column="23" selection-start="2604" selection-end="2604" vertical-scroll-proportion="0.0" vertical-offset="575" max-vertical-offset="1530">
+        <state line="49" column="13" selection-start="1708" selection-end="1708" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="10710">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/common/AppConstants.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="157" column="0" selection-start="6822" selection-end="6822" vertical-scroll-proportion="0.0" vertical-offset="1901" max-vertical-offset="2788">
+        <state line="176" column="25" selection-start="7826" selection-end="7826" vertical-scroll-proportion="0.6213389" vertical-offset="2355" max-vertical-offset="3706">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/AlisVeris.java">
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/common/DepthPageTransformer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="186" column="51" selection-start="6067" selection-end="6067" vertical-scroll-proportion="0.0" vertical-offset="2227" max-vertical-offset="2975">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/CardbookApp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="130" column="25" selection-start="3612" selection-end="3612" vertical-scroll-proportion="0.0" vertical-offset="1289" max-vertical-offset="2091">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/common/Log.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="38" selection-start="146" selection-end="146" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="306">
-          <folding />
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="478">
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Android/CardBook/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="35" selection-start="1496" selection-end="1496" vertical-scroll-proportion="1.0763501" vertical-offset="0" max-vertical-offset="1802">
+        <state line="98" column="0" selection-start="3828" selection-end="3828" vertical-scroll-proportion="0.7866109" vertical-offset="1290" max-vertical-offset="2618">
           <folding>
-            <element signature="e#1366#1384#0" expanded="true" />
-            <element signature="e#1596#1614#0" expanded="true" />
-            <element signature="e#1999#2017#0" expanded="true" />
-            <element signature="e#2402#2420#0" expanded="true" />
-            <element signature="e#2800#2818#0" expanded="true" />
-            <element signature="e#3179#3204#0" expanded="true" />
-            <element signature="e#3281#3299#0" expanded="true" />
+            <element signature="e#2122#2140#0" expanded="true" />
+            <element signature="e#2351#2369#0" expanded="true" />
+            <element signature="e#2754#2772#0" expanded="true" />
+            <element signature="e#3157#3175#0" expanded="true" />
+            <element signature="e#3610#3628#0" expanded="true" />
+            <element signature="e#4055#4073#0" expanded="true" />
+            <element signature="e#4450#4468#0" expanded="true" />
+            <element signature="e#4822#4847#0" expanded="true" />
+            <element signature="e#4924#4942#0" expanded="true" />
+            <element signature="e#5287#5326#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/res/drawable-xhdpi/tutorial_1.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/activities/AppMainTabActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="211" column="31" selection-start="7146" selection-end="7146" vertical-scroll-proportion="3.6317992" vertical-offset="1001" max-vertical-offset="9282">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/activities/TutorialActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="51" column="37" selection-start="1697" selection-end="1697" vertical-scroll-proportion="0.7280335" vertical-offset="519" max-vertical-offset="1717">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3071#3072#0" expanded="true" />
+            <element signature="e#3120#3121#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/res/layout/tutorial_main.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="48" selection-start="502" selection-end="502" vertical-scroll-proportion="0.41280353" vertical-offset="0" max-vertical-offset="453">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/res/values/arrays.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="11" selection-start="57" selection-end="63" vertical-scroll-proportion="0.106694564" vertical-offset="0" max-vertical-offset="478">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/activities/Barcode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="47" column="0" selection-start="1266" selection-end="1431" vertical-scroll-proportion="0.8535565" vertical-offset="0" max-vertical-offset="2465">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/res/layout/tutorial.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state line="23" column="17" selection-start="901" selection-end="901" vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="493">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/TutorialFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="9" selection-start="1158" selection-end="1158" vertical-scroll-proportion="0.6799163" vertical-offset="321" max-vertical-offset="1003">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1258#1588#0" expanded="true" />
+            <element signature="e#1573#1574#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/activities/FirstActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="53" column="31" selection-start="1553" selection-end="1553" vertical-scroll-proportion="0.29707113" vertical-offset="572" max-vertical-offset="1258">
+          <folding>
+            <element signature="e#827#2261#0" expanded="true" />
+            <element signature="e#1100#2235#0" expanded="true" />
+            <element signature="e#2216#2217#0" expanded="true" />
+            <element signature="e#2250#2251#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Android/CardBook/src/com/abdullah/cardbook/fragments/AlisverisDetail.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="266" column="26" selection-start="9193" selection-end="9193" vertical-scroll-proportion="0.7573222" vertical-offset="3514" max-vertical-offset="4182">
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1241,7 +1258,7 @@
       </state>
       <state key="FacetStructureConfigurable.UI">
         <settings>
-          <last-edited>Android</last-edited>
+          <last-edited>Android (Simple Facebook)|Android</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1264,7 +1281,7 @@
       </state>
       <state key="JdkListConfigurable.UI">
         <settings>
-          <last-edited>Android API 19 Platform</last-edited>
+          <last-edited>Android API 10 Platform</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1276,7 +1293,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>CardBook</last-edited>
+          <last-edited>Android|CardBook</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1288,7 +1305,7 @@
       </state>
       <state key="ProjectJDKs.UI">
         <settings>
-          <last-edited>Android API 19 Platform</last-edited>
+          <last-edited>Android API 10 Platform</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1300,7 +1317,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>libs</last-edited>
+          <last-edited>google-play-services</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

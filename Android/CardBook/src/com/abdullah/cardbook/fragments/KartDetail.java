@@ -31,6 +31,8 @@ import com.abdullah.cardbook.connectivity.RequestCallBack;
 import com.abdullah.cardbook.models.CardBookUser;
 import com.abdullah.cardbook.models.CardBookUserCard;
 import com.abdullah.cardbook.models.Company;
+import com.abdullah.cardbook.models.CompanyInfo;
+import com.abdullah.cardbook.models.Location;
 import com.abdullah.cardbook.models.promotion.Coupon;
 import com.abdullah.cardbook.models.promotion.Credit;
 import com.android.volley.RequestQueue;
@@ -60,13 +62,16 @@ public class KartDetail extends BaseFragment implements View.OnClickListener {
     ImageView companyImage;
     EditText etKartNo;
     Button btnKampanyalar, btnAlisverisler, btnSave;
-    ImageButton btnNotification;
+    ImageButton btnNotification, btnHakkında, btnIletisim, btnSubeler;
     private ProgressDialog dialog;
 
     private static int BTN_SAVE=159;
     private static int BTN_NOTIFICATION=951;
     private static int BTN_KAMPANYALAR=111;
     private static int BTN_ALISVERISLER=222;
+    private static int BTN_HAKKINDA=333;
+    private static int BTN_ILETISIM=444;
+    private static int BTN_SUBELER=555;
 
     private boolean wantNotification;
 
@@ -87,6 +92,7 @@ public class KartDetail extends BaseFragment implements View.OnClickListener {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         dialog = new ProgressDialog(getActivity());
+        dialog.setCancelable(false);
         view = inflater.inflate(R.layout.kart_detail, container, false);
 
         Typeface regular=Font.getFont(getActivity(),Font.ROBOTO_REGULAR);
@@ -97,7 +103,7 @@ public class KartDetail extends BaseFragment implements View.OnClickListener {
         puanPay=(TextView)view.findViewById(R.id.tvKartDetailPuan);
         puanPayda=(TextView)view.findViewById(R.id.tvKartDetailPuanLimit);
 
-        tvBildirim=(TextView)view.findViewById(R.id.tvKartDetailNotificationStatusHeader);
+//        tvBildirim=(TextView)view.findViewById(R.id.tvKartDetailNotificationStatusHeader);
         tvKartNo=(TextView)view.findViewById(R.id.tvKartDetailKartNoHeader);
 
         etKartNo=(EditText)view.findViewById(R.id.editKartDetailKartNo);
@@ -112,6 +118,18 @@ public class KartDetail extends BaseFragment implements View.OnClickListener {
         btnKampanyalar.setTypeface(regular);
         btnKampanyalar.setId(BTN_KAMPANYALAR);
         btnKampanyalar.setOnClickListener(this);
+
+        btnSubeler=(ImageButton) view.findViewById(R.id.btnSubeler);
+        btnSubeler.setOnClickListener(this);
+        btnSubeler.setId(BTN_SUBELER);
+
+        btnIletisim=(ImageButton) view.findViewById(R.id.btnIletisim);
+        btnIletisim.setOnClickListener(this);
+        btnIletisim.setId(BTN_ILETISIM);
+
+        btnHakkında=(ImageButton) view.findViewById(R.id.btnHakinda);
+        btnHakkında.setOnClickListener(this);
+        btnHakkında.setId(BTN_HAKKINDA);
 
         btnNotification=(ImageButton)view.findViewById(R.id.btnNotificationState);
         btnNotification.setOnClickListener(this);
@@ -145,6 +163,8 @@ public class KartDetail extends BaseFragment implements View.OnClickListener {
         this.cache=new BitmapLruCache(cacheSize);
 
         setContent();
+
+        AppConstants.setupTouchForKeyBoard(getActivity(), view);
         return view;
 	}
 
@@ -181,6 +201,144 @@ public class KartDetail extends BaseFragment implements View.OnClickListener {
 
     }
 
+    private void getLocationSList(final Company company){
+
+        ArrayList<Location> locations=CardbookApp.getInstance().getLocationsForCompany(company.getCompanyId());
+        if(locations!=null){
+            Bundle data=new Bundle();
+            data.putSerializable(Company.COMPANY,company);
+            Subeler kartDetail=new Subeler();
+            kartDetail.setArguments(data);
+            pageListener.onSwitchToNextFragment(AppConstants.KARTLARIM,kartDetail, KartDetail.this);
+
+            return;
+        }
+
+
+        Map<String, String> list=new HashMap<String, String>();
+        list.put("companyId", String.valueOf(company.getCompanyId()));
+        ConnectionManager.postData(getActivity(), new RequestCallBack() {
+            @Override
+            public void onRequestStart() {
+                dialog.setMessage("Bilgiler yükleniyor...");
+                dialog.show();
+            }
+
+            @Override
+            public void onRequestComplete(JSONObject result) {
+
+                JSONArray jLocations= null;
+                try {
+                    jLocations = result.getJSONArray("Data");
+
+
+                for(int i=0; i<jLocations.length();i++){
+                    try {
+                        Location l=new Location(jLocations.getJSONObject(i));
+                        CardbookApp.getInstance().addLocation(company.getCompanyId(),l);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                ArrayList<Location>locList=CardbookApp.getInstance().getLocationsForCompany(company.getCompanyId());
+                if(locList!=null){
+                    Bundle data=new Bundle();
+                    data.putSerializable(Company.COMPANY,company);
+                    Subeler kartDetail=new Subeler();
+                    kartDetail.setArguments(data);
+                    pageListener.onSwitchToNextFragment(AppConstants.KARTLARIM,kartDetail, KartDetail.this);
+
+
+                }
+                else
+                    Toast.makeText(getActivity(), "Şube bilgisi bulunmamaktadır.",Toast.LENGTH_LONG).show();
+
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onRequestError() {
+
+            }
+        }, AppConstants.SM_GET_COMPANY_LOCATION_LIST, list);
+    }
+
+    private void openIletisim(CompanyInfo info){
+
+
+        Bundle data=new Bundle();
+        data.putSerializable(Company.COMPANY,company);
+        data.putSerializable(CompanyInfo.COMPANY_INFO,info);
+        Iletisim fIletisim=new Iletisim();
+        fIletisim.setArguments(data);
+        pageListener.onSwitchToNextFragment(AppConstants.KARTLARIM,fIletisim, KartDetail.this);
+    }
+
+    private void openHakkinda(CompanyInfo info){
+
+        if(info==null){
+            Toast.makeText(getActivity(), "Şirket bilgisi bulanamadı.",Toast.LENGTH_LONG).show();
+            return;
+        }
+        Bundle data=new Bundle();
+        data.putSerializable(Company.COMPANY,company);
+        data.putSerializable(CompanyInfo.COMPANY_INFO,info);
+        Hakkinda hakkinda=new Hakkinda();
+        hakkinda.setArguments(data);
+        pageListener.onSwitchToNextFragment(AppConstants.KARTLARIM,hakkinda, KartDetail.this);
+    }
+
+    private void getCompanyInfo(final Company company, final int intentFrom){
+        CompanyInfo info=CardbookApp.getInstance().getCompanyInfoForCompany(company.getCompanyId());
+        if(info!=null){
+           if(intentFrom==BTN_ILETISIM)
+               openIletisim(info);
+            else if(intentFrom==BTN_HAKKINDA)
+               openHakkinda(info);
+            return;
+        }
+
+        Map<String, String> list=new HashMap<String, String>();
+        list.put("companyId", String.valueOf(company.getCompanyId()));
+        ConnectionManager.postData(getActivity(), new RequestCallBack() {
+            @Override
+            public void onRequestStart() {
+                dialog.setMessage("Bilgiler yükleniyor...");
+                dialog.show();
+            }
+
+            @Override
+            public void onRequestComplete(JSONObject result) {
+
+                JSONObject jLocations= null;
+                CompanyInfo cI=null;
+                try {
+                    jLocations = result.getJSONObject("Data");
+                    cI=new CompanyInfo(jLocations);
+                    CardbookApp.getInstance().addCompanyInfo(company.getCompanyId(),cI);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                if(intentFrom==BTN_ILETISIM)
+                    openIletisim(cI);
+                else if(intentFrom==BTN_HAKKINDA)
+                    openHakkinda(cI);
+
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onRequestError() {
+                dialog.dismiss();
+            }
+        }, AppConstants.SM_GET_COMPANY_INFO, list);
+    }
+
     private void setNotification(){
         if(wantNotification)
             btnNotification.setBackgroundResource(R.drawable.notification_on);
@@ -206,7 +364,7 @@ public class KartDetail extends BaseFragment implements View.OnClickListener {
     public void onRequestStart() {
 
         super.onRequestStart();
-        dialog.setMessage("Kart Detayı geliyor...");
+        dialog.setMessage("Bilgileri yükleniyor...");
 //        dialog.show();
     }
 
@@ -270,6 +428,12 @@ public class KartDetail extends BaseFragment implements View.OnClickListener {
             mActivity.openShopping(company);
 
         }
+        else if(view.getId()==BTN_SUBELER)
+            getLocationSList(company);
+        else if(view.getId()==BTN_ILETISIM)
+            getCompanyInfo(company, BTN_ILETISIM);
+        else if(view.getId()==BTN_HAKKINDA)
+            getCompanyInfo(company, BTN_HAKKINDA);
 
     }
 

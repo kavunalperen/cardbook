@@ -9,6 +9,8 @@ import com.abdullah.cardbook.models.Campaign;
 import com.abdullah.cardbook.models.CardBookUser;
 import com.abdullah.cardbook.models.CardBookUserCard;
 import com.abdullah.cardbook.models.Company;
+import com.abdullah.cardbook.models.CompanyInfo;
+import com.abdullah.cardbook.models.Location;
 import com.abdullah.cardbook.models.Shopping;
 import com.abdullah.cardbook.models.address.City;
 import com.abdullah.cardbook.models.address.Country;
@@ -20,6 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by abdullah on 10/26/13.
@@ -32,6 +35,8 @@ public class CardbookApp extends Application {
     private ArrayList<Country> countries;
     private ArrayList<Campaign> campaigns;
     private ArrayList<Shopping> shoppings;
+    private HashMap<Integer, ArrayList<Location>> locationsList;
+    private HashMap<Integer, CompanyInfo> companyInfoList;
 
     private static CardbookApp singleton;
     private RequestQueue requestQuee;
@@ -158,5 +163,52 @@ public class CardbookApp extends Application {
         country.addCity(city);
 
         return country;
+    }
+
+    public HashMap<Integer, ArrayList<Location>> getLocationsList() {
+        return locationsList;
+    }
+
+    public void setLocationsList(HashMap<Integer, ArrayList<Location>> locationsList) {
+        this.locationsList = locationsList;
+    }
+
+    public void addLocation(int companyId, Location location){
+
+        if(this.locationsList==null)
+            locationsList=new HashMap<Integer, ArrayList<Location>>();
+
+        if(this.locationsList.containsKey(companyId)){
+            ArrayList<Location> locations=this.locationsList.get(companyId);
+            if(locations==null){
+                locations=new ArrayList<Location>();
+            }
+            locations.add(location);
+        }
+        else{
+            ArrayList<Location> locations=new ArrayList<Location>();
+            locations.add(location);
+            this.locationsList.put(companyId, locations);
+        }
+    }
+
+    public ArrayList<Location> getLocationsForCompany(int companyId){
+        if(locationsList!=null)
+            return this.locationsList.get(companyId);
+        else
+            return null;
+    }
+
+    public CompanyInfo getCompanyInfoForCompany(int companyId) {
+        if(companyInfoList!=null)
+        return companyInfoList.get(companyId);
+        else
+            return null;
+    }
+
+    public void addCompanyInfo(int companyId, CompanyInfo info){
+        if(companyInfoList==null)
+            companyInfoList=new HashMap<Integer, CompanyInfo>();
+        companyInfoList.put(companyId,info);
     }
 }

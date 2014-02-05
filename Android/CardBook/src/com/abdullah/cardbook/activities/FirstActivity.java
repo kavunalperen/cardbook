@@ -43,11 +43,22 @@ public class FirstActivity extends Activity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+
+
+
                         String  userInformation= AppConstants.getUserInformation(FirstActivity.this);
-                        Log.i("FirstActivity: User: " + userInformation);
-                        if(userInformation==null){
+
+                        boolean isTutorialShowed=AppConstants.isTutorialShowed(FirstActivity.this);
+                        if(!isTutorialShowed){
+                                AppConstants.setTutorialShow(FirstActivity.this);
+                            Intent intent=new Intent(FirstActivity.this, TutorialActivity.class);
+                            startActivity(intent);
+                        }
+                        else if(userInformation==null){
                             Intent intent=new Intent(FirstActivity.this, MainActivity.class);
                             startActivity(intent);
+
+
                         }
                         else{
                             Intent intent=new Intent(FirstActivity.this, Barcode.class);

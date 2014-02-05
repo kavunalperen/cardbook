@@ -200,7 +200,7 @@ public class UserInformation extends Activity implements View.OnClickListener{
     public void checkForValidate(){
 
         Log.i("checkfor validate is runned");
-        EditText[] editItems={ name, surname, mail, date, addressLine};
+        EditText[] editItems={ name, surname, mail, date, addressLine, phoneNumber};
         Spinner[]  editSpinner={spCountry, spCity, spCounty, spGender};
 
 
@@ -253,7 +253,7 @@ public class UserInformation extends Activity implements View.OnClickListener{
         ConnectionManager.postData(this, new RequestCallBack() {
             @Override
             public void onRequestStart() {
-                dialog.setMessage("Kart Detayı geliyor...");
+                dialog.setMessage("Bilgiler yükleniyor...");
                 dialog.show();
             }
 
@@ -302,7 +302,7 @@ public class UserInformation extends Activity implements View.OnClickListener{
 
     private void toastForRequirements(){
         Log.i("toast validate is runned");
-        Toast.makeText(this,"Lütfen zorunlu alanları doldurunuz.",Toast.LENGTH_LONG).show();
+        Toast.makeText(this,"Lütfen tüm alanları doldurunuz.",Toast.LENGTH_LONG).show();
     }
 
     public void showDialog(){

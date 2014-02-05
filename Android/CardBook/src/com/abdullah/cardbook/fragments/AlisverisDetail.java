@@ -1,6 +1,9 @@
 package com.abdullah.cardbook.fragments;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -28,11 +31,12 @@ import com.sromku.simple.fb.entities.Feed;
 
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class AlisverisDetail extends BaseFragment implements View.OnClickListener{
 
-    TextView tvHeader, tvDate, tvKazanilanPK,tvKazanilanPP, tvKullanilanPK,tvKullanilanPP;
+    TextView tvHeader, tvDate, tvKazanilanPK,tvKazanilanPP, tvKullanilanPK,tvKullanilanPP, tvAlisverisToplam;
     ImageButton btnShare;
     private ProgressDialog dialog;
     private ListView listView;
@@ -78,7 +82,14 @@ public class AlisverisDetail extends BaseFragment implements View.OnClickListene
         tvKazanilanPK=(TextView)view.findViewById(R.id.tvAlisverisDetayKazanilaPK);
         tvKazanilanPK.setTypeface(bold);
         try{
-        tvKazanilanPK.setText(shopping.getWonCoupon().getCompanyPromotionId());
+            tvKazanilanPK.setText(shopping.getWonCoupon().getCompanyPromotionText());
+            tvKazanilanPK.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showAlertDialog(shopping.getWonCoupon().getCompanyPromotionDescrpition());
+
+                }
+            });
         }
         catch (Exception e){
             tvKazanilanPK.setText("0");
@@ -111,8 +122,34 @@ public class AlisverisDetail extends BaseFragment implements View.OnClickListene
 
         try{
             tvKullanilanPK.setText(shopping.getUsedCoupon().getCompanyPromotionText());
+            tvKullanilanPK.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showAlertDialog(shopping.getUsedCoupon().getCompanyPromotionDescrpition());
+
+                }
+            });
         }catch (Exception e){
             tvKullanilanPK.setText("0");
+            e.printStackTrace();
+        }
+
+        tvAlisverisToplam=(TextView)view.findViewById(R.id.tvAlisverisDetayToplam);
+//        tvKullanilanPK.setTypeface(bold);
+
+        try{
+            float toplam=0;
+
+            for(Product p:shopping.getProductsList()){
+                toplam+=p.getValue();
+            }
+
+            DecimalFormat df = new DecimalFormat();
+            df.setMinimumFractionDigits(2);
+            df.setMaximumFractionDigits(2);
+            tvAlisverisToplam.setText(df.format(toplam)+" TL");
+        }catch (Exception e){
+            tvAlisverisToplam.setText("0");
             e.printStackTrace();
         }
 
@@ -127,6 +164,8 @@ public class AlisverisDetail extends BaseFragment implements View.OnClickListene
         return view;
 	}
 
+
+
     @Override
     public void onResume() {
         super.onResume();
@@ -136,6 +175,23 @@ public class AlisverisDetail extends BaseFragment implements View.OnClickListene
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+    private void showAlertDialog(String title){
+
+        AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
+        builder.setMessage(title);
+//        builder.setPositiveButton(R.string.action_done,new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//
+//
+//            }
+//        });
+        AlertDialog dialog=builder.create();
+        dialog.setCancelable(true);
+        dialog.show();
     }
 
     @Override
@@ -167,9 +223,11 @@ public class AlisverisDetail extends BaseFragment implements View.OnClickListene
             @Override
             public void onComplete(String postId)
             {
+
+
                 dialog.setMessage("Facebook paylaşımı tamamlandı.");
                 dialog.dismiss();
-                Toast.makeText(getActivity(),"İşlem tamamlandı",Toast.LENGTH_LONG);
+                Toast.makeText(getActivity(),"Alışverişiniz FB üzerinde paylaşıldı.",Toast.LENGTH_LONG).show();
                 Log.i("Share Published successfully. The new post id = " + postId);
 
                 try{
@@ -206,7 +264,7 @@ public class AlisverisDetail extends BaseFragment implements View.OnClickListene
                 .setCaption("www.cardbook.com.tr")
                 .setDescription("")
                 .setPicture(shopping.getCompany().getCompanyLogoURL())
-                .setLink("cardbook.com")
+                .setLink("www.cardbook.com.tr")
                 .build();
 
 // publish the feed

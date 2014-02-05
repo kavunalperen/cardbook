@@ -2,9 +2,8 @@
   <library name="libs">
     <CLASSES>
       <root url="jar://$APPLICATION_HOME_DIR$/sdk/extras/android/support/v4/android-support-v4.jar!/" />
-      <root url="jar://$PROJECT_DIR$/Android/CardBook/libs/google-play-services.jar!/" />
       <root url="jar://$PROJECT_DIR$/Android/CardBook/libs/ksoap2-android-assembly-2.5.7-jar-with-dependencies.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../../GoogleAnalyticsServicesAndroid_3.01/libGoogleAnalyticsServices.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Android/CardBook/libs/libGoogleAnalyticsServices.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

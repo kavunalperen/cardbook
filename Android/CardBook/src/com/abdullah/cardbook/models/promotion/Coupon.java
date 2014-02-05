@@ -17,13 +17,14 @@ public class Coupon implements Serializable {
     public static String PROMOTION_TYPE="PromotionUsageType";
     public static String COMPANY_PROMOTION_ID="CompanyPromotionId";
     public static String COMPANY_PROMOTION_TEXT="CompanyPromotionText";
+    public static String COMPANY_PROMOTION_DESC="CompanyPromotionDescription";
 
 
     protected int id;
     protected int shoppingId;
     protected int promotionType;
     protected String companyPromotionId;
-    protected String companyPromotionText;
+    protected String companyPromotionText, companyPromotionDescrpition;
 
     public Coupon(){
 
@@ -37,6 +38,7 @@ public class Coupon implements Serializable {
             this.promotionType=object.optInt(PROMOTION_TYPE);
             this.companyPromotionId=object.optString(COMPANY_PROMOTION_ID);
             this.companyPromotionText=object.optString(COMPANY_PROMOTION_TEXT);
+            this.companyPromotionDescrpition=object.optString(COMPANY_PROMOTION_DESC);
         }
     }
 
@@ -78,5 +80,13 @@ public class Coupon implements Serializable {
 
     public void setCompanyPromotionText(String companyPromotionText) {
         this.companyPromotionText = companyPromotionText;
+    }
+
+    public String getCompanyPromotionDescrpition() {
+        return companyPromotionDescrpition;
+    }
+
+    public void setCompanyPromotionDescrpition(String companyPromotionDescrpition) {
+        this.companyPromotionDescrpition = companyPromotionDescrpition;
     }
 }

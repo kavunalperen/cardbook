@@ -205,6 +205,12 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
     	navBarText.setTypeface(font);
 
     }
+
+    public void setNavigationBarText(String text){
+        TextView navBarText;
+        navBarText=(TextView)findViewById(R.id.navBarTxt);
+        navBarText.setText(text);
+    }
     /*
     private void setNavbarItemsContent(String text, int imgId){
     	Log.i("Navbar text: "+text);

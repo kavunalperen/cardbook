@@ -35,12 +35,13 @@
             android:background="@drawable/listview_top_bg"
             android:layout_gravity="center_horizontal"/>
 
-    <RelativeLayout
+    <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@drawable/listview_content_bg"
             style="@style/layout"
+            android:gravity="center_horizontal"
             >
 
         <LinearLayout
@@ -111,45 +112,66 @@
                     android:textSize="10dp"
                     android:textColor="@color/color707074"/>
 
-            <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentLeft="true"
-                    android:gravity="center_vertical">
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:text="@string/bildirim_durumu"
-                        android:id="@+id/tvKartDetailNotificationStatusHeader"
-                        android:textSize="9sp"
-                        android:layout_alignBottom="@+id/btnNotification"
-                        android:layout_alignParentLeft="true"
-                        android:layout_weight="1"
-                        android:textColor="@color/color707074"/>
-
-                <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/btnNotificationState"
-                        android:background="@drawable/notification_off"/>
-
-            </LinearLayout>
-
 
         </RelativeLayout>
     </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="15dp"
+            android:gravity="center"
+            style="@style/layout">
+
+            <ImageButton
+                android:id="@+id/btnHakinda"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:background="@drawable/btn_hakkinda" />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/mycard_ayrac"/>
+            <ImageButton
+                android:id="@+id/btnIletisim"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:background="@drawable/btn_iletisim" />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/mycard_ayrac"/>
+            <ImageButton
+                android:id="@+id/btnSubeler"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:background="@drawable/btn_subeler" />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/mycard_ayrac"/>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnNotificationState"
+                android:background="@drawable/notification_off"/>
+
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_below="@+id/linearLayout2"
-            android:layout_alignLeft="@+id/linearLayout2"
-            android:layout_alignRight="@+id/linearLayout2"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:id="@+id/relativeLayout"
                 >
 
@@ -214,13 +236,14 @@
 
         <ListView
                 android:layout_width="match_parent"
-                android:layout_height="190dp"
+                android:layout_height="140dp"
                 android:id="@+id/kartDetailListView"
                 android:layout_below="@+id/imageView2"
                 android:background="@drawable/list_bg"
                 android:scrollbars="none"
                 android:layout_alignRight="@+id/imageView2"
-                android:layout_alignLeft="@+id/imageView2"/>
+                android:layout_alignLeft="@+id/imageView2"
+            android:layout_centerHorizontal="true" />
 
         <ImageView
                 android:layout_width="wrap_content"
@@ -272,7 +295,7 @@
         </RelativeLayout>
 
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <ImageView
             android:layout_width="wrap_content"

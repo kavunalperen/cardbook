@@ -33,8 +33,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
                 android:layout_toRightOf="@+id/userImage"
-                android:layout_marginLeft="5dp"
-                android:drawableRight="@drawable/input_zorunlu_icon"/>
+                android:layout_marginLeft="5dp"/>
 
         <EditText
                 style="@style/userInformationInput"
@@ -42,9 +41,7 @@
                 android:id="@+id/editLastName"
                 android:layout_below="@+id/editFirstName"
                 android:layout_alignParentRight="true"
-                android:layout_alignLeft="@+id/editFirstName"
-                android:drawableRight="@drawable/input_zorunlu_icon"
-                />
+                android:layout_alignLeft="@+id/editFirstName"/>
 
         <ImageView
                 android:layout_width="65dp"
@@ -61,9 +58,7 @@
             style="@style/userInformationInput"
             android:inputType="textEmailAddress"
             android:hint="E-Posta"
-            android:id="@+id/editMail"
-            android:drawableRight="@drawable/input_zorunlu_icon"
-            />
+            android:id="@+id/editMail" />
 
     <EditText
             style="@style/userInformationInput"
@@ -88,8 +83,7 @@
                 android:textSize="14sp"
                 android:paddingLeft="10dp"
                 android:background="@drawable/user_information_input_bg"
-                android:hint="Doğum Tarihi"
-                android:drawableRight="@drawable/input_zorunlu_icon"/>
+                android:hint="Doğum Tarihi"/>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="30dp"
@@ -101,18 +95,6 @@
                         android:layout_marginLeft="5dp"
                         android:clickable="true"
                         style="@style/holoSpinner" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView2"
-                android:layout_alignParentTop="true"
-                android:background="@drawable/input_zorunlu_icon"
-                android:layout_alignParentRight="true"
-                android:cropToPadding="false"
-                android:baselineAlignBottom="false"
-                android:layout_marginTop="-3dp" />
-
         </RelativeLayout>
     </LinearLayout>
 
@@ -125,20 +107,7 @@
             android:layout_height="match_parent"
             android:id="@+id/spCountry"
             android:layout_gravity="center"
-            android:prompt="@string/input_hint_last_country"
-            />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView2"
-            android:layout_alignParentTop="true"
-            android:background="@drawable/input_zorunlu_icon"
-            android:layout_alignParentRight="true"
-            android:cropToPadding="false"
-            android:baselineAlignBottom="false"
-            android:layout_marginTop="-3dp" />
-
+            android:prompt="@string/input_hint_last_country"/>
     </RelativeLayout>
 
 
@@ -158,17 +127,6 @@
                 android:id="@+id/spCity"
                 android:prompt="@string/input_hint_last_city"/>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView2"
-                android:layout_alignParentTop="true"
-                android:background="@drawable/input_zorunlu_icon"
-                android:layout_alignParentRight="true"
-                android:cropToPadding="false"
-                android:baselineAlignBottom="false"
-                android:layout_marginTop="-3dp" />
-
         </RelativeLayout>
 
 
@@ -183,18 +141,6 @@
                 android:layout_gravity="center"
                 android:prompt="@string/input_hint_last_county"
                 android:layout_marginLeft="5dp"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView2"
-                android:layout_alignParentTop="true"
-                android:background="@drawable/input_zorunlu_icon"
-                android:layout_alignParentRight="true"
-                android:cropToPadding="false"
-                android:baselineAlignBottom="false"
-                android:layout_marginTop="-3dp" />
-
         </RelativeLayout>
 
 
@@ -205,8 +151,7 @@
             android:inputType="textPostalAddress"
             android:hint="Adres"
             android:id="@+id/editAddress"
-            android:layout_marginTop="5dp"
-            android:drawableRight="@drawable/input_zorunlu_icon"/>
+            android:layout_marginTop="5dp"/>
 
     <Button
             android:layout_width="80dp"
