@@ -8,4 +8,5 @@ import com.abdullah.cardbook.models.Company;
 public interface KampanyaListener {
 
     public void openCampaign(int companyId);
+    public void openCampaignDetail(String campaignId);
 }

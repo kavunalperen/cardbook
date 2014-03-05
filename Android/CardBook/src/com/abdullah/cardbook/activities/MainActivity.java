@@ -66,9 +66,10 @@ public class MainActivity extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        userInformation=AppConstants.getUserInformation(this);
+        userInformation= AppConstants.getUserInformation(this);
 
         dialog = new ProgressDialog(this);
+        dialog.setCancelable(false);
         btnLogin=(ImageButton) findViewById(R.id.btnLogin);
 //        mTextStatus=(TextView) findViewById(R.id.tvStatus);
 
@@ -110,7 +111,7 @@ public class MainActivity extends Activity implements OnClickListener {
                 CardbookApp.getInstance().setUser(user);
                 if(ConnectionManager.isOnline(this)){
 //                    new PostDataOperation().execute(user);
-                    getCompanyList(); // Devamında diğer bilgiler alıncak ve diğar ekrana yönelenecek.
+                    AppConstants.getCompanyList(MainActivity.this, false); // Devamında diğer bilgiler alıncak ve diğar ekrana yönelenecek.
                 }
                 else
                     AppConstants.NotOnlineToast(this);
@@ -307,7 +308,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
         ConnectionManager.postData(getApplicationContext(), callback,AppConstants.SM_GET_ADDRESS_LIST,new JSONObject());
     }
-
+/*
     public void getCompanyList(){
         RequestCallBack callback= new RequestCallBack() {
             @Override
@@ -435,7 +436,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
     }
 
-
+*/
 
 
     private void toast(String message)

@@ -59,11 +59,13 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
     public static final String PROPERTY_REG_ID = "registration_id";
     private static final String PROPERTY_APP_VERSION = "appVersion";
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+    private static boolean isFromNotification=false;
+    private static String campaignIdFromNotification="";
 
     GoogleCloudMessaging gcm;
     AtomicInteger msgId = new AtomicInteger();
     Context context;
-    String SENDER_ID = "411171807542";
+    String SENDER_ID = "935708464592";
     String regid;
 
     public KampanyaListener kampanyaListener;
@@ -89,6 +91,7 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
 
     private static int IMAGE_NULL=-1;
     private static int offScrrenLimit=3;
+
 
     Button navBarButton;
 //    TextView navBarText;
@@ -146,6 +149,19 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
 
         initializeTabs();
 
+        Bundle bundle=getIntent().getExtras();
+        int tabNumbar;
+        String campaignId;
+        if(bundle!=null){
+            tabNumbar=bundle.getInt("tab");
+            campaignId=bundle.getString("campaignId");
+            if(campaignId!=null)
+                openCampaignDetail(campaignId);
+            setCurrentTab(tabNumbar);
+        }
+
+
+
         context = getApplicationContext();
 
         // Check device for Play Services APK. If check succeeds, proceed with GCM registration.
@@ -168,22 +184,38 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
     protected void onResume() {
         super.onResume();
         CardbookApp cardbookApp =(CardbookApp)getApplicationContext();
-
 //        Log.i("Company length: "+ cardbookApp.getCompanies().size());
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        Bundle bundle=intent.getExtras();
+        int tabNumbar;
+        String campaignId;
+
+        if(bundle!=null){
+            tabNumbar=bundle.getInt("tab");
+            campaignId=bundle.getString("campaignId");
+
+            openCampaignDetail(campaignId);
+            setCurrentTab(tabNumbar);
+        }
     }
 
     @Override
     public void onStart() {
         super.onStart();
 
-        EasyTracker.getInstance(this).activityStart(this);  // Add this method.
+        EasyTracker.getInstance().activityStart(this);  // Add this method.
     }
 
     @Override
     public void onStop() {
         super.onStop();
 
-        EasyTracker.getInstance(this).activityStop(this);  // Add this method.
+        EasyTracker.getInstance().activityStop(this);  // Add this method.
     }
 
     private View createTabView(final int id, final String menuText) {
@@ -232,7 +264,7 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
         Typeface font=Font.getFont(this, Font.ROBOTO_REGULAR);
 
         for(int i=0; i<AppConstants.MENU.length;i++){
-            Log.i("initalize tabp");
+            Log.i("initalize tab");
 	        spec = mTabHost.newTabSpec(AppConstants.MENU[i]);
 	        spec.setContent(new TabHost.TabContentFactory() {
 	            public View createTabContent(String tag) {
@@ -466,9 +498,13 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
 
 
    public void openCampaign(Company company){
-       kampanyaListener.openCampaign(company.getCompanyId());
+        kampanyaListener.openCampaign(company.getCompanyId());
    }
 
+    public void openCampaignDetail(String campaignId){
+        kampanyaListener.openCampaignDetail(campaignId);
+
+    }
     public void openShopping(Company company){
         alisverisListener.openShopping(company.getCompanyId());
     }

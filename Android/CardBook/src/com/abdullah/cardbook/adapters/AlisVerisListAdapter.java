@@ -47,15 +47,27 @@ public class AlisVerisListAdapter extends ArrayAdapter<Shopping>{
         Shopping item = items.get(position);
         if (item!= null) {
 
+            View header=view.findViewById(R.id.header);
+            header.setVisibility(View.GONE);
+
+            View footer=view.findViewById(R.id.footer);
+            footer.setVisibility(View.GONE);
+
+            View separator=view.findViewById(R.id.seperator);
+            separator.setVisibility(View.GONE);
+
             if(position==0){
                 Log.i("position 0");
-                View header=view.findViewById(R.id.header);
+
                 header.setBackgroundResource(R.drawable.listview_top_bg);
+                header.setVisibility(View.VISIBLE);
             }
+
             if(position==items.size()-1){
 
-                View footer=view.findViewById(R.id.footer);
+
                 footer.setBackgroundResource(R.drawable.listview_bottom_bg);
+                footer.setVisibility(View.VISIBLE);
 
                 Resources r = this.context.getResources();
                 int px = (int) TypedValue.applyDimension(
@@ -71,9 +83,9 @@ public class AlisVerisListAdapter extends ArrayAdapter<Shopping>{
                 params.setMargins(0, 0, 0, px);
                 footer.setLayoutParams(params);
 
-                View separator=view.findViewById(R.id.seperator);
-                if(separator!=null)
-                    ((LinearLayout)separator.getParent()).removeView(separator);
+            }
+            else{
+                separator.setVisibility(View.VISIBLE);
             }
 
             TextView name = (TextView) view.findViewById(R.id.tvCompany);

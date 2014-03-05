@@ -48,13 +48,14 @@ public class FirstActivity extends Activity {
 
                         String  userInformation= AppConstants.getUserInformation(FirstActivity.this);
 
-                        boolean isTutorialShowed=AppConstants.isTutorialShowed(FirstActivity.this);
-                        if(!isTutorialShowed){
-                                AppConstants.setTutorialShow(FirstActivity.this);
-                            Intent intent=new Intent(FirstActivity.this, TutorialActivity.class);
-                            startActivity(intent);
-                        }
-                        else if(userInformation==null){
+//                        boolean isTutorialShowed=AppConstants.isTutorialShowed(FirstActivity.this);
+//                        if(!isTutorialShowed){
+//                                AppConstants.setTutorialShow(FirstActivity.this);
+//                            Intent intent=new Intent(FirstActivity.this, TutorialActivity.class);
+//                            startActivity(intent);
+//                        }
+//                        else
+                        if(userInformation==null){
                             Intent intent=new Intent(FirstActivity.this, MainActivity.class);
                             startActivity(intent);
 

@@ -1,6 +1,9 @@
 package com.abdullah.cardbook.common;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,14 +19,30 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.abdullah.cardbook.CardbookApp;
 import com.abdullah.cardbook.R;
+import com.abdullah.cardbook.activities.AppMainTabActivity;
+import com.abdullah.cardbook.activities.MainActivity;
+import com.abdullah.cardbook.adapters.NotificationListener;
+import com.abdullah.cardbook.connectivity.ConnectionManager;
+import com.abdullah.cardbook.connectivity.RequestCallBack;
+import com.abdullah.cardbook.models.Campaign;
+import com.abdullah.cardbook.models.Company;
+import com.abdullah.cardbook.models.Shopping;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AppConstants {
 
+    private static ProgressDialog dialog;
+    public static NotificationListener notificationListener;
 	
 	// API
 	public static final String API_ADDRESS = "http://test.mycardbook.gen.tr/ApplicationService/";
@@ -194,6 +213,159 @@ public class AppConstants {
         SharedPreferences sp=context.getSharedPreferences(CARDBOOK_SHARED_PREFERENCES,Context.MODE_PRIVATE);
 
         return sp.getString(ADDRESS_LIST,null);
+    }
+
+
+    /**
+     *
+     * Bilgileri yüklemek için gerekli metodlar.
+     *
+     */
+
+    public static void getCompanyList(Activity activity, final boolean isWorkInBackground){
+
+        if(!isWorkInBackground)
+            dialog=new ProgressDialog(activity);
+
+        RequestCallBack callback= new RequestCallBack() {
+            @Override
+            public void onRequestStart() {
+                if(!isWorkInBackground){
+                    dialog.setMessage("Bilgiler indiriliyor...");
+                    dialog.show();
+                }
+                Log.i("Bilgiler indiriliyor: Company");
+            }
+
+            @Override
+            public void onRequestComplete(JSONObject result) {
+
+                try {
+                    JSONArray array=result.getJSONArray(AppConstants.POST_DATA);
+                    Log.i(((JSONObject) array.get(0)).getString("UDate"));
+                    String dateString=((JSONObject)array.get(0)).getString("UDate");
+                    Date date=AppConstants.parseMsTimestampToDate(dateString);
+                    SimpleDateFormat ft = new SimpleDateFormat ("dd.mm.yyyy");
+
+                    Log.i("Current Date: "+ft.format(date));
+
+                    CardbookApp.getInstance().setCompanies(null);
+                    for(int i=0; i<array.length();i++){
+                        Company company=new Company((JSONObject)array.get(i));
+
+                        CardbookApp.getInstance().addCompany(company);
+                    }
+                    getCampanignList(isWorkInBackground);
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onRequestError() {
+
+                if(!isWorkInBackground)
+                    dialog.dismiss();
+                AppConstants.ErrorToast(CardbookApp.getInstance().getApplicationContext());
+
+            }
+        };
+        ConnectionManager.postData(CardbookApp.getInstance().getApplicationContext(), callback, AppConstants.SM_GET_COMPANY_LIST, new JSONObject());
+    }
+
+    public static void getCampanignList(final boolean isWorkInBackground){
+        RequestCallBack callback= new RequestCallBack() {
+            @Override
+            public void onRequestStart() {
+//                dialog.setMessage("Bilgiler indiriliyor...");
+//                dialog.show();
+                Log.i("Bilgiler indiriliyor: Campaign");
+            }
+
+            @Override
+            public void onRequestComplete(JSONObject result) {
+
+                try{
+                    JSONArray array=result.getJSONArray(AppConstants.POST_DATA);
+                    CardbookApp.getInstance().setCampaigns(null);
+                    for(int i=0; i<array.length();i++){
+                        Campaign campaing=new Campaign((JSONObject)array.get(i));
+
+                        CardbookApp.getInstance().addCampaign(campaing);
+                    }
+                    getShoppingList(isWorkInBackground);
+
+                }
+                catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onRequestError() {
+
+                if(!isWorkInBackground)
+                    dialog.dismiss();
+                AppConstants.ErrorToast(CardbookApp.getInstance().getApplicationContext());
+
+            }
+        };
+        ConnectionManager.postData(CardbookApp.getInstance().getApplicationContext(), callback,AppConstants.SM_GET_ALL_ACTIVE_CAMPAIGN_LIST,new JSONObject());
+    }
+
+    public static void getShoppingList(final boolean isWorkInBackground){
+        RequestCallBack callback= new RequestCallBack() {
+            @Override
+            public void onRequestStart() {
+//                dialog.setMessage("Bilgiler indiriliyor...");
+//                dialog.show();
+                Log.i("Bilgiler indiriliyor: Shopings");
+            }
+
+            @Override
+            public void onRequestComplete(JSONObject result) {
+                CardbookApp.getInstance().setShoppings(null);
+                JSONArray array=result.optJSONArray(AppConstants.POST_DATA);
+                for(int i=0; i<array.length();i++){
+                    Shopping shopping=new Shopping(array.optJSONObject(i));
+                    CardbookApp.getInstance().addShoppings(shopping);
+
+                    Log.i("Shopping: "+i+" "+shopping.getCompany().getCompanyName());
+                }
+
+                if(!isWorkInBackground)
+                    dialog.dismiss();
+
+                if(isWorkInBackground && notificationListener!=null){
+                    notificationListener.showNotification();
+                }
+                else{
+                    Intent intent=new Intent(CardbookApp.getInstance().getApplicationContext(), AppMainTabActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    CardbookApp.getInstance().getApplicationContext().startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onRequestError() {
+                if(dialog!=null)
+                    dialog.dismiss();
+                AppConstants.ErrorToast((CardbookApp.getInstance().getApplicationContext()));
+
+            }
+        };
+
+        JSONObject paramater=new JSONObject();
+        try{
+            paramater.putOpt("userId", CardbookApp.getInstance().getUser().getId());
+            ConnectionManager.postData((CardbookApp.getInstance().getApplicationContext()), callback, AppConstants.SM_GET_ALL_SHOPPING_LIST, paramater);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     /**

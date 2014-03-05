@@ -273,7 +273,16 @@ public class UserInformation extends Activity implements View.OnClickListener{
 //                    user.setBarcodeUrl(result.optJSONObject(AppConstants.POST_DATA).optString(CardBookUser.BARCODE_URL));
                         CardbookApp.getInstance().setUser(user);
                         Log.i("Validate is not from Profil");
-                        getCompanyList();
+                        if (!AppConstants.isTutorialShowed(UserInformation.this)){
+                            boolean isTutorialShowed=AppConstants.isTutorialShowed(UserInformation.this);
+                            if(!isTutorialShowed){
+                                AppConstants.setTutorialShow(UserInformation.this);
+                                Intent intent=new Intent(UserInformation.this, TutorialActivity.class);
+                                startActivity(intent);
+                            }
+                        }
+                        else
+                            AppConstants.getCompanyList(UserInformation.this, false);
                     }
                     else{
                         Log.i("Validate is from Profil");
@@ -717,7 +726,7 @@ public class UserInformation extends Activity implements View.OnClickListener{
 
     }
 
-
+/*
     public void getCompanyList(){
         RequestCallBack callback= new RequestCallBack() {
             @Override
@@ -845,7 +854,7 @@ public class UserInformation extends Activity implements View.OnClickListener{
         }
 
     }
-
+*/
     @Override
     public void onBackPressed() {
         if(isFromProfil)

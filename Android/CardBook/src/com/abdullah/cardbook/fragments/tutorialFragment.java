@@ -47,6 +47,10 @@ public class TutorialFragment extends Fragment {
                     startActivity(intent);
                 }
             });
+
+            Intent intent=new Intent(getActivity(), FirstActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
         }
 
         return rootView;

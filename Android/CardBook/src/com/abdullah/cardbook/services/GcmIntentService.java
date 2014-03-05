@@ -35,6 +35,9 @@ import android.util.Log;
 
 import com.abdullah.cardbook.R;
 import com.abdullah.cardbook.activities.AppMainTabActivity;
+import com.abdullah.cardbook.activities.MainActivity;
+import com.abdullah.cardbook.adapters.NotificationListener;
+import com.abdullah.cardbook.common.AppConstants;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import java.io.IOException;
@@ -47,7 +50,7 @@ import java.io.InputStream;
  * service is finished, it calls {@code completeWakefulIntent()} to release the
  * wake lock.
  */
-public class GcmIntentService extends IntentService {
+public class GcmIntentService extends IntentService implements NotificationListener{
     public static final int NOTIFICATION_ID = 1;
     private NotificationManager mNotificationManager;
     NotificationCompat.Builder builder;
@@ -73,52 +76,48 @@ public class GcmIntentService extends IntentService {
              */
         	
         	Log.v("MEssage", extras.toString());
-            if (GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR.equals(messageType)) {
-                sendNotification("Send error: " + extras.toString());
-            } else if (GoogleCloudMessaging.MESSAGE_TYPE_DELETED.equals(messageType)) {
-                sendNotification("Deleted messages on server: " + extras.toString());
-            // If it's a regular GCM message, do some work.
-            } else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
-                // This loop represents the service doing some work.
-                for (int i = 0; i < 5; i++) {
-                    Log.i(TAG, "Working... " + (i + 1)
-                            + "/5 @ " + SystemClock.elapsedRealtime());
-                    try {
-                        Thread.sleep(5000);
-                    } catch (InterruptedException e) {
-                    }
-                }
-                Log.i(TAG, "Completed work @ " + SystemClock.elapsedRealtime());
-                // Post notification of received message.
-                sendNotification("Received: " + extras.toString());
+//            if (GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR.equals(messageType)) {
+//                sendNotification("Send error: " + extras.toString());
+//            } else if (GoogleCloudMessaging.MESSAGE_TYPE_DELETED.equals(messageType)) {
+//                sendNotification("Deleted messages on server: " + extras.toString());
+//            // If it's a regular GCM message, do some work.
+//            } else
+              if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
+                  AppConstants.notificationListener=this;
+                  AppConstants.getCompanyList(null, true);
                 Log.i(TAG, "Received: " + extras.toString());
             }
         }
         // Release the wake lock provided by the WakefulBroadcastReceiver.
-//        GcmBroadcastReceiver.completeWakefulIntent(intent);
+        GcmBroadcastReceiver.completeWakefulIntent(intent);
     }
 
     // Put the message into a notification and post it.
     // This is just one simple example of what you might choose to do with
     // a GCM message.
-    private void sendNotification(String msg) {
-       
+    private void sendNotification() {
+       AppConstants.notificationListener=null;
     	Resources res = getResources();
     	BitmapDrawable icon = new BitmapDrawable(res,"ic_launcher.png");
     	Bitmap icon2=BitmapFactory.decodeResource(this.getResources(), R.drawable.app_icon);
     	mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, AppMainTabActivity.class), 0);
+        String campaingId=extras.getString("campaignId");
+
+        Intent intent=new Intent(this, AppMainTabActivity.class);
+        intent.putExtra("tab",1);
+        intent.putExtra("campaignId",campaingId);
+
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP| Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0,intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
         .setSmallIcon(R.drawable.app_icon)
         .setLargeIcon(icon2)
-        .setContentTitle("CardBook Title")
-        .setStyle(new NotificationCompat.BigTextStyle()
-        .bigText("Mesajınız var!!!"))
+        .setContentTitle("CardBook")
         .setContentText(extras.getString("message"))
         .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
 //        .setAutoCancel(true);
@@ -144,5 +143,10 @@ public class GcmIntentService extends IntentService {
         }
 
         return bitmap;
+    }
+
+    @Override
+    public void showNotification() {
+        sendNotification();
     }
 }

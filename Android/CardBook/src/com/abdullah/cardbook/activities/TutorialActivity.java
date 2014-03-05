@@ -48,7 +48,7 @@ public class TutorialActivity extends FragmentActivity {
 
         imagesArray= new int[]{R.drawable.tutorial_1,
                 R.drawable.tutorial_2,R.drawable.tutorial_3,R.drawable.tutorial_4,
-                R.drawable.tutorial_5, R.drawable.tutorial_6, 0};
+                R.drawable.tutorial_5, R.drawable.tutorial_6, R.drawable.splash_bg, 0};
         NUM_PAGES= imagesArray.length;
 
         // Instantiate a ViewPager and a PagerAdapter.

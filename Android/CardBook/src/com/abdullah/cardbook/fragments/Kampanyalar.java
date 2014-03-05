@@ -179,6 +179,28 @@ public class Kampanyalar extends BaseFragment implements OnItemClickListener, Ka
     }
 
     @Override
+    public void openCampaignDetail(String campaignId) {
+
+        ArrayList<Campaign> campaigns=CardbookApp.getInstance().getCampaigns();
+        Campaign campaign=null;
+
+        for(Campaign c:campaigns){
+            if(c.getId().contains(campaignId)){
+                campaign=c;
+                break;
+            }
+        }
+
+        if(campaign!=null){
+            Bundle data=new Bundle();
+            data.putSerializable(Campaign.CAMPAIGN, campaign);
+            KampanyaDetail detail=new KampanyaDetail();
+            detail.setArguments(data);
+            pageListener.onSwitchToNextFragment(AppConstants.KAMPANYALAR,detail, this);
+        }
+    }
+
+    @Override
     public void backPressed() {
         Stack stack=PagerAdapter.fragments.get(AppConstants.KAMPANYALAR);
         if(stack.size()>1)

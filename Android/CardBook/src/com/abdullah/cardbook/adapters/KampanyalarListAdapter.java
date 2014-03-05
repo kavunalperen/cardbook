@@ -72,6 +72,7 @@ public class KampanyalarListAdapter extends ArrayAdapter<Campaign>{
             imageLoader=new ImageLoader(requestQueue, this.cache);
             mImageView= (NetworkImageView)view.findViewById(R.id.kampanyalarListCardImage);
             mImageView.setImageUrl(item.getIconUrl(), imageLoader);
+            mImageView.setScaleType(ScaleType.FIT_XY);
 
         	// user name and title
             Typeface font=Font.getFont(context, Font.ROBOTO_LIGHT);

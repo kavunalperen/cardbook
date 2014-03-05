@@ -79,7 +79,9 @@ public class CardBookUser {
         list.put(NAME,this.name);
         list.put(SURNAME,this.surname);
         list.put(EMAIL,this.email);
-        list.put(BIRTH_DATE,getBirthDate());
+
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+        list.put(BIRTH_DATE,format.format(birthDate));
         list.put(PROFILE_PHOTO_URL,this.profilPhotoUrl);
         list.put(PHONE_1,this.phone1);
         list.put(PHONE_2,this.phone2);
