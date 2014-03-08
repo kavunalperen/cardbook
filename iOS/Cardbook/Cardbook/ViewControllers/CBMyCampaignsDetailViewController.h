@@ -8,9 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "CBBaseViewController.h"
+#import "CBCampaignDetail.h"
+#import "APIManager.h"
 
 @interface CBMyCampaignsDetailViewController : CBBaseViewController <UIScrollViewDelegate>
 
 @property UIScrollView* scrollView;
+@property CBCampaignDetail* currentCampaignDetail;
+@property NSInteger currentCampaignId;
+@property NSString* loadingImageUrlString;
+@property MKNetworkOperation* imageLoadingOperation;
 
 @end

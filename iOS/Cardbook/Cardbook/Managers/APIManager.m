@@ -12,6 +12,10 @@
 #import "City.h"
 #import "Country.h"
 #import "CBCard.h"
+#import "CBUser.h"
+#import "SBJson.h"
+#import "CBCampaign.h"
+#import "CBShopping.h"
 
 @implementation APIManager
 
@@ -199,6 +203,31 @@ static APIManager *sharedInstance = nil;
                       errorBlock(error);
                   }];
 }
+- (void) getAllActiveCampaignListWithCompletionBlock:(CampaignsBlock)completionBlock
+                                             onError:(ErrorBlock)errorBlock
+{
+    NSMutableDictionary* paramsDictionary = @{}.mutableCopy;
+    
+    [self addAuthorizationTokenAndTimeToDictionary:paramsDictionary];
+    
+    [self postRequestWithParams:paramsDictionary
+                   andOperation:@"GetAllActiveCampaignList"
+             andCompletionBlock:^(NSDictionary *responseDictionary) {
+                 if ([[responseDictionary objectForKey:@"ResultCode"] isEqualToString:@"00"]) {
+                     for (NSDictionary* dict in [responseDictionary objectForKey:@"Data"]) {
+                         [CBCampaign CBCampaignWithDictionary:dict];
+                     }
+                     if (completionBlock != nil) {
+                         completionBlock([CBCampaign GetAllCampaigns]);
+                     }
+                 } else {
+                     // handle errors
+                 }
+                 
+             } andErrorBlock:^(NSError *error) {
+                 ;
+             }];
+}
 - (void) getCompanyListWithCompletionBlock:(CardsBlock)completionBlock
                                    onError:(ErrorBlock)errorBlock
 {
@@ -224,7 +253,191 @@ static APIManager *sharedInstance = nil;
                       ;
                   }];
 }
+- (void) getUserDetailWithCompletion:(CompletionBlock)completionBlock
+                             onError:(ErrorBlock)errorBlock
+{
+    NSMutableDictionary* paramsDictionary = @{}.mutableCopy;
+    
+    [self addUserIdToDictionary:paramsDictionary];
+    
+    [self addAuthorizationTokenAndTimeToDictionary:paramsDictionary];
+    
+    [self postRequestWithParams:paramsDictionary
+                   andOperation:@"GetUserDetail"
+             andCompletionBlock:^(NSDictionary *responseDictionary) {
+                 if ([[responseDictionary objectForKey:@"ResultCode"] isEqualToString:@"00"]) {
+                     if (completionBlock != nil) {
+                         completionBlock(responseDictionary);
+                     } else {
+                         
+                     }
+                 } else {
+                     NSLog(@"resultCOde is no 00");
+                 }
+             }
+                  andErrorBlock:^(NSError *error) {
+                      if (errorBlock != nil) {
+                          errorBlock(error);
+                      }
+                  }];
+}
+- (void) getAllShoppingListWithCompletionBlock:(ShoppingsBlock)completionBlock
+                                       onError:(ErrorBlock)errorBlock
+{
+    NSMutableDictionary* paramsDictionary = @{}.mutableCopy;
+    
+    [self addUserIdToDictionary:paramsDictionary];
+    [self addAuthorizationTokenAndTimeToDictionary:paramsDictionary];
+    
+    [self postRequestWithParams:paramsDictionary
+                   andOperation:@"GetAllShoppingList"
+             andCompletionBlock:^(NSDictionary *responseDictionary) {
+                 if ([[responseDictionary objectForKey:@"ResultCode"] isEqualToString:@"00"]) {
+                     for (NSDictionary* dict in [responseDictionary objectForKey:@"Data"]) {
+                         [CBShopping CBShoppingWithDictionary:dict];
+                     }
+                     if (completionBlock != nil) {
+                         completionBlock([CBShopping GetAllShoppings]);
+                     }
+                 } else {
+                     // handle errors
+                 }
+             }
+                  andErrorBlock:^(NSError *error) {
+                      errorBlock(error);
+                  }];
+}
+- (void) getCompanyDetailContentWithCompanyId:(NSInteger)companyId
+                                 onCompletion:(CardDetailBlock)completionBlock
+                                      onError:(ErrorBlock)errorBlock;
+{
+    NSMutableDictionary* paramsDictionary = @{@"companyId":[NSNumber numberWithInteger:companyId]}.mutableCopy;
+    
+    [self addUserIdToDictionary:paramsDictionary];
+    [self addAuthorizationTokenAndTimeToDictionary:paramsDictionary];
+    
+    [self postRequestWithParams:paramsDictionary
+                   andOperation:@"GetCompanyDetailContent"
+             andCompletionBlock:^(NSDictionary *responseDictionary) {
+                 if ([[responseDictionary objectForKey:@"ResultCode"] isEqualToString:@"00"]) {
+                     
+                     if (completionBlock != nil) {
+                         completionBlock([CBCardDetail CBCardDetailWithDictionary:[responseDictionary objectForKey:@"Data"]]);
+                     }
+                 } else {
+                     // handle errors
+                 }
+             }
+                  andErrorBlock:^(NSError *error) {
+                      errorBlock(error);
+                  }];
+}
+- (void) getCampaignDetailContentWithCampaignId:(NSInteger)campaignId
+                                   onCompletion:(CampaignDetailBlock)completionBlock
+                                        onError:(ErrorBlock)errorBlock
+{
+    NSMutableDictionary* paramsDictionary = @{@"campaignId":[NSNumber numberWithInteger:campaignId]}.mutableCopy;
+    
+    [self addAuthorizationTokenAndTimeToDictionary:paramsDictionary];
+    
+    [self postRequestWithParams:paramsDictionary
+                   andOperation:@"GetCampaignDetailContent"
+             andCompletionBlock:^(NSDictionary *responseDictionary) {
+                 if ([[responseDictionary objectForKey:@"ResultCode"] isEqualToString:@"00"]) {
+                     
+                     if (completionBlock != nil) {
+                         completionBlock([CBCampaignDetail CBCampaignDetailWithDictionary:[responseDictionary objectForKey:@"Data"]]);
+                     }
+                 } else {
+                     // handle errors
+                     
+                 }
+             }
+                  andErrorBlock:^(NSError *error) {
+                      errorBlock(error);
+                  }];
+}
+- (void) getShoppingDetailContentWithShoppingId:(NSInteger)shoppingId
+                                   onCompletion:(ShoppingDetailBlock)completionBlock
+                                        onError:(ErrorBlock)errorBlock
+{
+    NSMutableDictionary* paramsDictionary = @{@"shoppingId":[NSNumber numberWithInteger:shoppingId]}.mutableCopy;
+    
+    [self addAuthorizationTokenAndTimeToDictionary:paramsDictionary];
+    
+    [self postRequestWithParams:paramsDictionary
+                   andOperation:@"GetShoppingDetailContent"
+             andCompletionBlock:^(NSDictionary *responseDictionary) {
+                 if ([[responseDictionary objectForKey:@"ResultCode"] isEqualToString:@"00"]) {
+                     
+                     if (completionBlock != nil) {
+                         completionBlock([CBShoppingDetail CBShoppingDetailWithDictionary:[responseDictionary objectForKey:@"Data"]]);
+                     }
+                 } else {
+                     // handle errors
+                     
+                 }
+             }
+                  andErrorBlock:^(NSError *error) {
+                      ;
+                  }];
+}
 
+- (void) setUserNotificationStatusWithCompanyId:(NSInteger)companyId
+                          andNotificationStatus:(BOOL)notificationStatus
+                                   onCompletion:(CompletionBlock)completionBlock
+                                        onError:(ErrorBlock)errorBlock
+{
+    NSMutableDictionary* paramsDictionary = @{@"companyId":[NSNumber numberWithInteger:companyId],
+                                              @"wantNotification":[NSNumber numberWithBool:notificationStatus]}.mutableCopy;
+    
+    [self addUserIdToDictionary:paramsDictionary];
+    [self addAuthorizationTokenAndTimeToDictionary:paramsDictionary];
+    
+    [self postRequestWithParams:paramsDictionary
+                   andOperation:@"SetUserCompanyNotificationStatus"
+             andCompletionBlock:^(NSDictionary *responseDictionary) {
+                 if ([[responseDictionary objectForKey:@"ResultCode"] isEqualToString:@"00"]) {
+                     if (completionBlock != nil) {
+                         completionBlock(responseDictionary);
+                     }
+                 } else {
+                     // handle errors
+                 }
+             }
+                  andErrorBlock:^(NSError *error) {
+                      errorBlock(error);
+                  }];
+}
+- (void) setUserCompanyCardWithCompanyId:(NSInteger)companyId
+                           andCardNumber:(NSString*)cardNumber
+                            onCompletion:(CompletionBlock)completionBlock
+                                 onError:(ErrorBlock)errorBlock
+{
+    NSMutableDictionary* paramsDictonary = @{@"CompanyId":[NSNumber numberWithInt:companyId],
+                                             @"CardNumber":cardNumber}.mutableCopy;
+    
+    [self addUserIdToDictionary:paramsDictonary];
+    [self addAuthorizationTokenAndTimeToDictionary:paramsDictonary];
+    
+    [self postRequestWithParams:paramsDictonary
+                   andOperation:@"SetUserCompanyCard"
+             andCompletionBlock:^(NSDictionary *responseDictionary) {
+                 if ([[responseDictionary objectForKey:@"ResultCode"] isEqualToString:@"00"]) {
+                     if (completionBlock != nil) {
+                     completionBlock(responseDictionary);
+                     }
+                 } else {
+                     // handle errors
+                 }
+             } andErrorBlock:^(NSError *error) {
+                 errorBlock(error);
+             }];
+}
+- (void) addUserIdToDictionary:(NSMutableDictionary*)dictionary
+{
+    [dictionary setObject:[[CBUser sharedUser] userId] forKey:@"userId"];
+}
 - (void) addAuthorizationTokenAndTimeToDictionary:(NSMutableDictionary*)dictionary
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -245,7 +458,11 @@ static APIManager *sharedInstance = nil;
                                               params:params
                                           httpMethod:@"POST"];
     
+    [op setPostDataEncoding:MKNKPostDataEncodingTypeJSON];
+    
     [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {
+//        [completedOperation setPostDataEncoding:MKNKPostDataEncodingTypeJSON];
+        
         NSDictionary *responseDictionary = [completedOperation responseJSON];
         
         if([[responseDictionary valueForKey:@"error"] boolValue] == true){

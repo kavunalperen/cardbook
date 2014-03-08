@@ -7,9 +7,12 @@
 //
 
 #import "CBBaseViewController.h"
+#import "CBShoppingDetail.h"
 
 @interface CBShoppingDetailViewController : CBBaseViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property UITableView* tableView;
+@property CBShoppingDetail* currentShoppingDetail;
+@property NSInteger currentShoppingId;
 
 @end

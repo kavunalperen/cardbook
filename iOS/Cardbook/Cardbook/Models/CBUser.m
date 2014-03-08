@@ -7,6 +7,8 @@
 //
 
 #define USER_DEFAULTS_USER_SAVE_KEY @"UserDefaultsUserSaveKey"
+#define USER_DEFAULTS_USER_BARCODE_SAVE_KEY @"UserDefaultsUserBarcodeSaveKey"
+#define USER_DEFAULTS_USER_BARCODE_URL_SAVE_KEY @"UserDefaultsUserBarcodeUrlSaveKey"
 
 #import "CBUser.h"
 #import "Country.h"
@@ -18,6 +20,7 @@ static CBUser* sharedUser;
 @implementation CBUser
 
 - (id)      initWithFacebookId:(NSString*)facebookId
+                     andUserId:(NSString*)userId
                        andName:(NSString*)name
                     andSurname:(NSString*)surname
                       andEmail:(NSString*)email
@@ -31,6 +34,7 @@ static CBUser* sharedUser;
                     andAddress:(NSString*)address;
 {
     if (self = [super init]) {
+        _userId = userId;
         _facebookId = facebookId;
         _name = name;
         _surname = surname;
@@ -66,6 +70,7 @@ static CBUser* sharedUser;
 
 + (CBUser*) CBUserWithDictionary:(NSDictionary*)dictionary
 {
+    NSString* userId = [dictionary objectForKey:@"UserId"];
     NSString* facebookId = [dictionary objectForKey:@"FacebookId"];
     NSString* name = [dictionary objectForKey:@"Name"];
     NSString* surname = [dictionary objectForKey:@"Surname"];
@@ -83,12 +88,18 @@ static CBUser* sharedUser;
     NSString* profilePictureUrl = [dictionary objectForKey:@"ProfilePhotoUrl"];
     NSString* phone = [dictionary objectForKey:@"Phone1"];
     NSString* gender = [dictionary objectForKey:@"Gender"];
-    NSInteger countryId = [[[dictionary objectForKey:@"Address"] objectForKey:@"CountryId"] integerValue];
-    NSInteger cityId = [[[dictionary objectForKey:@"Address"] objectForKey:@"CityId"] integerValue];
-    NSInteger countyId = [[[dictionary objectForKey:@"Address"] objectForKey:@"CountyId"] integerValue];
+//    NSInteger countryId = [[[dictionary objectForKey:@"Address"] objectForKey:@"CountryId"] integerValue];
+//    NSInteger cityId = [[[dictionary objectForKey:@"Address"] objectForKey:@"CityId"] integerValue];
+//    NSInteger countyId = [[[dictionary objectForKey:@"Address"] objectForKey:@"CountyId"] integerValue];
+    NSInteger countryId = 1;
+    NSInteger cityId = 2;
+    NSInteger countyId = 5;
     NSString* address = [[dictionary objectForKey:@"Address"] objectForKey:@"AddressLine"];
     
+    
+    
     NSDictionary* savedDictionary = @{@"FacebookId":facebookId,
+                                      @"UserId":userId,
                                       @"Name":name,
                                       @"Surname":surname,
                                       @"Email":email,
@@ -97,13 +108,18 @@ static CBUser* sharedUser;
                                       @"Phone1":phone,
                                       @"Gender":gender,
                                       @"Address":[dictionary objectForKey:@"Address"],
-                                      @"CountryStr":[[Country GetCountryWithCountryId:countryId] countryName],
-                                      @"CityStr":[[City GetCityWithCityId:cityId] cityName],
-                                      @"CountyStr":[[County GetCountyWithCountyId:countyId] countyName]};
+//                                      @"CountryStr":[[Country GetCountryWithCountryId:countryId] countryName],
+                                      @"CountryStr":@"Türkiye",
+//                                      @"CityStr":[[City GetCityWithCityId:cityId] cityName],
+                                      @"CityStr":@"Adana",
+//                                      @"CountyStr":[[County GetCountyWithCountyId:countyId] countyName]
+                                      @"CountyStr":@"Çukurova"
+                                      };
     
     [CBUser saveUserToUserDefaults:savedDictionary];
     
     return [[CBUser alloc] initWithFacebookId:facebookId
+                                    andUserId:userId
                                       andName:name
                                    andSurname:surname
                                      andEmail:email
@@ -126,7 +142,21 @@ static CBUser* sharedUser;
     return [[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULTS_USER_SAVE_KEY];
     
 }
-- (NSString*) getBirthdateString
++ (void) setAndSaveBarcodeUrl:(NSString*)barcodeUrl
+{
+    [[NSUserDefaults standardUserDefaults] setObject:barcodeUrl forKey:USER_DEFAULTS_USER_BARCODE_URL_SAVE_KEY];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
++ (void) setAndSaveBarcodeImage:(UIImage*)barcodeImage
+{
+    [[NSUserDefaults standardUserDefaults] setObject:barcodeImage forKey:USER_DEFAULTS_USER_BARCODE_SAVE_KEY];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
++ (UIImage*) getSavedBarcodeImage
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULTS_USER_BARCODE_SAVE_KEY];
+}
+- (NSString*) getMyBirthdateString
 {
     if (_birthdateString == nil) {
         NSDateFormatter* formatter = [[NSDateFormatter alloc] init];

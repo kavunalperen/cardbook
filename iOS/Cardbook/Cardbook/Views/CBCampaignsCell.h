@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "APIManager.h"
+#import "CBCampaign.h"
 
 #define MY_CAMPAIGNS_CELL_IDENTIFIER @"MyCampaignsCellIdentifier"
 
@@ -17,5 +19,11 @@
 @property UILabel* nameLabel;
 @property UILabel* detailLabel;
 @property UILabel* dateLabel;
+@property NSString* loadingImageUrlString;
+@property MKNetworkOperation* imageLoadingOperation;
+@property CBCampaign* relatedCampaign;
+
+- (void) setImageOfTheCell:(NSString*)imageUrl;
+- (void) prepareForReuse;
 
 @end

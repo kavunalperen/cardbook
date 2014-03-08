@@ -155,7 +155,7 @@
     
     [emailLabel setText:[sharedUser email]];
     
-    [birthdateLabel setText:[sharedUser birthdateString]];
+    [birthdateLabel setText:[sharedUser getMyBirthdateString]];
     
     [genderLabel setText:[sharedUser genderString]];
     

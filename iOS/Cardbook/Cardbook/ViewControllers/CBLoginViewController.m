@@ -79,15 +79,44 @@
 - (void) sessionOpened
 {
     [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-        userInfos = [NSMutableDictionary dictionary];
-        [userInfos setObject:[result objectForKey:@"first_name"] forKey:@"first_name"];
-        [userInfos setObject:[result objectForKey:@"last_name"] forKey:@"last_name"];
-        [userInfos setObject:[result objectForKey:@"gender"] forKey:@"gender"];
-        [userInfos setObject:[result objectForKey:@"email"] forKey:@"email"];
-        [userInfos setObject:[result objectForKey:@"birthday"] forKey:@"birthdate"];
-        [userInfos setObject:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture/style=large",[result objectForKey:@"id"]] forKey:@"image_url"];
-        [userInfos setObject:[result objectForKey:@"id"] forKey:@"facebook_id"];
-        [self performSegueWithIdentifier:@"LoginToRegisterSegue" sender:self];
+        if (!error) {
+            userInfos = [NSMutableDictionary dictionary];
+            NSString* firstName = [result objectForKey:@"first_name"];
+            if (firstName == nil || [firstName isKindOfClass:[NSNull class]]) {
+                firstName = @"";
+            }
+            NSString* lastName = [result objectForKey:@"last_name"];
+            if (lastName == nil || [lastName isKindOfClass:[NSNull class]]) {
+                lastName = @"";
+            }
+            NSString* gender = [result objectForKey:@"gender"];
+            if (gender == nil || [gender isKindOfClass:[NSNull class]]) {
+                gender = @"";
+            }
+            NSString* email = [result objectForKey:@"email"];
+            if (email == nil || [email isKindOfClass:[NSNull class]]) {
+                email = @"";
+            }
+            NSString* birthdate = [result objectForKey:@"birthday"];
+            if (birthdate == nil || [birthdate isKindOfClass:[NSNull class]]) {
+                birthdate = @"";
+            }
+            NSString* facebookId = [result objectForKey:@"id"];
+            if (facebookId == nil || [facebookId isKindOfClass:[NSNull class]]) {
+                facebookId = @"";
+            }
+            
+            [userInfos setObject:firstName forKey:@"first_name"];
+            [userInfos setObject:lastName forKey:@"last_name"];
+            [userInfos setObject:gender forKey:@"gender"];
+            [userInfos setObject:email forKey:@"email"];
+            [userInfos setObject:birthdate forKey:@"birthdate"];
+            [userInfos setObject:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture/style=large",facebookId] forKey:@"image_url"];
+            [userInfos setObject:facebookId forKey:@"facebook_id"];
+            [self performSegueWithIdentifier:@"LoginToRegisterSegue" sender:self];
+        } else {
+            // error occured handle
+        }
     }];
 }
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

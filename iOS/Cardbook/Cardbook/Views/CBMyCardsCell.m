@@ -74,28 +74,25 @@
 }
 - (void) setImageOfTheCell:(NSString*)imageUrl
 {
-    self.loadingImageUrlString = imageUrl;
-
-    self.imageLoadingOperation = [[APIManager sharedInstance] imageAtURL:[NSURL URLWithString:self.loadingImageUrlString] onCompletion:^(UIImage *fetchedImage, NSURL *url, BOOL isInCache) {
-        if ([self.loadingImageUrlString isEqualToString:[url absoluteString]]) {
-//                //            Util* sharedUtil = [Util sharedInstance];
-//                //            UIImage* image = [sharedUtil maskImage:fetchedImage withMask:[UIImage imageNamed:@"mask.png"]];
-//                //            self.thumbnail.image = fetchedImage;
-            self.thumbnail.image = fetchedImage;
-        }
-    }];
     
-//    self.imageLoadingOperation = [[APIManager sharedInstance] getImageWithURLString:self.loadingImageUrlString
-//                                                                       onCompletion:^(UIImage *resultImage) {
-//                                                                           self.thumbnail.image = resultImage;
-//                                                                       }
-//                                                                            onError:^(NSError *error) {
-//                                                                                NSLog(@"an error occured");
-//                                                                            }];
+    if (_relatedCard.companyLogo) {
+        self.loadingImageUrlString = imageUrl;
+        self.thumbnail.image = _relatedCard.companyLogo;
+    } else {
+        self.loadingImageUrlString = imageUrl;
+
+        self.imageLoadingOperation = [[APIManager sharedInstance] imageAtURL:[NSURL URLWithString:self.loadingImageUrlString] onCompletion:^(UIImage *fetchedImage, NSURL *url, BOOL isInCache) {
+            if ([self.loadingImageUrlString isEqualToString:[url absoluteString]]) {
+                _relatedCard.companyLogo = fetchedImage;
+                self.thumbnail.image = fetchedImage;
+            }
+        }];
+    }
 }
 - (void) prepareForReuse
 {
-//    self.thumbnail.image = nil;
+    [super prepareForReuse];
+    self.thumbnail.image = nil;
     [self.imageLoadingOperation cancel];
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

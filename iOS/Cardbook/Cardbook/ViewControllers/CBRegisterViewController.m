@@ -189,7 +189,7 @@
     [UIView animateWithDuration:animationDuration
                      animations:^{
                          CGRect scrollFrame = self.scrollView.frame;
-                         scrollFrame.size.height += yOffset ;
+                         scrollFrame.size.height += yOffset;
                          self.scrollView.frame = scrollFrame;
                      }];
 }
@@ -420,6 +420,7 @@
     [self.genderField setEnabled:YES];
     [mainHolderView addSubview:self.genderField];
     self.phoneNumberField = [self createTextFieldWithFrame:[self phoneNumberFieldFrame] andPlaceHolderText:@"Telefon Numarası"];
+    [self.phoneNumberField setKeyboardType:UIKeyboardTypePhonePad];
     [mainHolderView addSubview:self.phoneNumberField];
     self.countryField = [self createTextFieldWithFrame:[self countryFieldFrame] andPlaceHolderText:@"Ülke"];
     [self.countryField setEnabled:NO];
@@ -488,7 +489,23 @@
                  onCompletion:^(NSDictionary *responseDictionary) {
                      NSDictionary* data = [responseDictionary objectForKey:@"Data"];
                      [CBUser CBUserWithDictionary:data];
-                     [self performSegueWithIdentifier:@"RegisterToTabbarSegue" sender:self];
+                     [[APIManager sharedInstance] getUserDetailWithCompletion:^(NSDictionary *responseDictionary) {
+                         NSLog(@"response here");
+                         NSString* barcodeUrl = [[responseDictionary objectForKey:@"Data"] objectForKey:@"UserBarcodeUrl"];
+                         [CBUser setAndSaveBarcodeUrl:barcodeUrl];
+                         [[APIManager sharedInstance] getImageWithURLString:barcodeUrl
+                                                               onCompletion:^(UIImage *resultImage) {
+                                                                   // image here handle!
+//                                                                   [CBUser setAndSaveBarcodeImage:resultImage];
+                                                                   [self performSegueWithIdentifier:@"RegisterToTabbarSegue" sender:self];
+                                                               }
+                                                                    onError:^(NSError *error) {
+                                                                        [self performSegueWithIdentifier:@"RegisterToTabbarSegue" sender:self];
+                                                                    }];
+                         
+                     } onError:^(NSError *error) {
+                         NSLog(@"an error occured");
+                     }];
                  } onError:^(NSError *error) {
                      // error handling here
                  }];
@@ -508,7 +525,7 @@
         [self.countryPickerView setAlpha:1.0];
         [pickerBackgroundView setAlpha:1.0];
         if (selectedCountryRow == NSIntegerMin) {
-            [self setSelectedCountryRow:1];
+            [self setSelectedCountryRow:0];
         }
         [self.view endEditing:YES];
         return NO;
@@ -551,18 +568,25 @@
 - (void) setSelectedCountryRow:(NSInteger)row
 {
     selectedCountryRow = row;
+    selectedCityRow = 0;
+    selectedCountyRow = 0;
     [self.countryField setText:[[myCountries objectAtIndex:row] countryName]];
     [self.cityField setEnabled:YES];
     [self.cityPickerView reloadAllComponents];
-    [self pickerView:self.cityPickerView didSelectRow:0 inComponent:0];
+    [self.cityPickerView selectRow:selectedCityRow inComponent:0 animated:NO];
+    [self pickerView:self.cityPickerView didSelectRow:selectedCityRow inComponent:0];
+//    [self pickerView:self.countyPickerView didSelectRow:selectedCountyRow inComponent:0];
 }
 - (void) setSelectedCityRow:(NSInteger)row
 {
     selectedCityRow = row;
+    selectedCountyRow = 0;
     [self.cityField setText:[[[[myCountries objectAtIndex:selectedCountryRow] cities] objectAtIndex:selectedCityRow] cityName]];
     [self.countyField setEnabled:YES];
     [self.countyPickerView reloadAllComponents];
-    [self pickerView:self.countyPickerView didSelectRow:0 inComponent:0];
+    [self.countyPickerView selectRow:selectedCountyRow inComponent:0 animated:NO];
+    [self pickerView:self.countyPickerView didSelectRow:selectedCountyRow inComponent:0];
+    
 }
 - (void) setSelectedCountyRow:(NSInteger)row
 {

@@ -8,6 +8,7 @@
 
 #import "CBMyCampaignsDetailViewController.h"
 #import "CBUtil.h"
+#import "CBCard.h"
 
 @interface CBMyCampaignsDetailViewController ()
 
@@ -107,7 +108,8 @@
 }
 - (CGRect) detailInfoDescriptionLabelFrame
 {
-    NSString* detailInfoDescLabelStr = @"KAVUN deneme title label lorem ipsum description to take what it says deneme description label from company screen bla bla bla KAVUN deneme title label lorem ipsum description KAVUN deneme title label lorem ipsum description to take what it says deneme description label from company screen bla bla bla KAVUN deneme title label lorem ipsum description KAVUN deneme title label lorem ipsum description to take what it says deneme description label from company screen bla bla bla KAVUN deneme title label lorem ipsum description KAVUN deneme title label lorem ipsum description to take what it says deneme description label from company screen bla bla bla KAVUN deneme title label lorem ipsum description KAVUN deneme title label lorem ipsum description to take what it says deneme description label from company screen bla bla bla KAVUN deneme title label lorem ipsum description";
+    NSString* detailInfoDescLabelStr = [_currentCampaignDetail campaignRules];
+//    NSString* detailInfoDescLabelStr = @"KAVUN deneme title label lorem ipsum description to take what it says deneme description label from company screen bla bla bla KAVUN deneme title label lorem ipsum description KAVUN deneme title label lorem ipsum description to take what it says deneme description label from company screen bla bla bla KAVUN deneme title label lorem ipsum description KAVUN deneme title label lorem ipsum description to take what it says deneme description label from company screen bla bla bla KAVUN deneme title label lorem ipsum description KAVUN deneme title label lorem ipsum description to take what it says deneme description label from company screen bla bla bla KAVUN deneme title label lorem ipsum description KAVUN deneme title label lorem ipsum description to take what it says deneme description label from company screen bla bla bla KAVUN deneme title label lorem ipsum description";
     
     CGSize labelSize = [self text:detailInfoDescLabelStr
                      sizeWithFont:MY_CAMPAIGNS_DETAILS_DETAIL_INFO_DESCRIPTION_LABEL_FONT constrainedToSize:CGSizeMake(260.0, 1000.0)];
@@ -116,7 +118,8 @@
 }
 - (CGRect) campaignLittleInfoDescriptionLabelFrame
 {
-    NSString* infoDescLabelStr = @"KAVUN deneme title label lorem ipsum description to take what it says deneme description label from company screen bla bla bla KAVUN deneme title label lorem ipsum description";
+    NSString* infoDescLabelStr = [_currentCampaignDetail campaignName];
+//    NSString* infoDescLabelStr = @"KAVUN deneme title label lorem ipsum description to take what it says deneme description label from company screen bla bla bla KAVUN deneme title label lorem ipsum description";
     CGSize labelSize = [self text:infoDescLabelStr
                      sizeWithFont:MY_CAMPAIGNS_DETAILS_LITTLE_INFO_DESCRIPTION_LABEL_FONT constrainedToSize:CGSizeMake(260.0, 1000.0)];
     
@@ -154,11 +157,78 @@
     [self stylizeForDetailView];
     [self setTitleButtonText:@"Kampanyalarım"];
     [self.titleButton addTarget:self action:@selector(goBacktoCampaigns) forControlEvents:UIControlEventTouchUpInside];
+}
+- (void) viewWillAppear:(BOOL)animated
+{
+    CBCampaignDetail* detail = [CBCampaignDetail GetCampaignDetailWithCampaignId:self.currentCampaignId];
+    if (detail) {
+        self.currentCampaignDetail = detail;
+        [self configureViews];
+    } else {
+
     
+    [[APIManager sharedInstance] getCampaignDetailContentWithCampaignId:self.currentCampaignId
+                                                           onCompletion:^(CBCampaignDetail* campaignDetail) {
+                                                               self.currentCampaignDetail = campaignDetail;
+                                                               [self configureViews];
+                                                               NSLog(@"response here");
+                                                           } onError:^(NSError *error) {
+                                                               NSLog(@"an error occured");
+                                                           }];
+//    
+//        [[APIManager sharedInstance] getCompanyDetailContentWithCompanyId:self.currentCompanyId
+//                                                             onCompletion:^(CBCardDetail* cardDetail) {
+//                                                                 self.currentCardDetail = cardDetail;
+//                                                                 [self configureViews];
+//                                                                 NSLog(@"response here");
+//                                                             } onError:^(NSError *error) {
+//                                                                 NSLog(@"an error occured");
+//                                                             }];
+//    }
+    }
+}
+
+- (void) configureViews
+{
     [self initCommonViews];
     [self initHeaderComponents];
     [self initLittleInfoComponents];
     [self initDetailInfoComponents];
+    
+    [self fillViewsWithCampaignDetailInfos];
+}
+- (void) fillViewsWithCampaignDetailInfos
+{
+    CBCard* relatedCard = [CBCard GetCardWithCompanyId:_currentCampaignDetail.companyId];
+    
+    [headerTitleLabel setText:[relatedCard companyName]];
+    
+    [campaignLittleInfoTitleLabel setText:_currentCampaignDetail.campaignName];
+    
+    [campaignLittleInfoDateLabel setText:[NSString stringWithFormat:@"%@ - %@",[_currentCampaignDetail getStartDateStr], [_currentCampaignDetail getEndDateStr]]];
+    
+    NSString* infoDescLabelStr = [_currentCampaignDetail campaignName];
+    
+    [campaignLittleInfoDescriptionLabel setText:infoDescLabelStr];
+    
+    NSString* detailInfoDescLabelStr = [_currentCampaignDetail campaignRules];
+    
+    [detailInfoDescriptionLabel setText:detailInfoDescLabelStr];
+    
+    if ([_currentCampaignDetail campaignBanner]) {
+        campaignImageView.image = [_currentCampaignDetail campaignBanner];
+    } else {
+        campaignImageView.image = [UIImage imageNamed:@"campaign_detail_dummy.jpg"];
+        
+        self.loadingImageUrlString = [_currentCampaignDetail campaignBannerUrl];
+        
+        self.imageLoadingOperation = [[APIManager sharedInstance] imageAtURL:[NSURL URLWithString:self.loadingImageUrlString] onCompletion:^(UIImage *fetchedImage, NSURL *url, BOOL isInCache) {
+            if ([self.loadingImageUrlString isEqualToString:[url absoluteString]]) {
+                _currentCampaignDetail.campaignBanner = fetchedImage;
+                campaignImageView.image = _currentCampaignDetail.campaignBanner;
+            }
+        }];
+    }
 }
 - (void) initCommonViews
 {
@@ -183,11 +253,11 @@
     [headerTitleLabel setBackgroundColor:[UIColor clearColor]];
     [headerTitleLabel setFont:MY_CAMPAIGNS_DETAILS_TITLE_LABEL_FONT];
     [headerTitleLabel setTextColor:MY_CAMPAIGNS_DETAILS_TITLE_LABEL_TEXT_COLOR];
-    [headerTitleLabel setText:@"CINEMAXIMUM"];
+    
     [headerHolder addSubview:headerTitleLabel];
     
     campaignImageView = [[UIImageView alloc] initWithFrame:[self campaignImageViewFrame]];
-    [campaignImageView setBackgroundColor:[UIColor orangeColor]];
+    [campaignImageView setBackgroundColor:[UIColor clearColor]];
     [campaignImageView setClipsToBounds:YES];
     [headerHolder addSubview:campaignImageView];
 }
@@ -211,7 +281,6 @@
     [campaignLittleInfoTitleLabel setBackgroundColor:[UIColor clearColor]];
     [campaignLittleInfoTitleLabel setFont:MY_CAMPAIGNS_DETAILS_LITTLE_INFO_TITLE_LABEL_FONT];
     [campaignLittleInfoTitleLabel setTextColor:MY_CAMPAIGNS_DETAILS_LITTLE_INFO_TITLE_LABEL_TEXT_COLOR];
-    [campaignLittleInfoTitleLabel setText:@"3 Bilet Alana 1 Bilet Bedava"];
     [littleInfoHolder addSubview:campaignLittleInfoTitleLabel];
     
     UIImageView* dateIconView = [[UIImageView alloc] initWithFrame:[self campaignLittleInfoDateIconFrame]];
@@ -223,17 +292,14 @@
     [campaignLittleInfoDateLabel setBackgroundColor:[UIColor clearColor]];
     [campaignLittleInfoDateLabel setFont:MY_CAMPAIGNS_DETAILS_LITTLE_INFO_DATE_LABEL_FONT];
     [campaignLittleInfoDateLabel setTextColor:MY_CAMPAIGNS_DETAILS_LITTLE_INFO_DATE_LABEL_TEXT_COLOR];
-    [campaignLittleInfoDateLabel setText:@"30 TEMMUZ - 30 AĞUSTOS"];
     [littleInfoHolder addSubview:campaignLittleInfoDateLabel];
-    
-    NSString* infoDescLabelStr = @"KAVUN deneme title label lorem ipsum description to take what it says deneme description label from company screen bla bla bla KAVUN deneme title label lorem ipsum description";
     
     campaignLittleInfoDescriptionLabel = [[UILabel alloc] initWithFrame:[self campaignLittleInfoDescriptionLabelFrame]];
     [campaignLittleInfoDescriptionLabel setBackgroundColor:[UIColor clearColor]];
     [campaignLittleInfoDescriptionLabel setNumberOfLines:0];
     [campaignLittleInfoDescriptionLabel setFont:MY_CAMPAIGNS_DETAILS_LITTLE_INFO_DESCRIPTION_LABEL_FONT];
     [campaignLittleInfoDescriptionLabel setTextColor:MY_CAMPAIGNS_DETAILS_LITTLE_INFO_DESCRIPTION_LABEL_TEXT_COLOR];
-    [campaignLittleInfoDescriptionLabel setText:infoDescLabelStr];
+    
     [littleInfoHolder addSubview:campaignLittleInfoDescriptionLabel];
 }
 - (void) initDetailInfoComponents
@@ -264,14 +330,12 @@
     [detailInfoTitleLabel setText:@"Kampanya Koşulları"];
     [detailInfoHolder addSubview:detailInfoTitleLabel];
     
-    NSString* detailInfoDescLabelStr = @"KAVUN deneme title label lorem ipsum description to take what it says deneme description label from company screen bla bla bla KAVUN deneme title label lorem ipsum description KAVUN deneme title label lorem ipsum description to take what it says deneme description label from company screen bla bla bla KAVUN deneme title label lorem ipsum description KAVUN deneme title label lorem ipsum description to take what it says deneme description label from company screen bla bla bla KAVUN deneme title label lorem ipsum description KAVUN deneme title label lorem ipsum description to take what it says deneme description label from company screen bla bla bla KAVUN deneme title label lorem ipsum description KAVUN deneme title label lorem ipsum description to take what it says deneme description label from company screen bla bla bla KAVUN deneme title label lorem ipsum description";
-    
     detailInfoDescriptionLabel = [[UILabel alloc] initWithFrame:[self detailInfoDescriptionLabelFrame]];
     [detailInfoDescriptionLabel setBackgroundColor:[UIColor clearColor]];
     [detailInfoDescriptionLabel setNumberOfLines:0];
     [detailInfoDescriptionLabel setFont:MY_CAMPAIGNS_DETAILS_DETAIL_INFO_DESCRIPTION_LABEL_FONT];
     [detailInfoDescriptionLabel setTextColor:MY_CAMPAIGNS_DETAILS_DETAIL_INFO_DESCRIPTION_LABEL_TEXT_COLOR];
-    [detailInfoDescriptionLabel setText:detailInfoDescLabelStr];
+    
     [detailInfoHolder addSubview:detailInfoDescriptionLabel];
 }
 - (void) goBacktoCampaigns

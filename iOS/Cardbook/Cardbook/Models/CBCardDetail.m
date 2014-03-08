@@ -1,16 +1,15 @@
 //
-//  CBCard.m
+//  CBCardDetail.m
 //  Cardbook
 //
-//  Created by Alperen Kavun on 13.11.2013.
+//  Created by Alperen Kavun on 23.11.2013.
 //  Copyright (c) 2013 kavun. All rights reserved.
 //
+#import "CBCardDetail.h"
 
-#import "CBCard.h"
+static NSMutableArray* allCardDetails = nil;
 
-static NSMutableArray* allCards = nil;
-
-@implementation CBCard
+@implementation CBCardDetail
 
 - (id)       initWithCompanyId:(NSInteger)companyId
            andCardbookUserCard:(NSString*)cardbookUserCard
@@ -43,18 +42,18 @@ andShoppingPromotionCreditList:(NSArray*)shoppingPromotionCreditList
     return self;
 }
 
-+ (CBCard*) CBCardWithDictionary:(NSDictionary*)dictionary
++ (CBCardDetail*) CBCardDetailWithDictionary:(NSDictionary*)dictionary
 {
-    CBCard* card;
+    CBCardDetail* cardDetail;
     
     NSInteger companyId = [[dictionary objectForKey:@"CompanyId"] integerValue];
     
-    if (allCards == nil) {
-        allCards = [NSMutableArray array];
+    if (allCardDetails == nil) {
+        allCardDetails = [NSMutableArray array];
     }
-    card = [CBCard GetCardWithCompanyId:companyId];
+    cardDetail = [CBCardDetail GetCardDetailWithCompanyId:companyId];
     
-    if (card == nil) {
+    if (cardDetail == nil) {
         NSDictionary* cardbookUserCard = [dictionary objectForKey:@"CardbookUserCard"];
         NSString* cardbookUserCardNumber;
         if (![cardbookUserCard isKindOfClass:[NSNull class]] && cardbookUserCard != nil) {
@@ -91,44 +90,44 @@ andShoppingPromotionCreditList:(NSArray*)shoppingPromotionCreditList
         NSArray* shoppingPromotionCreditList = [dictionary objectForKey:@"ShoppingPromotionCreditList"];
         NSInteger status = [[dictionary objectForKey:@"Status"] integerValue];
         BOOL userWantNotification = [[dictionary objectForKey:@"UserWantNotification"] boolValue];
-//        BOOL userWantNotification = YES;
+        //        BOOL userWantNotification = YES;
         
         
-        card = [[CBCard alloc] initWithCompanyId:companyId
-                             andCardbookUserCard:cardbookUserCardNumber
-                                  andCompanyName:companyName
-                              andCompanyImageUrl:companyImageUrl
-                                  andCompanyCode:companyCode
-                           andCompanyDescription:companyDescription
-                                andCompanyDetail:companyDetail
-                              andCompanyPassword:companyPassword
-                  andShoppingPromotionCouponList:shoppingPromotionCouponList
-                  andShoppingPromotionCreditList:shoppingPromotionCreditList
-                                       andStatus:status
-                         andUserWantNotification:userWantNotification];
+        cardDetail = [[CBCardDetail alloc] initWithCompanyId:companyId
+                                         andCardbookUserCard:cardbookUserCardNumber
+                                              andCompanyName:companyName
+                                          andCompanyImageUrl:companyImageUrl
+                                              andCompanyCode:companyCode
+                                       andCompanyDescription:companyDescription
+                                            andCompanyDetail:companyDetail
+                                          andCompanyPassword:companyPassword
+                              andShoppingPromotionCouponList:shoppingPromotionCouponList
+                              andShoppingPromotionCreditList:shoppingPromotionCreditList
+                                                   andStatus:status
+                                     andUserWantNotification:userWantNotification];
         
-        [allCards addObject:card];
+        [allCardDetails addObject:cardDetail];
     }
     
     
-    return card;
+    return cardDetail;
 }
 
-+ (CBCard*) GetCardWithCompanyId:(NSInteger)companyId
++ (CBCardDetail*) GetCardDetailWithCompanyId:(NSInteger)companyId
 {
-    CBCard* card;
-    for (CBCard* c in allCards) {
+    CBCardDetail* cardDetail;
+    for (CBCardDetail* c in allCardDetails) {
         if (c.companyId == companyId) {
-            card = c;
+            cardDetail = c;
             break;
         }
     }
     
-    return card;
+    return cardDetail;
 }
-+ (NSMutableArray*) GetAllCards
++ (NSMutableArray*) GetAllCardDetails
 {
-    return allCards;
+    return allCardDetails;
 }
 
 @end

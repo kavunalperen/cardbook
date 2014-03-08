@@ -9,12 +9,20 @@
 #define AUTHORIZATION_TOKEN @"B05D84EC9F5F2AD042273956090435C3"
 
 #import "MKNetworkEngine.h"
+#import "CBCardDetail.h"
+#import "CBCampaignDetail.h"
+#import "CBShoppingDetail.h"
 
 typedef void (^CompletionBlock) (NSDictionary *responseDictionary);
 typedef void (^ErrorBlock) (NSError *error);
 typedef void (^ImageBlock) (UIImage *resultImage);
 typedef void (^AddressListsBlock) (NSMutableArray* allCountries);
 typedef void (^CardsBlock) (NSMutableArray* allCards);
+typedef void (^CardDetailBlock) (CBCardDetail* cardDetail);
+typedef void (^CampaignsBlock) (NSMutableArray* allCampaigns);
+typedef void (^CampaignDetailBlock) (CBCampaignDetail* campaignDetail);
+typedef void (^ShoppingsBlock) (NSMutableArray* allShoppings);
+typedef void (^ShoppingDetailBlock) (CBShoppingDetail* campaignDetail);
 
 @interface APIManager : MKNetworkEngine
 
@@ -58,8 +66,39 @@ typedef void (^CardsBlock) (NSMutableArray* allCards);
                              onCompletion:(CompletionBlock)completionBlock
                                   onError:(ErrorBlock)errorBlock;
 
+- (void) getUserDetailWithCompletion:(CompletionBlock)completionBlock
+                             onError:(ErrorBlock)errorBlock;
+
 - (void) getCompanyListWithCompletionBlock:(CardsBlock)completionBlock
                                    onError:(ErrorBlock)errorBlock;
+
+- (void) getCompanyDetailContentWithCompanyId:(NSInteger)companyId
+                                 onCompletion:(CardDetailBlock)completionBlock
+                                      onError:(ErrorBlock)errorBlock;
+
+- (void) setUserNotificationStatusWithCompanyId:(NSInteger)companyId
+                          andNotificationStatus:(BOOL)notificationStatus
+                                   onCompletion:(CompletionBlock)completionBlock
+                                        onError:(ErrorBlock)errorBlock;
+
+- (void) setUserCompanyCardWithCompanyId:(NSInteger)companyId
+                           andCardNumber:(NSString*)cardNumber
+                            onCompletion:(CompletionBlock)completionBlock
+                                 onError:(ErrorBlock)errorBlock;
+
+- (void) getAllActiveCampaignListWithCompletionBlock:(CampaignsBlock)completionBlock
+                                             onError:(ErrorBlock)errorBlock;
+
+- (void) getCampaignDetailContentWithCampaignId:(NSInteger)campaignId
+                                   onCompletion:(CampaignDetailBlock)completionBlock
+                                        onError:(ErrorBlock)errorBlock;
+
+- (void) getAllShoppingListWithCompletionBlock:(ShoppingsBlock)completionBlock
+                                       onError:(ErrorBlock)errorBlock;
+
+- (void) getShoppingDetailContentWithShoppingId:(NSInteger)shoppingId
+                                   onCompletion:(ShoppingDetailBlock)completionBlock
+                                        onError:(ErrorBlock)errorBlock;
 
 - (void) addAuthorizationTokenAndTimeToDictionary:(NSMutableDictionary*)dictionary;
 

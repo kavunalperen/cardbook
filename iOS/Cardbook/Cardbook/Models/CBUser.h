@@ -10,6 +10,7 @@
 
 @interface CBUser : NSObject
 
+@property NSString* userId;
 @property NSString* facebookId;
 @property NSString* name;
 @property NSString* surname;
@@ -28,8 +29,11 @@
 @property NSString* countyString;
 @property NSString* genderString;
 @property NSString* address;
+@property NSString* barcodeUrl;
+@property UIImage* barcodeImage;
 
 - (id)      initWithFacebookId:(NSString*)facebookId
+                     andUserId:(NSString*)userId
                        andName:(NSString*)name
                     andSurname:(NSString*)surname
                       andEmail:(NSString*)email
@@ -47,5 +51,11 @@
 + (CBUser*) sharedUser;
 + (void) saveUserToUserDefaults:(NSDictionary*)dictionary;
 + (NSDictionary*) getUserDictionaryFromUserDefaults;
+- (NSString*) getMyBirthdateString;
+
++ (void) setAndSaveBarcodeUrl:(NSString*)barcodeUrl;
++ (void) setAndSaveBarcodeImage:(UIImage*)barcodeImage;
++ (UIImage*) getSavedBarcodeImage;
+
 
 @end

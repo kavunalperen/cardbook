@@ -9,6 +9,10 @@
 #import "CBShoppingViewController.h"
 #import "CBUtil.h"
 #import "CBShoppingsCell.h"
+#import "APIManager.h"
+#import "CBShopping.h"
+#import "CBCard.h"
+#import "CBShoppingDetailViewController.h"
 
 @interface CBShoppingViewController ()
 
@@ -17,6 +21,8 @@
 @implementation CBShoppingViewController
 {
     NSInteger itemCount;
+    NSMutableArray* myAllShoppings;
+    CBShopping* selectedShopping;
 }
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -46,6 +52,14 @@
     if (self.tableView.indexPathForSelectedRow) {
         [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
     }
+    
+    [[APIManager sharedInstance] getAllShoppingListWithCompletionBlock:^(NSMutableArray* allShoppings) {
+        NSLog(@"response here");
+        myAllShoppings = allShoppings;
+        [self.tableView reloadData];
+    } onError:^(NSError *error) {
+        NSLog(@"an error occured");
+    }];
 }
 - (void) initializeTableView
 {
@@ -71,7 +85,7 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    itemCount = 10;
+    itemCount = [myAllShoppings count]+1;
     return itemCount;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -80,7 +94,6 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    NSInteger temprowcount = [self.tableView numberOfRowsInSection:0];
     if (indexPath.row == 0) {
         return 42.0;
     }
@@ -94,25 +107,39 @@
 {
     CBShoppingsCell* cell;
     
+    CBShopping* currentShopping;
+    CBCard* relatedCard;
+    
     if (indexPath.row == 0) {
         cell = [tableView dequeueReusableCellWithIdentifier:MY_SHOPPINGS_CELL_FIRST_CELL_IDENTIFIER];
-        [cell.nameLabel setText:@"ADİDAS"];
-        [cell.dateLabel setText:@"29 Ekim 2013"];
+        currentShopping = [myAllShoppings objectAtIndex:indexPath.row];
+        relatedCard = [CBCard GetCardWithCompanyId:currentShopping.companyId];
+        [cell.nameLabel setText:[relatedCard companyName]];
+        [cell.dateLabel setText:[currentShopping getDateStr]];
     } else if (indexPath.row == itemCount-1) {
         cell = [tableView dequeueReusableCellWithIdentifier:MY_SHOPPINGS_CELL_LAST_CELL_IDENTIFIER];
     } else {
         cell = [tableView dequeueReusableCellWithIdentifier:MY_SHOPPINGS_CELL_MIDDLE_CELL_IDENTIFIER];
-        [cell.nameLabel setText:@"ADİDAS"];
-        [cell.dateLabel setText:@"29 Ekim 2013"];
+        currentShopping = [myAllShoppings objectAtIndex:indexPath.row];
+        relatedCard = [CBCard GetCardWithCompanyId:currentShopping.companyId];
+        [cell.nameLabel setText:[relatedCard companyName]];
+        [cell.dateLabel setText:[currentShopping getDateStr]];
     }
-    
-    
     
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self performSegueWithIdentifier:@"MyShoppingsDetailSegue" sender:self];
+    if (indexPath.row != itemCount-1) {
+        selectedShopping = [myAllShoppings objectAtIndex:indexPath.row];
+        [self performSegueWithIdentifier:@"MyShoppingsDetailSegue" sender:self];
+    }
+}
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    CBShoppingDetailViewController* shoppingDetailController = [segue destinationViewController];
+    
+    [shoppingDetailController setCurrentShoppingId:selectedShopping.shoppingId];
 }
 - (void)didReceiveMemoryWarning
 {

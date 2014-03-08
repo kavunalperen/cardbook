@@ -8,6 +8,7 @@
 
 #import "CBTabBarController.h"
 #import "CBUtil.h"
+#import "CBUser.h"
 
 @interface CBTabBarController ()
 
@@ -29,6 +30,10 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     [self initializeBarItems];
+    
+//    UIImage* image = [CBUser getSavedBarcodeImage];
+//    
+//    NSLog(@"image here");
 }
 - (void) initializeBarItems
 {

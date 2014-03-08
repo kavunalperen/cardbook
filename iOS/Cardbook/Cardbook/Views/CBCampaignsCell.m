@@ -84,6 +84,30 @@
     [backgroundView setImage:[UIImage imageNamed:@"main_bigcell_footer_bg.png"]];
     [self setBackgroundView:backgroundView];
 }
+- (void) setImageOfTheCell:(NSString*)imageUrl
+{
+    if (_relatedCampaign.campaignIcon) {
+        self.loadingImageUrlString = imageUrl;
+        self.thumbnail.image = _relatedCampaign.campaignIcon;
+    } else {
+    
+        self.loadingImageUrlString = imageUrl;
+        
+        self.imageLoadingOperation = [[APIManager sharedInstance] imageAtURL:[NSURL URLWithString:self.loadingImageUrlString] onCompletion:^(UIImage *fetchedImage, NSURL *url, BOOL isInCache) {
+            if ([self.loadingImageUrlString isEqualToString:[url absoluteString]]) {
+                _relatedCampaign.campaignIcon = fetchedImage;
+                self.thumbnail.image = fetchedImage;
+            }
+        }];
+    }
+}
+- (void) prepareForReuse
+{
+    [super prepareForReuse];
+    self.thumbnail.image = nil;
+    [self.imageLoadingOperation cancel];
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];

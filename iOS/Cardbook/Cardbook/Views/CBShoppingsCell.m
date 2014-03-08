@@ -100,33 +100,9 @@
     [backgroundView2 setFrame:CGRectMake(0.0, 0.0, 290.0, 20.0)];
     [backgroundView2 setImage:[UIImage imageNamed:@"campaign_detail_desc_bottom.png"]];
     [backgroundView2 setContentMode:UIViewContentModeScaleAspectFill];
-    
-    
-//    [self addSubview:self.nameLabel];
-//    [self addSubview:self.dateLabel];
-//    [self setAccessoryView:accessoryView];
-    
-//    [self addSubview:backgroundView1];
     [self addSubview:backgroundView2];
 }
-//- (void) stylizeForFirstCell
-//{
-//    backgroundView = [UIImageView new];
-//    [backgroundView setImage:[UIImage imageNamed:@"campaign_detail_desc_top.png"]];
-//    [self setBackgroundView:backgroundView];
-//}
-//- (void) stylizeForMiddleCell
-//{
-//    backgroundView = [UIImageView new];
-//    [backgroundView setImage:[UIImage imageNamed:@"campaign_detail_desc_bg.png"]];
-//    [self setBackgroundView:backgroundView];
-//}
-//- (void) stylizeForLastCell
-//{
-//    backgroundView = [UIImageView new];
-//    [backgroundView setImage:[UIImage imageNamed:@"campaign_detail_desc_bottom.png"]];
-//    [self setBackgroundView:backgroundView];
-//}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];

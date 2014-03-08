@@ -14,11 +14,19 @@
 #import "CBDummyViewController.h"
 #import "CBUtil.h"
 #import "CBTabBarController.h"
+#import "APIManager.h"
 
 @implementation CBAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+     UIRemoteNotificationTypeAlert |
+     UIRemoteNotificationTypeBadge |
+     UIRemoteNotificationTypeSound];
+    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     // Override point for customization after application launch.
     
@@ -34,9 +42,34 @@
         self.window.rootViewController = loginView;
     }
     [self.window makeKeyAndVisible];
+    
+    
+//    [[APIManager sharedInstance] getUserDetailWithCompletion:^(NSDictionary *responseDictionary) {
+//        NSLog(@"response here");
+//    } onError:^(NSError *error) {
+//        NSLog(@"an error occured");
+//    }];
+    
     return YES;
 }
-							
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    
+    NSString* deviceTokenStr = [deviceToken description];
+    deviceTokenStr = [deviceTokenStr stringByReplacingOccurrencesOfString:@" " withString:@""];
+    deviceTokenStr = [deviceTokenStr stringByReplacingOccurrencesOfString:@"<" withString:@""];
+    deviceTokenStr = [deviceTokenStr stringByReplacingOccurrencesOfString:@">" withString:@""];
+    NSLog(@"here");
+}
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+        NSLog(@"Failed to get token: %@", error);
+}
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+        NSLog(@"remote notification is received");
+        NSLog(@"break");
+}
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

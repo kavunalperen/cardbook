@@ -20,6 +20,7 @@
 @implementation CBMyCardsViewController
 {
     NSMutableArray* myAllCards;
+    CBCard* selectedCard;
 }
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -102,6 +103,7 @@
     [cell.nameLabel setText:[currentCard companyName]];
     
     [cell prepareForReuse];
+    cell.relatedCard = currentCard;
     if ([currentCard companyImageUrl] != nil && ![[currentCard companyImageUrl] isEqualToString:@""]) {
         [cell setImageOfTheCell:[currentCard companyImageUrl]];
     }
@@ -110,11 +112,15 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    selectedCard = [myAllCards objectAtIndex:indexPath.row];
+    
     [self performSegueWithIdentifier:@"MyCardsDetailsSegue" sender:self];
 }
-- (void) tapped
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    [self performSegueWithIdentifier:@"MyCardsDetailsSegue" sender:self];
+    CBMyCardsDetailViewController* myCardsDetail = [segue destinationViewController];
+    [myCardsDetail setCurrentCompanyId:selectedCard.companyId];
+    [myCardsDetail setCurrentCompanyLogo:selectedCard.companyLogo];
 }
 - (void) stylizeNavigationBar
 {

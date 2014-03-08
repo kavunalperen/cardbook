@@ -9,13 +9,20 @@
 #import "CBCampaignViewController.h"
 #import "CBUtil.h"
 #import "CBCampaignsCell.h"
+#import "APIManager.h"
+#import "CBCampaign.h"
+#import "CBCard.h"
+#import "CBMyCampaignsDetailViewController.h"
 
 @interface CBCampaignViewController ()
 
 @end
 
 @implementation CBCampaignViewController
-
+{
+    NSMutableArray* myAllCampaigns;
+    CBCampaign* selectedCampaign;
+}
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -34,9 +41,6 @@
     [self stylizeForMainView];
     [self setTitleText:@"KAMPANYALARIM"];
     [self initializeTableView];
-    
-    //    UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped)];
-    //    [self.view addGestureRecognizer:tap];
 }
 - (void) stylizeNavigationBar
 {
@@ -46,6 +50,19 @@
 {
     if (self.tableView.indexPathForSelectedRow) {
         [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+    }
+    [self getCampaings];
+}
+- (void) getCampaings
+{
+    if (myAllCampaigns == nil || myAllCampaigns.count == 0) {
+        [[APIManager sharedInstance] getAllActiveCampaignListWithCompletionBlock:^(NSMutableArray* allCampaigns) {
+            NSLog(@"response here");
+            myAllCampaigns = allCampaigns;
+            [self.tableView reloadData];
+        } onError:^(NSError *error) {
+            NSLog(@"an error occured");
+        }];
     }
 }
 - (void) initializeTableView
@@ -70,7 +87,7 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return [myAllCampaigns count];
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -86,15 +103,32 @@
     
     cell = [tableView dequeueReusableCellWithIdentifier:MY_CAMPAIGNS_CELL_IDENTIFIER];
     
-    [cell.nameLabel setText:@"ADİDAS"];
-    [cell.detailLabel setText:@"1 Ayakkabı alana Bağcık %40 indirimli"];
-    [cell.dateLabel setText:@"10 Eylül - 15 Eylül"];
+    CBCampaign* currentCampaign = [myAllCampaigns objectAtIndex:indexPath.row];
+    CBCard* relatedCard = [CBCard GetCardWithCompanyId:currentCampaign.companyId];
+    
+    [cell.nameLabel setText:[relatedCard companyName]];
+    [cell.detailLabel setText:[currentCampaign campaignName]];
+    [cell.dateLabel setText:[NSString stringWithFormat:@"%@ - %@",[currentCampaign getStartDateStr],[currentCampaign getEndDateStr]]];
+    
+    [cell prepareForReuse];
+    cell.relatedCampaign = currentCampaign;
+    if ([currentCampaign campaignIconUrl] != nil && ![[currentCampaign campaignIconUrl] isEqualToString:@""]) {
+        [cell setImageOfTheCell:[currentCampaign campaignIconUrl]];
+    }
     
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    selectedCampaign = [myAllCampaigns objectAtIndex:indexPath.row];
+    
     [self performSegueWithIdentifier:@"MyCampaignsDetailsSegue" sender:self];
+}
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    CBMyCampaignsDetailViewController* campaignDetailController = [segue destinationViewController];
+    
+    [campaignDetailController setCurrentCampaignId:selectedCampaign.campaignId];
 }
 - (void)didReceiveMemoryWarning
 {

@@ -1,14 +1,14 @@
 //
-//  CBCard.h
+//  CBCardDetail.h
 //  Cardbook
 //
-//  Created by Alperen Kavun on 13.11.2013.
+//  Created by Alperen Kavun on 23.11.2013.
 //  Copyright (c) 2013 kavun. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-@interface CBCard : NSObject
+@interface CBCardDetail : NSObject
 
 @property NSInteger companyId;
 @property NSString* cardbookUserCard;
@@ -37,9 +37,9 @@ andShoppingPromotionCreditList:(NSArray*)shoppingPromotionCreditList
                      andStatus:(NSInteger)status
        andUserWantNotification:(BOOL)userWantNotification;
 
-+ (CBCard*) CBCardWithDictionary:(NSDictionary*)dictionary;
++ (CBCardDetail*) CBCardDetailWithDictionary:(NSDictionary*)dictionary;
 
-+ (CBCard*) GetCardWithCompanyId:(NSInteger)companyId;
-+ (NSMutableArray*) GetAllCards;
++ (CBCardDetail*) GetCardDetailWithCompanyId:(NSInteger)companyId;
++ (NSMutableArray*) GetAllCardDetails;
 
 @end

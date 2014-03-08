@@ -9,6 +9,8 @@
 #import "CBShoppingDetailViewController.h"
 #import "CBUtil.h"
 #import "CBShoppingDetailsCell.h"
+#import "APIManager.h"
+#import "CBCard.h"
 
 @interface CBShoppingDetailViewController ()
 
@@ -167,9 +169,6 @@
     [self stylizeForDetailView];
     [self setTitleButtonText:@"Alışverişlerim"];
     [self.titleButton addTarget:self action:@selector(goBacktoShoppings) forControlEvents:UIControlEventTouchUpInside];
-    [self initHeaderComponents];
-    [self initContentComponents];
-    [self initFooterComponents];
 }
 - (void) initHeaderComponents
 {
@@ -190,7 +189,7 @@
     [headerTitleLabel setBackgroundColor:[UIColor clearColor]];
     [headerTitleLabel setFont:MY_SHOPPINGS_DETAILS_HEADER_TITLE_LABEL_FONT];
     [headerTitleLabel setTextColor:MY_SHOPPINGS_DETAILS_HEADER_TITLE_TEXT_COLOR];
-    [headerTitleLabel setText:@"CINEMAXIMUM"];
+//    [headerTitleLabel setText:@"CINEMAXIMUM"];
     [headerHolder addSubview:headerTitleLabel];
     
     UIImageView* headerDateIconView = [[UIImageView alloc] initWithFrame:[self headerDateIconFrame]];
@@ -202,7 +201,7 @@
     [headerDateLabel setBackgroundColor:[UIColor clearColor]];
     [headerDateLabel setFont:MY_SHOPPINGS_DETAILS_HEADER_DATE_LABEL_FONT];
     [headerDateLabel setTextColor:MY_SHOPPINGS_DETAILS_HEADER_DATE_TEXT_COLOR];
-    [headerDateLabel setText:@"29 Ekim 2013"];
+//    [headerDateLabel setText:@"29 Ekim 2013"];
     [headerHolder addSubview:headerDateLabel];
     
     headerProductNameLabel = [[UILabel alloc] initWithFrame:[self headerProductNameLabelFrame]];
@@ -286,7 +285,7 @@
     [earnedPointPKLabel setBackgroundColor:[UIColor clearColor]];
     [earnedPointPKLabel setFont:MY_SHOPPINGS_DETAILS_EARNED_POINTS_POINTS_LABELS_FONT];
     [earnedPointPKLabel setTextColor:MY_SHOPPINGS_DETAILS_EARNED_POINTS_POINTS_LABELS_TEXT_COLOR];
-    [earnedPointPKLabel setText:@"#34698"];
+//    [earnedPointPKLabel setText:@"#34698"];
     [earnedPointsHolder addSubview:earnedPointPKLabel];
     
     UILabel* earnedPPTitle = [[UILabel alloc] initWithFrame:[self pointsPPTitleLabelFrame]];
@@ -300,7 +299,7 @@
     [earnedPointPPLabel setBackgroundColor:[UIColor clearColor]];
     [earnedPointPPLabel setFont:MY_SHOPPINGS_DETAILS_EARNED_POINTS_POINTS_LABELS_FONT];
     [earnedPointPPLabel setTextColor:MY_SHOPPINGS_DETAILS_EARNED_POINTS_POINTS_LABELS_TEXT_COLOR];
-    [earnedPointPPLabel setText:@"1600"];
+//    [earnedPointPPLabel setText:@"1600"];
     [earnedPointsHolder addSubview:earnedPointPPLabel];
     
     
@@ -337,7 +336,7 @@
     [spentPointPKLabel setBackgroundColor:[UIColor clearColor]];
     [spentPointPKLabel setFont:MY_SHOPPINGS_DETAILS_SPENT_POINTS_POINTS_LABELS_FONT];
     [spentPointPKLabel setTextColor:MY_SHOPPINGS_DETAILS_SPENT_POINTS_POINTS_LABELS_TEXT_COLOR];
-    [spentPointPKLabel setText:@"#34698"];
+//    [spentPointPKLabel setText:@"#34698"];
     [spentPointsHolder addSubview:spentPointPKLabel];
     
     UILabel* spentPPTitle = [[UILabel alloc] initWithFrame:[self pointsPPTitleLabelFrame]];
@@ -351,7 +350,7 @@
     [spentPointPPLabel setBackgroundColor:[UIColor clearColor]];
     [spentPointPPLabel setFont:MY_SHOPPINGS_DETAILS_SPENT_POINTS_POINTS_LABELS_FONT];
     [spentPointPPLabel setTextColor:MY_SHOPPINGS_DETAILS_SPENT_POINTS_POINTS_LABELS_TEXT_COLOR];
-    [spentPointPPLabel setText:@"1600"];
+//    [spentPointPPLabel setText:@"1600"];
     [spentPointsHolder addSubview:spentPointPPLabel];
     
     
@@ -372,13 +371,55 @@
     [facebookButton addTarget:self action:@selector(shareOnFacebook) forControlEvents:UIControlEventTouchUpInside];
     [facebookHolder addSubview:facebookButton];
 }
+- (void) configureViews
+{
+    [self initHeaderComponents];
+    [self initContentComponents];
+    [self initFooterComponents];
+    
+    [self fillViewsWithShoppingDetailInfos];
+}
+- (void) fillViewsWithShoppingDetailInfos
+{
+    CBCard* relatedCard = [CBCard GetCardWithCompanyId:self.currentShoppingDetail.companyId];
+    
+    [headerTitleLabel setText:[relatedCard companyName]];
+    [headerDateLabel setText:[self.currentShoppingDetail getDateStr]];
+    
+    
+    [earnedPointPKLabel setText:self.currentShoppingDetail.wonShoppingPromotionCoupon];
+    [earnedPointPPLabel setText:self.currentShoppingDetail.wonShoppingPromotionCredit];
+    
+    [spentPointPKLabel setText:self.currentShoppingDetail.usedShoppingPromotionCoupon];
+    [spentPointPPLabel setText:self.currentShoppingDetail.usedShoppingPromotionCredit];
+}
+- (void) viewWillAppear:(BOOL)animated
+{
+    CBShoppingDetail* detail = [CBShoppingDetail GetShoppingDetailWithShoppingId:self.currentShoppingId];
+    if (detail) {
+        self.currentShoppingDetail = detail;
+        [self configureViews];
+    } else {
+        
+        
+        [[APIManager sharedInstance] getShoppingDetailContentWithShoppingId:self.currentShoppingId
+                                                               onCompletion:^(CBShoppingDetail* shoppingDetail) {
+                                                                   self.currentShoppingDetail = shoppingDetail;
+                                                                   [self configureViews];
+                                                                   NSLog(@"response here");
+                                                               } onError:^(NSError *error) {
+                                                                   NSLog(@"an error occured");
+                                                               }];
+    }
+}
+
 - (void) shareOnFacebook
 {
     
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return [[_currentShoppingDetail shoppingProductList] count];
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -392,8 +433,10 @@
 {
     CBShoppingDetailsCell* cell = [tableView dequeueReusableCellWithIdentifier:SHOPPING_DETAILS_CELL_IDENTIFIER];
     
-    [cell.nameLabel setText:@"Adana Kebap"];
-    [cell.priceLabel setText:@"10,50"];
+    NSDictionary* currentProduct = [[self.currentShoppingDetail shoppingProductList] objectAtIndex:indexPath.row];
+    
+    [cell.nameLabel setText:[currentProduct objectForKey:@"ProductName"]];
+    [cell.priceLabel setText:[NSString stringWithFormat:@"%@",[currentProduct objectForKey:@"ProductValue"]]];
     
     return cell;
 }

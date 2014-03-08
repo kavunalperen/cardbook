@@ -9,8 +9,8 @@
 #import "CBMyCardsDetailViewController.h"
 #import "CBUtil.h"
 #import <QuartzCore/QuartzCore.h>
-#import "CBUtil.h"
 #import "CBCardDetailsCouponCell.h"
+#import "APIManager.h"
 
 @interface CBMyCardsDetailViewController ()
 
@@ -109,7 +109,53 @@
     }
     return self;
 }
-
+- (void) fillViewsWithCompanyInfos
+{
+    if (self.currentCompanyLogo) {
+        [companyThumbnail setImage:self.currentCompanyLogo];
+    }
+    
+    if (_currentCardDetail.companyName) {
+        [companyNameLabel setText:_currentCardDetail.companyName];
+    }
+    if (_currentCardDetail.userWantNotification == YES) {
+        [notificationStatusImageView setImage:[UIImage imageNamed:@"notification_on.png"]];
+    } else {
+        [notificationStatusImageView setImage:[UIImage imageNamed:@"notification_off.png"]];
+    }
+    if (_currentCardDetail.cardbookUserCard == nil || [_currentCardDetail.cardbookUserCard isEqualToString:@""]) {
+        //        [self.cardNumberField setText:@"0000 0000 0000 0000"];
+    } else {
+        [self.cardNumberField setText:_currentCardDetail.cardbookUserCard];
+    }
+}
+- (void) configureViews
+{
+    
+    [self initCommonViews];
+    [self initHeaderComponents];
+    [self initFooterComponents];
+    [self initContentComponents];
+    [self fillViewsWithCompanyInfos];
+}
+- (void) viewWillAppear:(BOOL)animated
+{
+    CBCardDetail* detail = [CBCardDetail GetCardDetailWithCompanyId:self.currentCompanyId];
+    if (detail) {
+        self.currentCardDetail = detail;
+        [self configureViews];
+    } else {
+    
+        [[APIManager sharedInstance] getCompanyDetailContentWithCompanyId:self.currentCompanyId
+                                                             onCompletion:^(CBCardDetail* cardDetail) {
+                                                                 self.currentCardDetail = cardDetail;
+                                                                 [self configureViews];
+                                                                 NSLog(@"response here");
+                                                             } onError:^(NSError *error) {
+                                                                 NSLog(@"an error occured");
+                                                             }];
+    }
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -119,10 +165,7 @@
     [self stylizeForDetailView];
     [self setTitleButtonText:@"Kartlarım"];
     [self.titleButton addTarget:self action:@selector(goBackToCards) forControlEvents:UIControlEventTouchUpInside];
-    [self initCommonViews];
-    [self initHeaderComponents];
-    [self initFooterComponents];
-    [self initContentComponents];
+    
 }
 - (void) initCommonViews
 {
@@ -160,14 +203,14 @@
     [companyThumbnail.layer setShouldRasterize:YES];
     [companyThumbnail.layer setRasterizationScale:[UIScreen mainScreen].scale];
     [companyThumbnail setClipsToBounds:YES];
-    [companyThumbnail setImage:[UIImage imageNamed:@"dummy_brand.jpg"]];
+//    [companyThumbnail setImage:[UIImage imageNamed:@"dummy_brand.jpg"]];
     [headerHolder addSubview:companyThumbnail];
     
     companyNameLabel = [[UILabel alloc] initWithFrame:[self companyNameLabelFrame]];
     [companyNameLabel setBackgroundColor:[UIColor clearColor]];
     [companyNameLabel setFont:CARD_DETAIL_COMPANY_NAME_FONT];
     [companyNameLabel setTextColor:CARD_DETAIL_COMPANY_NAME_TEXT_COLOR];
-    [companyNameLabel setText:@"CINEMAXIMUM"];
+//    [companyNameLabel setText:@"CINEMAXIMUM"];
     [companyNameLabel.layer setShouldRasterize:YES];
     [companyNameLabel.layer setRasterizationScale:[UIScreen mainScreen].scale];
     [headerHolder addSubview:companyNameLabel];
@@ -211,7 +254,7 @@
     notificationStatusImageView = [[UIImageView alloc] initWithFrame:[self notificationStatusImageFrame]];
     [notificationStatusImageView setBackgroundColor:[UIColor clearColor]];
     [notificationStatusImageView setClipsToBounds:YES];
-    [notificationStatusImageView setImage:[UIImage imageNamed:@"notification_off.png"]];
+//    [notificationStatusImageView setImage:[UIImage imageNamed:@"notification_off.png"]];
     [notificationStatusImageView setUserInteractionEnabled:YES];
     [notificationStatusImageView setContentMode:UIViewContentModeCenter];
     UITapGestureRecognizer* statusTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(changeNotificationStatusImage)];
@@ -310,7 +353,7 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return [self.currentCardDetail.shoppingPromotionCouponList count];
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -326,15 +369,17 @@
     
     cell = [tableView dequeueReusableCellWithIdentifier:CARD_DETAILS_COUPON_CELL_IDENTIFIER];
     
+    NSDictionary* currentCoupon = [self.currentCardDetail.shoppingPromotionCouponList objectAtIndex:indexPath.row];
     
-    [cell.mainLabel setText:@"00000000"];
-    [cell.subtitleLabel setText:@"Kupon detaylari sunlari bunlari falan filan ikinci satira gecsin diye doldur da doldur doldur da doldur kavun kavun"];
+    [cell.mainLabel setText:[currentCoupon objectForKey:@"CompanyPromotionId"]];
+    [cell.subtitleLabel setText:[currentCoupon objectForKey:@"CompanyPromotionText"]];
     
     return cell;
 }
 - (void) openCampaigns
 {
-    
+//    [self.tabBarController setSelectedIndex:1];
+//    [self.tabBarController viewControllers];
 }
 - (void) openShoppings
 {
@@ -342,26 +387,62 @@
 }
 - (void) saveCardNumber
 {
-    
+    [self.view endEditing:YES];
+    NSString* cardNumber = [self.cardNumberField text];
+    if (cardNumber != nil && ![cardNumber isEqualToString:@""]) {
+        // API call
+        [[APIManager sharedInstance] setUserCompanyCardWithCompanyId:self.currentCardDetail.companyId
+                                                       andCardNumber:cardNumber
+                                                        onCompletion:^(NSDictionary *responseDictionary) {
+                                                            NSLog(@"response here");
+                                                            _currentCardDetail.cardbookUserCard = cardNumber;
+                                                            [self fillViewsWithCompanyInfos];
+                                                        } onError:^(NSError *error) {
+                                                            NSLog(@"an error occured");
+                                                        }];
+    }
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self.view endEditing:YES];
+    return YES;
 }
 - (void) setNotificationStatus:(BOOL)isActive
 {
-    if (isNotificationActive == isActive) {
+    if (_currentCardDetail.userWantNotification == isActive) {
         return;
     } else {
-        UIImage* notificationImage;
-        isNotificationActive = isActive;
-        if (isNotificationActive) {
-            notificationImage = [UIImage imageNamed:@"notification_off.png"];
+        if (isActive == NO) {
+            [[APIManager sharedInstance] setUserNotificationStatusWithCompanyId:_currentCardDetail.companyId
+                                                          andNotificationStatus:NO
+                                                                   onCompletion:^(NSDictionary *responseDictionary) {
+                                                                       NSLog(@"response here");
+                                                                       _currentCardDetail.userWantNotification = NO;
+                                                                       UIImage* notificationImage = [UIImage imageNamed:@"notification_off.png"];
+                                                                       [notificationStatusImageView setImage:notificationImage];
+                                                                   } onError:^(NSError *error) {
+                                                                       NSLog(@"an error occured");
+                                                                   }];
+            
         } else {
-            notificationImage = [UIImage imageNamed:@"notification_on.png"];
+            [[APIManager sharedInstance] setUserNotificationStatusWithCompanyId:_currentCardDetail.companyId
+                                                          andNotificationStatus:YES
+                                                                   onCompletion:^(NSDictionary *responseDictionary) {
+                                                                       NSLog(@"response here");
+                                                                       _currentCardDetail.userWantNotification = YES;
+                                                                       UIImage* notificationImage = [UIImage imageNamed:@"notification_on.png"];
+                                                                       [notificationStatusImageView setImage:notificationImage];
+                                                                   } onError:^(NSError *error) {
+                                                                       NSLog(@"an error occured");
+                                                                   }];
         }
-        [notificationStatusImageView setImage:notificationImage];
+        
     }
 }
+//- (BOOL) textF
 - (void) changeNotificationStatusImage
 {
-    if (isNotificationActive) {
+    if (_currentCardDetail.userWantNotification) {
         [self setNotificationStatus:NO];
     } else {
         [self setNotificationStatus:YES];
