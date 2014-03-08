@@ -37,6 +37,7 @@
 
 + (CBShopping*) GetShoppingWithShoppingId:(NSInteger)shoppingId;
 + (NSMutableArray*) GetAllShoppings;
++ (NSMutableArray*) GetAllShoppingsForCompany:(NSInteger)companyId;
 
 - (NSString*) getDateStr;
 

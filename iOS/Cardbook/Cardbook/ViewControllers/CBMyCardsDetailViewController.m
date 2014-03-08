@@ -11,6 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "CBCardDetailsCouponCell.h"
 #import "APIManager.h"
+#import "CBCampaignViewController.h"
 
 @interface CBMyCardsDetailViewController ()
 
@@ -378,12 +379,17 @@
 }
 - (void) openCampaigns
 {
-//    [self.tabBarController setSelectedIndex:1];
-//    [self.tabBarController viewControllers];
+    CBUtil* util = [CBUtil sharedInstance];
+    util.shouldShowForACompany = YES;
+    util.companyId = _currentCompanyId;
+    [self.tabBarController setSelectedIndex:1];
 }
 - (void) openShoppings
 {
-    
+    CBUtil* util = [CBUtil sharedInstance];
+    util.shouldShowForACompany = YES;
+    util.companyId = _currentCompanyId;
+    [self.tabBarController setSelectedIndex:2];
 }
 - (void) saveCardNumber
 {

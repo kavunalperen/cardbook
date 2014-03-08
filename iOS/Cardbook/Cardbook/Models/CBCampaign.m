@@ -134,5 +134,16 @@ static NSMutableArray* allCampaigns = nil;
 {
     return allCampaigns;
 }
-
++ (NSMutableArray*) GetAllCampaignsForCompany:(NSInteger)companyId
+{
+    NSMutableArray* campaigns = [NSMutableArray new];
+    
+    for (CBCampaign* campaign in allCampaigns) {
+        if (campaign.companyId == companyId) {
+            [campaigns addObject:campaign];
+        }
+    }
+    
+    return campaigns;
+}
 @end

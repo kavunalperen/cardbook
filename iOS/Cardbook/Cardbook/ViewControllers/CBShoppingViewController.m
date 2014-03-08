@@ -52,14 +52,36 @@
     if (self.tableView.indexPathForSelectedRow) {
         [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
     }
+    [self getShoppings];
+}
+- (void) getShoppings
+{
+    CBUtil* util = [CBUtil sharedInstance];
+    BOOL shouldShowForACompany = util.shouldShowForACompany;
+    NSInteger companyId = util.companyId;
     
-    [[APIManager sharedInstance] getAllShoppingListWithCompletionBlock:^(NSMutableArray* allShoppings) {
-        NSLog(@"response here");
-        myAllShoppings = allShoppings;
+    NSMutableArray* shoppings = [CBShopping GetAllShoppings];
+    
+    if (shoppings != nil && shoppings.count > 0 && shouldShowForACompany) {
+        myAllShoppings = [CBShopping GetAllShoppingsForCompany:companyId];
         [self.tableView reloadData];
-    } onError:^(NSError *error) {
-        NSLog(@"an error occured");
-    }];
+    } else {
+        myAllShoppings = [CBShopping GetAllShoppings];
+        [self.tableView reloadData];
+        if (myAllShoppings == nil || myAllShoppings.count == 0) {
+            [[APIManager sharedInstance] getAllShoppingListWithCompletionBlock:^(NSMutableArray* allShoppings) {
+                NSLog(@"response here");
+                if (shouldShowForACompany) {
+                    myAllShoppings = [CBShopping GetAllShoppingsForCompany:companyId];
+                } else {
+                    myAllShoppings = allShoppings;
+                }
+                [self.tableView reloadData];
+            } onError:^(NSError *error) {
+                NSLog(@"an error occured");
+            }];
+        }
+    }
 }
 - (void) initializeTableView
 {

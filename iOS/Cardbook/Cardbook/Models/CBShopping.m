@@ -139,5 +139,16 @@ static NSMutableArray* allShoppings = nil;
 {
     return allShoppings;
 }
-
++ (NSMutableArray*) GetAllShoppingsForCompany:(NSInteger)companyId
+{
+    NSMutableArray* shoppings = [NSMutableArray new];
+    
+    for (CBShopping* shopping in allShoppings) {
+        if (shopping.companyId == companyId) {
+            [shoppings addObject:shopping];
+        }
+    }
+    
+    return shoppings;
+}
 @end

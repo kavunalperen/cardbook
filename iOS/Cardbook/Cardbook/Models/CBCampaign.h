@@ -31,6 +31,7 @@
 
 + (CBCampaign*) GetCampaignWithCampaignId:(NSInteger)campaignId;
 + (NSMutableArray*) GetAllCampaigns;
++ (NSMutableArray*) GetAllCampaignsForCompany:(NSInteger)companyId;
 
 - (NSString*) getStartDateStr;
 - (NSString*) getEndDateStr;

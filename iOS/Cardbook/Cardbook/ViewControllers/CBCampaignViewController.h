@@ -12,5 +12,11 @@
 @interface CBCampaignViewController : CBBaseViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property UITableView* tableView;
+//@property BOOL shouldShowForACompany;
+//@property NSInteger companyId;
+
+//+ (CBCampaignViewController*) lastInstance;
+
+
 
 @end

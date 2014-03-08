@@ -9,6 +9,7 @@
 #import "CBTabBarController.h"
 #import "CBUtil.h"
 #import "CBUser.h"
+#import "CBCampaignViewController.h"
 
 @interface CBTabBarController ()
 
@@ -79,6 +80,18 @@
           TABBAR_SELECTED_FONT, NSFontAttributeName,
           nil] forState:UIControlStateSelected];
     }
+}
+//- (void) setSelectedIndex:(NSUInteger)selectedIndex
+//{
+//    [super setSelectedIndex:selectedIndex];
+//    CBCampaignViewController* campaignVC = [CBCampaignViewController lastInstance];
+//    campaignVC.shouldShowForACompany = NO;
+//}
+- (void) setSelectedViewController:(UIViewController *)selectedViewController
+{
+    CBUtil* util = [CBUtil sharedInstance];
+    util.shouldShowForACompany = NO;
+    [super setSelectedViewController:selectedViewController];
 }
 - (void)didReceiveMemoryWarning
 {

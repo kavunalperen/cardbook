@@ -178,6 +178,9 @@
 
 + (CBUtil*)sharedInstance;
 
+@property BOOL shouldShowForACompany;
+@property NSInteger companyId;
+
 - (UIImage*)UIImageWithUIColor:(UIColor*)color;
 - (UIImage*) maskImage:(UIImage *)image withMask:(UIImage *)maskImage;
 

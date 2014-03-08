@@ -14,6 +14,8 @@
 #import "CBCard.h"
 #import "CBMyCampaignsDetailViewController.h"
 
+//static CBCampaignViewController* __lastInstance = nil;
+
 @interface CBCampaignViewController ()
 
 @end
@@ -23,6 +25,12 @@
     NSMutableArray* myAllCampaigns;
     CBCampaign* selectedCampaign;
 }
+
+//+ (CBCampaignViewController*) lastInstance
+//{
+//    return __lastInstance;
+//}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -41,6 +49,8 @@
     [self stylizeForMainView];
     [self setTitleText:@"KAMPANYALARIM"];
     [self initializeTableView];
+    
+//    __lastInstance = self;
 }
 - (void) stylizeNavigationBar
 {
@@ -55,14 +65,31 @@
 }
 - (void) getCampaings
 {
-    if (myAllCampaigns == nil || myAllCampaigns.count == 0) {
-        [[APIManager sharedInstance] getAllActiveCampaignListWithCompletionBlock:^(NSMutableArray* allCampaigns) {
-            NSLog(@"response here");
-            myAllCampaigns = allCampaigns;
-            [self.tableView reloadData];
-        } onError:^(NSError *error) {
-            NSLog(@"an error occured");
-        }];
+    CBUtil* util = [CBUtil sharedInstance];
+    BOOL shouldShowForACompany = util.shouldShowForACompany;
+    NSInteger companyId = util.companyId;
+    
+    NSMutableArray* campaigns = [CBCampaign GetAllCampaigns];
+    
+    if (campaigns != nil && campaigns.count > 0 && shouldShowForACompany) {
+        myAllCampaigns = [CBCampaign GetAllCampaignsForCompany:companyId];
+        [self.tableView reloadData];
+    } else {
+        myAllCampaigns = [CBCampaign GetAllCampaigns];
+        [self.tableView reloadData];
+        if (myAllCampaigns == nil || myAllCampaigns.count == 0) {
+            [[APIManager sharedInstance] getAllActiveCampaignListWithCompletionBlock:^(NSMutableArray* allCampaigns) {
+                NSLog(@"response here");
+                if (shouldShowForACompany) {
+                    myAllCampaigns = [CBCampaign GetAllCampaignsForCompany:companyId];
+                } else {
+                    myAllCampaigns = allCampaigns;
+                }
+                [self.tableView reloadData];
+            } onError:^(NSError *error) {
+                NSLog(@"an error occured");
+            }];
+        }
     }
 }
 - (void) initializeTableView
@@ -135,5 +162,4 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 @end
