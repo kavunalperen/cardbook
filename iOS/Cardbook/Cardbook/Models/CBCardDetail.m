@@ -23,6 +23,8 @@ andShoppingPromotionCouponList:(NSArray*)shoppingPromotionCouponList
 andShoppingPromotionCreditList:(NSArray*)shoppingPromotionCreditList
                      andStatus:(NSInteger)status
        andUserWantNotification:(BOOL)userWantNotification
+                andTotalCredit:(NSInteger)totalCredit
+               andUsableCredit:(NSInteger)usableCredit
 {
     if (self = [super init]) {
         _companyId = companyId;
@@ -37,6 +39,8 @@ andShoppingPromotionCreditList:(NSArray*)shoppingPromotionCreditList
         _shoppingPromotionCreditList = shoppingPromotionCreditList;
         _status = status;
         _userWantNotification = userWantNotification;
+        _totalCredit = totalCredit;
+        _usableCredit = usableCredit;
     }
     
     return self;
@@ -90,7 +94,22 @@ andShoppingPromotionCreditList:(NSArray*)shoppingPromotionCreditList
         NSArray* shoppingPromotionCreditList = [dictionary objectForKey:@"ShoppingPromotionCreditList"];
         NSInteger status = [[dictionary objectForKey:@"Status"] integerValue];
         BOOL userWantNotification = [[dictionary objectForKey:@"UserWantNotification"] boolValue];
-        //        BOOL userWantNotification = YES;
+        
+        NSInteger totalCredit = INT32_MIN;
+        NSInteger usableCredit = INT32_MIN;
+        
+        NSDictionary* promotionCreditSummary = [dictionary objectForKey:@"PromoitonCreditSummary"];
+        if (promotionCreditSummary != nil && ![promotionCreditSummary isKindOfClass:[NSNull class]]) {
+            NSNumber* totalC = [promotionCreditSummary objectForKey:@"TotalCredit"];
+            NSNumber* usableC = [promotionCreditSummary objectForKey:@"UsableCredit"];
+            
+            if (totalC != nil && ![totalC isKindOfClass:[NSNull class]]) {
+                totalCredit = [totalC integerValue];
+            }
+            if (usableC != nil && ![usableC isKindOfClass:[NSNull class]]) {
+                usableCredit = [usableC integerValue];
+            }
+        }
         
         
         cardDetail = [[CBCardDetail alloc] initWithCompanyId:companyId
@@ -104,7 +123,9 @@ andShoppingPromotionCreditList:(NSArray*)shoppingPromotionCreditList
                               andShoppingPromotionCouponList:shoppingPromotionCouponList
                               andShoppingPromotionCreditList:shoppingPromotionCreditList
                                                    andStatus:status
-                                     andUserWantNotification:userWantNotification];
+                                     andUserWantNotification:userWantNotification
+                                              andTotalCredit:totalCredit
+                                             andUsableCredit:usableCredit];
         
         [allCardDetails addObject:cardDetail];
     }

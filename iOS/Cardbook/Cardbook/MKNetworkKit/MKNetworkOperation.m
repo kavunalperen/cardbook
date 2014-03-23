@@ -994,7 +994,7 @@
   
   // dont' save data if the operation was created to download directly to a stream.
   if([self.downloadStreams count] == 0)
-    self.mutableData = [NSMutableData dataWithCapacity:size];
+    self.mutableData = [NSMutableData dataWithCapacity:(unsigned int)size];
   else
     self.mutableData = nil;
   

@@ -23,6 +23,8 @@
 @property NSInteger status;
 @property BOOL userWantNotification;
 @property UIImage* companyLogo;
+@property NSInteger totalCredit;
+@property NSInteger usableCredit;
 
 - (id)       initWithCompanyId:(NSInteger)companyId
            andCardbookUserCard:(NSString*)cardbookUserCard
@@ -35,7 +37,9 @@
 andShoppingPromotionCouponList:(NSArray*)shoppingPromotionCouponList
 andShoppingPromotionCreditList:(NSArray*)shoppingPromotionCreditList
                      andStatus:(NSInteger)status
-       andUserWantNotification:(BOOL)userWantNotification;
+       andUserWantNotification:(BOOL)userWantNotification
+                andTotalCredit:(NSInteger)totalCredit
+               andUsableCredit:(NSInteger)usableCredit;
 
 + (CBCardDetail*) CBCardDetailWithDictionary:(NSDictionary*)dictionary;
 

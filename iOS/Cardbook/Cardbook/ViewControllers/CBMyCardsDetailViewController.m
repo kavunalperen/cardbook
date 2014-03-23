@@ -31,14 +31,14 @@
 }
 - (CGRect) headerImageViewFrame
 {
-    return CGRectMake(15.0, 69.0, 290.0, 193.0);
+    return CGRectMake(15.0, 69.0, 290.0, 220.0);
 }
 - (CGRect) contentImageViewFrame
 {
     if (IS_IPHONE_5) {
-        return CGRectMake(15.0, 262.0, 290.0, 172.0);
+        return CGRectMake(15.0, 289.0, 290.0, 145.0);
     } else {
-        return CGRectMake(15.0, 262.0, 290.0, 84.0);
+        return CGRectMake(15.0, 289.0, 290.0, 57.0);
     }
 }
 - (CGRect) footerImageViewFrame
@@ -59,35 +59,73 @@
 }
 - (CGRect) companyPointTitleLabelFrame
 {
-    return CGRectMake(165.0, 38.0, 110.0, 13.0);
+    return CGRectMake(165.0, 50.0, 110.0, 13.0);
 }
 - (CGRect) remainingPointLabelFrame
 {
-    return CGRectMake(165.0, 55.0, 65.0, 21.0);
+    NSString* string = [NSString stringWithFormat:@"%d",_currentCardDetail.usableCredit];
+    
+    CGSize labelSize = [self text:string
+                     sizeWithFont:CARD_DETAIL_COMPANY_REMAINING_POINT_FONT
+                constrainedToSize:CGSizeMake(65.0, 21.0)];
+    
+    labelSize = CGSizeMake(ceilf(labelSize.width), ceilf(labelSize.height));
+    
+    return CGRectMake(165.0, 67.0, labelSize.width, 21.0);
 }
 - (CGRect) totalPointLabelFrame
 {
-    return CGRectMake(230.0, 66.0, 45.0, 10.0);
+    CGRect other = [self remainingPointLabelFrame];
+    
+    return CGRectMake(other.origin.x+other.size.width+2.0, 78.0, 45.0, 10.0);
 }
 - (CGRect) notificationStatusLabelFrame
 {
     return CGRectMake(165.0, 82.0, 75.0, 17.0);
 }
+- (CGRect) companyButtonBarFrame
+{
+    return CGRectMake(15.0, 113.0, 260.0, 22.0);
+}
+- (CGRect) infoButtonFrame
+{
+    return CGRectMake(0.0, 0.0, 49.0, 22.0);
+}
+- (CGRect) seperator1Frame
+{
+    return CGRectMake(53.0, 0.0, 2.0, 22.0);
+}
+- (CGRect) shopsButtonFrame
+{
+    return CGRectMake(59.0, 0.0, 44.0, 22.0);
+}
+- (CGRect) seperator2Frame
+{
+    return CGRectMake(107.0, 0.0, 2.0, 22.0);
+}
+- (CGRect) contactButtonFrame
+{
+    return CGRectMake(113.0, 0.0, 46.0, 22.0);
+}
+- (CGRect) seperator3Frame
+{
+    return CGRectMake(163.0, 0.0, 2.0, 22.0);
+}
 - (CGRect) notificationStatusImageFrame
 {
-    return CGRectMake(240.0, 78.0, 42.0, 25.0);
+    return CGRectMake(169.0, 0.0, 90.0, 22.0);
 }
 - (CGRect) cardNumberTitleLabelFrame
 {
-    return CGRectMake(15.0, 120.0, 48.0, 22.0);
+    return CGRectMake(15.0, 146.0, 48.0, 22.0);
 }
 - (CGRect) cardNumberFieldFrame
 {
-    return CGRectMake(63.0, 120.0, 147.0, 22.0);
+    return CGRectMake(63.0, 146.0, 147.0, 22.0);
 }
 - (CGRect) saveCardNumberButtonFrame
 {
-    return CGRectMake(220.0, 120.0, 55.0, 22.0);
+    return CGRectMake(220.0, 146.0, 55.0, 22.0);
 }
 - (CGRect) campaignsButtonFrame
 {
@@ -128,6 +166,14 @@
         //        [self.cardNumberField setText:@"0000 0000 0000 0000"];
     } else {
         [self.cardNumberField setText:_currentCardDetail.cardbookUserCard];
+    }
+    if (_currentCardDetail.totalCredit > INT32_MIN) {
+        [totalPointLabel setFrame:[self totalPointLabelFrame]];
+        [totalPointLabel setText:[NSString stringWithFormat:@"/ %d",_currentCardDetail.totalCredit]];
+    }
+    if (_currentCardDetail.usableCredit > INT32_MIN) {
+        [remainingPointLabel setFrame:[self remainingPointLabelFrame]];
+        [remainingPointLabel setText:[NSString stringWithFormat:@"%d",_currentCardDetail.usableCredit]];
     }
 }
 - (void) configureViews
@@ -225,42 +271,77 @@
     [companyPointTitleLabel.layer setRasterizationScale:[UIScreen mainScreen].scale];
     [headerHolder addSubview:companyPointTitleLabel];
     
-    remainingPointLabel = [[UILabel alloc] initWithFrame:[self remainingPointLabelFrame]];
+    remainingPointLabel = [[UILabel alloc] init];
+//    remainingPointLabel = [[UILabel alloc] initWithFrame:[self remainingPointLabelFrame]];
     [remainingPointLabel setBackgroundColor:[UIColor clearColor]];
     [remainingPointLabel setFont:CARD_DETAIL_COMPANY_REMAINING_POINT_FONT];
     [remainingPointLabel setTextColor:CARD_DETAIL_COMPANY_REMAINING_POINT_TEXT_COLOR];
-    [remainingPointLabel setText:@"1600"];
     [remainingPointLabel.layer setShouldRasterize:YES];
     [remainingPointLabel.layer setRasterizationScale:[UIScreen mainScreen].scale];
     [headerHolder addSubview:remainingPointLabel];
     
-    totalPointLabel = [[UILabel alloc] initWithFrame:[self totalPointLabelFrame]];
+    totalPointLabel = [[UILabel alloc] init];
+//    totalPointLabel = [[UILabel alloc] initWithFrame:[self totalPointLabelFrame]];
     [totalPointLabel setBackgroundColor:[UIColor clearColor]];
     [totalPointLabel setFont:CARD_DETAIL_COMPANY_TOTAL_POINT_FONT];
     [totalPointLabel setTextColor:CARD_DETAIL_COMPANY_TOTAL_POINT_TEXT_COLOR];
-    [totalPointLabel setText:@"/ 3876"];
+//    [totalPointLabel setText:@"/ 3876"];
     [totalPointLabel.layer setShouldRasterize:YES];
     [totalPointLabel.layer setRasterizationScale:[UIScreen mainScreen].scale];
     [headerHolder addSubview:totalPointLabel];
     
-    UILabel* notificationStatusLabel = [[UILabel alloc] initWithFrame:[self notificationStatusLabelFrame]];
-    [notificationStatusLabel setBackgroundColor:[UIColor clearColor]];
-    [notificationStatusLabel setFont:CARD_DETAIL_COMPANY_NOTIFICATION_STATUS_FONT];
-    [notificationStatusLabel setTextColor:CARD_DETAIL_COMPANY_NOTIFICATION_STATUS_TEXT_COLOR];
-    [notificationStatusLabel setText:@"Bildirim Durumu"];
-    [notificationStatusLabel.layer setShouldRasterize:YES];
-    [notificationStatusLabel.layer setRasterizationScale:[UIScreen mainScreen].scale];
-    [headerHolder addSubview:notificationStatusLabel];
+    UIView* buttonBarView = [[UIView alloc] initWithFrame:[self companyButtonBarFrame]];
+    [buttonBarView setBackgroundColor:[UIColor clearColor]];
+    [headerHolder addSubview:buttonBarView];
+    
+    UIButton* infoButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [infoButton setFrame:[self infoButtonFrame]];
+    [infoButton setBackgroundColor:[UIColor clearColor]];
+    [infoButton setBackgroundImage:[UIImage imageNamed:@"mycard_company_info_normal.png"] forState:UIControlStateNormal];
+    [infoButton setBackgroundImage:[UIImage imageNamed:@"mycard_company_info_highlighted.png"] forState:UIControlStateHighlighted];
+    [infoButton addTarget:self action:@selector(openInfoScreen) forControlEvents:UIControlEventTouchUpInside];
+    [buttonBarView addSubview:infoButton];
+    
+    UIImageView* seperator1 = [[UIImageView alloc] initWithFrame:[self seperator1Frame]];
+    [seperator1 setBackgroundColor:[UIColor clearColor]];
+    [seperator1 setImage:[UIImage imageNamed:@"mycard_ayrac.png"]];
+    [buttonBarView addSubview:seperator1];
+    
+    UIButton* shopsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [shopsButton setFrame:[self shopsButtonFrame]];
+    [shopsButton setBackgroundColor:[UIColor clearColor]];
+    [shopsButton setBackgroundImage:[UIImage imageNamed:@"mycard_company_branch_normal.png"] forState:UIControlStateNormal];
+    [shopsButton setBackgroundImage:[UIImage imageNamed:@"mycard_company_branch_highlighted.png"] forState:UIControlStateHighlighted];
+    [shopsButton addTarget:self action:@selector(openShopsScreen) forControlEvents:UIControlEventTouchUpInside];
+    [buttonBarView addSubview:shopsButton];
+    
+    UIImageView* seperator2 = [[UIImageView alloc] initWithFrame:[self seperator2Frame]];
+    [seperator2 setBackgroundColor:[UIColor clearColor]];
+    [seperator2 setImage:[UIImage imageNamed:@"mycard_ayrac.png"]];
+    [buttonBarView addSubview:seperator2];
+    
+    UIButton* contactButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [contactButton setFrame:[self contactButtonFrame]];
+    [contactButton setBackgroundColor:[UIColor clearColor]];
+    [contactButton setBackgroundImage:[UIImage imageNamed:@"mycard_company_call_normal.png"] forState:UIControlStateNormal];
+    [contactButton setBackgroundImage:[UIImage imageNamed:@"mycard_company_call_highlighted.png"] forState:UIControlStateHighlighted];
+    [contactButton addTarget:self action:@selector(openContactScreen) forControlEvents:UIControlEventTouchUpInside];
+    [buttonBarView addSubview:contactButton];
+    
+    UIImageView* seperator3 = [[UIImageView alloc] initWithFrame:[self seperator3Frame]];
+    [seperator3 setBackgroundColor:[UIColor clearColor]];
+    [seperator3 setImage:[UIImage imageNamed:@"mycard_ayrac.png"]];
+    [buttonBarView addSubview:seperator3];
     
     notificationStatusImageView = [[UIImageView alloc] initWithFrame:[self notificationStatusImageFrame]];
     [notificationStatusImageView setBackgroundColor:[UIColor clearColor]];
     [notificationStatusImageView setClipsToBounds:YES];
-//    [notificationStatusImageView setImage:[UIImage imageNamed:@"notification_off.png"]];
     [notificationStatusImageView setUserInteractionEnabled:YES];
     [notificationStatusImageView setContentMode:UIViewContentModeCenter];
     UITapGestureRecognizer* statusTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(changeNotificationStatusImage)];
     [notificationStatusImageView addGestureRecognizer:statusTap];
-    [headerHolder addSubview:notificationStatusImageView];
+    [buttonBarView addSubview:notificationStatusImageView];
+    
     
     UILabel* cardNumberTitleLabel = [[UILabel alloc] initWithFrame:[self cardNumberTitleLabelFrame]];
     [cardNumberTitleLabel setBackgroundColor:[UIColor clearColor]];
@@ -298,6 +379,18 @@
     [saveCardNumberButton addTarget:self action:@selector(saveCardNumber) forControlEvents:UIControlEventTouchUpInside];
     [headerHolder addSubview:saveCardNumberButton];
     
+}
+- (void) openInfoScreen
+{
+    NSLog(@"open info screen");
+}
+- (void) openShopsScreen
+{
+    NSLog(@"open shops screen");
+}
+- (void) openContactScreen
+{
+    NSLog(@"open contact screen");
 }
 - (void) initFooterComponents
 {
@@ -467,5 +560,18 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+-(CGSize)text:(NSString*)text sizeWithFont:(UIFont*)font constrainedToSize:(CGSize)size{
+    
+    NSDictionary *attributesDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                                          font, NSFontAttributeName,
+                                          nil];
+    
+    CGRect frame = [text boundingRectWithSize:size
+                                      options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading)
+                                   attributes:attributesDictionary
+                                      context:nil];
+    
+    return frame.size;
+    
+}
 @end
