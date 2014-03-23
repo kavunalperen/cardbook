@@ -156,12 +156,31 @@ public class AlisVeris extends BaseFragment implements OnItemClickListener, Alis
         pageListener.onSwitchToNextFragment(AppConstants.ALIS_VERIS,detail, this);
     }
 
+    @Override
+    public void openShoppingDetail(String shoppingId) {
+
+       getDetail(shoppingId);
+
+    }
     private void getDetail(Shopping shopping){
 
         JSONObject param=new JSONObject();
         try{
-        param.putOpt("shoppingId",shopping.getId());
-        ConnectionManager.postData(getActivity(), this, AppConstants.SM_GET_SHOPPING_DETAIL_CONTENT,param);
+            param.putOpt("shoppingId",shopping.getId());
+            ConnectionManager.postData(getActivity(), this, AppConstants.SM_GET_SHOPPING_DETAIL_CONTENT,param);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    private void getDetail(String detailId){
+
+        JSONObject param=new JSONObject();
+        try{
+            param.putOpt("shoppingId",detailId);
+            ConnectionManager.postData(getActivity(), this, AppConstants.SM_GET_SHOPPING_DETAIL_CONTENT,param);
         }
         catch (Exception e){
             e.printStackTrace();

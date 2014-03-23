@@ -38,7 +38,11 @@ import com.abdullah.cardbook.activities.AppMainTabActivity;
 import com.abdullah.cardbook.activities.MainActivity;
 import com.abdullah.cardbook.adapters.NotificationListener;
 import com.abdullah.cardbook.common.AppConstants;
+import com.abdullah.cardbook.models.CBNotification;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -102,32 +106,45 @@ public class GcmIntentService extends IntentService implements NotificationListe
     	Bitmap icon2=BitmapFactory.decodeResource(this.getResources(), R.drawable.app_icon);
     	mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
+        JSONObject jNotification=null;
+        try {
+            jNotification=new JSONObject(extras.getString("message"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-        String campaingId=extras.getString("campaignId");
-
-        Intent intent=new Intent(this, AppMainTabActivity.class);
-        intent.putExtra("tab",1);
-        intent.putExtra("campaignId",campaingId);
-
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP| Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0,intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        if(jNotification!=null){
+            CBNotification notificaiton=new CBNotification(jNotification);
 
 
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(this)
-        .setSmallIcon(R.drawable.app_icon)
-        .setLargeIcon(icon2)
-        .setContentTitle("CardBook")
-        .setContentText(extras.getString("message"))
-        .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
-//        .setAutoCancel(true);
-//        .setFullScreenIntent(contentIntent, true);
-//        .setSound(RingtoneManager.getDefaultUri(Notification.DEFAULT_SOUND))
 
-        mBuilder.setContentIntent(contentIntent);
-        Notification ntf=mBuilder.build();
-        ntf.flags=Notification.FLAG_AUTO_CANCEL;
-        mNotificationManager.notify(NOTIFICATION_ID, ntf);
+
+
+            Intent intent=new Intent(this, AppMainTabActivity.class);
+
+            intent.putExtra(CBNotification.NOTIFICATION_TYPE,notificaiton.getNotificationType());
+            intent.putExtra(CBNotification.DETAIL_ID,notificaiton.getDetailId());
+
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP| Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            PendingIntent contentIntent = PendingIntent.getActivity(this, 0,intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+
+            NotificationCompat.Builder mBuilder =
+                    new NotificationCompat.Builder(this)
+            .setSmallIcon(R.drawable.app_icon)
+            .setLargeIcon(icon2)
+            .setContentTitle("CardBook")
+            .setContentText(extras.getString("message"))
+            .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+    //        .setAutoCancel(true);
+    //        .setFullScreenIntent(contentIntent, true);
+    //        .setSound(RingtoneManager.getDefaultUri(CBNotification.DEFAULT_SOUND))
+
+            mBuilder.setContentIntent(contentIntent);
+            Notification ntf=mBuilder.build();
+            ntf.flags=Notification.FLAG_AUTO_CANCEL;
+            mNotificationManager.notify(NOTIFICATION_ID, ntf);
+        }
     }
     
     public static Bitmap getBitmapFromAsset(Context context, String strName) {

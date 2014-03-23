@@ -389,10 +389,10 @@ public class KartDetail extends BaseFragment implements View.OnClickListener {
 
 
         if(wantNotification==true){
-            Log.i("Notification is true");
+            Log.i("CBNotification is true");
         }
         else
-            Log.i("Notification is false");
+            Log.i("CBNotification is false");
 
         JSONArray jsonArray=jsonObject.optJSONArray(Company.SHOPPING_PROMOTION_COUPON_LIST);
         Log.i("Coupon List: "+jsonArray.toString());

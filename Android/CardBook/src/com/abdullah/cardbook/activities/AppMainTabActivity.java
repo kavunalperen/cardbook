@@ -37,6 +37,7 @@ import com.abdullah.cardbook.common.*;
 import com.abdullah.cardbook.common.Log;
 import com.abdullah.cardbook.connectivity.ConnectionManager;
 import com.abdullah.cardbook.fragments.*;
+import com.abdullah.cardbook.models.CBNotification;
 import com.abdullah.cardbook.models.Company;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.android.gms.common.ConnectionResult;
@@ -151,17 +152,14 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
 
         Bundle bundle=getIntent().getExtras();
         int tabNumbar;
-        String campaignId;
+        String detailId;
         if(bundle!=null){
             tabNumbar=bundle.getInt("tab");
-            campaignId=bundle.getString("campaignId");
-            if(campaignId!=null)
-                openCampaignDetail(campaignId);
+            detailId=bundle.getString("detailId");
+            if(detailId!=null && detailId.equals(""))
+                openCampaignDetail(detailId);
             setCurrentTab(tabNumbar);
         }
-
-
-
         context = getApplicationContext();
 
         // Check device for Play Services APK. If check succeeds, proceed with GCM registration.
@@ -193,13 +191,22 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
 
         Bundle bundle=intent.getExtras();
         int tabNumbar;
-        String campaignId;
+        String detailId;
 
         if(bundle!=null){
-            tabNumbar=bundle.getInt("tab");
-            campaignId=bundle.getString("campaignId");
+            String ntfType=bundle.getString(CBNotification.NOTIFICATION_TYPE);
+            detailId=bundle.getString(CBNotification.DETAIL_ID);
+            if(ntfType.equals(CBNotification.NOTIFICATION_TYPE_CAMPAIGN)){
+                tabNumbar=1;
+                openCampaignDetail(detailId);
+            }
+            else{
+                tabNumbar=2;
+                openShoppingDetail(detailId);
+            }
 
-            openCampaignDetail(campaignId);
+
+
             setCurrentTab(tabNumbar);
         }
     }
@@ -505,6 +512,12 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
         kampanyaListener.openCampaignDetail(campaignId);
 
     }
+
+    public void openShoppingDetail(String detailId){
+        alisverisListener.openShoppingDetail(detailId);
+
+    }
+
     public void openShopping(Company company){
         alisverisListener.openShopping(company.getCompanyId());
     }

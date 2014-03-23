@@ -6,4 +6,5 @@ package com.abdullah.cardbook.adapters;
 public interface AlisverisListener {
 
     public void openShopping(int companyId);
+    public void openShoppingDetail(String shoppingId);
 }
