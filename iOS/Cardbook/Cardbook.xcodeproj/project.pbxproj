@@ -22,6 +22,10 @@
 		050B97D318DF49CD0075C907 /* mycards_detail_header@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 050B97C418DF49CD0075C907 /* mycards_detail_header@2x.png */; };
 		050B97D418DF49CD0075C907 /* notification_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 050B97C518DF49CD0075C907 /* notification_off@2x.png */; };
 		050B97D518DF49CD0075C907 /* notification_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 050B97C618DF49CD0075C907 /* notification_on@2x.png */; };
+		050B97DB18DF5F970075C907 /* CBInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 050B97DA18DF5F970075C907 /* CBInfoViewController.m */; };
+		050B97DE18DF5FA40075C907 /* CBShopsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 050B97DD18DF5FA40075C907 /* CBShopsViewController.m */; };
+		050B97E118DF5FAD0075C907 /* CBContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 050B97E018DF5FAD0075C907 /* CBContactViewController.m */; };
+		050B97E418DF61830075C907 /* CBCardInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 050B97E318DF61830075C907 /* CBCardInfo.m */; };
 		0531301B183362DB008F7C83 /* profile_barcode@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 05313017183362DB008F7C83 /* profile_barcode@2x.png */; };
 		0531301C183362DB008F7C83 /* profile_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 05313018183362DB008F7C83 /* profile_bg@2x.png */; };
 		0531301D183362DB008F7C83 /* profile_update_btn_highlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 05313019183362DB008F7C83 /* profile_update_btn_highlighted@2x.png */; };
@@ -175,6 +179,14 @@
 		050B97C418DF49CD0075C907 /* mycards_detail_header@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mycards_detail_header@2x.png"; sourceTree = "<group>"; };
 		050B97C518DF49CD0075C907 /* notification_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification_off@2x.png"; sourceTree = "<group>"; };
 		050B97C618DF49CD0075C907 /* notification_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification_on@2x.png"; sourceTree = "<group>"; };
+		050B97D918DF5F970075C907 /* CBInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBInfoViewController.h; sourceTree = "<group>"; };
+		050B97DA18DF5F970075C907 /* CBInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBInfoViewController.m; sourceTree = "<group>"; };
+		050B97DC18DF5FA40075C907 /* CBShopsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBShopsViewController.h; sourceTree = "<group>"; };
+		050B97DD18DF5FA40075C907 /* CBShopsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBShopsViewController.m; sourceTree = "<group>"; };
+		050B97DF18DF5FAD0075C907 /* CBContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBContactViewController.h; sourceTree = "<group>"; };
+		050B97E018DF5FAD0075C907 /* CBContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBContactViewController.m; sourceTree = "<group>"; };
+		050B97E218DF61830075C907 /* CBCardInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCardInfo.h; sourceTree = "<group>"; };
+		050B97E318DF61830075C907 /* CBCardInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCardInfo.m; sourceTree = "<group>"; };
 		05313017183362DB008F7C83 /* profile_barcode@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile_barcode@2x.png"; sourceTree = "<group>"; };
 		05313018183362DB008F7C83 /* profile_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile_bg@2x.png"; sourceTree = "<group>"; };
 		05313019183362DB008F7C83 /* profile_update_btn_highlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile_update_btn_highlighted@2x.png"; sourceTree = "<group>"; };
@@ -387,6 +399,80 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		050B97D618DF5F600075C907 /* Shopping */ = {
+			isa = PBXGroup;
+			children = (
+				059C94BD182EDC530010651B /* CBShoppingViewController.h */,
+				059C94BE182EDC530010651B /* CBShoppingViewController.m */,
+				05780B1B1832BA430018A1FA /* CBShoppingDetailViewController.h */,
+				05780B1C1832BA430018A1FA /* CBShoppingDetailViewController.m */,
+			);
+			name = Shopping;
+			sourceTree = "<group>";
+		};
+		050B97D718DF5F6C0075C907 /* Campaign */ = {
+			isa = PBXGroup;
+			children = (
+				059C94BA182EDC420010651B /* CBCampaignViewController.h */,
+				059C94BB182EDC420010651B /* CBCampaignViewController.m */,
+				05780AFF18329BF30018A1FA /* CBMyCampaignsDetailViewController.h */,
+				05780B0018329BF30018A1FA /* CBMyCampaignsDetailViewController.m */,
+			);
+			name = Campaign;
+			sourceTree = "<group>";
+		};
+		050B97D818DF5F730075C907 /* Card */ = {
+			isa = PBXGroup;
+			children = (
+				059C94B7182EDC350010651B /* CBMyCardsViewController.h */,
+				059C94B8182EDC350010651B /* CBMyCardsViewController.m */,
+				05A55E0B182EEE5100CE6D08 /* CBMyCardsDetailViewController.h */,
+				05A55E0C182EEE5100CE6D08 /* CBMyCardsDetailViewController.m */,
+				050B97D918DF5F970075C907 /* CBInfoViewController.h */,
+				050B97DA18DF5F970075C907 /* CBInfoViewController.m */,
+				050B97DC18DF5FA40075C907 /* CBShopsViewController.h */,
+				050B97DD18DF5FA40075C907 /* CBShopsViewController.m */,
+				050B97DF18DF5FAD0075C907 /* CBContactViewController.h */,
+				050B97E018DF5FAD0075C907 /* CBContactViewController.m */,
+			);
+			name = Card;
+			sourceTree = "<group>";
+		};
+		050B97E518DF618A0075C907 /* Card */ = {
+			isa = PBXGroup;
+			children = (
+				0531301F18336F44008F7C83 /* CBCard.h */,
+				0531302018336F44008F7C83 /* CBCard.m */,
+				0599DF1B18410E0A00957399 /* CBCardDetail.h */,
+				0599DF1C18410E0A00957399 /* CBCardDetail.m */,
+				050B97E218DF61830075C907 /* CBCardInfo.h */,
+				050B97E318DF61830075C907 /* CBCardInfo.m */,
+			);
+			name = Card;
+			sourceTree = "<group>";
+		};
+		050B97E618DF61920075C907 /* Campaign */ = {
+			isa = PBXGroup;
+			children = (
+				0599DF1E18411C3000957399 /* CBCampaign.h */,
+				0599DF1F18411C3000957399 /* CBCampaign.m */,
+				0599DF21184134FC00957399 /* CBCampaignDetail.h */,
+				0599DF22184134FC00957399 /* CBCampaignDetail.m */,
+			);
+			name = Campaign;
+			sourceTree = "<group>";
+		};
+		050B97E818DF619F0075C907 /* Shopping */ = {
+			isa = PBXGroup;
+			children = (
+				05F2CB2F184BC12000F8DB8B /* CBShopping.h */,
+				05F2CB30184BC12000F8DB8B /* CBShopping.m */,
+				05F2CB32184BCBC900F8DB8B /* CBShoppingDetail.h */,
+				05F2CB33184BCBC900F8DB8B /* CBShoppingDetail.m */,
+			);
+			name = Shopping;
+			sourceTree = "<group>";
+		};
 		05313016183362DB008F7C83 /* profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -524,20 +610,11 @@
 				059C947F182E403D0010651B /* County.m */,
 				059C9483182E83F60010651B /* CBTextField.h */,
 				059C9484182E83F60010651B /* CBTextField.m */,
-				0531301F18336F44008F7C83 /* CBCard.h */,
-				0531302018336F44008F7C83 /* CBCard.m */,
+				050B97E518DF618A0075C907 /* Card */,
 				05C0B185183BF37B000D491C /* CBUser.h */,
 				05C0B186183BF37B000D491C /* CBUser.m */,
-				0599DF1B18410E0A00957399 /* CBCardDetail.h */,
-				0599DF1C18410E0A00957399 /* CBCardDetail.m */,
-				0599DF1E18411C3000957399 /* CBCampaign.h */,
-				0599DF1F18411C3000957399 /* CBCampaign.m */,
-				0599DF21184134FC00957399 /* CBCampaignDetail.h */,
-				0599DF22184134FC00957399 /* CBCampaignDetail.m */,
-				05F2CB2F184BC12000F8DB8B /* CBShopping.h */,
-				05F2CB30184BC12000F8DB8B /* CBShopping.m */,
-				05F2CB32184BCBC900F8DB8B /* CBShoppingDetail.h */,
-				05F2CB33184BCBC900F8DB8B /* CBShoppingDetail.m */,
+				050B97E618DF61920075C907 /* Campaign */,
+				050B97E818DF619F0075C907 /* Shopping */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -769,18 +846,9 @@
 				059C94A1182ECF600010651B /* CBNavigationController.m */,
 				059C94A3182ED2330010651B /* CBDummyViewController.h */,
 				059C94A4182ED2330010651B /* CBDummyViewController.m */,
-				059C94B7182EDC350010651B /* CBMyCardsViewController.h */,
-				059C94B8182EDC350010651B /* CBMyCardsViewController.m */,
-				05A55E0B182EEE5100CE6D08 /* CBMyCardsDetailViewController.h */,
-				05A55E0C182EEE5100CE6D08 /* CBMyCardsDetailViewController.m */,
-				059C94BA182EDC420010651B /* CBCampaignViewController.h */,
-				059C94BB182EDC420010651B /* CBCampaignViewController.m */,
-				05780AFF18329BF30018A1FA /* CBMyCampaignsDetailViewController.h */,
-				05780B0018329BF30018A1FA /* CBMyCampaignsDetailViewController.m */,
-				059C94BD182EDC530010651B /* CBShoppingViewController.h */,
-				059C94BE182EDC530010651B /* CBShoppingViewController.m */,
-				05780B1B1832BA430018A1FA /* CBShoppingDetailViewController.h */,
-				05780B1C1832BA430018A1FA /* CBShoppingDetailViewController.m */,
+				050B97D818DF5F730075C907 /* Card */,
+				050B97D718DF5F6C0075C907 /* Campaign */,
+				050B97D618DF5F600075C907 /* Shopping */,
 				059C94C0182EDC5E0010651B /* CBProfileViewController.h */,
 				059C94C1182EDC5E0010651B /* CBProfileViewController.m */,
 				059C94C7182EE53B0010651B /* CBBaseViewController.h */,
@@ -975,6 +1043,7 @@
 				059C94A2182ECF600010651B /* CBNavigationController.m in Sources */,
 				05D81F70181FD46800F3A7AD /* CBLoginViewController.m in Sources */,
 				056D0B7D183161A900A398B6 /* CBShoppingsCell.m in Sources */,
+				050B97DE18DF5FA40075C907 /* CBShopsViewController.m in Sources */,
 				05F2CB31184BC12000F8DB8B /* CBShopping.m in Sources */,
 				0599DF2018411C3000957399 /* CBCampaign.m in Sources */,
 				059C9471182E3B920010651B /* NSDictionary+RequestEncoding.m in Sources */,
@@ -988,6 +1057,7 @@
 				056B53E5183F6C5C00A35451 /* SBJsonStreamParserAccumulator.m in Sources */,
 				056B53E2183F6C5C00A35451 /* NSObject+SBJson.m in Sources */,
 				059C94A5182ED2330010651B /* CBDummyViewController.m in Sources */,
+				050B97E418DF61830075C907 /* CBCardInfo.m in Sources */,
 				0599DF23184134FC00957399 /* CBCampaignDetail.m in Sources */,
 				05A55E15182EF73000CE6D08 /* CBMyCardsCell.m in Sources */,
 				05A55E0D182EEE5100CE6D08 /* CBMyCardsDetailViewController.m in Sources */,
@@ -1002,9 +1072,11 @@
 				059172341820266800BEE519 /* APIManager.m in Sources */,
 				056B53E6183F6C5C00A35451 /* SBJsonStreamParserAdapter.m in Sources */,
 				05780B1D1832BA430018A1FA /* CBShoppingDetailViewController.m in Sources */,
+				050B97DB18DF5F970075C907 /* CBInfoViewController.m in Sources */,
 				059C947D182E402F0010651B /* Country.m in Sources */,
 				059C94BC182EDC420010651B /* CBCampaignViewController.m in Sources */,
 				054342591830255F00CC1FE3 /* CBCardDetailsCouponCell.m in Sources */,
+				050B97E118DF5FAD0075C907 /* CBContactViewController.m in Sources */,
 				059C949F182ECB3F0010651B /* CBTabBarController.m in Sources */,
 				059C946F182E3B920010651B /* NSData+Base64.m in Sources */,
 				056B53EB183F6C5C00A35451 /* SBJsonTokeniser.m in Sources */,

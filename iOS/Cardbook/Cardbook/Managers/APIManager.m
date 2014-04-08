@@ -329,9 +329,41 @@ static APIManager *sharedInstance = nil;
                  }
              }
                   andErrorBlock:^(NSError *error) {
-                      errorBlock(error);
+                      if (errorBlock != nil) {
+                          errorBlock(error);
+                      }
                   }];
 }
+
+- (void) getCompanyInfoWithCompanyId:(NSInteger)companyId
+                        onCompletion:(CardInfoBlock)completionBlock
+                             onError:(ErrorBlock)errorBlock
+{
+    NSMutableDictionary* paramsDictionary = @{@"companyId":[NSNumber numberWithInteger:11]}.mutableCopy;
+//    NSMutableDictionary* paramsDictionary = @{@"companyId":[NSNumber numberWithInteger:companyId]}.mutableCopy;
+    
+    [self addUserIdToDictionary:paramsDictionary];
+    [self addAuthorizationTokenAndTimeToDictionary:paramsDictionary];
+    
+    [self postRequestWithParams:paramsDictionary
+                   andOperation:@"GetCompanyInfo"
+             andCompletionBlock:^(NSDictionary *responseDictionary) {
+                 if ([[responseDictionary objectForKey:@"ResultCode"] isEqualToString:@"00"]) {
+                     
+                     if (completionBlock != nil) {
+                         completionBlock([CBCardInfo CBCardInfoWithDictionary:[responseDictionary objectForKey:@"Data"]]);
+                     }
+                 } else {
+                     NSLog(@"error!!");
+                 }
+             }
+                  andErrorBlock:^(NSError *error) {
+                      if (errorBlock != nil) {
+                          errorBlock(error);
+                      }
+                  }];
+}
+
 - (void) getCampaignDetailContentWithCampaignId:(NSInteger)campaignId
                                    onCompletion:(CampaignDetailBlock)completionBlock
                                         onError:(ErrorBlock)errorBlock

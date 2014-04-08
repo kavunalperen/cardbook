@@ -12,6 +12,7 @@
 #import "CBCardDetailsCouponCell.h"
 #import "APIManager.h"
 #import "CBCampaignViewController.h"
+#import "CBInfoViewController.h"
 
 @interface CBMyCardsDetailViewController ()
 
@@ -28,6 +29,7 @@
     UIButton* saveCardNumberButton;
     UIButton* campaignsButton;
     UIButton* shoppingsButton;
+    BOOL isLoaded;
 }
 - (CGRect) headerImageViewFrame
 {
@@ -178,29 +180,27 @@
 }
 - (void) configureViews
 {
-    
-    [self initCommonViews];
-    [self initHeaderComponents];
-    [self initFooterComponents];
-    [self initContentComponents];
+    isLoaded = YES;
     [self fillViewsWithCompanyInfos];
 }
 - (void) viewWillAppear:(BOOL)animated
 {
-    CBCardDetail* detail = [CBCardDetail GetCardDetailWithCompanyId:self.currentCompanyId];
-    if (detail) {
-        self.currentCardDetail = detail;
-        [self configureViews];
-    } else {
-    
-        [[APIManager sharedInstance] getCompanyDetailContentWithCompanyId:self.currentCompanyId
-                                                             onCompletion:^(CBCardDetail* cardDetail) {
-                                                                 self.currentCardDetail = cardDetail;
-                                                                 [self configureViews];
-                                                                 NSLog(@"response here");
-                                                             } onError:^(NSError *error) {
-                                                                 NSLog(@"an error occured");
-                                                             }];
+    if (self.currentCardDetail == nil) {
+        CBCardDetail* detail = [CBCardDetail GetCardDetailWithCompanyId:self.currentCompanyId];
+        if (detail) {
+            self.currentCardDetail = detail;
+            [self configureViews];
+        } else {
+        
+            [[APIManager sharedInstance] getCompanyDetailContentWithCompanyId:self.currentCompanyId
+                                                                 onCompletion:^(CBCardDetail* cardDetail) {
+                                                                     self.currentCardDetail = cardDetail;
+                                                                     [self configureViews];
+                                                                     NSLog(@"response here");
+                                                                 } onError:^(NSError *error) {
+                                                                     NSLog(@"an error occured");
+                                                                 }];
+        }
     }
 }
 - (void)viewDidLoad
@@ -212,6 +212,13 @@
     [self stylizeForDetailView];
     [self setTitleButtonText:@"Kartlarım"];
     [self.titleButton addTarget:self action:@selector(goBackToCards) forControlEvents:UIControlEventTouchUpInside];
+    
+    isLoaded = NO;
+    
+    [self initCommonViews];
+    [self initHeaderComponents];
+    [self initFooterComponents];
+    [self initContentComponents];
     
 }
 - (void) initCommonViews
@@ -380,16 +387,35 @@
     [headerHolder addSubview:saveCardNumberButton];
     
 }
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"InfoScreenSegue"]) {
+        CBInfoViewController* dest = (CBInfoViewController*)[segue destinationViewController];
+        dest.currentCardDetail = self.currentCardDetail;
+    }
+}
 - (void) openInfoScreen
 {
+    if (!isLoaded) {
+        return;
+    }
+    
+    [self performSegueWithIdentifier:@"InfoScreenSegue" sender:self];
+    
     NSLog(@"open info screen");
 }
 - (void) openShopsScreen
 {
+    if (!isLoaded) {
+        return;
+    }
     NSLog(@"open shops screen");
 }
 - (void) openContactScreen
 {
+    if (!isLoaded) {
+        return;
+    }
     NSLog(@"open contact screen");
 }
 - (void) initFooterComponents
@@ -472,6 +498,9 @@
 }
 - (void) openCampaigns
 {
+    if (!isLoaded) {
+        return;
+    }
     CBUtil* util = [CBUtil sharedInstance];
     util.shouldShowForACompany = YES;
     util.companyId = _currentCompanyId;
@@ -479,6 +508,9 @@
 }
 - (void) openShoppings
 {
+    if (!isLoaded) {
+        return;
+    }
     CBUtil* util = [CBUtil sharedInstance];
     util.shouldShowForACompany = YES;
     util.companyId = _currentCompanyId;
@@ -486,6 +518,9 @@
 }
 - (void) saveCardNumber
 {
+    if (!isLoaded) {
+        return;
+    }
     [self.view endEditing:YES];
     NSString* cardNumber = [self.cardNumberField text];
     if (cardNumber != nil && ![cardNumber isEqualToString:@""]) {
@@ -500,6 +535,10 @@
                                                             NSLog(@"an error occured");
                                                         }];
     }
+}
+- (BOOL) textFieldShouldBeginEditing:(UITextField *)textField
+{
+    return isLoaded;
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {

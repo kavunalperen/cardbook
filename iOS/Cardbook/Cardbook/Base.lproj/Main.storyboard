@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
         <!--Login View Controller-->
@@ -237,6 +237,25 @@
             </objects>
             <point key="canvasLocation" x="1993" y="63"/>
         </scene>
+        <!--Info View Controller-->
+        <scene sceneID="EaK-VF-gLN">
+            <objects>
+                <viewController id="5pm-aF-nZd" customClass="CBInfoViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xfx-P2-brO"/>
+                        <viewControllerLayoutGuide type="bottom" id="oFm-Lc-MtS"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="514-tt-m3d">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Yvf-f2-QdY"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fmw-VA-9pz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2917" y="-720"/>
+        </scene>
         <!--My Cards Detail View Controller-->
         <scene sceneID="Ial-gH-qyh">
             <objects>
@@ -251,6 +270,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="zdG-OH-ElY"/>
+                    <connections>
+                        <segue destination="5pm-aF-nZd" kind="push" identifier="InfoScreenSegue" id="ZTO-Mh-jIH"/>
+                        <segue destination="SiE-xY-nyB" kind="push" identifier="ShopsScreenSegue" id="wBe-q5-3tZ"/>
+                        <segue destination="E4Z-j4-NNQ" kind="push" identifier="ContactScreenSegue" id="U48-CP-GUu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VZg-uf-PJK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -296,6 +320,44 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hkv-y7-B9u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2423" y="792"/>
+        </scene>
+        <!--Contact View Controller-->
+        <scene sceneID="hMW-5B-Eie">
+            <objects>
+                <viewController id="E4Z-j4-NNQ" customClass="CBContactViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Mzj-x8-U2n"/>
+                        <viewControllerLayoutGuide type="bottom" id="Aid-5H-aIg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="pBE-u0-MFm">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="0wb-C1-QnX"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ssf-r8-P87" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2917" y="792"/>
+        </scene>
+        <!--Shops View Controller-->
+        <scene sceneID="CPR-XD-HPO">
+            <objects>
+                <viewController id="SiE-xY-nyB" customClass="CBShopsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3c9-Ui-m1G"/>
+                        <viewControllerLayoutGuide type="bottom" id="g8C-g7-er6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="BQO-68-qPz">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="g6F-pE-piK"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Nd-c6-kTt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2917" y="63"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

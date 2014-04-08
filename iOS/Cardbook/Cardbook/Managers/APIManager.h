@@ -12,6 +12,7 @@
 #import "CBCardDetail.h"
 #import "CBCampaignDetail.h"
 #import "CBShoppingDetail.h"
+#import "CBCardInfo.h"
 
 typedef void (^CompletionBlock) (NSDictionary *responseDictionary);
 typedef void (^ErrorBlock) (NSError *error);
@@ -23,6 +24,7 @@ typedef void (^CampaignsBlock) (NSMutableArray* allCampaigns);
 typedef void (^CampaignDetailBlock) (CBCampaignDetail* campaignDetail);
 typedef void (^ShoppingsBlock) (NSMutableArray* allShoppings);
 typedef void (^ShoppingDetailBlock) (CBShoppingDetail* campaignDetail);
+typedef void (^CardInfoBlock) (CBCardInfo* cardInfo);
 
 @interface APIManager : MKNetworkEngine
 
@@ -75,6 +77,10 @@ typedef void (^ShoppingDetailBlock) (CBShoppingDetail* campaignDetail);
 - (void) getCompanyDetailContentWithCompanyId:(NSInteger)companyId
                                  onCompletion:(CardDetailBlock)completionBlock
                                       onError:(ErrorBlock)errorBlock;
+
+- (void) getCompanyInfoWithCompanyId:(NSInteger)companyId
+                        onCompletion:(CardInfoBlock)completionBlock
+                             onError:(ErrorBlock)errorBlock;
 
 - (void) setUserNotificationStatusWithCompanyId:(NSInteger)companyId
                           andNotificationStatus:(BOOL)notificationStatus
