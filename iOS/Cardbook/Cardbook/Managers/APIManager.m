@@ -183,10 +183,16 @@ static APIManager *sharedInstance = nil;
                                               @"Phone1":phone1,
                                               @"Phone2":phone2,
                                               @"Gender":gender,
-                                              @"CountryId":[NSNumber numberWithInt:countryId],
-                                              @"CityId":[NSNumber numberWithInt:cityId],
-                                              @"CountyId":[NSNumber numberWithInt:countyId],
+                                              @"CountryId":[NSNumber numberWithInteger:countryId],
+                                              @"CityId":[NSNumber numberWithInteger:cityId],
+                                              @"CountyId":[NSNumber numberWithInteger:countyId],
                                               @"AddressLine":addressLine}.mutableCopy;
+    
+    CGSize screenSize = [UIScreen mainScreen].bounds.size;
+    CGFloat scale = [UIScreen mainScreen].scale;
+    
+    [paramsDictionary setObject:[NSNumber numberWithDouble:screenSize.width*scale] forKey:@"BarcodeWidth"];
+    [paramsDictionary setObject:[NSNumber numberWithDouble:screenSize.height*scale] forKey:@"BarcodeHeight"];
     
     [self addAuthorizationTokenAndTimeToDictionary:paramsDictionary];
     
