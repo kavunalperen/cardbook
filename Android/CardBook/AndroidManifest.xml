@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.abdullah.cardbook"
+    package="com.cardbook.android"
     android:versionCode="1"
     android:versionName="0.0.1" >
 
@@ -13,9 +13,9 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
 
-    <permission android:name="com.abdullah.cardbook.permission.C2D_MESSAGE"
+    <permission android:name="com.cardbook.android.permission.C2D_MESSAGE"
                 android:protectionLevel="signature" />
-    <uses-permission android:name="com.abdullah.cardbook.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.cardbook.android.permission.C2D_MESSAGE" />
 
     <!-- This app has permission to register and receive data message. -->
     <uses-permission
@@ -28,10 +28,10 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <permission
-        android:name="com.abdullah.cardbook.permission.MAPS_RECEIVE"
+        android:name="com.cardbook.android.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.abdullah.cardbook.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="com.cardbook.android.permission.MAPS_RECEIVE" />
 
 
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
@@ -105,7 +105,7 @@
         <activity
                 android:name=".activities.Barcode"
                 android:label="@string/app_name"
-                android:screenOrientation="landscape"  >
+                android:screenOrientation="portrait"  >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -139,7 +139,7 @@
             <intent-filter>
                 <!-- Receives the actual messages. -->
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <category android:name="com.abdullah.cardbook" />
+                <category android:name="com.cardbook.android" />
             </intent-filter>
         </receiver>
         <service android:name=".services.GcmIntentService" />
