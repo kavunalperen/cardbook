@@ -100,7 +100,7 @@ public class GcmIntentService extends IntentService implements NotificationListe
     private void sendNotification() {
        AppConstants.notificationListener=null;
     	Resources res = getResources();
-    	BitmapDrawable icon = new BitmapDrawable(res,"ic_launcher.png");
+//    	BitmapDrawable icon = new BitmapDrawable(res,"ic_launcher.png");
     	Bitmap icon2=BitmapFactory.decodeResource(this.getResources(), R.drawable.app_icon);
     	mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);

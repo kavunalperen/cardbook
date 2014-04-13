@@ -1,10 +1,12 @@
 package com.cardbook.android.activities;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -36,6 +38,16 @@ public class Barcode extends Activity implements View.OnClickListener{
     BitmapLruCache cache;
 
     ImageView imgView;
+
+
+    //Variable to store brightness value
+    private int brightness;
+    //Content resolver used as a handle to the system's settings
+    private ContentResolver cResolver;
+    //Window object, that will store a reference to the current window
+    private Window window;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +58,37 @@ public class Barcode extends Activity implements View.OnClickListener{
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.barcode);
+
+
+        //Get the content resolver
+        cResolver = getContentResolver();
+
+//Get the current window
+        window = getWindow();
+
+        try
+        {
+
+            //Get the current system brightness
+            brightness = Settings.System.getInt(cResolver, Settings.System.SCREEN_BRIGHTNESS);
+
+            //Set the system brightness using the brightness variable value
+            Settings.System.putInt(cResolver, Settings.System.SCREEN_BRIGHTNESS, brightness);
+            //Get the current window attributes
+            WindowManager.LayoutParams layoutpars = window.getAttributes();
+            //Set the brightness of this window
+            layoutpars.screenBrightness = 1;
+            //Apply attribute changes to this window
+            window.setAttributes(layoutpars);
+        }
+        catch (Settings.SettingNotFoundException e)
+        {
+            //Throw an error case it couldn't be retrieved
+            e.printStackTrace();
+        }
+
+
+
 
         progressBarBarcode=(ProgressBar)findViewById(R.id.progressBarcode);
 

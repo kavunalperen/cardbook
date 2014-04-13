@@ -86,10 +86,10 @@ public class AppConstants {
     public static final int[] ACTIVE_BUTTONS={R.drawable.tabicon_mycards_active,R.drawable.tabicon_campaign_active,
             R.drawable.tabicon_shopping_active, R.drawable.tabicon_profile_active};
 
-    public static final String CARDBOOK_SHARED_PREFERENCES ="com.android.android";
-    public static final String USER_INFORMATION ="com.android.android.authenticationToken";
-    public static final String TUTORIAL_INFORMATION ="com.android.android.tutorialInfo";
-    public static final String ADDRESS_LIST ="com.android.android.addressList";
+    public static final String CARDBOOK_SHARED_PREFERENCES ="com.cardbook.android";
+    public static final String USER_INFORMATION ="com.cardbook.android.authenticationToken";
+    public static final String TUTORIAL_INFORMATION ="com.cardbook.android.tutorialInfo";
+    public static final String ADDRESS_LIST ="com.cardbook.android.addressList";
 
     public static Bitmap addMask(Context context, int image, int usedMask){
         Bitmap mask = BitmapFactory.decodeResource(context.getResources(), usedMask);
