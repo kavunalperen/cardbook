@@ -84,6 +84,9 @@
 #define CARD_DETAIL_COUPON_CELL_SUBTITLE_LABEL_TEXT_COLOR [UIColor colorWithRed:142.0/255.0 green:142.0/255.0 blue:147.0/255.0 alpha:1.0]
 #define CARD_DETAIL_COUPON_CELL_SEPERATOR_COLOR [UIColor colorWithRed:229.0/255.0 green:229.0/255.0 blue:229.0/255.0 alpha:1.0]
 
+#define CARD_INFO_ABOUT_TEXT_FONT [UIFont fontWithName:@"Roboto-Regular" size:12.0]
+#define CARD_INFO_ABOUT_TEXT_COLOR [UIColor colorWithRed:104.0/255.0 green:104.0/255.0 blue:104.0/255.0 alpha:1.0]
+
 // campaigns related macros
 #define MY_CAMPAIGNS_CELL_NAME_FONT [UIFont fontWithName:@"Roboto-Medium" size:16.0]
 #define MY_CAMPAIGNS_CELL_NAME_TEXT_COLOR [UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:1.0]
@@ -183,5 +186,6 @@
 
 - (UIImage*)UIImageWithUIColor:(UIColor*)color;
 - (UIImage*) maskImage:(UIImage *)image withMask:(UIImage *)maskImage;
+- (CGSize)text:(NSString*)text sizeWithFont:(UIFont*)font constrainedToSize:(CGSize)size;
 
 @end

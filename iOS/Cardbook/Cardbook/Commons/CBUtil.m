@@ -84,5 +84,19 @@ static CBUtil* sharedInstance = nil;
     return [UIImage imageWithCGImage:masked];
     
 }
-
+-(CGSize)text:(NSString*)text sizeWithFont:(UIFont*)font constrainedToSize:(CGSize)size
+{
+    
+    NSDictionary *attributesDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                                          font, NSFontAttributeName,
+                                          nil];
+    
+    CGRect frame = [text boundingRectWithSize:size
+                                      options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading)
+                                   attributes:attributesDictionary
+                                      context:nil];
+    
+    return frame.size;
+    
+}
 @end
