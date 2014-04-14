@@ -71,6 +71,10 @@ typedef void (^CardInfoBlock) (CBCardInfo* cardInfo);
 - (void) getUserDetailWithCompletion:(CompletionBlock)completionBlock
                              onError:(ErrorBlock)errorBlock;
 
+- (void) updateMobileDeviceId:(NSString*)mobileDeviceId
+                 onCompletion:(CompletionBlock)completionBlock
+                      onError:(ErrorBlock)errorBlock;
+
 - (void) getCompanyListWithCompletionBlock:(CardsBlock)completionBlock
                                    onError:(ErrorBlock)errorBlock;
 

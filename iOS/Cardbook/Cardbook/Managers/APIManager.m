@@ -209,6 +209,30 @@ static APIManager *sharedInstance = nil;
                       errorBlock(error);
                   }];
 }
+
+- (void) updateMobileDeviceId:(NSString*)mobileDeviceId
+                 onCompletion:(CompletionBlock)completionBlock
+                      onError:(ErrorBlock)errorBlock
+{
+    NSMutableDictionary* paramsDictionary = @{@"mobileDeviceId":mobileDeviceId}.mutableCopy;
+    
+    [self addUserIdToDictionary:paramsDictionary];
+    [self addAuthorizationTokenAndTimeToDictionary:paramsDictionary];
+    
+    [self postRequestWithParams:paramsDictionary
+                   andOperation:@"UpdateMobileDeviceId"
+             andCompletionBlock:^(NSDictionary *responseDictionary) {
+                 if (completionBlock != nil) {
+                     completionBlock(responseDictionary);
+                 }
+             }
+                  andErrorBlock:^(NSError *error) {
+                      if (errorBlock != nil) {
+                          errorBlock(error);
+                      }
+                  }];
+}
+
 - (void) getAllActiveCampaignListWithCompletionBlock:(CampaignsBlock)completionBlock
                                              onError:(ErrorBlock)errorBlock
 {
