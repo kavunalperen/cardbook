@@ -504,6 +504,8 @@
     CBUtil* util = [CBUtil sharedInstance];
     util.shouldShowForACompany = YES;
     util.companyId = _currentCompanyId;
+    UINavigationController* navController = (UINavigationController*)[self.tabBarController.viewControllers objectAtIndex:1];
+    [navController popToRootViewControllerAnimated:NO];
     [self.tabBarController setSelectedIndex:1];
 }
 - (void) openShoppings
@@ -514,6 +516,8 @@
     CBUtil* util = [CBUtil sharedInstance];
     util.shouldShowForACompany = YES;
     util.companyId = _currentCompanyId;
+    UINavigationController* navController = (UINavigationController*)[self.tabBarController.viewControllers objectAtIndex:2];
+    [navController popToRootViewControllerAnimated:NO];
     [self.tabBarController setSelectedIndex:2];
 }
 - (void) saveCardNumber
