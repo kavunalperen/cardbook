@@ -33,7 +33,6 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     [self initializeComponents];
-//    [self stylizeForMainView];
 }
 - (void)initializeComponents
 {
@@ -53,12 +52,6 @@
     
     backImageView = [[UIImageView alloc] initWithImage:backImage];
     [self.view insertSubview:backImageView belowSubview:self.myNavigationBar];
-    
-//    UIImage* topMask = [UIImage imageNamed:@"top_maske.png"];
-//    
-//    UIImageView* topMaskView = [[UIImageView alloc] initWithImage:topMask];
-//    [topMaskView setFrame:CGRectMake(-15.0, 38.0, 320.0, 12.0)];
-//    [self.myNavigationBar addSubview:topMaskView];
 }
 - (void)stylizeForMainView
 {
