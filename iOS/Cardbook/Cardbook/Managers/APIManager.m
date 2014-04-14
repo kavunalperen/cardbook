@@ -369,6 +369,7 @@ static APIManager *sharedInstance = nil;
                         onCompletion:(CardInfoBlock)completionBlock
                              onError:(ErrorBlock)errorBlock
 {
+#warning DO NOT FORGET!!!!
     NSMutableDictionary* paramsDictionary = @{@"companyId":[NSNumber numberWithInteger:11]}.mutableCopy;
 //    NSMutableDictionary* paramsDictionary = @{@"companyId":[NSNumber numberWithInteger:companyId]}.mutableCopy;
     
