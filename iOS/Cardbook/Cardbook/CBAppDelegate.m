@@ -43,13 +43,6 @@
     }
     [self.window makeKeyAndVisible];
     
-    
-//    [[APIManager sharedInstance] getUserDetailWithCompletion:^(NSDictionary *responseDictionary) {
-//        NSLog(@"response here");
-//    } onError:^(NSError *error) {
-//        NSLog(@"an error occured");
-//    }];
-    
     return YES;
 }
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
@@ -59,7 +52,16 @@
     deviceTokenStr = [deviceTokenStr stringByReplacingOccurrencesOfString:@" " withString:@""];
     deviceTokenStr = [deviceTokenStr stringByReplacingOccurrencesOfString:@"<" withString:@""];
     deviceTokenStr = [deviceTokenStr stringByReplacingOccurrencesOfString:@">" withString:@""];
-    NSLog(@"here");
+    
+    if (deviceTokenStr != nil) {
+        [[APIManager sharedInstance] updateMobileDeviceId:deviceTokenStr
+                                             onCompletion:^(NSDictionary *responseDictionary) {
+                                                 NSLog(@"response here");
+                                             }
+                                                  onError:^(NSError *error) {
+                                                      NSLog(@"an error occured");
+                                                  }];
+    }
 }
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
