@@ -87,6 +87,13 @@
 #define CARD_INFO_ABOUT_TEXT_FONT [UIFont fontWithName:@"Roboto-Regular" size:12.0]
 #define CARD_INFO_ABOUT_TEXT_COLOR [UIColor colorWithRed:104.0/255.0 green:104.0/255.0 blue:104.0/255.0 alpha:1.0]
 
+#define CARD_INFO_COMPANY_CONTACT_TITLE_FONT [UIFont fontWithName:@"Roboto-Bold" size:12.0]
+#define CARD_INFO_COMPANY_CONTACT_TITLE_TEXT_COLOR [UIColor colorWithRed:255.0/255.0 green:59.0/255.0 blue:48.0/255.0 alpha:1.0]
+
+#define CARD_INFO_COMPANY_ADDRESS_FONT [UIFont fontWithName:@"Roboto-Regular" size:12.0]
+#define CARD_INFO_COMPANY_ADDRESS_TEXT_COLOR [UIColor colorWithRed:104.0/255.0 green:104.0/255.0 blue:104.0/255.0 alpha:1.0]
+
+
 // campaigns related macros
 #define MY_CAMPAIGNS_CELL_NAME_FONT [UIFont fontWithName:@"Roboto-Medium" size:16.0]
 #define MY_CAMPAIGNS_CELL_NAME_TEXT_COLOR [UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:1.0]

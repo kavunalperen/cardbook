@@ -416,6 +416,8 @@
     if (!isLoaded) {
         return;
     }
+    
+    [self performSegueWithIdentifier:@"CompanyContactScreenSegue" sender:self];
     NSLog(@"open contact screen");
 }
 - (void) initFooterComponents

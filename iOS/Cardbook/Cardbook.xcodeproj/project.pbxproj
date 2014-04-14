@@ -70,6 +70,7 @@
 		057A632518FC4E2E000790F1 /* mycards_detail_header@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 057A631418FC4E2E000790F1 /* mycards_detail_header@2x.png */; };
 		057A632618FC4E2E000790F1 /* notification_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 057A631518FC4E2E000790F1 /* notification_off@2x.png */; };
 		057A632718FC4E2E000790F1 /* notification_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 057A631618FC4E2E000790F1 /* notification_on@2x.png */; };
+		057A632A18FC575C000790F1 /* CBCompanyContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 057A632918FC575C000790F1 /* CBCompanyContactViewController.m */; };
 		0591722B181FDB0600BEE519 /* splash_face_btn_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0591722A181FDB0600BEE519 /* splash_face_btn_normal@2x.png */; };
 		0591722D181FE45900BEE519 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0591722C181FE45900BEE519 /* FacebookSDK.framework */; };
 		0591723018201C0F00BEE519 /* CBRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0591722F18201C0F00BEE519 /* CBRegisterViewController.m */; };
@@ -253,6 +254,8 @@
 		057A631418FC4E2E000790F1 /* mycards_detail_header@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mycards_detail_header@2x.png"; sourceTree = "<group>"; };
 		057A631518FC4E2E000790F1 /* notification_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification_off@2x.png"; sourceTree = "<group>"; };
 		057A631618FC4E2E000790F1 /* notification_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification_on@2x.png"; sourceTree = "<group>"; };
+		057A632818FC575C000790F1 /* CBCompanyContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCompanyContactViewController.h; sourceTree = "<group>"; };
+		057A632918FC575C000790F1 /* CBCompanyContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCompanyContactViewController.m; sourceTree = "<group>"; };
 		0591722A181FDB0600BEE519 /* splash_face_btn_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash_face_btn_normal@2x.png"; sourceTree = "<group>"; };
 		0591722C181FE45900BEE519 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		0591722E18201C0F00BEE519 /* CBRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBRegisterViewController.h; sourceTree = "<group>"; };
@@ -434,6 +437,8 @@
 				05A55E0C182EEE5100CE6D08 /* CBMyCardsDetailViewController.m */,
 				050B97D918DF5F970075C907 /* CBInfoViewController.h */,
 				050B97DA18DF5F970075C907 /* CBInfoViewController.m */,
+				057A632818FC575C000790F1 /* CBCompanyContactViewController.h */,
+				057A632918FC575C000790F1 /* CBCompanyContactViewController.m */,
 				050B97DC18DF5FA40075C907 /* CBShopsViewController.h */,
 				050B97DD18DF5FA40075C907 /* CBShopsViewController.m */,
 				050B97DF18DF5FAD0075C907 /* CBContactViewController.h */,
@@ -1063,6 +1068,7 @@
 				056B53E7183F6C5C00A35451 /* SBJsonStreamParserState.m in Sources */,
 				05C0B187183BF37B000D491C /* CBUser.m in Sources */,
 				056B53E5183F6C5C00A35451 /* SBJsonStreamParserAccumulator.m in Sources */,
+				057A632A18FC575C000790F1 /* CBCompanyContactViewController.m in Sources */,
 				056B53E2183F6C5C00A35451 /* NSObject+SBJson.m in Sources */,
 				059C94A5182ED2330010651B /* CBDummyViewController.m in Sources */,
 				050B97E418DF61830075C907 /* CBCardInfo.m in Sources */,

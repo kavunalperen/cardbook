@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -237,6 +237,25 @@
             </objects>
             <point key="canvasLocation" x="1993" y="63"/>
         </scene>
+        <!--Company Contact View Controller-->
+        <scene sceneID="Rb4-k0-fca">
+            <objects>
+                <viewController id="Hkk-t5-cTo" customClass="CBCompanyContactViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ss6-6d-HGT"/>
+                        <viewControllerLayoutGuide type="bottom" id="wEy-i6-QeY"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bHz-a5-sJg">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="xGN-IZ-Lqn"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7ev-sp-vUD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2423" y="-720"/>
+        </scene>
         <!--Info View Controller-->
         <scene sceneID="EaK-VF-gLN">
             <objects>
@@ -274,6 +293,7 @@
                         <segue destination="5pm-aF-nZd" kind="push" identifier="InfoScreenSegue" id="ZTO-Mh-jIH"/>
                         <segue destination="SiE-xY-nyB" kind="push" identifier="ShopsScreenSegue" id="wBe-q5-3tZ"/>
                         <segue destination="E4Z-j4-NNQ" kind="push" identifier="ContactScreenSegue" id="U48-CP-GUu"/>
+                        <segue destination="Hkk-t5-cTo" kind="push" identifier="CompanyContactScreenSegue" id="qJ3-cU-LB6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VZg-uf-PJK" userLabel="First Responder" sceneMemberID="firstResponder"/>
