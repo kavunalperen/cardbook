@@ -13,6 +13,7 @@
 #import "APIManager.h"
 #import "CBCampaignViewController.h"
 #import "CBInfoViewController.h"
+#import "CBCompanyContactViewController.h"
 
 @interface CBMyCardsDetailViewController ()
 
@@ -391,6 +392,9 @@
 {
     if ([segue.identifier isEqualToString:@"InfoScreenSegue"]) {
         CBInfoViewController* dest = (CBInfoViewController*)[segue destinationViewController];
+        dest.currentCardDetail = self.currentCardDetail;
+    } else if ([segue.identifier isEqualToString:@"CompanyContactScreenSegue"]) {
+        CBCompanyContactViewController* dest = (CBCompanyContactViewController*)[segue destinationViewController];
         dest.currentCardDetail = self.currentCardDetail;
     }
 }
