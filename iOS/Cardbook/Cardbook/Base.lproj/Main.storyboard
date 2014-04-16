@@ -237,6 +237,25 @@
             </objects>
             <point key="canvasLocation" x="1993" y="63"/>
         </scene>
+        <!--Branches View Controller-->
+        <scene sceneID="ZI4-KW-z83">
+            <objects>
+                <viewController id="agF-JJ-bDP" customClass="CBBranchesViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7FC-hX-CAw"/>
+                        <viewControllerLayoutGuide type="bottom" id="TTP-2E-6nz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="OYu-j8-Tqa">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ACW-rI-0Hl"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="S6h-1j-t7J" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1849" y="-720"/>
+        </scene>
         <!--Company Contact View Controller-->
         <scene sceneID="Rb4-k0-fca">
             <objects>
@@ -294,6 +313,7 @@
                         <segue destination="SiE-xY-nyB" kind="push" identifier="ShopsScreenSegue" id="wBe-q5-3tZ"/>
                         <segue destination="E4Z-j4-NNQ" kind="push" identifier="ContactScreenSegue" id="U48-CP-GUu"/>
                         <segue destination="Hkk-t5-cTo" kind="push" identifier="CompanyContactScreenSegue" id="qJ3-cU-LB6"/>
+                        <segue destination="agF-JJ-bDP" kind="push" id="UE2-Wg-Wlc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VZg-uf-PJK" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		050A993418FF100E00537968 /* CBBranchesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 050A993318FF100E00537968 /* CBBranchesViewController.m */; };
 		050B97DB18DF5F970075C907 /* CBInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 050B97DA18DF5F970075C907 /* CBInfoViewController.m */; };
 		050B97DE18DF5FA40075C907 /* CBShopsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 050B97DD18DF5FA40075C907 /* CBShopsViewController.m */; };
 		050B97E418DF61830075C907 /* CBCardInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 050B97E318DF61830075C907 /* CBCardInfo.m */; };
@@ -167,6 +168,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		050A993218FF100E00537968 /* CBBranchesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBBranchesViewController.h; sourceTree = "<group>"; };
+		050A993318FF100E00537968 /* CBBranchesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBBranchesViewController.m; sourceTree = "<group>"; };
 		050B97D918DF5F970075C907 /* CBInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBInfoViewController.h; sourceTree = "<group>"; };
 		050B97DA18DF5F970075C907 /* CBInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBInfoViewController.m; sourceTree = "<group>"; };
 		050B97DC18DF5FA40075C907 /* CBShopsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBShopsViewController.h; sourceTree = "<group>"; };
@@ -443,6 +446,8 @@
 				050B97DD18DF5FA40075C907 /* CBShopsViewController.m */,
 				057A632B18FC70A1000790F1 /* CBCardInfoTextField.h */,
 				057A632C18FC70A1000790F1 /* CBCardInfoTextField.m */,
+				050A993218FF100E00537968 /* CBBranchesViewController.h */,
+				050A993318FF100E00537968 /* CBBranchesViewController.m */,
 			);
 			name = Card;
 			sourceTree = "<group>";
@@ -1106,6 +1111,7 @@
 				05D81F3F181FD16B00F3A7AD /* CBAppDelegate.m in Sources */,
 				059C9472182E3B920010651B /* NSString+MKNetworkKitAdditions.m in Sources */,
 				059C9470182E3B920010651B /* NSDate+RFC1123.m in Sources */,
+				050A993418FF100E00537968 /* CBBranchesViewController.m in Sources */,
 				059C9480182E403D0010651B /* County.m in Sources */,
 				056B53E8183F6C5C00A35451 /* SBJsonStreamWriter.m in Sources */,
 				05780B0118329BF30018A1FA /* CBMyCampaignsDetailViewController.m in Sources */,

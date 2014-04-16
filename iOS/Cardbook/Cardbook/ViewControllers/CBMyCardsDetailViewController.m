@@ -14,6 +14,7 @@
 #import "CBCampaignViewController.h"
 #import "CBInfoViewController.h"
 #import "CBCompanyContactViewController.h"
+#import "CBBranchesViewController.h"
 
 @interface CBMyCardsDetailViewController ()
 
@@ -396,6 +397,9 @@
     } else if ([segue.identifier isEqualToString:@"CompanyContactScreenSegue"]) {
         CBCompanyContactViewController* dest = (CBCompanyContactViewController*)[segue destinationViewController];
         dest.currentCardDetail = self.currentCardDetail;
+    } else if ([segue.identifier isEqualToString:@"CompanyBranchesScreenSegue"]) {
+        CBBranchesViewController* dest = (CBBranchesViewController*)[segue destinationViewController];
+        dest.currentCardDetail = self.currentCardDetail;
     }
 }
 - (void) openInfoScreen
@@ -413,6 +417,7 @@
     if (!isLoaded) {
         return;
     }
+    [self performSegueWithIdentifier:@"CompanyBranchesScreenSegue" sender:self];
     NSLog(@"open shops screen");
 }
 - (void) openContactScreen
