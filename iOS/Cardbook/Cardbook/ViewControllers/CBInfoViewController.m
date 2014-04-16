@@ -102,7 +102,8 @@
                 NSLog(@"an error occured");
             }];
         }
-        
+    } else {
+        [self configureViews];
     }
     
 }
