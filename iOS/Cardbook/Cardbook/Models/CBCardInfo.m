@@ -78,12 +78,12 @@ andCallCenterPhoneNumber:(NSString*)callCenterPhoneNumber
             
             NSString* cityName = [headOfficeAddressDict objectForKey:@"CityName"];
             if (cityName != nil && ![cityName isKindOfClass:[NSNull class]]) {
-                headOfficeAddress = [NSString stringWithFormat:@"%@ %@",headOfficeAddress,cityName];
+                headOfficeAddress = [NSString stringWithFormat:@"%@ - %@",headOfficeAddress,cityName];
             }
             
             NSString* countryName = [headOfficeAddressDict objectForKey:@"CountryName"];
             if (countryName != nil && ![countryName isKindOfClass:[NSNull class]]) {
-                headOfficeAddress = [NSString stringWithFormat:@"%@ %@",headOfficeAddress,countryName];
+                headOfficeAddress = [NSString stringWithFormat:@"%@ / %@",headOfficeAddress,countryName];
             }
         }
         
