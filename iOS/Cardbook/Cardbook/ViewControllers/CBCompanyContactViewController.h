@@ -10,7 +10,7 @@
 #import "CBCardDetail.h"
 #import "CBCardInfo.h"
 
-@interface CBCompanyContactViewController : CBBaseViewController
+@interface CBCompanyContactViewController : CBBaseViewController <UITextFieldDelegate, UITextViewDelegate>
 
 @property CBCardDetail* currentCardDetail;
 @property CBCardInfo* currentCardInfo;
