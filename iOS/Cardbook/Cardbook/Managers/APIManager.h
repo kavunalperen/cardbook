@@ -86,6 +86,12 @@ typedef void (^CardInfoBlock) (CBCardInfo* cardInfo);
                         onCompletion:(CardInfoBlock)completionBlock
                              onError:(ErrorBlock)errorBlock;
 
+- (void) sendMailToCompany:(NSInteger)companyId
+                andMessage:(NSString*)message
+         andMessageSubject:(NSString*)messageSubject
+              onCompletion:(CompletionBlock)completionBlock
+                   onError:(ErrorBlock)errorBlock;
+
 - (void) setUserNotificationStatusWithCompanyId:(NSInteger)companyId
                           andNotificationStatus:(BOOL)notificationStatus
                                    onCompletion:(CompletionBlock)completionBlock

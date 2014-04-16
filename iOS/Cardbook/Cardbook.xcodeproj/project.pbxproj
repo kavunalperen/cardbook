@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		050B97DB18DF5F970075C907 /* CBInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 050B97DA18DF5F970075C907 /* CBInfoViewController.m */; };
 		050B97DE18DF5FA40075C907 /* CBShopsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 050B97DD18DF5FA40075C907 /* CBShopsViewController.m */; };
-		050B97E118DF5FAD0075C907 /* CBContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 050B97E018DF5FAD0075C907 /* CBContactViewController.m */; };
 		050B97E418DF61830075C907 /* CBCardInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 050B97E318DF61830075C907 /* CBCardInfo.m */; };
 		0531301B183362DB008F7C83 /* profile_barcode@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 05313017183362DB008F7C83 /* profile_barcode@2x.png */; };
 		0531301C183362DB008F7C83 /* profile_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 05313018183362DB008F7C83 /* profile_bg@2x.png */; };
@@ -71,6 +70,7 @@
 		057A632618FC4E2E000790F1 /* notification_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 057A631518FC4E2E000790F1 /* notification_off@2x.png */; };
 		057A632718FC4E2E000790F1 /* notification_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 057A631618FC4E2E000790F1 /* notification_on@2x.png */; };
 		057A632A18FC575C000790F1 /* CBCompanyContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 057A632918FC575C000790F1 /* CBCompanyContactViewController.m */; };
+		057A632D18FC70A1000790F1 /* CBCardInfoTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 057A632C18FC70A1000790F1 /* CBCardInfoTextField.m */; };
 		0591722B181FDB0600BEE519 /* splash_face_btn_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0591722A181FDB0600BEE519 /* splash_face_btn_normal@2x.png */; };
 		0591722D181FE45900BEE519 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0591722C181FE45900BEE519 /* FacebookSDK.framework */; };
 		0591723018201C0F00BEE519 /* CBRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0591722F18201C0F00BEE519 /* CBRegisterViewController.m */; };
@@ -171,8 +171,6 @@
 		050B97DA18DF5F970075C907 /* CBInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBInfoViewController.m; sourceTree = "<group>"; };
 		050B97DC18DF5FA40075C907 /* CBShopsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBShopsViewController.h; sourceTree = "<group>"; };
 		050B97DD18DF5FA40075C907 /* CBShopsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBShopsViewController.m; sourceTree = "<group>"; };
-		050B97DF18DF5FAD0075C907 /* CBContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBContactViewController.h; sourceTree = "<group>"; };
-		050B97E018DF5FAD0075C907 /* CBContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBContactViewController.m; sourceTree = "<group>"; };
 		050B97E218DF61830075C907 /* CBCardInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCardInfo.h; sourceTree = "<group>"; };
 		050B97E318DF61830075C907 /* CBCardInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCardInfo.m; sourceTree = "<group>"; };
 		05313017183362DB008F7C83 /* profile_barcode@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile_barcode@2x.png"; sourceTree = "<group>"; };
@@ -256,6 +254,8 @@
 		057A631618FC4E2E000790F1 /* notification_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification_on@2x.png"; sourceTree = "<group>"; };
 		057A632818FC575C000790F1 /* CBCompanyContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCompanyContactViewController.h; sourceTree = "<group>"; };
 		057A632918FC575C000790F1 /* CBCompanyContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCompanyContactViewController.m; sourceTree = "<group>"; };
+		057A632B18FC70A1000790F1 /* CBCardInfoTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCardInfoTextField.h; sourceTree = "<group>"; };
+		057A632C18FC70A1000790F1 /* CBCardInfoTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCardInfoTextField.m; sourceTree = "<group>"; };
 		0591722A181FDB0600BEE519 /* splash_face_btn_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash_face_btn_normal@2x.png"; sourceTree = "<group>"; };
 		0591722C181FE45900BEE519 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		0591722E18201C0F00BEE519 /* CBRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBRegisterViewController.h; sourceTree = "<group>"; };
@@ -441,8 +441,8 @@
 				057A632918FC575C000790F1 /* CBCompanyContactViewController.m */,
 				050B97DC18DF5FA40075C907 /* CBShopsViewController.h */,
 				050B97DD18DF5FA40075C907 /* CBShopsViewController.m */,
-				050B97DF18DF5FAD0075C907 /* CBContactViewController.h */,
-				050B97E018DF5FAD0075C907 /* CBContactViewController.m */,
+				057A632B18FC70A1000790F1 /* CBCardInfoTextField.h */,
+				057A632C18FC70A1000790F1 /* CBCardInfoTextField.m */,
 			);
 			name = Card;
 			sourceTree = "<group>";
@@ -1065,6 +1065,7 @@
 				059C9475182E3B920010651B /* MKNetworkOperation.m in Sources */,
 				056B53E3183F6C5C00A35451 /* SBJsonParser.m in Sources */,
 				056B53EA183F6C5C00A35451 /* SBJsonStreamWriterState.m in Sources */,
+				057A632D18FC70A1000790F1 /* CBCardInfoTextField.m in Sources */,
 				056B53E7183F6C5C00A35451 /* SBJsonStreamParserState.m in Sources */,
 				05C0B187183BF37B000D491C /* CBUser.m in Sources */,
 				056B53E5183F6C5C00A35451 /* SBJsonStreamParserAccumulator.m in Sources */,
@@ -1090,7 +1091,6 @@
 				059C947D182E402F0010651B /* Country.m in Sources */,
 				059C94BC182EDC420010651B /* CBCampaignViewController.m in Sources */,
 				054342591830255F00CC1FE3 /* CBCardDetailsCouponCell.m in Sources */,
-				050B97E118DF5FAD0075C907 /* CBContactViewController.m in Sources */,
 				059C949F182ECB3F0010651B /* CBTabBarController.m in Sources */,
 				059C946F182E3B920010651B /* NSData+Base64.m in Sources */,
 				056B53EB183F6C5C00A35451 /* SBJsonTokeniser.m in Sources */,

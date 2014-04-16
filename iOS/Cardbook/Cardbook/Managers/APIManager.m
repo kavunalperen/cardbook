@@ -394,7 +394,36 @@ static APIManager *sharedInstance = nil;
                       }
                   }];
 }
-
+- (void) sendMailToCompany:(NSInteger)companyId
+                andMessage:(NSString*)message
+         andMessageSubject:(NSString*)messageSubject
+              onCompletion:(CompletionBlock)completionBlock
+                   onError:(ErrorBlock)errorBlock
+{
+    NSMutableDictionary* paramsDictionary = @{@"companyId":[NSNumber numberWithInteger:companyId],
+                                              @"Message":message,
+                                              @"MessageSubject":messageSubject,
+                                              @"ContactFullName":[NSString stringWithFormat:@"%@ %@",[[CBUser sharedUser] name],[[CBUser sharedUser] surname]],
+                                              @"ContactEmail":[[CBUser sharedUser] email]}.mutableCopy;
+    
+    
+    [self addUserIdToDictionary:paramsDictionary];
+    [self addAuthorizationTokenAndTimeToDictionary:paramsDictionary];
+    
+    [self postRequestWithParams:paramsDictionary andOperation:@"SendEmailToCompany" andCompletionBlock:^(NSDictionary *responseDictionary) {
+        if ([[responseDictionary objectForKey:@"ResultCode"] isEqualToString:@"00"]) {
+            if (completionBlock != nil) {
+                completionBlock(responseDictionary);
+            }
+        } else {
+            // handle errors
+        }
+    } andErrorBlock:^(NSError *error) {
+        if (errorBlock != nil) {
+            errorBlock(error);
+        }
+    }];
+}
 - (void) getCampaignDetailContentWithCampaignId:(NSInteger)campaignId
                                    onCompletion:(CampaignDetailBlock)completionBlock
                                         onError:(ErrorBlock)errorBlock
