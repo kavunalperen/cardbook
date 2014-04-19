@@ -71,6 +71,19 @@ typedef void (^CardInfoBlock) (CBCardInfo* cardInfo);
 - (void) getUserDetailWithCompletion:(CompletionBlock)completionBlock
                              onError:(ErrorBlock)errorBlock;
 
+- (void) updateUserInfoWithName:(NSString*)name
+                     andSurname:(NSString*)surname
+                       andEmail:(NSString*)email
+                   andBirthDate:(NSString*)birthDate
+                      andPhone1:(NSString*)phone1
+                      andGender:(NSString*)gender
+                   andCountryId:(NSInteger)countryId
+                      andCityId:(NSInteger)cityId
+                    andCountyId:(NSInteger)countyId
+                 andAddressLine:(NSString*)addressLine
+                   onCompletion:(CompletionBlock)completionBlock
+                        onError:(ErrorBlock)errorBlock;
+
 - (void) updateMobileDeviceId:(NSString*)mobileDeviceId
                  onCompletion:(CompletionBlock)completionBlock
                       onError:(ErrorBlock)errorBlock;
@@ -91,6 +104,10 @@ typedef void (^CardInfoBlock) (CBCardInfo* cardInfo);
          andMessageSubject:(NSString*)messageSubject
               onCompletion:(CompletionBlock)completionBlock
                    onError:(ErrorBlock)errorBlock;
+
+- (void) getCompanyLocationListWithCompanyId:(NSInteger)companyId
+                                onCompletion:(CompletionBlock)completionBlock
+                                     onError:(ErrorBlock)errorBlock;
 
 - (void) setUserNotificationStatusWithCompanyId:(NSInteger)companyId
                           andNotificationStatus:(BOOL)notificationStatus

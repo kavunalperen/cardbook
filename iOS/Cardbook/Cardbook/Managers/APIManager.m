@@ -16,6 +16,7 @@
 #import "SBJson.h"
 #import "CBCampaign.h"
 #import "CBShopping.h"
+#import "CBCompanyBranches.h"
 
 @implementation APIManager
 
@@ -209,12 +210,57 @@ static APIManager *sharedInstance = nil;
                       errorBlock(error);
                   }];
 }
-
+- (void) updateUserInfoWithName:(NSString*)name
+                     andSurname:(NSString*)surname
+                       andEmail:(NSString*)email
+                   andBirthDate:(NSString*)birthDate
+                      andPhone1:(NSString*)phone1
+                      andGender:(NSString*)gender
+                   andCountryId:(NSInteger)countryId
+                      andCityId:(NSInteger)cityId
+                    andCountyId:(NSInteger)countyId
+                 andAddressLine:(NSString*)addressLine
+                   onCompletion:(CompletionBlock)completionBlock
+                        onError:(ErrorBlock)errorBlock
+{
+    NSMutableDictionary* paramsDictionary = @{@"FacebookId":[[CBUser sharedUser] facebookId],
+                                              @"Name":name,
+                                              @"Surname":surname,
+                                              @"Email":email,
+                                              @"BirthDate":birthDate,
+                                              @"ProfilePhotoUrl":[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture/style=large",[[CBUser sharedUser] facebookId]],
+                                              @"Phone1":phone1,
+                                              @"Gender":gender,
+                                              @"CountryId":[NSNumber numberWithInteger:countryId],
+                                              @"CityId":[NSNumber numberWithInteger:cityId],
+                                              @"CountyId":[NSNumber numberWithInteger:countyId],
+                                              @"AddressLine":addressLine}.mutableCopy;
+    
+    [self addUserIdToDictionary:paramsDictionary];
+    [self addAuthorizationTokenAndTimeToDictionary:paramsDictionary];
+    
+    [self postRequestWithParams:paramsDictionary andOperation:@"UpdateUserInfo" andCompletionBlock:^(NSDictionary *responseDictionary) {
+        if ([[responseDictionary objectForKey:@"ResultCode"] isEqualToString:@"00"]) {
+            if (completionBlock != nil) {
+                completionBlock(responseDictionary);
+            }
+        } else {
+            if (errorBlock != nil) {
+                errorBlock(nil);
+            }
+        }
+    } andErrorBlock:^(NSError *error) {
+        if (errorBlock != nil) {
+            errorBlock(error);
+        }
+    }];
+}
 - (void) updateMobileDeviceId:(NSString*)mobileDeviceId
                  onCompletion:(CompletionBlock)completionBlock
                       onError:(ErrorBlock)errorBlock
 {
-    NSMutableDictionary* paramsDictionary = @{@"mobileDeviceId":mobileDeviceId}.mutableCopy;
+    NSMutableDictionary* paramsDictionary = @{@"mobileDeviceId":mobileDeviceId,
+                                              @"mobileDeviceType":@"iOS"}.mutableCopy;
     
     [self addUserIdToDictionary:paramsDictionary];
     [self addAuthorizationTokenAndTimeToDictionary:paramsDictionary];
@@ -402,7 +448,7 @@ static APIManager *sharedInstance = nil;
 {
     NSMutableDictionary* paramsDictionary = @{@"companyId":[NSNumber numberWithInteger:companyId],
                                               @"Message":message,
-                                              @"MessageSubject":messageSubject,
+                                              @"Subject":messageSubject,
                                               @"ContactFullName":[NSString stringWithFormat:@"%@ %@",[[CBUser sharedUser] name],[[CBUser sharedUser] surname]],
                                               @"ContactEmail":[[CBUser sharedUser] email]}.mutableCopy;
     
@@ -424,6 +470,39 @@ static APIManager *sharedInstance = nil;
         }
     }];
 }
+
+- (void) getCompanyLocationListWithCompanyId:(NSInteger)companyId
+                                onCompletion:(CompletionBlock)completionBlock
+                                     onError:(ErrorBlock)errorBlock
+{
+#warning DO NOT FORGET!!!!
+    NSMutableDictionary* paramsDictionary = @{@"companyId":[NSNumber numberWithInteger:11]}.mutableCopy;
+//    NSMutableDictionary* paramsDictionary = @{@"companyId":[NSNumber numberWithInteger:companyId]}.mutableCopy;
+    
+    [self addUserIdToDictionary:paramsDictionary];
+    [self addAuthorizationTokenAndTimeToDictionary:paramsDictionary];
+    
+    [self postRequestWithParams:paramsDictionary
+                   andOperation:@"GetCompanyLocationList"
+             andCompletionBlock:^(NSDictionary *responseDictionary) {
+                 if ([[responseDictionary objectForKey:@"ResultCode"] isEqualToString:@"00"]) {
+                     
+                     for (NSDictionary* dict in [responseDictionary objectForKey:@"Data"]) {
+                         [CBCompanyBranches createCompanyBranchWithDictionary:dict];
+                     }
+                     
+                     if (completionBlock != nil) {
+                         completionBlock(responseDictionary);
+                     }
+                 }
+             }
+                  andErrorBlock:^(NSError *error) {
+                      if (errorBlock != nil) {
+                          errorBlock(error);
+                      }
+                  }];
+}
+
 - (void) getCampaignDetailContentWithCampaignId:(NSInteger)campaignId
                                    onCompletion:(CampaignDetailBlock)completionBlock
                                         onError:(ErrorBlock)errorBlock
