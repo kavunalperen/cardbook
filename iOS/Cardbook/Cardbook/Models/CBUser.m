@@ -6,19 +6,19 @@
 //  Copyright (c) 2013 kavun. All rights reserved.
 //
 
-#define USER_DEFAULTS_USER_SAVE_KEY @"UserDefaultsUserSaveKey"
-#define USER_DEFAULTS_USER_BARCODE_SAVE_KEY @"UserDefaultsUserBarcodeSaveKey"
-#define USER_DEFAULTS_USER_BARCODE_URL_SAVE_KEY @"UserDefaultsUserBarcodeUrlSaveKey"
-
 #import "CBUser.h"
 #import "Country.h"
 #import "City.h"
 #import "County.h"
+#import "APIManager.h"
+#import "CBUtil.h"
 
 static CBUser* sharedUser;
 
 @implementation CBUser
-
+{
+    UIImageView* imageView;
+}
 - (id)      initWithFacebookId:(NSString*)facebookId
                      andUserId:(NSString*)userId
                        andName:(NSString*)name
@@ -88,15 +88,43 @@ static CBUser* sharedUser;
     NSString* profilePictureUrl = [dictionary objectForKey:@"ProfilePhotoUrl"];
     NSString* phone = [dictionary objectForKey:@"Phone1"];
     NSString* gender = [dictionary objectForKey:@"Gender"];
-//    NSInteger countryId = [[[dictionary objectForKey:@"Address"] objectForKey:@"CountryId"] integerValue];
-//    NSInteger cityId = [[[dictionary objectForKey:@"Address"] objectForKey:@"CityId"] integerValue];
-//    NSInteger countyId = [[[dictionary objectForKey:@"Address"] objectForKey:@"CountyId"] integerValue];
-    NSInteger countryId = 1;
-    NSInteger cityId = 2;
-    NSInteger countyId = 5;
+    NSInteger countryId = [[[dictionary objectForKey:@"Address"] objectForKey:@"CountryId"] integerValue];
+    NSInteger cityId = [[[dictionary objectForKey:@"Address"] objectForKey:@"CityId"] integerValue];
+    NSInteger countyId = [[[dictionary objectForKey:@"Address"] objectForKey:@"CountyId"] integerValue];
     NSString* address = [[dictionary objectForKey:@"Address"] objectForKey:@"AddressLine"];
     
+    NSString* countryStr = nil;
+    if ([dictionary objectForKey:@"CountryStr"] != nil) {
+        countryStr = [dictionary objectForKey:@"CountryStr"];
+    } else {
+        countryStr = [[Country GetCountryWithCountryId:countryId] countryName];
+    }
     
+    if (countryStr == nil) {
+        countryStr = @"";
+    }
+    
+    NSString* cityStr = nil;
+    if ([dictionary objectForKey:@"CityStr"] != nil) {
+        cityStr = [dictionary objectForKey:@"CityStr"];
+    } else {
+        cityStr = [[City GetCityWithCityId:cityId] cityName];
+    }
+    
+    if (cityStr == nil) {
+        cityStr = @"";
+    }
+    
+    NSString* countyStr = nil;
+    if ([dictionary objectForKey:@"CountyStr"] != nil) {
+        countyStr = [dictionary objectForKey:@"CountyStr"];
+    } else {
+        countyStr = [[County GetCountyWithCountyId:countyId] countyName];
+    }
+    
+    if (countyStr == nil) {
+        countyStr = @"";
+    }
     
     NSDictionary* savedDictionary = @{@"FacebookId":facebookId,
                                       @"UserId":userId,
@@ -108,12 +136,9 @@ static CBUser* sharedUser;
                                       @"Phone1":phone,
                                       @"Gender":gender,
                                       @"Address":[dictionary objectForKey:@"Address"],
-//                                      @"CountryStr":[[Country GetCountryWithCountryId:countryId] countryName],
-                                      @"CountryStr":@"Türkiye",
-//                                      @"CityStr":[[City GetCityWithCityId:cityId] cityName],
-                                      @"CityStr":@"Adana",
-//                                      @"CountyStr":[[County GetCountyWithCountyId:countyId] countyName]
-                                      @"CountyStr":@"Çukurova"
+                                      @"CountryStr":countryStr,
+                                      @"CityStr":cityStr,
+                                      @"CountyStr":countyStr
                                       };
     
     [CBUser saveUserToUserDefaults:savedDictionary];
@@ -181,5 +206,33 @@ static CBUser* sharedUser;
     
     return sharedUser;
 }
-
+- (void) openBarcodeFullScreen
+{
+    NSData* imageData = [[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULTS_USER_BARCODE_SAVE_KEY];
+    if (imageData != nil) {
+        UIImage* image = [UIImage imageWithData:imageData];
+        
+        CGFloat screenScale = [UIScreen mainScreen].scale;
+        if (image.scale != screenScale)
+            image = [UIImage imageWithCGImage:image.CGImage scale:screenScale orientation:image.imageOrientation];
+        
+        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, SCREEN_SIZE.width, SCREEN_SIZE.height)];
+        [imageView setBackgroundColor:[UIColor whiteColor]];
+        [imageView setContentMode:UIViewContentModeCenter];
+        [imageView setUserInteractionEnabled:YES];
+        imageView.image = image;
+        
+        UITapGestureRecognizer* tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeBarcode)];
+        [imageView addGestureRecognizer:tapGesture];
+        
+        [[[UIApplication sharedApplication].delegate window] addSubview:imageView];
+        
+    }
+    
+}
+- (void) closeBarcode
+{
+    [imageView removeFromSuperview];
+    imageView = nil;
+}
 @end

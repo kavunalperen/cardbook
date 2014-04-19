@@ -139,12 +139,40 @@
 - (void) configureViews
 {
     
-    NSString* firstName = [self.userInfos objectForKey:@"first_name"];
-    NSString* lastName = [self.userInfos objectForKey:@"last_name"];
-    NSString* gender = [self.userInfos objectForKey:@"gender"];
-    NSString* birthdate = [self.userInfos objectForKey:@"birthdate"];
-    NSString* email = [self.userInfos objectForKey:@"email"];
-    NSString* imageUrl = [self.userInfos objectForKey:@"image_url"];
+    NSString* firstName;
+    NSString* lastName;
+    NSString* gender;
+    NSString* birthdate;
+    NSString* email;
+    NSString* imageUrl;
+    NSString* phone;
+    NSString* address;
+    NSDate* bDate;
+    
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+    
+    if (_forUpdate) {
+        firstName = [[CBUser sharedUser] name];
+        lastName = [[CBUser sharedUser] surname];
+        gender = [[CBUser sharedUser] gender];
+        birthdate = [[CBUser sharedUser] birthdateString];
+        email = [[CBUser sharedUser] email];
+        imageUrl = [[CBUser sharedUser] profilePictureUrl];
+        phone = [[CBUser sharedUser] phone];
+        address = [[CBUser sharedUser] address];
+        bDate = [[CBUser sharedUser] birthdate];
+    } else {
+        firstName = [self.userInfos objectForKey:@"first_name"];
+        lastName = [self.userInfos objectForKey:@"last_name"];
+        gender = [self.userInfos objectForKey:@"gender"];
+        birthdate = [self.userInfos objectForKey:@"birthdate"];
+        email = [self.userInfos objectForKey:@"email"];
+        imageUrl = [self.userInfos objectForKey:@"image_url"];
+        
+        
+        [dateFormatter setDateFormat:@"MM/dd/yyyy"];
+        bDate = [dateFormatter dateFromString:birthdate];
+    }
     
     [[APIManager sharedInstance] getImageWithURLString:imageUrl
                                           onCompletion:^(UIImage *resultImage) {
@@ -156,19 +184,19 @@
     
     [self.nameField setText:firstName];
     [self.surnameField setText:lastName];
-    if ([gender isEqualToString:@"male"]) {
+    if ([gender isEqualToString:@"male"] || [gender isEqualToString:@"M"]) {
         [self setSelectedGenderRow:0];
     } else {
         [self setSelectedGenderRow:1];
     }
     
-    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MM/dd/yyyy"];
-    NSDate* bDate = [dateFormatter dateFromString:birthdate];
+    
     
     [self.birthDatePicker setDate:bDate animated:NO];
     [self datePickerChanged:self];
     [self.emailField setText:email];
+    [self.phoneNumberField setText:phone];
+    [self.addressField setText:address];
 }
 - (void) viewWillDisappear:(BOOL)animated
 {
@@ -213,6 +241,52 @@
                          self.scrollView.frame = scrollFrame;
                      }];
 }
+- (void) setUsersCountry
+{
+    if (self.forUpdate) {
+        NSInteger countryId = [[CBUser sharedUser] countryId];
+        NSInteger cityId = [[CBUser sharedUser] cityId];
+        NSInteger countyId = [[CBUser sharedUser] countyId];
+        
+        NSInteger countryIndex = 0;
+        NSInteger cityIndex = 0;
+        NSInteger countyIndex = 0;
+        
+        for (int i = 0; i < myCountries.count; i++) {
+            if ([[myCountries objectAtIndex:i] countryId] == countryId) {
+                countryIndex = i;
+            }
+        }
+        
+        Country* selectedCountry = [myCountries objectAtIndex:countryIndex];
+        
+        for (int i = 0; i < [selectedCountry cities].count; i++) {
+            if ([[[selectedCountry cities] objectAtIndex:i] cityId] == cityId) {
+                cityIndex = i;
+            }
+        }
+        
+        City* selectedCity = [[selectedCountry cities] objectAtIndex:cityIndex];
+        
+        for (int i = 0; i < selectedCity.counties.count; i++) {
+            if ([[selectedCity.counties objectAtIndex:i] countyId] == countyId) {
+                countyIndex = i;
+            }
+        }
+        
+//        County* selectedCounty = [[selectedCity counties] objectAtIndex:countyIndex];
+        
+        [self setSelectedCountryRow:countryIndex];
+        [self setSelectedCityRow:cityIndex];
+        [self setSelectedCountyRow:countyIndex];
+        
+//        [self.countryPickerView selectRow:countryIndex inComponent:0 animated:NO];
+//        [self.cityPickerView selectRow:cityIndex inComponent:0 animated:NO];
+//        [self.countyPickerView selectRow:countyIndex inComponent:0 animated:NO];
+        
+//        [self.countryPickerView selec]
+    }
+}
 - (void) getAddressLists
 {
     [[APIManager sharedInstance] getAddressListsWithCompletionBlock:^(NSMutableArray *allCountries) {
@@ -220,6 +294,7 @@
         myCountries = allCountries;
         [self.countryField setEnabled:YES];
         [self.countryPickerView reloadAllComponents];
+        [self setUsersCountry];
     } onError:^(NSError *error) {
         NSLog(@"error occured");
     }];
@@ -472,43 +547,58 @@
     
     NSString* birthDateStr = [NSString stringWithFormat:@"%ld-%ld-%ld",(long)dayInt,(long)monthInt,(long)yearInt];
     
-    [[APIManager sharedInstance] createOrUpdateUserWithFacebookId:facebookId
-            andMobileDeviceId:@"1234567899"
-                      andName:name
-                   andSurname:surname
-                     andEmail:email
-                 andBirthDate:birthDateStr
-         andProfilePictureUrl:image_url
-                    andPhone1:phoneNumber
-                    andPhone2:@""
-                    andGender:gender
-                 andCountryId:selectedCountry
-                    andCityId:selectedCity
-                  andCountyId:selectedCounty
-               andAddressLine:addressLine
-                 onCompletion:^(NSDictionary *responseDictionary) {
-                     NSDictionary* data = [responseDictionary objectForKey:@"Data"];
-                     [CBUser CBUserWithDictionary:data];
-                     [[APIManager sharedInstance] getUserDetailWithCompletion:^(NSDictionary *responseDictionary) {
-                         NSLog(@"response here");
+    
+    if (self.forUpdate) {
+        [[APIManager sharedInstance] updateUserInfoWithName:name
+                                                 andSurname:surname
+                                                   andEmail:email
+                                               andBirthDate:birthDateStr
+                                                  andPhone1:phoneNumber
+                                                  andGender:gender
+                                               andCountryId:selectedCountry
+                                                  andCityId:selectedCity
+                                                andCountyId:selectedCounty
+                                             andAddressLine:addressLine
+                                               onCompletion:^(NSDictionary *responseDictionary) {
+                                                   NSLog(@"response here");
+                                                   [CBUser CBUserWithDictionary:[responseDictionary objectForKey:@"Data"]];
+                                                   [self dismissViewControllerAnimated:YES completion:nil];
+                                               }
+                                                    onError:^(NSError *error) {
+                                                        NSLog(@"an error occured");
+                                                    }];
+    } else {
+    
+        [[APIManager sharedInstance] createOrUpdateUserWithFacebookId:facebookId
+                andMobileDeviceId:@"1234567899"
+                          andName:name
+                       andSurname:surname
+                         andEmail:email
+                     andBirthDate:birthDateStr
+             andProfilePictureUrl:image_url
+                        andPhone1:phoneNumber
+                        andPhone2:@""
+                        andGender:gender
+                     andCountryId:selectedCountry
+                        andCityId:selectedCity
+                      andCountyId:selectedCounty
+                   andAddressLine:addressLine
+                     onCompletion:^(NSDictionary *responseDictionary) {
+                         NSDictionary* data = [responseDictionary objectForKey:@"Data"];
+                         [CBUser CBUserWithDictionary:data];
                          NSString* barcodeUrl = [[responseDictionary objectForKey:@"Data"] objectForKey:@"UserBarcodeUrl"];
                          [CBUser setAndSaveBarcodeUrl:barcodeUrl];
-                         [[APIManager sharedInstance] getImageWithURLString:barcodeUrl
-                                                               onCompletion:^(UIImage *resultImage) {
-                                                                   // image here handle!
-//                                                                   [CBUser setAndSaveBarcodeImage:resultImage];
-                                                                   [self performSegueWithIdentifier:@"RegisterToTabbarSegue" sender:self];
-                                                               }
-                                                                    onError:^(NSError *error) {
-                                                                        [self performSegueWithIdentifier:@"RegisterToTabbarSegue" sender:self];
-                                                                    }];
-                         
+                         [[APIManager sharedInstance] getImageWithURLString:barcodeUrl onCompletion:^(UIImage *resultImage) {
+                             [[NSUserDefaults standardUserDefaults] setObject:UIImagePNGRepresentation(resultImage) forKey:USER_DEFAULTS_USER_BARCODE_SAVE_KEY];
+                             [[NSUserDefaults standardUserDefaults] synchronize];
+                             [self performSegueWithIdentifier:@"RegisterToTabbarSegue" sender:self];
+                         } onError:^(NSError *error) {
+                             ;
+                         }];
                      } onError:^(NSError *error) {
-                         NSLog(@"an error occured");
+                         // error handling here
                      }];
-                 } onError:^(NSError *error) {
-                     // error handling here
-                 }];
+    }
 }
 - (CBTextField*)createTextFieldWithFrame:(CGRect)frame andPlaceHolderText:(NSString*)placeHolderText
 {

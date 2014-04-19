@@ -7,13 +7,12 @@
 //
 
 #import "CBBaseViewController.h"
-#import "CBCardInfo.h"
 #import "CBCardDetail.h"
 
 @interface CBBranchesViewController : CBBaseViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property UITableView* tableView;
 @property CBCardDetail* currentCardDetail;
-@property CBCardInfo* currentCardInfo;
+@property NSMutableArray* allBranches;
 
 @end

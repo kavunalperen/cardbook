@@ -10,6 +10,8 @@
 #import "CBUtil.h"
 #import <QuartzCore/QuartzCore.h>
 #import "CBUser.h"
+#import "APIManager.h"
+#import "CBRegisterViewController.h"
 
 @interface CBProfileViewController ()
 
@@ -143,6 +145,26 @@
     [self initHeaderComponents];
     [self initInfoComponents];
 }
+- (void) stylizeForMainView
+{
+    [super stylizeForMainView];
+    
+    UIButton* editButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [editButton setFrame:CGRectMake(246.0, 0.0, 44.0, 44.0)];
+    [editButton setBackgroundColor:[UIColor clearColor]];
+    [editButton setImage:[UIImage imageNamed:@"profile_update_btn_normal.png"] forState:UIControlStateNormal];
+    [editButton setImage:[UIImage imageNamed:@"profile_update_btn_highlighted.png"] forState:UIControlStateHighlighted];
+    [editButton setContentMode:UIViewContentModeCenter];
+    [editButton addTarget:self action:@selector(updateProfile) forControlEvents:UIControlEventTouchUpInside];
+    [self.myNavigationBar addSubview:editButton];
+}
+- (void) updateProfile
+{
+    CBRegisterViewController* registerVC = [[CBRegisterViewController alloc] init];
+    registerVC.forUpdate = YES;
+    [self.navigationController presentViewController:registerVC animated:YES completion:nil];
+    NSLog(@"update profile");
+}
 - (void) viewWillAppear:(BOOL)animated
 {
     [self fillViewsWithUserInfos];
@@ -150,6 +172,10 @@
 - (void) fillViewsWithUserInfos
 {
     CBUser* sharedUser = [CBUser sharedUser];
+    
+    [[APIManager sharedInstance] imageAtURL:[NSURL URLWithString:[sharedUser profilePictureUrl]] onCompletion:^(UIImage *fetchedImage, NSURL *url, BOOL isInCache) {
+        [profileImageView setImage:fetchedImage];
+    }];
     
     [nameLabel setText:[NSString stringWithFormat:@"%@ %@",sharedUser.name,sharedUser.surname]];
     
@@ -206,7 +232,15 @@
     [barcodeView setBackgroundColor:[UIColor clearColor]];
     [barcodeView setClipsToBounds:YES];
     [barcodeView setImage:[UIImage imageNamed:@"profile_barcode.png"]];
+    [barcodeView setUserInteractionEnabled:YES];
     [self.scrollView addSubview:barcodeView];
+    
+    UITapGestureRecognizer* tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openBarcode)];
+    [barcodeView addGestureRecognizer:tapGesture];
+}
+- (void) openBarcode
+{
+    [[CBUser sharedUser] openBarcodeFullScreen];
 }
 - (void) initInfoComponents
 {

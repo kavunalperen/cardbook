@@ -107,7 +107,7 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    itemCount = [myAllShoppings count]+1;
+    itemCount = ([myAllShoppings count] > 0) ? [myAllShoppings count]+1 : 0;
     return itemCount;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

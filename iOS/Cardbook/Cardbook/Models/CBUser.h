@@ -6,6 +6,10 @@
 //  Copyright (c) 2013 kavun. All rights reserved.
 //
 
+#define USER_DEFAULTS_USER_SAVE_KEY @"UserDefaultsUserSaveKey"
+#define USER_DEFAULTS_USER_BARCODE_SAVE_KEY @"UserDefaultsUserBarcodeSaveKey"
+#define USER_DEFAULTS_USER_BARCODE_URL_SAVE_KEY @"UserDefaultsUserBarcodeUrlSaveKey"
+
 #import <Foundation/Foundation.h>
 
 @interface CBUser : NSObject
@@ -56,6 +60,6 @@
 + (void) setAndSaveBarcodeUrl:(NSString*)barcodeUrl;
 + (void) setAndSaveBarcodeImage:(UIImage*)barcodeImage;
 + (UIImage*) getSavedBarcodeImage;
-
+- (void) openBarcodeFullScreen;
 
 @end

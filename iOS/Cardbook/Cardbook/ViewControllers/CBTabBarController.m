@@ -32,20 +32,18 @@
 	// Do any additional setup after loading the view.
     [self initializeBarItems];
     
-//    UIImage* image = [CBUser getSavedBarcodeImage];
-//    
-//    NSLog(@"image here");
+    
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+     UIRemoteNotificationTypeAlert |
+     UIRemoteNotificationTypeBadge |
+     UIRemoteNotificationTypeSound];
 }
 - (void) initializeBarItems
 {
     UITabBar* appTabbar = self.tabBar;
     
-//    [[UITabBar appearance] setBarTintColor:[UIColor greenColor]];
-    
     [appTabbar setBarTintColor:TABBAR_TINT_COLOR];
     [appTabbar setTranslucent:YES];
-//    [appTabbar setBackgroundImage:[[UIImage alloc] init]];
-//    [appTabbar setShadowImage:[[UIImage alloc] init]];
     
     [appTabbar setSelectionIndicatorImage:[[UIImage alloc] init]];
     
@@ -66,7 +64,6 @@
         UITabBarItem* currentItem = [items objectAtIndex:i];
         [currentItem setImage:[UIImage imageNamed:[unselectedImagesNames objectAtIndex:i]]];
         [currentItem setSelectedImage:[UIImage imageNamed:[selectedImagesNames objectAtIndex:i]]];
-//        [currentItem setFinishedSelectedImage:[UIImage imageNamed:[selectedImagesNames objectAtIndex:i]] withFinishedUnselectedImage:[UIImage imageNamed:[unselectedImagesNames objectAtIndex:i]]];
         
         [currentItem setTitleTextAttributes:
          [NSDictionary dictionaryWithObjectsAndKeys:
@@ -81,12 +78,6 @@
           nil] forState:UIControlStateSelected];
     }
 }
-//- (void) setSelectedIndex:(NSUInteger)selectedIndex
-//{
-//    [super setSelectedIndex:selectedIndex];
-//    CBCampaignViewController* campaignVC = [CBCampaignViewController lastInstance];
-//    campaignVC.shouldShowForACompany = NO;
-//}
 - (void) setSelectedViewController:(UIViewController *)selectedViewController
 {
     CBUtil* util = [CBUtil sharedInstance];

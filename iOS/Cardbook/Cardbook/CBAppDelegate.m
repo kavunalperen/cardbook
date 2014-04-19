@@ -15,17 +15,12 @@
 #import "CBUtil.h"
 #import "CBTabBarController.h"
 #import "APIManager.h"
+#import "CBUser.h"
 
 @implementation CBAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
-    
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
-     UIRemoteNotificationTypeAlert |
-     UIRemoteNotificationTypeBadge |
-     UIRemoteNotificationTypeSound];
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     // Override point for customization after application launch.
@@ -34,7 +29,9 @@
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:bundle];
     
-    if (YES) {
+    CBUser* sharedUser = [CBUser sharedUser];
+    
+    if (sharedUser != nil) {
         CBTabBarController* tabbarController = [storyboard instantiateViewControllerWithIdentifier:@"TabbarController"];
         self.window.rootViewController = tabbarController;
     } else {
@@ -43,24 +40,31 @@
     }
     [self.window makeKeyAndVisible];
     
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    
+    [[CBUser sharedUser] openBarcodeFullScreen];
+    
     return YES;
 }
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
+    CBUser* sharedUser = [CBUser sharedUser];
     
-    NSString* deviceTokenStr = [deviceToken description];
-    deviceTokenStr = [deviceTokenStr stringByReplacingOccurrencesOfString:@" " withString:@""];
-    deviceTokenStr = [deviceTokenStr stringByReplacingOccurrencesOfString:@"<" withString:@""];
-    deviceTokenStr = [deviceTokenStr stringByReplacingOccurrencesOfString:@">" withString:@""];
-    
-    if (deviceTokenStr != nil) {
-        [[APIManager sharedInstance] updateMobileDeviceId:deviceTokenStr
-                                             onCompletion:^(NSDictionary *responseDictionary) {
-                                                 NSLog(@"response here");
-                                             }
-                                                  onError:^(NSError *error) {
-                                                      NSLog(@"an error occured");
-                                                  }];
+    if (sharedUser != nil) {
+        NSString* deviceTokenStr = [deviceToken description];
+        deviceTokenStr = [deviceTokenStr stringByReplacingOccurrencesOfString:@" " withString:@""];
+        deviceTokenStr = [deviceTokenStr stringByReplacingOccurrencesOfString:@"<" withString:@""];
+        deviceTokenStr = [deviceTokenStr stringByReplacingOccurrencesOfString:@">" withString:@""];
+        
+        if (deviceTokenStr != nil) {
+            [[APIManager sharedInstance] updateMobileDeviceId:deviceTokenStr
+                                                 onCompletion:^(NSDictionary *responseDictionary) {
+                                                     NSLog(@"response here");
+                                                 }
+                                                      onError:^(NSError *error) {
+                                                          NSLog(@"an error occured");
+                                                      }];
+        }
     }
 }
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error

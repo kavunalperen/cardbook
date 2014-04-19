@@ -35,4 +35,6 @@
 
 @property UIButton* updateButton;
 
+@property BOOL forUpdate;
+
 @end

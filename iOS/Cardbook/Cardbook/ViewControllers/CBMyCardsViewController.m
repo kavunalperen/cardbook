@@ -102,7 +102,6 @@
     
     [cell.nameLabel setText:[currentCard companyName]];
     
-    [cell prepareForReuse];
     cell.relatedCard = currentCard;
     if ([currentCard companyImageUrl] != nil && ![[currentCard companyImageUrl] isEqualToString:@""]) {
         [cell setImageOfTheCell:[currentCard companyImageUrl]];

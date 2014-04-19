@@ -101,6 +101,16 @@
 #define CARD_INFO_INPUTS_PLACEHOLDER_COLOR [UIColor colorWithRed:104.0/255.0 green:104.0/255.0 blue:104.0/255.0 alpha:1.0]
 #define CARD_INFO_INPUTS_BACKGROUND_COLOR [UIColor colorWithRed:214.0/255.0 green:214.0/255.0 blue:214.0/255.0 alpha:1.0]
 
+#define CARD_INFO_BRANCHES_CELL_SEPERATOR_COLOR [UIColor colorWithRed:232.0/255.0 green:232.0/255.0 blue:232.0/255.0 alpha:1.0]
+
+#define CARD_INFO_BRANCHES_CELL_NAME_FONT [UIFont fontWithName:@"Roboto-Medium" size:16.0]
+#define CARD_INFO_BRANCHES_CELL_NAME_TEXT_COLOR [UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:1.0]
+
+#define CARD_INFO_BRANCHES_CELL_ADDRESS_FONT [UIFont fontWithName:@"Roboto-Regular" size:11.0]
+#define CARD_INFO_BRANCHES_CELL_ADDRESS_TEXT_COLOR [UIColor colorWithRed:142.0/255.0 green:142.0/255.0 blue:142.0/255.0 alpha:1.0]
+
+#define CARD_INFO_BRANCHES_CELL_DISTANCE_FONT [UIFont fontWithName:@"Roboto-Light" size:10.0]
+#define CARD_INFO_BRANCHES_CELL_DISTANCE_TEXT_COLOR [UIColor colorWithRed:142.0/255.0 green:142.0/255.0 blue:147.0/255.0 alpha:1.0]
 
 // campaigns related macros
 #define MY_CAMPAIGNS_CELL_NAME_FONT [UIFont fontWithName:@"Roboto-Medium" size:16.0]

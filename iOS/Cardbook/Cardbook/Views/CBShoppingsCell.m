@@ -63,9 +63,11 @@
     UIImageView* backgroundView1 = [UIImageView new];
     [backgroundView1 setFrame:CGRectMake(0.0, 0.0, 290.0, 20.0)];
     [backgroundView1 setImage:[UIImage imageNamed:@"campaign_detail_desc_top.png"]];
+    [backgroundView1 setClipsToBounds:YES];
     UIImageView* backgroundView2 = [UIImageView new];
     [backgroundView2 setFrame:CGRectMake(0.0, 20.0, 290.0, 22.0)];
     [backgroundView2 setImage:[UIImage imageNamed:@"campaign_detail_desc_bg.png"]];
+    [backgroundView2 setClipsToBounds:YES];
     [self addSubview:backgroundView1];
     [self addSubview:backgroundView2];
     
@@ -84,6 +86,7 @@
     [backgroundView2 setFrame:CGRectMake(0.0, 0.0, 290.0, 42.0)];
     [backgroundView2 setImage:[UIImage imageNamed:@"campaign_detail_desc_bg.png"]];
     [backgroundView2 setContentMode:UIViewContentModeScaleAspectFill];
+    [backgroundView2 setClipsToBounds:YES];
     [self addSubview:backgroundView2];
     
     self.seperatorView = [[UIView alloc] initWithFrame:CGRectMake(0.0, self.frame.size.height-1.0, self.frame.size.width, 1.0)];
@@ -100,6 +103,7 @@
     [backgroundView2 setFrame:CGRectMake(0.0, 0.0, 290.0, 20.0)];
     [backgroundView2 setImage:[UIImage imageNamed:@"campaign_detail_desc_bottom.png"]];
     [backgroundView2 setContentMode:UIViewContentModeScaleAspectFill];
+    [backgroundView2 setClipsToBounds:YES];
     [self addSubview:backgroundView2];
 }
 
