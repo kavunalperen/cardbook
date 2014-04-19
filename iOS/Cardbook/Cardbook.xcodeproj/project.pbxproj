@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		050A993418FF100E00537968 /* CBBranchesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 050A993318FF100E00537968 /* CBBranchesViewController.m */; };
 		050B97DB18DF5F970075C907 /* CBInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 050B97DA18DF5F970075C907 /* CBInfoViewController.m */; };
-		050B97DE18DF5FA40075C907 /* CBShopsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 050B97DD18DF5FA40075C907 /* CBShopsViewController.m */; };
 		050B97E418DF61830075C907 /* CBCardInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 050B97E318DF61830075C907 /* CBCardInfo.m */; };
 		0531301B183362DB008F7C83 /* profile_barcode@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 05313017183362DB008F7C83 /* profile_barcode@2x.png */; };
 		0531301C183362DB008F7C83 /* profile_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 05313018183362DB008F7C83 /* profile_bg@2x.png */; };
@@ -82,6 +81,14 @@
 		0599DF2018411C3000957399 /* CBCampaign.m in Sources */ = {isa = PBXBuildFile; fileRef = 0599DF1F18411C3000957399 /* CBCampaign.m */; };
 		0599DF23184134FC00957399 /* CBCampaignDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 0599DF22184134FC00957399 /* CBCampaignDetail.m */; };
 		0599DF271842705E00957399 /* campaign_detail_dummy@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0599DF261842705E00957399 /* campaign_detail_dummy@2x.jpg */; };
+		059A190A1900534D0036AF9F /* CBCompanyBranches.m in Sources */ = {isa = PBXBuildFile; fileRef = 059A19091900534D0036AF9F /* CBCompanyBranches.m */; };
+		059A190D190059750036AF9F /* CBBranchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 059A190C190059750036AF9F /* CBBranchCell.m */; };
+		059A191019005D560036AF9F /* branch_listbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 059A190E19005D560036AF9F /* branch_listbg@2x.png */; };
+		059A191119005D560036AF9F /* branch_listheaderbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 059A190F19005D560036AF9F /* branch_listheaderbg@2x.png */; };
+		059A191419006C220036AF9F /* CBMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 059A191319006C220036AF9F /* CBMapViewController.m */; };
+		059A191619006C3A0036AF9F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 059A191519006C3A0036AF9F /* MapKit.framework */; };
+		059A19191900708F0036AF9F /* CBBranchLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 059A19181900708F0036AF9F /* CBBranchLocation.m */; };
+		059A191B1900783D0036AF9F /* map_name_holder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 059A191A1900783D0036AF9F /* map_name_holder@2x.png */; };
 		059C946F182E3B920010651B /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 059C945E182E3B920010651B /* NSData+Base64.m */; };
 		059C9470182E3B920010651B /* NSDate+RFC1123.m in Sources */ = {isa = PBXBuildFile; fileRef = 059C9460182E3B920010651B /* NSDate+RFC1123.m */; };
 		059C9471182E3B920010651B /* NSDictionary+RequestEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 059C9462182E3B920010651B /* NSDictionary+RequestEncoding.m */; };
@@ -172,8 +179,6 @@
 		050A993318FF100E00537968 /* CBBranchesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBBranchesViewController.m; sourceTree = "<group>"; };
 		050B97D918DF5F970075C907 /* CBInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBInfoViewController.h; sourceTree = "<group>"; };
 		050B97DA18DF5F970075C907 /* CBInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBInfoViewController.m; sourceTree = "<group>"; };
-		050B97DC18DF5FA40075C907 /* CBShopsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBShopsViewController.h; sourceTree = "<group>"; };
-		050B97DD18DF5FA40075C907 /* CBShopsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBShopsViewController.m; sourceTree = "<group>"; };
 		050B97E218DF61830075C907 /* CBCardInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCardInfo.h; sourceTree = "<group>"; };
 		050B97E318DF61830075C907 /* CBCardInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCardInfo.m; sourceTree = "<group>"; };
 		05313017183362DB008F7C83 /* profile_barcode@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile_barcode@2x.png"; sourceTree = "<group>"; };
@@ -274,6 +279,18 @@
 		0599DF21184134FC00957399 /* CBCampaignDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCampaignDetail.h; sourceTree = "<group>"; };
 		0599DF22184134FC00957399 /* CBCampaignDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCampaignDetail.m; sourceTree = "<group>"; };
 		0599DF261842705E00957399 /* campaign_detail_dummy@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "campaign_detail_dummy@2x.jpg"; sourceTree = "<group>"; };
+		059A19081900534D0036AF9F /* CBCompanyBranches.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCompanyBranches.h; sourceTree = "<group>"; };
+		059A19091900534D0036AF9F /* CBCompanyBranches.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCompanyBranches.m; sourceTree = "<group>"; };
+		059A190B190059750036AF9F /* CBBranchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBBranchCell.h; sourceTree = "<group>"; };
+		059A190C190059750036AF9F /* CBBranchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBBranchCell.m; sourceTree = "<group>"; };
+		059A190E19005D560036AF9F /* branch_listbg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "branch_listbg@2x.png"; sourceTree = "<group>"; };
+		059A190F19005D560036AF9F /* branch_listheaderbg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "branch_listheaderbg@2x.png"; sourceTree = "<group>"; };
+		059A191219006C220036AF9F /* CBMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBMapViewController.h; sourceTree = "<group>"; };
+		059A191319006C220036AF9F /* CBMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBMapViewController.m; sourceTree = "<group>"; };
+		059A191519006C3A0036AF9F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		059A19171900708F0036AF9F /* CBBranchLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBBranchLocation.h; sourceTree = "<group>"; };
+		059A19181900708F0036AF9F /* CBBranchLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBBranchLocation.m; sourceTree = "<group>"; };
+		059A191A1900783D0036AF9F /* map_name_holder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_name_holder@2x.png"; sourceTree = "<group>"; };
 		059C945D182E3B920010651B /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
 		059C945E182E3B920010651B /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		059C945F182E3B920010651B /* NSDate+RFC1123.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+RFC1123.h"; sourceTree = "<group>"; };
@@ -386,6 +403,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				059A191619006C3A0036AF9F /* MapKit.framework in Frameworks */,
 				059C9482182E7B670010651B /* QuartzCore.framework in Frameworks */,
 				059172381820268900BEE519 /* Security.framework in Frameworks */,
 				059172361820268100BEE519 /* SystemConfiguration.framework in Frameworks */,
@@ -442,12 +460,14 @@
 				050B97DA18DF5F970075C907 /* CBInfoViewController.m */,
 				057A632818FC575C000790F1 /* CBCompanyContactViewController.h */,
 				057A632918FC575C000790F1 /* CBCompanyContactViewController.m */,
-				050B97DC18DF5FA40075C907 /* CBShopsViewController.h */,
-				050B97DD18DF5FA40075C907 /* CBShopsViewController.m */,
 				057A632B18FC70A1000790F1 /* CBCardInfoTextField.h */,
 				057A632C18FC70A1000790F1 /* CBCardInfoTextField.m */,
 				050A993218FF100E00537968 /* CBBranchesViewController.h */,
 				050A993318FF100E00537968 /* CBBranchesViewController.m */,
+				059A191219006C220036AF9F /* CBMapViewController.h */,
+				059A191319006C220036AF9F /* CBMapViewController.m */,
+				059A19171900708F0036AF9F /* CBBranchLocation.h */,
+				059A19181900708F0036AF9F /* CBBranchLocation.m */,
 			);
 			name = Card;
 			sourceTree = "<group>";
@@ -461,6 +481,8 @@
 				0599DF1C18410E0A00957399 /* CBCardDetail.m */,
 				050B97E218DF61830075C907 /* CBCardInfo.h */,
 				050B97E318DF61830075C907 /* CBCardInfo.m */,
+				059A19081900534D0036AF9F /* CBCompanyBranches.h */,
+				059A19091900534D0036AF9F /* CBCompanyBranches.m */,
 			);
 			name = Card;
 			sourceTree = "<group>";
@@ -716,6 +738,8 @@
 				054342581830255F00CC1FE3 /* CBCardDetailsCouponCell.m */,
 				054391821832CC8700140624 /* CBShoppingDetailsCell.h */,
 				054391831832CC8700140624 /* CBShoppingDetailsCell.m */,
+				059A190B190059750036AF9F /* CBBranchCell.h */,
+				059A190C190059750036AF9F /* CBBranchCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -723,6 +747,9 @@
 		05A55E1E182F9AEF00CE6D08 /* cardDetails */ = {
 			isa = PBXGroup;
 			children = (
+				059A191A1900783D0036AF9F /* map_name_holder@2x.png */,
+				059A190E19005D560036AF9F /* branch_listbg@2x.png */,
+				059A190F19005D560036AF9F /* branch_listheaderbg@2x.png */,
 				057A630618FC4E2E000790F1 /* comp_contact_bg.png */,
 				057A630718FC4E2E000790F1 /* info_back@2x.png */,
 				057A630818FC4E2E000790F1 /* mycard_ayrac@2x.png */,
@@ -766,6 +793,7 @@
 		05D81F2D181FD16B00F3A7AD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				059A191519006C3A0036AF9F /* MapKit.framework */,
 				059C9481182E7B670010651B /* QuartzCore.framework */,
 				059172371820268900BEE519 /* Security.framework */,
 				059172351820268100BEE519 /* SystemConfiguration.framework */,
@@ -995,6 +1023,7 @@
 				05780B101832AFDC0018A1FA /* share_button_normal@2x.png in Resources */,
 				05780B111832AFDC0018A1FA /* shopping_cell_arrow_highlighted@2x.png in Resources */,
 				056D0B7618315C8600A398B6 /* campaign_detail_white_bottom@2x.png in Resources */,
+				059A191119005D560036AF9F /* branch_listheaderbg@2x.png in Resources */,
 				05D81F6B181FD40F00F3A7AD /* splash_logo@2x.png in Resources */,
 				05D81F68181FD40F00F3A7AD /* splash_bg-568h@2x.jpg in Resources */,
 				0531301B183362DB008F7C83 /* profile_barcode@2x.png in Resources */,
@@ -1007,6 +1036,7 @@
 				05780B191832AFDC0018A1FA /* shopping_kazanma_icon@2x.png in Resources */,
 				05780B161832AFDC0018A1FA /* shopping_detail_top_bg@2x.png in Resources */,
 				057A631D18FC4E2E000790F1 /* mycard_company_branch_normal@2x.png in Resources */,
+				059A191019005D560036AF9F /* branch_listbg@2x.png in Resources */,
 				059C9492182E85D80010651B /* Roboto-Italic.ttf in Resources */,
 				057A631918FC4E2E000790F1 /* mycard_ayrac@2x.png in Resources */,
 				059C949C182E8C8C0010651B /* splash_bg@2x.jpg in Resources */,
@@ -1022,6 +1052,7 @@
 				057A631C18FC4E2E000790F1 /* mycard_company_branch_highlighted@2x.png in Resources */,
 				057A631718FC4E2E000790F1 /* comp_contact_bg.png in Resources */,
 				056D0B7418315C8600A398B6 /* campaign_detail_header@2x.png in Resources */,
+				059A191B1900783D0036AF9F /* map_name_holder@2x.png in Resources */,
 				05780B171832AFDC0018A1FA /* shopping_firma_icon@2x.png in Resources */,
 				05A55E1A182F02BB00CE6D08 /* cell_detail_arrow_highlighted@2x.png in Resources */,
 				059C9490182E85D80010651B /* Roboto-Bold.ttf in Resources */,
@@ -1061,7 +1092,6 @@
 				059C94A2182ECF600010651B /* CBNavigationController.m in Sources */,
 				05D81F70181FD46800F3A7AD /* CBLoginViewController.m in Sources */,
 				056D0B7D183161A900A398B6 /* CBShoppingsCell.m in Sources */,
-				050B97DE18DF5FA40075C907 /* CBShopsViewController.m in Sources */,
 				05F2CB31184BC12000F8DB8B /* CBShopping.m in Sources */,
 				0599DF2018411C3000957399 /* CBCampaign.m in Sources */,
 				059C9471182E3B920010651B /* NSDictionary+RequestEncoding.m in Sources */,
@@ -1085,6 +1115,7 @@
 				05D81F3B181FD16B00F3A7AD /* main.m in Sources */,
 				059C94B9182EDC350010651B /* CBMyCardsViewController.m in Sources */,
 				059C947A182E40240010651B /* City.m in Sources */,
+				059A190A1900534D0036AF9F /* CBCompanyBranches.m in Sources */,
 				056B53EC183F6C5C00A35451 /* SBJsonUTF8Stream.m in Sources */,
 				059C94BF182EDC530010651B /* CBShoppingViewController.m in Sources */,
 				059C9474182E3B920010651B /* MKNetworkEngine.m in Sources */,
@@ -1100,9 +1131,12 @@
 				059C946F182E3B920010651B /* NSData+Base64.m in Sources */,
 				056B53EB183F6C5C00A35451 /* SBJsonTokeniser.m in Sources */,
 				056B53E9183F6C5C00A35451 /* SBJsonStreamWriterAccumulator.m in Sources */,
+				059A19191900708F0036AF9F /* CBBranchLocation.m in Sources */,
 				059C9485182E83F60010651B /* CBTextField.m in Sources */,
+				059A190D190059750036AF9F /* CBBranchCell.m in Sources */,
 				0591723018201C0F00BEE519 /* CBRegisterViewController.m in Sources */,
 				059C94C9182EE53B0010651B /* CBBaseViewController.m in Sources */,
+				059A191419006C220036AF9F /* CBMapViewController.m in Sources */,
 				056B53ED183F6C5C00A35451 /* SBJsonWriter.m in Sources */,
 				0599DF1D18410E0A00957399 /* CBCardDetail.m in Sources */,
 				054391841832CC8700140624 /* CBShoppingDetailsCell.m in Sources */,
