@@ -11,6 +11,7 @@
 #import "CBShoppingDetailsCell.h"
 #import "APIManager.h"
 #import "CBCard.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 @interface CBShoppingDetailViewController ()
 
@@ -415,7 +416,194 @@
 
 - (void) shareOnFacebook
 {
+    if ([[FBSession activeSession] isOpen]) {
+        /*
+         * if the current session has no publish permission we need to reauthorize
+         */
+        if ([[[FBSession activeSession] permissions]indexOfObject:@"publish_actions"] == NSNotFound) {
+            
+            [[FBSession activeSession] requestNewPublishPermissions:[NSArray arrayWithObject:@"publish_action"] defaultAudience:FBSessionDefaultAudienceFriends
+                                                  completionHandler:^(FBSession *session,NSError *error){
+                                                      [self publishThisShopping];
+                                                  }];
+            
+        }else{
+            [self publishThisShopping];
+        }
+    }else{
+        /*
+         * open a new session with publish permission
+         */
+        [FBSession openActiveSessionWithPublishPermissions:[NSArray arrayWithObject:@"publish_actions"]
+                                           defaultAudience:FBSessionDefaultAudienceOnlyMe
+                                              allowLoginUI:YES
+                                         completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+                                             if (!error && status == FBSessionStateOpen) {
+                                                 [self publishThisShopping];
+                                             }else{
+                                                 NSLog(@"error");
+                                             }
+                                         }];
+    }
+}
+- (void) publishThisShopping
+{
+    NSString* companyNameStr = [[CBCard GetCardWithCompanyId:self.currentShoppingDetail.companyId] companyName];
+    NSString* companyImageUrl = [[CBCard GetCardWithCompanyId:self.currentShoppingDetail.companyId] companyImageUrl];
+    NSString* captionStr = [NSString stringWithFormat:@"Cardbook aracılığı ile %@ mağazasından",companyNameStr];
     
+    for (NSDictionary* product in self.currentShoppingDetail.shoppingProductList) {
+        NSString* productName = [product objectForKey:@"ProductName"];
+        if (productName != nil && ![productName isKindOfClass:[NSNull class]]) {
+            captionStr = [NSString stringWithFormat:@"%@ %@ ",captionStr,productName];
+        }
+    }
+    
+    captionStr = [NSString stringWithFormat:@"%@ aldım",captionStr];
+    if (self.currentShoppingDetail.wonShoppingPromotionCredit != nil && ![self.currentShoppingDetail.wonShoppingPromotionCredit isEqualToString:@""]) {
+        captionStr = [NSString stringWithFormat:@"%@ ve %@ puan kazandım.",captionStr,self.currentShoppingDetail.wonShoppingPromotionCredit];
+    } else {
+        captionStr = [NSString stringWithFormat:@"%@.",captionStr];
+    }
+//
+//    // Check if the Facebook app is installed and we can present the share dialog
+//    FBShareDialogParams *params = [[FBShareDialogParams alloc] init];
+//    params.link = [NSURL URLWithString:@"https://developers.facebook.com/docs/ios/share/"];
+//    params.name = companyNameStr;
+//    params.caption = captionStr;
+//    params.picture = companyImageUrl;
+//    params.description = captionStr;
+//    
+//    // If the Facebook app is installed and we can present the share dialog
+//    if ([FBDialogs canPresentShareDialogWithParams:params]) {
+//        // Present the share dialog
+//        [self presentFeedDialog];
+////        [self presentShareDialogWithParams:params];
+//    } else {
+//        // Present the feed dialog
+//        [self presentFeedDialog];
+//    }
+    
+    
+    // NOTE: pre-filling fields associated with Facebook posts,
+    // unless the user manually generated the content earlier in the workflow of your app,
+    // can be against the Platform policies: https://developers.facebook.com/policy
+    
+    // Put together the dialog parameters
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                   companyNameStr, @"name",
+                                   @"http://www.cardbook.com.tr", @"caption",
+//                                   @"Allow your users to share stories on Facebook from your app using the iOS SDK.", @"description",
+                                   @"https://www.cardbook.com.tr", @"link",
+                                   companyImageUrl, @"picture",
+                                   captionStr, @"message",
+//                                   @"SELF", @"privacy",
+                                   nil];
+#warning inform user about sharing
+    // Make the request
+    [FBRequestConnection startWithGraphPath:@"/me/feed"
+                                 parameters:params
+                                 HTTPMethod:@"POST"
+                          completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                              if (!error) {
+                                  NSLog(@"response");
+                              } else {
+                                  NSLog(@"an error occured");
+                              }
+                          }];
+    
+}
+- (void) presentShareDialogWithParams:(FBShareDialogParams*)params
+{
+    [FBDialogs presentShareDialogWithLink:params.link
+                                     name:params.name
+                                  caption:params.caption
+                              description:params.description
+                                  picture:params.picture
+                              clientState:nil
+                                  handler:^(FBAppCall *call, NSDictionary *results, NSError *error) {
+                                      if(error) {
+                                          NSLog(@"an error occured");
+                                          // An error occurred, we need to handle the error
+                                          // See: https://developers.facebook.com/docs/ios/errors
+//                                          NSLog([NSString stringWithFormat:@"Error publishing story: %@", error.description]);
+                                      } else {
+                                          // Success
+                                          NSLog(@"result %@", results);
+                                      }
+                                  }];
+}
+- (void) presentFeedDialog
+{
+    
+    NSString* companyNameStr = [[CBCard GetCardWithCompanyId:self.currentShoppingDetail.companyId] companyName];
+    NSString* companyImageUrl = [[CBCard GetCardWithCompanyId:self.currentShoppingDetail.companyId] companyImageUrl];
+    NSString* captionStr = [NSString stringWithFormat:@"Cardbook aracılığı ile %@ mağazasından",companyNameStr];
+    
+    for (NSDictionary* product in self.currentShoppingDetail.shoppingProductList) {
+        NSString* productName = [product objectForKey:@"ProductName"];
+        if (productName != nil && ![productName isKindOfClass:[NSNull class]]) {
+            captionStr = [NSString stringWithFormat:@"%@ %@ ",captionStr,productName];
+        }
+    }
+    
+    captionStr = [NSString stringWithFormat:@"%@ aldım",captionStr];
+    if (self.currentShoppingDetail.wonShoppingPromotionCredit != nil && ![self.currentShoppingDetail.wonShoppingPromotionCredit isEqualToString:@""]) {
+        captionStr = [NSString stringWithFormat:@"%@ ve %@ puan kazandım.",captionStr,self.currentShoppingDetail.wonShoppingPromotionCredit];
+    } else {
+        captionStr = [NSString stringWithFormat:@"%@.",captionStr];
+    }
+    
+    // Put together the dialog parameters
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                   companyNameStr, @"name",
+                                   @"https://www.cardbook.com.tr", @"caption",
+                                   captionStr, @"message",
+                                   @"https://www.cardbook.com.tr", @"link",
+                                   companyImageUrl, @"picture",
+                                   @"kavun", @"description",
+                                   nil];
+    
+    // Show the feed dialog
+    [FBWebDialogs presentFeedDialogModallyWithSession:nil
+                                           parameters:params
+                                              handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
+                                                  if (error) {
+                                                      // An error occurred, we need to handle the error
+                                                      // See: https://developers.facebook.com/docs/ios/errors
+//                                                      NSLog([NSString stringWithFormat:@"Error publishing story: %@", error.description]);
+                                                  } else {
+                                                      if (result == FBWebDialogResultDialogNotCompleted) {
+                                                          // User cancelled.
+                                                          NSLog(@"User cancelled.");
+                                                      } else {
+                                                          // Handle the publish feed callback
+                                                          NSDictionary *urlParams = [self parseURLParams:[resultURL query]];
+                                                          
+                                                          if (![urlParams valueForKey:@"post_id"]) {
+                                                              // User cancelled.
+                                                              NSLog(@"User cancelled.");
+                                                              
+                                                          } else {
+                                                              // User clicked the Share button
+                                                              NSString *result = [NSString stringWithFormat: @"Posted story, id: %@", [urlParams valueForKey:@"post_id"]];
+                                                              NSLog(@"result %@", result);
+                                                          }
+                                                      }
+                                                  }
+                                              }];
+}
+// A function for parsing URL parameters returned by the Feed Dialog.
+- (NSDictionary*)parseURLParams:(NSString *)query {
+    NSArray *pairs = [query componentsSeparatedByString:@"&"];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    for (NSString *pair in pairs) {
+        NSArray *kv = [pair componentsSeparatedByString:@"="];
+        NSString *val =
+        [kv[1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        params[kv[0]] = val;
+    }
+    return params;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
