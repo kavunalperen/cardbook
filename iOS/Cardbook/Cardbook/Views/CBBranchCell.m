@@ -42,7 +42,7 @@
 //    [self.seperatorView setBackgroundColor:CARD_INFO_BRANCHES_CELL_SEPERATOR_COLOR];
 //    [self addSubview:self.seperatorView];
     
-    self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(15.0, 8.0, 232.0, 18.0)];
+    self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(15.0, 8.0, 222.0, 18.0)];
     self.nameLabel.backgroundColor = [UIColor clearColor];
     self.nameLabel.font = CARD_INFO_BRANCHES_CELL_NAME_FONT;
     self.nameLabel.textColor = CARD_INFO_BRANCHES_CELL_NAME_TEXT_COLOR;
@@ -56,7 +56,7 @@
     self.addressLabel.textColor = CARD_INFO_BRANCHES_CELL_ADDRESS_TEXT_COLOR;
     [self addSubview:self.addressLabel];
     
-    self.distanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(247.0, 8.0, 28.0, 18.0)];
+    self.distanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(237.0, 8.0, 38.0, 18.0)];
     self.distanceLabel.backgroundColor = [UIColor clearColor];
     self.distanceLabel.textAlignment = NSTextAlignmentRight;
     self.distanceLabel.font = CARD_INFO_BRANCHES_CELL_DISTANCE_FONT;
@@ -72,6 +72,11 @@
     [self.phoneButton addTarget:self action:@selector(callBranch) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.phoneButton];
 //    self.phoneButton
+}
+- (void) prepareForReuse
+{
+    [super prepareForReuse];
+    self.distanceLabel.text = @"-";
 }
 - (void) callBranch
 {
