@@ -22,6 +22,8 @@
 {
     NSInteger itemCount;
     CBCompanyBranches* selectedBranch;
+    CLLocationManager* locationManager;
+    CLLocation* userLocation;
 }
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -48,6 +50,7 @@
     } else {
         [self.tableView reloadData];
     }
+    
 }
 - (void)viewDidLoad
 {
@@ -60,6 +63,18 @@
     [self.titleButton addTarget:self action:@selector(goBackToCardDetail) forControlEvents:UIControlEventTouchUpInside];
     [self initializeTableView];
     
+    locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate = self;
+    locationManager.distanceFilter = kCLDistanceFilterNone;
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [locationManager startUpdatingLocation];
+    
+}
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
+    userLocation = newLocation;
+    [self.tableView reloadData];
+//    NSLog(@"OldLocation %f %f", oldLocation.coordinate.latitude, oldLocation.coordinate.longitude);
+//    NSLog(@"NewLocation %f %f", newLocation.coordinate.latitude, newLocation.coordinate.longitude);
 }
 - (void) goBackToCardDetail
 {
@@ -138,7 +153,18 @@
         cell.relatedBranch = currentBranch;
         cell.nameLabel.text = currentBranch.branchName;
         cell.addressLabel.text = currentBranch.branchAddress;
-        cell.distanceLabel.text = @"3km";
+        
+        if (userLocation != nil) {
+            if (currentBranch.latitude != nil && currentBranch.longitude != nil) {
+                CLLocation* branchLocation = [[CLLocation alloc] initWithLatitude:[currentBranch.latitude doubleValue] longitude:[currentBranch.longitude doubleValue]];
+                CLLocationDistance distance = [branchLocation distanceFromLocation:userLocation];
+                NSInteger distanceInKm = round((distance/1000.0));
+                
+                cell.distanceLabel.text = [NSString stringWithFormat:@"%dkm",distanceInKm];
+            } else {
+            }
+        } else {
+        }
     }
     
     return cell;

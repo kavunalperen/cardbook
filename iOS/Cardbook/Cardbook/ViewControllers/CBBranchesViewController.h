@@ -8,8 +8,9 @@
 
 #import "CBBaseViewController.h"
 #import "CBCardDetail.h"
+#import <MapKit/MapKit.h>
 
-@interface CBBranchesViewController : CBBaseViewController <UITableViewDataSource, UITableViewDelegate>
+@interface CBBranchesViewController : CBBaseViewController <UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate>
 
 @property UITableView* tableView;
 @property CBCardDetail* currentCardDetail;
