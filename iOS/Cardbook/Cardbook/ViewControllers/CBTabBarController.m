@@ -32,6 +32,9 @@
 	// Do any additional setup after loading the view.
     [self initializeBarItems];
     
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[CBUser sharedUser] openBarcodeFullScreen];
+    });
     
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
      UIRemoteNotificationTypeAlert |
