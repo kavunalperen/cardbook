@@ -42,9 +42,22 @@
     
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     
-    [[CBUser sharedUser] openBarcodeFullScreen];
-    
     return YES;
+}
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    
+    BOOL urlWasHandled = [FBAppCall handleOpenURL:url
+                                sourceApplication:sourceApplication
+                                  fallbackHandler:^(FBAppCall *call) {
+                                      NSLog(@"Unhandled deep link: %@", url);
+                                      // Here goes the code to handle the links
+                                      // Use the links to show a relevant view of your app to the user
+                                  }];
+    
+    return urlWasHandled;
 }
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
@@ -75,6 +88,12 @@
 {
         NSLog(@"remote notification is received");
         NSLog(@"break");
+    
+    if (application.applicationState == UIApplicationStateInactive) {
+        NSLog(@"launch from push notification");
+        
+    }
+    
 }
 - (void)applicationWillResignActive:(UIApplication *)application
 {
@@ -87,12 +106,12 @@
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
-{
-    BOOL wasHandled = [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
-    
-    return wasHandled;
-}
+//- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+//{
+//    BOOL wasHandled = [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
+//    
+//    return wasHandled;
+//}
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
