@@ -37,6 +37,8 @@
 {
     [super viewWillAppear:animated];
     
+    self.allBranches = [CBCompanyBranches getAllBranchesForCompany:self.currentCardDetail.companyId];
+    
     if (self.allBranches == nil) {
         [[APIManager sharedInstance] getCompanyLocationListWithCompanyId:self.currentCardDetail.companyId onCompletion:^(NSDictionary *responseDictionary) {
             NSLog(@"response here");

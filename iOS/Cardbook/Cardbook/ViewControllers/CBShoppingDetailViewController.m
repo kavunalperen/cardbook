@@ -162,14 +162,26 @@
     }
     return self;
 }
+- (id) initWithFromPushNotification:(BOOL)fromPushNotification
+{
+    if (self = [super init]) {
+        _fromPushNotification = fromPushNotification;
+    }
+    
+    return self;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     [self stylizeNavigationBar];
-    [self stylizeForDetailView];
-    [self setTitleButtonText:@"Alışverişlerim"];
-    [self.titleButton addTarget:self action:@selector(goBacktoShoppings) forControlEvents:UIControlEventTouchUpInside];
+//    if (_fromPushNotification) {
+//        ;
+//    } else {
+        [self stylizeForDetailView];
+        [self setTitleButtonText:@"Alışverişlerim"];
+        [self.titleButton addTarget:self action:@selector(goBacktoShoppings) forControlEvents:UIControlEventTouchUpInside];
+//    }
 }
 - (void) initHeaderComponents
 {
@@ -635,7 +647,11 @@
 
 - (void) goBacktoShoppings
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    if (_fromPushNotification) {
+        [[[[[UIApplication sharedApplication] delegate] window] rootViewController] dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 - (void) stylizeNavigationBar
 {

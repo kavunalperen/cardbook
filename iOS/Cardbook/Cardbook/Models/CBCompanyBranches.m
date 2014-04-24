@@ -109,21 +109,25 @@ static NSMutableDictionary* allBranches;
                                                andBranchPhone:branchPhone
                                                   andLatitude:latitude
                                                  andLongitude:longitude];
+        
+        
+        if (allBranches == nil) {
+            allBranches = [NSMutableDictionary new];
+        }
+        
+        NSMutableArray* branchesOfACompany = [allBranches objectForKey:[NSString stringWithFormat:@"%d",companyId]];
+        
+        if (branchesOfACompany == nil) {
+            branchesOfACompany = @[branch].mutableCopy;
+            [allBranches setObject:branchesOfACompany forKey:[NSString stringWithFormat:@"%d",companyId]];
+        } else {
+            [branchesOfACompany addObject:branch];
+        }
+
+        
     }
     
     
-    if (allBranches == nil) {
-        allBranches = [NSMutableDictionary new];
-    }
-    
-    NSMutableArray* branchesOfACompany = [allBranches objectForKey:[NSString stringWithFormat:@"%d",companyId]];
-    
-    if (branchesOfACompany == nil) {
-        branchesOfACompany = @[branch].mutableCopy;
-        [allBranches setObject:branchesOfACompany forKey:[NSString stringWithFormat:@"%d",companyId]];
-    } else {
-        [branchesOfACompany addObject:branch];
-    }
     
     return branch;
 }

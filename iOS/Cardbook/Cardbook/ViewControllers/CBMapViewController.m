@@ -52,7 +52,7 @@
         [self.mapView addAnnotation:myAnnotation];
         
         [self.mapView selectAnnotation:myAnnotation animated:YES];
-        
+#warning fix this
 //        self.companyName.text = [[CBCard GetCardWithCompanyId:self.currentBranch.companyId] companyName];
         self.companyName.text = [[CBCard GetCardWithCompanyId:10] companyName];
         

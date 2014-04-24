@@ -13,10 +13,13 @@
 
 @interface CBMyCampaignsDetailViewController : CBBaseViewController <UIScrollViewDelegate>
 
+- (id) initWithFromPushNotification:(BOOL)fromPushNotification;
+
 @property UIScrollView* scrollView;
 @property CBCampaignDetail* currentCampaignDetail;
 @property NSInteger currentCampaignId;
 @property NSString* loadingImageUrlString;
 @property MKNetworkOperation* imageLoadingOperation;
+@property BOOL fromPushNotification;
 
 @end

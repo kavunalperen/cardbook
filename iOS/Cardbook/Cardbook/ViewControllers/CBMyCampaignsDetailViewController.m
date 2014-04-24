@@ -147,7 +147,14 @@
     }
     return self;
 }
-
+- (id) initWithFromPushNotification:(BOOL)fromPushNotification
+{
+    if (self = [super init]) {
+        _fromPushNotification = fromPushNotification;
+    }
+    
+    return self;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -340,7 +347,11 @@
 }
 - (void) goBacktoCampaigns
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    if (_fromPushNotification) {
+        [[[[[UIApplication sharedApplication] delegate] window] rootViewController] dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 - (void) stylizeNavigationBar
 {

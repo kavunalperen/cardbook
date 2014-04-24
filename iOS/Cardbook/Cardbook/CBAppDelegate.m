@@ -16,6 +16,8 @@
 #import "CBTabBarController.h"
 #import "APIManager.h"
 #import "CBUser.h"
+#import "CBShoppingDetailViewController.h"
+#import "CBMyCampaignsDetailViewController.h"
 
 @implementation CBAppDelegate
 
@@ -41,6 +43,41 @@
     [self.window makeKeyAndVisible];
     
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    
+    
+    NSDictionary* userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    if(userInfo != NULL)
+    {
+        NSString* notificationType = [userInfo objectForKey:@"notificationType"];
+        if ([notificationType isEqualToString:@"shopping"]) {
+            NSNumber* shopping = [userInfo objectForKey:@"detailId"];
+            if (shopping != nil) {
+                NSInteger shoppingId = [shopping integerValue];
+                
+                CBShoppingDetailViewController* shoppingVC = [[CBShoppingDetailViewController alloc] initWithFromPushNotification:YES];
+                shoppingVC.currentShoppingId = shoppingId;
+//                dispatch_after(3, dispatch_get_main_queue(), ^{
+                    [self.window.rootViewController presentViewController:shoppingVC animated:YES completion:nil];
+//                });
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    
+//                });
+                
+                // shopping id here
+            }
+        } else if ([notificationType isEqualToString:@"campaign"]) {
+            NSNumber* campaign = [userInfo objectForKey:@"detailId"];
+            if (campaign != nil) {
+                NSInteger campaignId = [campaign integerValue];
+                
+                CBMyCampaignsDetailViewController* campaignVC = [[CBMyCampaignsDetailViewController alloc] initWithFromPushNotification:YES];
+                campaignVC.currentCampaignId = campaignId;
+                [self.window.rootViewController presentViewController:campaignVC animated:YES completion:nil];
+                // campaign id here
+            }
+        }
+    }
+    
     
     return YES;
 }
@@ -91,6 +128,34 @@
     
     if (application.applicationState == UIApplicationStateInactive) {
         NSLog(@"launch from push notification");
+        if (userInfo != nil) {
+            NSString* notificationType = [userInfo objectForKey:@"notificationType"];
+            if ([notificationType isEqualToString:@"shopping"]) {
+                NSNumber* shopping = [userInfo objectForKey:@"detailId"];
+                if (shopping != nil) {
+                    NSInteger shoppingId = [shopping integerValue];
+                    
+                    CBShoppingDetailViewController* shoppingVC = [[CBShoppingDetailViewController alloc] initWithFromPushNotification:YES];
+                    shoppingVC.currentShoppingId = shoppingId;
+//                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.window.rootViewController presentViewController:shoppingVC animated:YES completion:nil];
+//                    });
+                    
+                    
+                    // shopping id here
+                }
+            } else if ([notificationType isEqualToString:@"campaign"]) {
+                NSNumber* campaign = [userInfo objectForKey:@"detailId"];
+                if (campaign != nil) {
+                    NSInteger campaignId = [campaign integerValue];
+                    
+                    CBMyCampaignsDetailViewController* campaignVC = [[CBMyCampaignsDetailViewController alloc] initWithFromPushNotification:YES];
+                    campaignVC.currentCampaignId = campaignId;
+                    [self.window.rootViewController presentViewController:campaignVC animated:YES completion:nil];
+                    // campaign id here
+                }
+            }
+        }
         
     }
     

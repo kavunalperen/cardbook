@@ -11,8 +11,11 @@
 
 @interface CBShoppingDetailViewController : CBBaseViewController <UITableViewDataSource, UITableViewDelegate>
 
+- (id) initWithFromPushNotification:(BOOL)fromPushNotification;
+
 @property UITableView* tableView;
 @property CBShoppingDetail* currentShoppingDetail;
 @property NSInteger currentShoppingId;
+@property BOOL fromPushNotification;
 
 @end
