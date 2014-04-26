@@ -12,7 +12,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CBUser : NSObject
+@interface CBUser : NSObject <UIAlertViewDelegate>
 
 @property NSString* userId;
 @property NSString* facebookId;

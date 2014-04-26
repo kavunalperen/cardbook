@@ -142,6 +142,7 @@
 		05A55E1B182F02BB00CE6D08 /* cell_detail_arrow_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 05A55E19182F02BB00CE6D08 /* cell_detail_arrow_normal@2x.png */; };
 		05A55E1D182F89BA00CE6D08 /* top_maske@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 05A55E1C182F89BA00CE6D08 /* top_maske@2x.png */; };
 		05C0B187183BF37B000D491C /* CBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C0B186183BF37B000D491C /* CBUser.m */; };
+		05D4CD01190BBF6E003352C4 /* map_backbutton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 05D4CD00190BBF6E003352C4 /* map_backbutton@2x.png */; };
 		05D81F2F181FD16B00F3A7AD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05D81F2E181FD16B00F3A7AD /* Foundation.framework */; };
 		05D81F31181FD16B00F3A7AD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05D81F30181FD16B00F3A7AD /* CoreGraphics.framework */; };
 		05D81F33181FD16B00F3A7AD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05D81F32181FD16B00F3A7AD /* UIKit.framework */; };
@@ -368,6 +369,7 @@
 		05A55E1C182F89BA00CE6D08 /* top_maske@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "top_maske@2x.png"; sourceTree = "<group>"; };
 		05C0B185183BF37B000D491C /* CBUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBUser.h; sourceTree = "<group>"; };
 		05C0B186183BF37B000D491C /* CBUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBUser.m; sourceTree = "<group>"; };
+		05D4CD00190BBF6E003352C4 /* map_backbutton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_backbutton@2x.png"; sourceTree = "<group>"; };
 		05D81F2B181FD16B00F3A7AD /* Cardbook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cardbook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		05D81F2E181FD16B00F3A7AD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		05D81F30181FD16B00F3A7AD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -748,6 +750,7 @@
 			isa = PBXGroup;
 			children = (
 				059A191A1900783D0036AF9F /* map_name_holder@2x.png */,
+				05D4CD00190BBF6E003352C4 /* map_backbutton@2x.png */,
 				059A190E19005D560036AF9F /* branch_listbg@2x.png */,
 				059A190F19005D560036AF9F /* branch_listheaderbg@2x.png */,
 				057A630618FC4E2E000790F1 /* comp_contact_bg.png */,
@@ -1049,6 +1052,7 @@
 				05780B131832AFDC0018A1FA /* shopping_detail_blue_bg@2x.png in Resources */,
 				0531301D183362DB008F7C83 /* profile_update_btn_highlighted@2x.png in Resources */,
 				059C9497182E85D80010651B /* Roboto-Regular.ttf in Resources */,
+				05D4CD01190BBF6E003352C4 /* map_backbutton@2x.png in Resources */,
 				057A631C18FC4E2E000790F1 /* mycard_company_branch_highlighted@2x.png in Resources */,
 				057A631718FC4E2E000790F1 /* comp_contact_bg.png in Resources */,
 				056D0B7418315C8600A398B6 /* campaign_detail_header@2x.png in Resources */,

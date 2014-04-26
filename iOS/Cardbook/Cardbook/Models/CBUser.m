@@ -225,13 +225,37 @@ static CBUser* sharedUser;
         UITapGestureRecognizer* tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeBarcode)];
         [imageView addGestureRecognizer:tapGesture];
         
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
         [[[UIApplication sharedApplication].delegate window] addSubview:imageView];
         
+        NSString* showAgain = [[NSUserDefaults standardUserDefaults] objectForKey:@"BarcodeAlertViewShouldShowAgain"];
+        if (showAgain == nil) {
+            showAgain = @"YES";
+            [[NSUserDefaults standardUserDefaults] setObject:showAgain forKey:@"BarcodeAlertViewShouldShowAgain"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+        
+        if ([showAgain isEqualToString:@"YES"]) {
+            UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Ekran Parlaklığı!"
+                                                                message:@"Barkodunuzun en kolay şekilde okunabilmesi için lütfen ekran parlaklığınızı artırınız."
+                                                               delegate:self
+                                                      cancelButtonTitle:@"Kapat"
+                                                      otherButtonTitles:@"Bir daha gösterme", nil];
+            [alertView show];
+        }
     }
-    
+}
+- (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex != alertView.cancelButtonIndex) {
+        NSString* showAgain = @"NO";
+        [[NSUserDefaults standardUserDefaults] setObject:showAgain forKey:@"BarcodeAlertViewShouldShowAgain"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 }
 - (void) closeBarcode
 {
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     [imageView removeFromSuperview];
     imageView = nil;
 }
