@@ -148,16 +148,18 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
 
         initializeTabs();
 
-        Bundle bundle=getIntent().getExtras();
-        int tabNumbar;
-        String detailId;
-        if(bundle!=null){
-            tabNumbar=bundle.getInt("tab");
-            detailId=bundle.getString("detailId");
-            if(detailId!=null && detailId.equals(""))
-                openCampaignDetail(detailId);
-            setCurrentTab(tabNumbar);
-        }
+//        Bundle bundle=getIntent().getExtras();
+//        int tabNumbar;
+//        String detailId;
+//        if(bundle!=null){
+//            tabNumbar=bundle.getInt("tab");
+//            detailId=bundle.getString("detailId");
+//            if(detailId!=null && detailId.equals(""))
+//                openCampaignDetail(detailId);
+//            setCurrentTab(tabNumbar);
+//        }
+
+        onPushNotification(getIntent());
         context = getApplicationContext();
 
         // Check device for Play Services APK. If check succeeds, proceed with GCM registration.
@@ -186,7 +188,11 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        onPushNotification(intent);
 
+    }
+
+    protected void onPushNotification(Intent intent){
         Bundle bundle=intent.getExtras();
         int tabNumbar;
         String detailId;

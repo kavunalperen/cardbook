@@ -262,10 +262,10 @@ public class AlisverisDetail extends BaseFragment implements View.OnClickListene
         Feed feed = new Feed.Builder()
                 .setMessage(str.toString())
                 .setName(shopping.getCompany().getCompanyName())
-                .setCaption("www.android.com.tr")
+                .setCaption("www.cardbook.com.tr")
                 .setDescription("")
                 .setPicture(shopping.getCompany().getCompanyLogoURL())
-                .setLink("www.android.com.tr")
+                .setLink("www.cardbook.com.tr")
                 .build();
 
 // publish the feed
