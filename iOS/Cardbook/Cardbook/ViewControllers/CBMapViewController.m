@@ -38,6 +38,8 @@
 {
     [super viewWillAppear:animated];
     
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+    
     if (self.currentBranch != nil) {
         CLLocationCoordinate2D zoomLocation;
         zoomLocation.latitude = [self.currentBranch.latitude doubleValue];
@@ -58,6 +60,12 @@
         
     }
 }
+- (void) viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+}
 - (void) initCommonViews
 {
     self.mapView = [[MKMapView alloc] initWithFrame:self.view.frame];
@@ -65,24 +73,26 @@
     self.mapView.showsUserLocation = YES;
     [self.view addSubview:self.mapView];
     
-    self.companyNameHolder = [[UIView alloc] initWithFrame:CGRectMake(15.0, 15.0, 221.0, 36.0)];
+    self.companyNameHolder = [[UIView alloc] initWithFrame:CGRectMake(57.0, 20.0, 263.0, 43.0)];
     self.companyNameHolder.backgroundColor = [UIColor clearColor];
     [self.mapView addSubview:self.companyNameHolder];
     
     UIImageView* imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"map_name_holder.png"]];
     imageView.backgroundColor = [UIColor clearColor];
-    imageView.frame = CGRectMake(0.0, 0.0, 221.0, 36.0);
+    imageView.frame = CGRectMake(0.0, 0.0, 263.0, 43.0);
     [self.companyNameHolder addSubview:imageView];
     
-    self.companyName = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, 200.0, 36.0)];
+    self.companyName = [[UILabel alloc] initWithFrame:CGRectMake(18.0, 0.0, 220.0, 43.0)];
     self.companyName.backgroundColor = [UIColor clearColor];
+    self.companyName.textAlignment = NSTextAlignmentRight;
     [self.companyName setFont:MY_CAMPAIGNS_DETAILS_TITLE_LABEL_FONT];
     [self.companyName setTextColor:MY_CAMPAIGNS_DETAILS_TITLE_LABEL_TEXT_COLOR];
     [self.companyNameHolder addSubview:self.companyName];
     
     UIButton* closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    closeButton.frame = CGRectMake(260.0, 15.0, 36.0, 36.0);
-    closeButton.backgroundColor = [UIColor orangeColor];
+    closeButton.frame = CGRectMake(0.0, 20.0, 57.0, 43.0);
+    closeButton.backgroundColor = [UIColor clearColor];
+    [closeButton setImage:[UIImage imageNamed:@"map_backbutton.png"] forState:UIControlStateNormal];
     [closeButton addTarget:self action:@selector(closeMapView) forControlEvents:UIControlEventTouchUpInside];
     [self.mapView addSubview:closeButton];
     
