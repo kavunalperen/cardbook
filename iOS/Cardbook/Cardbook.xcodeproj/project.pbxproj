@@ -143,6 +143,13 @@
 		05A55E1D182F89BA00CE6D08 /* top_maske@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 05A55E1C182F89BA00CE6D08 /* top_maske@2x.png */; };
 		05C0B187183BF37B000D491C /* CBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C0B186183BF37B000D491C /* CBUser.m */; };
 		05D4CD01190BBF6E003352C4 /* map_backbutton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 05D4CD00190BBF6E003352C4 /* map_backbutton@2x.png */; };
+		05D4CD08190BC440003352C4 /* ios001.png in Resources */ = {isa = PBXBuildFile; fileRef = 05D4CD03190BC440003352C4 /* ios001.png */; };
+		05D4CD09190BC440003352C4 /* ios002.png in Resources */ = {isa = PBXBuildFile; fileRef = 05D4CD04190BC440003352C4 /* ios002.png */; };
+		05D4CD0A190BC440003352C4 /* ios003.png in Resources */ = {isa = PBXBuildFile; fileRef = 05D4CD05190BC440003352C4 /* ios003.png */; };
+		05D4CD0B190BC440003352C4 /* ios004.png in Resources */ = {isa = PBXBuildFile; fileRef = 05D4CD06190BC440003352C4 /* ios004.png */; };
+		05D4CD0C190BC440003352C4 /* ios005.png in Resources */ = {isa = PBXBuildFile; fileRef = 05D4CD07190BC440003352C4 /* ios005.png */; };
+		05D4CD0F190BC48E003352C4 /* CBHowToUseContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D4CD0E190BC48E003352C4 /* CBHowToUseContentViewController.m */; };
+		05D4CD12190BC4D3003352C4 /* CBHowToUsePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D4CD11190BC4D3003352C4 /* CBHowToUsePageViewController.m */; };
 		05D81F2F181FD16B00F3A7AD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05D81F2E181FD16B00F3A7AD /* Foundation.framework */; };
 		05D81F31181FD16B00F3A7AD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05D81F30181FD16B00F3A7AD /* CoreGraphics.framework */; };
 		05D81F33181FD16B00F3A7AD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05D81F32181FD16B00F3A7AD /* UIKit.framework */; };
@@ -370,6 +377,15 @@
 		05C0B185183BF37B000D491C /* CBUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBUser.h; sourceTree = "<group>"; };
 		05C0B186183BF37B000D491C /* CBUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBUser.m; sourceTree = "<group>"; };
 		05D4CD00190BBF6E003352C4 /* map_backbutton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_backbutton@2x.png"; sourceTree = "<group>"; };
+		05D4CD03190BC440003352C4 /* ios001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ios001.png; sourceTree = "<group>"; };
+		05D4CD04190BC440003352C4 /* ios002.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ios002.png; sourceTree = "<group>"; };
+		05D4CD05190BC440003352C4 /* ios003.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ios003.png; sourceTree = "<group>"; };
+		05D4CD06190BC440003352C4 /* ios004.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ios004.png; sourceTree = "<group>"; };
+		05D4CD07190BC440003352C4 /* ios005.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ios005.png; sourceTree = "<group>"; };
+		05D4CD0D190BC48E003352C4 /* CBHowToUseContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBHowToUseContentViewController.h; sourceTree = "<group>"; };
+		05D4CD0E190BC48E003352C4 /* CBHowToUseContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBHowToUseContentViewController.m; sourceTree = "<group>"; };
+		05D4CD10190BC4D3003352C4 /* CBHowToUsePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBHowToUsePageViewController.h; sourceTree = "<group>"; };
+		05D4CD11190BC4D3003352C4 /* CBHowToUsePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBHowToUsePageViewController.m; sourceTree = "<group>"; };
 		05D81F2B181FD16B00F3A7AD /* Cardbook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cardbook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		05D81F2E181FD16B00F3A7AD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		05D81F30181FD16B00F3A7AD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -774,6 +790,18 @@
 			path = cardDetails;
 			sourceTree = "<group>";
 		};
+		05D4CD02190BC440003352C4 /* howToUse */ = {
+			isa = PBXGroup;
+			children = (
+				05D4CD03190BC440003352C4 /* ios001.png */,
+				05D4CD04190BC440003352C4 /* ios002.png */,
+				05D4CD05190BC440003352C4 /* ios003.png */,
+				05D4CD06190BC440003352C4 /* ios004.png */,
+				05D4CD07190BC440003352C4 /* ios005.png */,
+			);
+			path = howToUse;
+			sourceTree = "<group>";
+		};
 		05D81F22181FD16B00F3A7AD = {
 			isa = PBXGroup;
 			children = (
@@ -865,6 +893,7 @@
 				056D0B6918315C8600A398B6 /* campaigns */,
 				05A55E1E182F9AEF00CE6D08 /* cardDetails */,
 				059C94E0182EE62F0010651B /* navbar */,
+				05D4CD02190BC440003352C4 /* howToUse */,
 				059C94D3182EE6230010651B /* tableview */,
 				059C94A6182ED8B80010651B /* tabbar */,
 				059C9498182E876C0010651B /* register */,
@@ -900,6 +929,10 @@
 				059C94C1182EDC5E0010651B /* CBProfileViewController.m */,
 				059C94C7182EE53B0010651B /* CBBaseViewController.h */,
 				059C94C8182EE53B0010651B /* CBBaseViewController.m */,
+				05D4CD0D190BC48E003352C4 /* CBHowToUseContentViewController.h */,
+				05D4CD0E190BC48E003352C4 /* CBHowToUseContentViewController.m */,
+				05D4CD10190BC4D3003352C4 /* CBHowToUsePageViewController.h */,
+				05D4CD11190BC4D3003352C4 /* CBHowToUsePageViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -995,6 +1028,7 @@
 			files = (
 				056D0B7218315C8600A398B6 /* campaign_detail_desc_bottom@2x.png in Resources */,
 				059C94E6182EED8B0010651B /* back_btn@2x.png in Resources */,
+				05D4CD0B190BC440003352C4 /* ios004.png in Resources */,
 				057A632418FC4E2E000790F1 /* mycards_detail_footer@2x.png in Resources */,
 				059C9495182E85D80010651B /* Roboto-Medium.ttf in Resources */,
 				059C9491182E85D80010651B /* Roboto-BoldItalic.ttf in Resources */,
@@ -1010,6 +1044,7 @@
 				0599DF271842705E00957399 /* campaign_detail_dummy@2x.jpg in Resources */,
 				057A632318FC4E2E000790F1 /* mycards_detail_coupon@2x.png in Resources */,
 				059C9494182E85D80010651B /* Roboto-LightItalic.ttf in Resources */,
+				05D4CD09190BC440003352C4 /* ios002.png in Resources */,
 				057A632618FC4E2E000790F1 /* notification_off@2x.png in Resources */,
 				059C9496182E85D80010651B /* Roboto-MediumItalic.ttf in Resources */,
 				059C94C6182EDFD30010651B /* main_bg-568h@2x.jpg in Resources */,
@@ -1022,7 +1057,9 @@
 				0531301C183362DB008F7C83 /* profile_bg@2x.png in Resources */,
 				059C94B2182ED8B80010651B /* tabicon_mycards_normal@2x.png in Resources */,
 				057A632118FC4E2E000790F1 /* mycard_company_info_normal@2x.png in Resources */,
+				05D4CD0C190BC440003352C4 /* ios005.png in Resources */,
 				059C94B4182ED8B80010651B /* tabicon_profile_normal@2x.png in Resources */,
+				05D4CD0A190BC440003352C4 /* ios003.png in Resources */,
 				05780B101832AFDC0018A1FA /* share_button_normal@2x.png in Resources */,
 				05780B111832AFDC0018A1FA /* shopping_cell_arrow_highlighted@2x.png in Resources */,
 				056D0B7618315C8600A398B6 /* campaign_detail_white_bottom@2x.png in Resources */,
@@ -1032,6 +1069,7 @@
 				0531301B183362DB008F7C83 /* profile_barcode@2x.png in Resources */,
 				05A55E1D182F89BA00CE6D08 /* top_maske@2x.png in Resources */,
 				05A55E17182EFA8100CE6D08 /* dummy_brand@2x.jpg in Resources */,
+				05D4CD08190BC440003352C4 /* ios001.png in Resources */,
 				05D81F69181FD40F00F3A7AD /* splash_face_btn_highlighted@2x.png in Resources */,
 				057A632518FC4E2E000790F1 /* mycards_detail_header@2x.png in Resources */,
 				05D81F39181FD16B00F3A7AD /* InfoPlist.strings in Resources */,
@@ -1116,6 +1154,7 @@
 				05A55E15182EF73000CE6D08 /* CBMyCardsCell.m in Sources */,
 				05A55E0D182EEE5100CE6D08 /* CBMyCardsDetailViewController.m in Sources */,
 				0531302118336F44008F7C83 /* CBCard.m in Sources */,
+				05D4CD12190BC4D3003352C4 /* CBHowToUsePageViewController.m in Sources */,
 				05D81F3B181FD16B00F3A7AD /* main.m in Sources */,
 				059C94B9182EDC350010651B /* CBMyCardsViewController.m in Sources */,
 				059C947A182E40240010651B /* City.m in Sources */,
@@ -1125,6 +1164,7 @@
 				059C9474182E3B920010651B /* MKNetworkEngine.m in Sources */,
 				05F2CB34184BCBC900F8DB8B /* CBShoppingDetail.m in Sources */,
 				059172341820266800BEE519 /* APIManager.m in Sources */,
+				05D4CD0F190BC48E003352C4 /* CBHowToUseContentViewController.m in Sources */,
 				056B53E6183F6C5C00A35451 /* SBJsonStreamParserAdapter.m in Sources */,
 				05780B1D1832BA430018A1FA /* CBShoppingDetailViewController.m in Sources */,
 				050B97DB18DF5F970075C907 /* CBInfoViewController.m in Sources */,

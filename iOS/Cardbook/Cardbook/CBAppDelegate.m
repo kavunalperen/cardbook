@@ -40,6 +40,7 @@
         CBLoginViewController* loginView = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
         self.window.rootViewController = loginView;
     }
+    
     [self.window makeKeyAndVisible];
     
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
@@ -56,14 +57,8 @@
                 
                 CBShoppingDetailViewController* shoppingVC = [[CBShoppingDetailViewController alloc] initWithFromPushNotification:YES];
                 shoppingVC.currentShoppingId = shoppingId;
-//                dispatch_after(3, dispatch_get_main_queue(), ^{
-                    [self.window.rootViewController presentViewController:shoppingVC animated:YES completion:nil];
-//                });
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    
-//                });
+                [self.window.rootViewController presentViewController:shoppingVC animated:YES completion:nil];
                 
-                // shopping id here
             }
         } else if ([notificationType isEqualToString:@"campaign"]) {
             NSNumber* campaign = [userInfo objectForKey:@"detailId"];
@@ -73,7 +68,6 @@
                 CBMyCampaignsDetailViewController* campaignVC = [[CBMyCampaignsDetailViewController alloc] initWithFromPushNotification:YES];
                 campaignVC.currentCampaignId = campaignId;
                 [self.window.rootViewController presentViewController:campaignVC animated:YES completion:nil];
-                // campaign id here
             }
         }
     }
