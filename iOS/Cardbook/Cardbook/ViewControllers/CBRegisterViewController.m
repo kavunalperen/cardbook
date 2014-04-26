@@ -21,6 +21,7 @@
 #import "CBTabBarController.h"
 #import "CBNavigationController.h"
 #import "CBUser.h"
+#import "CBHowToUsePageViewController.h"
 
 @interface CBRegisterViewController ()
 
@@ -209,8 +210,15 @@
     NSTimeInterval animationDuration;
     UIViewAnimationCurve animationCurve;
     
+    CGRect keyboardBounds;
+    
+    [[notif.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue: &keyboardBounds];
+    
+    // Need to translate the bounds to account for rotation.
+    keyboardBounds = [self.view convertRect:keyboardBounds toView:nil];
+    
 //    CGFloat yOffset = IS_IPHONE_5 ? -200.0 : -160.0;
-    CGFloat yOffset = -180.0;
+    CGFloat yOffset = -(keyboardBounds.size.height);
     
     [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] getValue:&animationCurve];
     [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&animationDuration];
@@ -219,6 +227,10 @@
                          CGRect scrollFrame = self.scrollView.frame;
                          scrollFrame.size.height += yOffset;
                          self.scrollView.frame = scrollFrame;
+                         
+                         CGRect frame = self.view.frame;
+                         frame.size.height += yOffset;
+                         self.view.frame = frame;
                      }];
 }
 
@@ -229,7 +241,14 @@
     NSTimeInterval animationDuration;
     UIViewAnimationCurve animationCurve;
     
-    CGFloat yOffset = -180.0;
+    CGRect keyboardBounds;
+    
+    [[notif.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue: &keyboardBounds];
+    
+    // Need to translate the bounds to account for rotation.
+    keyboardBounds = [self.view convertRect:keyboardBounds toView:nil];
+    
+    CGFloat yOffset = -(keyboardBounds.size.height);
     
     [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] getValue:&animationCurve];
     [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&animationDuration];
@@ -239,6 +258,10 @@
                          CGRect scrollFrame = self.scrollView.frame;
                          scrollFrame.size.height -= yOffset;
                          self.scrollView.frame = scrollFrame;
+                         
+                         CGRect frame = self.view.frame;
+                         frame.size.height -= yOffset;
+                         self.view.frame = frame;
                      }];
 }
 - (void) setUsersCountry
@@ -591,7 +614,13 @@
                          [[APIManager sharedInstance] getImageWithURLString:barcodeUrl onCompletion:^(UIImage *resultImage) {
                              [[NSUserDefaults standardUserDefaults] setObject:UIImagePNGRepresentation(resultImage) forKey:USER_DEFAULTS_USER_BARCODE_SAVE_KEY];
                              [[NSUserDefaults standardUserDefaults] synchronize];
-                             [self performSegueWithIdentifier:@"RegisterToTabbarSegue" sender:self];
+                             
+                             CBHowToUsePageViewController* howToUse = [CBHowToUsePageViewController create];
+                             howToUse.presentingVC = self;
+                             [self presentViewController:howToUse animated:YES completion:nil];
+                             
+//                             [self performSegueWithIdentifier:@"RegisterToHowToUseSegue" sender:self];
+//                             [self performSegueWithIdentifier:@"RegisterToTabbarSegue" sender:self];
                          } onError:^(NSError *error) {
                              ;
                          }];

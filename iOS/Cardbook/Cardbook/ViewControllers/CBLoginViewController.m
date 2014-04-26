@@ -73,6 +73,8 @@
     [FBSession openActiveSessionWithReadPermissions:@[@"basic_info"] allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
         if (status == FBSessionStateOpen && !error) {
             [self sessionOpened];
+        } else {
+#warning show user to alert
         }
     }];
 }
