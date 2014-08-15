@@ -14,5 +14,14 @@
     <string name="input_hint_last_county">İlçe</string>
     <string name="input_hint_last_city">İl</string>
     <string name="input_hint_last_country">Ülke</string><string name="bildirim_durumu">Bildirim Durumu</string><string name="kart_no">Kart No:</string>
-
+	<string name="no_agency">Şube bilgisi bulunmamaktadır.</string>
+	<string name="no_company">Şirket bilgisi bulunmamaktadır.</string>
+	<string name="loading">Bilgiler yükleniyor...</string>
+	<string name="card_is_saving">Kart kaydediliyor...</string>
+	<string name="card_is_saved">Kartınız kaydedildi.</string>
+	<string name="no_internet_connection">İnternet bağlantısı bulunmuyor; lütfen bağlantınızı kontrol edin.</string>
+	<string name="error">"Hata oluştu: </string>
+	<string name="settings_are_saving">Ayarlarınız kaydediliyor...</string>
+	<string name="settings_are_saved">Ayarlarınız kaydedildi.</string>
+	
 </resources>

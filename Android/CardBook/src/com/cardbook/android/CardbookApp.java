@@ -24,6 +24,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.net.ssl.HttpsURLConnection;
+
 /**
  * Created by abdullah on 10/26/13.
  */
@@ -46,6 +48,8 @@ public class CardbookApp extends Application {
         super.onCreate();
         singleton=this;
         requestQuee= Volley.newRequestQueue(getApplicationContext());
+        
+       
 
         try{
             if(AppConstants.getUserInformation(this)!=null)
@@ -156,9 +160,9 @@ public class CardbookApp extends Application {
 
 
     public Country setDummyCountry(){
-        Country country=new Country(0,"Ülke");
-        City city=new City(0,"Şehir",0);
-        County county=new County(0,"İlçe",0);
+        Country country=new Country(0,"Ãœlke");
+        City city=new City(0,"Å�ehir",0);
+        County county=new County(0,"Ä°lÃ§e",0);
         city.addCounty(county);
         country.addCity(city);
 

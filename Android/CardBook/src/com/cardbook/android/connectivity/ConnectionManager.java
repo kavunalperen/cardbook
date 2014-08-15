@@ -7,8 +7,10 @@ import android.net.NetworkInfo;
 import android.widget.Toast;
 
 import com.cardbook.android.CardbookApp;
+import com.cardbook.android.R;
 import com.cardbook.android.common.AppConstants;
 import com.cardbook.android.common.Log;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -46,6 +48,13 @@ public class ConnectionManager {
     public static String RESULT_CODE_OK="00";
 
 
+    public static DefaultRetryPolicy getRetryPolicy() {
+
+        DefaultRetryPolicy p = new DefaultRetryPolicy(10 * 1000, 3, 1.0f);
+        
+        return p;
+    }
+    
     // Formatted date for api
     public static String getFormattedDate(Date date){
         return (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(date);
@@ -99,7 +108,7 @@ public class ConnectionManager {
     public static void postData(final Context context,final RequestCallBack callback, String method, Map<String, String> parameters  ){
 
         if(!isOnline(context)){
-            Toast.makeText(context,"İnternet bağlantısı bulunmuyor; lütfen internete bağlanın.",Toast.LENGTH_LONG);
+            Toast.makeText(context,context.getResources().getString(R.string.no_internet_connection),Toast.LENGTH_LONG);
             return;
         }
 
@@ -123,9 +132,12 @@ public class ConnectionManager {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                    	
+                    	Log.i("Hata: "+error.toString());
                     }
                 });
 
+        request.setRetryPolicy(getRetryPolicy());
         CardbookApp.getInstance().getRequestQuee().add(request);
     }
 
@@ -160,6 +172,7 @@ public class ConnectionManager {
                     }
                 });
 
+        request.setRetryPolicy(getRetryPolicy());
         CardbookApp.getInstance().getRequestQuee().add(request);
     }
 

@@ -152,6 +152,7 @@ public class UserInformation extends Activity implements View.OnClickListener{
 
 
         requestQueue= CardbookApp.getInstance().getRequestQuee();
+        
         int cacheSize=AppConstants.getCacheSize(this);
 
         this.cache=new BitmapLruCache(cacheSize);
@@ -343,6 +344,7 @@ public class UserInformation extends Activity implements View.OnClickListener{
     public void addImage(){
             Log.i("addımage: "+user.getProfilPhotoUrl());
             ImageLoader imageLoader=new ImageLoader(requestQueue, this.cache);
+            
             final ImageView mImageView= (ImageView)findViewById(R.id.userImage);
             imageLoader.get(user.getProfilPhotoUrl(), new ImageLoader.ImageListener() {
                 @Override

@@ -59,7 +59,7 @@ public class KartDetail extends BaseFragment implements View.OnClickListener {
     ImageView companyImage;
     EditText etKartNo;
     Button btnKampanyalar, btnAlisverisler, btnSave;
-    ImageButton btnNotification, btnHakkında, btnIletisim, btnSubeler;
+    ImageButton btnNotification, btnHakkinda, btnIletisim, btnSubeler;
     private ProgressDialog dialog;
 
     private static int BTN_SAVE=159;
@@ -124,9 +124,9 @@ public class KartDetail extends BaseFragment implements View.OnClickListener {
         btnIletisim.setOnClickListener(this);
         btnIletisim.setId(BTN_ILETISIM);
 
-        btnHakkında=(ImageButton) view.findViewById(R.id.btnHakinda);
-        btnHakkında.setOnClickListener(this);
-        btnHakkında.setId(BTN_HAKKINDA);
+        btnHakkinda=(ImageButton) view.findViewById(R.id.btnHakinda);
+        btnHakkinda.setOnClickListener(this);
+        btnHakkinda.setId(BTN_HAKKINDA);
 
         btnNotification=(ImageButton)view.findViewById(R.id.btnNotificationState);
         btnNotification.setOnClickListener(this);
@@ -145,7 +145,7 @@ public class KartDetail extends BaseFragment implements View.OnClickListener {
         app=CardbookApp.getInstance();
         user=app.getUser();
 
-        Log.i("KertDetail positioın: "+company.getCompanyName());
+        Log.i("KertDetail positioÄ±n: "+company.getCompanyName());
         couponListView=(ListView)view.findViewById(R.id.kartDetailListView);
         couponListView.setDivider(null);
 
@@ -217,7 +217,7 @@ public class KartDetail extends BaseFragment implements View.OnClickListener {
         ConnectionManager.postData(getActivity(), new RequestCallBack() {
             @Override
             public void onRequestStart() {
-                dialog.setMessage("Bilgiler yükleniyor...");
+                dialog.setMessage("Bilgiler yÃ¼kleniyor...");
                 dialog.show();
             }
 
@@ -252,7 +252,7 @@ public class KartDetail extends BaseFragment implements View.OnClickListener {
 
                 }
                 else
-                    Toast.makeText(getActivity(), "Şube bilgisi bulunmamaktadır.",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), getResources().getString(R.string.no_agency),Toast.LENGTH_LONG).show();
 
                 dialog.dismiss();
             }
@@ -278,7 +278,7 @@ public class KartDetail extends BaseFragment implements View.OnClickListener {
     private void openHakkinda(CompanyInfo info){
 
         if(info==null){
-            Toast.makeText(getActivity(), "Şirket bilgisi bulanamadı.",Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), getResources().getString(R.string.no_company),Toast.LENGTH_LONG).show();
             return;
         }
         Bundle data=new Bundle();
@@ -304,7 +304,7 @@ public class KartDetail extends BaseFragment implements View.OnClickListener {
         ConnectionManager.postData(getActivity(), new RequestCallBack() {
             @Override
             public void onRequestStart() {
-                dialog.setMessage("Bilgiler yükleniyor...");
+                dialog.setMessage(getResources().getString(R.string.loading));
                 dialog.show();
             }
 
@@ -361,7 +361,7 @@ public class KartDetail extends BaseFragment implements View.OnClickListener {
     public void onRequestStart() {
 
         super.onRequestStart();
-        dialog.setMessage("Bilgileri yükleniyor...");
+        dialog.setMessage((getResources().getString(R.string.loading)));
 //        dialog.show();
     }
 
@@ -438,7 +438,7 @@ public class KartDetail extends BaseFragment implements View.OnClickListener {
         RequestCallBack callback=new RequestCallBack() {
             @Override
             public void onRequestStart() {
-                dialog.setMessage("Kart kaydediliyor...");
+                dialog.setMessage(getResources().getString(R.string.card_is_saving));
                 dialog.show();
             }
 
@@ -446,12 +446,12 @@ public class KartDetail extends BaseFragment implements View.OnClickListener {
             public void onRequestComplete(JSONObject result) {
                 Log.i("kart kaydetme: "+result.toString());
                 if(result.optString(ConnectionManager.RESULT_CODE).equals(ConnectionManager.RESULT_CODE_OK)){
-                    Toast.makeText(getActivity(),"Kartınız kaydedildi.",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(),getResources().getString(R.string.card_is_saved),Toast.LENGTH_LONG).show();
                     dialog.dismiss();
 
                 }
                 else
-                    Toast.makeText(getActivity(),"Hata oluştu: "+result.optString(ConnectionManager.RESULT_MESSAGE),Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(),getResources().getString(R.string.error)+result.optString(ConnectionManager.RESULT_MESSAGE),Toast.LENGTH_LONG).show();
 
             }
 
@@ -493,7 +493,7 @@ public class KartDetail extends BaseFragment implements View.OnClickListener {
         RequestCallBack callback=new RequestCallBack() {
             @Override
             public void onRequestStart() {
-                dialog.setMessage("Ayarlarınız kaydediliyor...");
+                dialog.setMessage(getResources().getString(R.string.settings_are_saving));
                 dialog.show();
             }
 
@@ -504,10 +504,10 @@ public class KartDetail extends BaseFragment implements View.OnClickListener {
 //                    boolean is=result.optBoolean();
 
                     getCompanyDetail();
-                    Toast.makeText(getActivity(),"Ayarlarınız kaydedildi.",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(),getResources().getString(R.string.settings_are_saved),Toast.LENGTH_LONG).show();
                 }
                 else
-                    Toast.makeText(getActivity(),"Hata oluştu: "+result.optString(ConnectionManager.RESULT_MESSAGE),Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(),getResources().getString(R.string.error)+result.optString(ConnectionManager.RESULT_MESSAGE),Toast.LENGTH_LONG).show();
 
                 dialog.dismiss();
             }
@@ -529,7 +529,7 @@ public class KartDetail extends BaseFragment implements View.OnClickListener {
 
 
     public void addImage(){
-        Log.i("addımage: " +company.getCompanyLogoURL());
+        Log.i("addÄ±mage: " +company.getCompanyLogoURL());
         imageLoader=new ImageLoader(requestQueue, this.cache);
         final ImageView mImageView= (ImageView)view.findViewById(R.id.kartDetailCompanyImage);
         imageLoader.get(company.getCompanyLogoURL(), new ImageLoader.ImageListener() {

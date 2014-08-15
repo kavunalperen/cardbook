@@ -25,6 +25,8 @@ import com.cardbook.android.models.Product;
 import com.cardbook.android.models.Shopping;
 import com.sromku.simple.fb.SimpleFacebook;
 import com.sromku.simple.fb.entities.Feed;
+import com.sromku.simple.fb.listeners.OnPublishListener;
+
 
 import org.json.JSONObject;
 
@@ -197,7 +199,7 @@ public class AlisverisDetail extends BaseFragment implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
-        SimpleFacebook.OnPublishListener onPublishListener = new SimpleFacebook.OnPublishListener()
+        OnPublishListener onPublishListener = new OnPublishListener()
         {
 
             @Override

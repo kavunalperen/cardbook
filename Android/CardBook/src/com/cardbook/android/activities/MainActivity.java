@@ -14,12 +14,13 @@ import com.cardbook.android.common.Log;
 import com.cardbook.android.models.Company;
 import com.cardbook.android.models.address.*;
 import com.facebook.SessionDefaultAudience;
-import com.sromku.simple.fb.Permissions;
+import com.sromku.simple.fb.Permission;
 import com.sromku.simple.fb.SimpleFacebook;
-import com.sromku.simple.fb.SimpleFacebook.OnProfileRequestListener;
 import com.sromku.simple.fb.SimpleFacebookConfiguration;
-import com.sromku.simple.fb.SimpleFacebook.OnLoginListener;
+import com.sromku.simple.fb.Permission.Type;
 import com.sromku.simple.fb.entities.Profile;
+import com.sromku.simple.fb.listeners.OnLoginListener;
+import com.sromku.simple.fb.listeners.OnProfileListener;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -72,14 +73,12 @@ public class MainActivity extends Activity implements OnClickListener {
 //        mTextStatus=(TextView) findViewById(R.id.tvStatus);
 
         // initialize facebook configuration
-        Permissions[] permissions = new Permissions[]
+        Permission[] permissions = new Permission[]
                 {
-                        Permissions.BASIC_INFO,
-                        Permissions.EMAIL,
-                        Permissions.USER_BIRTHDAY,
-                        Permissions.USER_PHOTOS,
-                        Permissions.PUBLISH_ACTION,
-                        Permissions.PUBLISH_STREAM,
+                        Permission.EMAIL,
+                        Permission.USER_BIRTHDAY,
+                        Permission.USER_PHOTOS,
+                        Permission.PUBLISH_ACTION,
                 };
 
         SimpleFacebookConfiguration configuration = new SimpleFacebookConfiguration.Builder()
@@ -152,66 +151,47 @@ public class MainActivity extends Activity implements OnClickListener {
 		super.onActivityResult(requestCode, resultCode, data);
 	}
     
- // Login listener
- 	private OnLoginListener mOnLoginListener = new OnLoginListener()
- 	{
-
- 		@Override
- 		public void onFail(String reason)
- 		{
-// 			mTextStatus.setText(reason);
- 			Log.i("Failed to login");
- 		}
-
- 		@Override
- 		public void onException(Throwable throwable)
- 		{
-// 			mTextStatus.setText("Exception: " + throwable.getMessage());
- 			Log.i( "Bad thing happened: "+throwable);
- 		}
-
- 		@Override
- 		public void onThinking()
- 		{
- 			// show progress bar or something to the user while login is happening
-// 			mTextStatus.setText("Thinking...");
- 		}
-
- 		@Override
- 		public void onLogin()
- 		{
- 			// change the state of the button or do whatever you want
-// 			mTextStatus.setText("Logged in");
- 			
-
- 			
- 			mSimpleFacebook.getProfile(new OnProfileRequestListener() {
-				
-				@Override
-				public void onFail(String reason) {
-					// TODO Auto-generated method stub
-                    toast("Facebook girişi başarısız oldu: "+reason);
-					
-				}
-				
-				@Override
-				public void onException(Throwable throwable) {
-					// TODO Auto-generated method stub
-                    toast("Facebook girişi sırasında hala oluştu: "+throwable.toString());
-
-					
-				}
-				
-				@Override
-				public void onThinking() {
-					toast("Yanıt bekleniyor.");
-					
-				}
-				
-				@Override
+	private OnLoginListener mOnLoginListener = new OnLoginListener() {
+		
+		@Override
+		public void onFail(String arg0) {
+			// TODO Auto-generated method stub
+			Log.i("Facebook login is failed");
+		}
+		
+		@Override
+		public void onException(Throwable arg0) {
+			// TODO Auto-generated method stub
+			Log.i("facebook login is ended with Exception: "+arg0);
+			
+		}
+		
+		@Override
+		public void onThinking() {
+			// TODO Auto-generated method stub
+			Log.i("Facebook login is thinking");
+			
+		}
+		
+		@Override
+		public void onNotAcceptingPermissions(Type arg0) {
+			// TODO Auto-generated method stub
+			Log.i("Facebook onNotAcceptingPermissions");
+			toast("izinleri kabul etmediniz.");
+			
+		}
+		
+		@Override
+		public void onLogin() {
+			// TODO Auto-generated method stub
+			
+			Log.i("facebook login is sucsefull");
+			
+			mSimpleFacebook.getProfile(new OnProfileListener() {
 				public void onComplete(Profile profile) {
-
-                    toast("Facebook girişi tamamlandı.");
+					
+					
+					toast("Facebook giri�i tamamland�.");
 
                     CardBookUser user=new CardBookUser();
                     user.setFacebookId(profile.getId());
@@ -227,16 +207,12 @@ public class MainActivity extends Activity implements OnClickListener {
                     app.setUser(user);
 
                     openUserInformationActivity();
-				}
+				};
+				
 			});
- 		}
-
-    		@Override
- 		public void onNotAcceptingPermissions()
- 		{
- 			toast("İzinleri kabul etmediniz.");
- 		}
- 	};
+			
+		}
+	};
 
     public void openUserInformationActivity(){
         RequestCallBack callback= new RequestCallBack() {
@@ -445,7 +421,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		
+		Log.i("Butona bas�ld�...");
 		mSimpleFacebook.login(mOnLoginListener);
 		
 	}
@@ -465,7 +441,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
             //UI Element
 
-            dialog.setMessage("Bilgiler alınıyor...");
+            dialog.setMessage("Bilgiler al�n�yor...");
             dialog.show();
         }
 

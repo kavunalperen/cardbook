@@ -219,14 +219,14 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
     public void onStart() {
         super.onStart();
 
-        EasyTracker.getInstance().activityStart(this);  // Add this method.
+//        EasyTracker.getInstance().activityStart(this);  // Add this method.
     }
 
     @Override
     public void onStop() {
         super.onStop();
 
-        EasyTracker.getInstance().activityStop(this);  // Add this method.
+//        EasyTracker.getInstance().activityStop(this);  // Add this method.
     }
 
     private View createTabView(final int id, final String menuText) {
