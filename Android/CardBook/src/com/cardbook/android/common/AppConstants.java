@@ -70,9 +70,9 @@ public class AppConstants {
     public static final String POST_DATA="Data";
 
 
-    public static final String KARTLARIM  = "Kartlarım";
+    public static final String KARTLARIM  = "Kartlar�m";
     public static final String KAMPANYALAR  = "Kampanyalar";
-    public static final String ALIS_VERIS  = "Alışveriş";
+    public static final String ALIS_VERIS  = "Al��veri�";
     public static final String PROFIL  = "Profil";
 
     public static final int KARTLARIM_POS=0;
@@ -165,7 +165,7 @@ public class AppConstants {
     }
 
     public static void NotOnlineToast(Context context){
-        Toast.makeText(context,"İnternet bağlantısı bulunmuyor; lütfen internete bağlanın.",Toast.LENGTH_LONG);
+        Toast.makeText(context,context.getResources().getString(R.string.no_internet_connection),Toast.LENGTH_LONG);
     }
 
     public static void setUserInformation(Context context,String info){
@@ -214,6 +214,21 @@ public class AppConstants {
         return sp.getString(ADDRESS_LIST,null);
     }
 
+    public static void setNotificationsData(Context context,String info){
+        SharedPreferences sp=context.getSharedPreferences(CARDBOOK_SHARED_PREFERENCES,Context.MODE_PRIVATE);
+//        if(sp.getString(USER_INFORMATION,null)==null){
+        SharedPreferences.Editor editor=sp.edit();
+        editor.putString("NotificationsData",info).commit();
+//        }
+//
+    }
+    
+    public static String getNotificationsData(Context context){
+        SharedPreferences sp=context.getSharedPreferences(CARDBOOK_SHARED_PREFERENCES,Context.MODE_PRIVATE);
+
+        return sp.getString("NotificationsData",null);
+    }
+    
 
     /**
      *

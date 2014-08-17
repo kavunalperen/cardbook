@@ -47,11 +47,11 @@ public class BaseFragment extends Fragment implements RequestCallBack {
 		
 	}
 
-    public static FragmentPageListener getFirstPageListener() {
+    public FragmentPageListener getFirstPageListener() {
         return pageListener;
     }
 
-    public static void setFirstPageListener(FragmentPageListener firstPageListener) {
+    public void setFirstPageListener(FragmentPageListener firstPageListener) {
         BaseFragment.pageListener = firstPageListener;
     }
 

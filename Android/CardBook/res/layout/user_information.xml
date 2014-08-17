@@ -44,13 +44,13 @@
                 android:layout_alignLeft="@+id/editFirstName"/>
 
         <ImageView
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:id="@+id/userImage"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:src="@drawable/dummy_big_man"
-                android:background="@drawable/list_img_bg"/>
+            android:id="@+id/userImage"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/list_img_bg"
+            android:src="@drawable/profil_image_bg" />
 
     </RelativeLayout>
 

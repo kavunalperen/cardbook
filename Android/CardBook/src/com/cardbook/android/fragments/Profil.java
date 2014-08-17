@@ -4,6 +4,7 @@ package com.cardbook.android.fragments;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -223,7 +224,7 @@ public class Profil extends BaseFragment implements OnClickListener, UserInforma
     }
 
     public void addImage(){
-        Log.i("addımage: " + user.getProfilPhotoUrl());
+        Log.i("addImage: " + user.getProfilPhotoUrl());
         imageLoader=new ImageLoader(requestQueue, this.cache);
         final ImageView mImageView= (ImageView)view.findViewById(R.id.userImage);
         imageLoader.get(user.getProfilPhotoUrl(), new ImageLoader.ImageListener() {
@@ -233,10 +234,11 @@ public class Profil extends BaseFragment implements OnClickListener, UserInforma
 
 
                 if(response.getBitmap()!=null){
-//                    Bitmap result=AppConstants.addMask(Profil.this.getActivity(), response.getBitmap(), R.drawable.listview_photomask);
-//
-                    mImageView.setImageBitmap(response.getBitmap());
+                    Bitmap result=AppConstants.addMask(Profil.this.getActivity(), response.getBitmap(), R.drawable.listview_photomask);
+
+                    mImageView.setImageBitmap(result);
                     mImageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                    mImageView.setBackground(null);
                 }
             }
 

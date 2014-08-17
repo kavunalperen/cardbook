@@ -95,14 +95,14 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
     Button navBarButton;
 //    TextView navBarText;
 
-    private AppMainTabActivity lastinstance;
+    private static AppMainTabActivity lastinstance;
     public static AppMainTabActivity lastIntance(){
-        return lastIntance();
+        return lastinstance;
     }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        this.lastinstance=this;
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -139,6 +139,7 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
      // Fragments and ViewPager Initialization
 //        List<Fragment> fragments = mStacks;
         pageAdapter = new PagerAdapter(getSupportFragmentManager(), mStacks);
+        
         mViewPager.setAdapter(pageAdapter);
         mViewPager.setOnPageChangeListener(this);
 
@@ -192,29 +193,41 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
 
     }
 
-    protected void onPushNotification(Intent intent){
+    protected synchronized void onPushNotification(Intent intent){
         Bundle bundle=intent.getExtras();
         int tabNumbar;
         String detailId;
 
-        if(bundle!=null){
-            String ntfType=bundle.getString(CBNotification.NOTIFICATION_TYPE);
-            detailId=bundle.getString(CBNotification.DETAIL_ID);
-            if(ntfType.equals(CBNotification.NOTIFICATION_TYPE_CAMPAIGN)){
-                tabNumbar=1;
-                openCampaignDetail(detailId);
-            }
-            else{
-                tabNumbar=2;
-                openShoppingDetail(detailId);
-            }
-
-
-
-            setCurrentTab(tabNumbar);
-        }
+       
+        	Log.i("onPushNotification is started");
+	        if(bundle!=null){
+	            String ntfType=bundle.getString(CBNotification.NOTIFICATION_TYPE);
+	            detailId=bundle.getString(CBNotification.DETAIL_ID);
+		            try{
+			            if(ntfType.equals(CBNotification.NOTIFICATION_TYPE_CAMPAIGN)){
+			                tabNumbar=1;
+			                openCampaignDetail(detailId);
+			            }
+			            else{
+			            	
+			                tabNumbar=2;
+			                openShoppingDetail(detailId);
+			            }
+			
+			
+			
+			            setCurrentTab(tabNumbar);
+		            }
+		            catch(NullPointerException e){
+		                AppConstants.setNotificationsData(this, ntfType+","+detailId);
+		            	Log.i("onPushNotification error");
+		            	
+		            }
+	        }
+        
+        
     }
-
+    
     @Override
     public void onStart() {
         super.onStart();
@@ -270,8 +283,6 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
     public void initializeTabs(){
         /* Setup your tab icons and content views.. Nothing special in this..*/
 
-        mTabHost.setCurrentTab(0);
-
         Typeface font=Font.getFont(this, Font.ROBOTO_REGULAR);
 
         for(int i=0; i<AppConstants.MENU.length;i++){
@@ -292,6 +303,8 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
 	    	tv=(TextView)mTabHost.getTabWidget().getChildAt(i).findViewById(R.id.tab_text);
 	        tv.setTypeface(font);
             tv.setText(AppConstants.MENU[i]);
+            
+            setCurrentTab(0);
         }
 
 
@@ -319,7 +332,7 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
 
     /* Might be useful if we want to switch tab programmatically, from inside any of the fragment.*/
     public void setCurrentTab(int val){
-          mTabHost.setCurrentTab(val);
+          this.mTabHost.setCurrentTab(val);
     }
 
 
@@ -332,7 +345,7 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
      *  shouldAdd       ->  Should add to fragment navigation stack (mStacks.get(tag)). false when we are switching tabs (except for the first time)
      *                      true in all other cases.
      */
-    public void pushFragments(String tag, Fragment fragment,boolean shouldAnimate, boolean shouldAdd){
+    public synchronized void pushFragments(String tag, Fragment fragment,boolean shouldAnimate, boolean shouldAdd){
       if(shouldAdd)
           mStacks.get(tag).push(fragment);
       FragmentManager manager         =   getSupportFragmentManager();
@@ -345,7 +358,7 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
 //      setNavbarItemsContent(tag, IMAGE_NULL);
     }
 
-    public void popFragments(){
+    public synchronized void popFragments(){
       /*
        *    Select the second last fragment in current tab's stack..
        *    which will be shown after the fragment transaction given below
@@ -421,14 +434,13 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
 
 
 	@Override
-	public void onPageScrollStateChanged(int arg0) {
-		// TODO Auto-generated method stub
+	public synchronized void onPageScrollStateChanged(int arg0) {
         Log.i("onPageScrolllStateChanged int: "+arg0);
 	}
 
 
 	@Override
-	public void onPageScrolled(int arg0, float arg1, int arg2) {
+	public synchronized void onPageScrolled(int arg0, float arg1, int arg2) {
 
 
 		int pos = this.mViewPager.getCurrentItem();
@@ -439,14 +451,13 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
 
 
 	@Override
-	public void onPageSelected(int arg0) {
-		// TODO Auto-generated method stub
-
+	public synchronized void onPageSelected(int arg0) {
+		
 	}
 
 
 	@Override
-	public void onTabChanged(String tabId) {
+	public synchronized  void onTabChanged(String tabId) {
 //		mCurrentTab                     =   tabId;
 //
 //        if(mStacks.get(tabId).size() == 0){
@@ -508,21 +519,25 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
 	}
 
 
-   public void openCampaign(Company company){
+   public synchronized void openCampaign(Company company){
         kampanyaListener.openCampaign(company.getCompanyId());
    }
 
-    public void openCampaignDetail(String campaignId){
+    public synchronized void openCampaignDetail(String campaignId){
+    	if(kampanyaListener!=null)
+    		Log.i("openCampaignDetail: kampanya listener is not null");
+    	else
+    		Log.i("openCampaignDetail: kampanya listener is null");
         kampanyaListener.openCampaignDetail(campaignId);
 
     }
 
-    public void openShoppingDetail(String detailId){
+    public synchronized void openShoppingDetail(String detailId){
         alisverisListener.openShoppingDetail(detailId);
 
     }
 
-    public void openShopping(Company company){
+    public synchronized void openShopping(Company company){
         alisverisListener.openShopping(company.getCompanyId());
     }
 

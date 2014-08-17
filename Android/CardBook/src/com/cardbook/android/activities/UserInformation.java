@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
@@ -342,7 +343,7 @@ public class UserInformation extends Activity implements View.OnClickListener{
     };
 
     public void addImage(){
-            Log.i("addımage: "+user.getProfilPhotoUrl());
+            Log.i("addImage UserInfo: "+user.getProfilPhotoUrl());
             ImageLoader imageLoader=new ImageLoader(requestQueue, this.cache);
             
             final ImageView mImageView= (ImageView)findViewById(R.id.userImage);
@@ -353,10 +354,11 @@ public class UserInformation extends Activity implements View.OnClickListener{
 
 
                     if(response.getBitmap()!=null){
-//                        Bitmap result=AppConstants.addMask(UserInformation.this, response.getBitmap(), R.drawable.listview_photomask);
-//
-                        mImageView.setImageBitmap(response.getBitmap());
+                        Bitmap result=AppConstants.addMask(UserInformation.this, response.getBitmap(), R.drawable.listview_photomask);
+
+                        mImageView.setImageBitmap(result);
                         mImageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                        mImageView.setBackground(null);
                     }
                 }
 
@@ -625,7 +627,7 @@ public class UserInformation extends Activity implements View.OnClickListener{
 
             //UI Element
 
-            Dialog.setMessage("Bilgiler yükleniyor...");
+            Dialog.setMessage(getResources().getString(R.string.loading));
             Dialog.show();
         }
 

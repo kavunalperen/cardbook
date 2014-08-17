@@ -24,21 +24,19 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.net.ssl.HttpsURLConnection;
-
 /**
  * Created by abdullah on 10/26/13.
  */
 public class CardbookApp extends Application {
 
-    private CardBookUser user;
-    private ArrayList<CardBookUserCard> userCards;
-    private ArrayList<Company> companies;
-    private ArrayList<Country> countries;
-    private ArrayList<Campaign> campaigns;
-    private ArrayList<Shopping> shoppings;
-    private HashMap<Integer, ArrayList<Location>> locationsList;
-    private HashMap<Integer, CompanyInfo> companyInfoList;
+    private static CardBookUser user;
+    private static ArrayList<CardBookUserCard> userCards;
+    private static ArrayList<Company> companies;
+    private static ArrayList<Country> countries;
+    private static ArrayList<Campaign> campaigns;
+    private static ArrayList<Shopping> shoppings;
+    private static HashMap<Integer, ArrayList<Location>> locationsList;
+    private static HashMap<Integer, CompanyInfo> companyInfoList;
 
     private static CardbookApp singleton;
     private RequestQueue requestQuee;
@@ -53,7 +51,7 @@ public class CardbookApp extends Application {
 
         try{
             if(AppConstants.getUserInformation(this)!=null)
-                this.user= new CardBookUser(new JSONObject(AppConstants.getUserInformation(this)));
+                CardbookApp.user= new CardBookUser(new JSONObject(AppConstants.getUserInformation(this)));
         }
         catch(JSONException e){
            e.printStackTrace();
@@ -79,18 +77,18 @@ public class CardbookApp extends Application {
     }
 
     public void setUser(CardBookUser user) {
-        this.user = user;
+        CardbookApp.user = user;
     }
 
     public ArrayList<CardBookUserCard> getUserCards() {
-        return this.userCards;
+        return CardbookApp.userCards;
     }
 
     public CardBookUserCard getUserCardsAtIndex(int index) {
-        return this.userCards.get(index);
+        return CardbookApp.userCards.get(index);
     }
     public void setUserCards(ArrayList<CardBookUserCard> userCards) {
-        this.userCards = userCards;
+        CardbookApp.userCards = userCards;
     }
 
     public ArrayList<Company> getCompanies() {
@@ -98,13 +96,13 @@ public class CardbookApp extends Application {
     }
 
     public void setCompanies(ArrayList<Company> companies) {
-        this.companies = companies;
+        CardbookApp.companies = companies;
     }
 
     public void addCompany(Company company){
-        if(this.companies==null)
-            this.companies=new ArrayList<Company>();
-            this.companies.add(company);
+        if(CardbookApp.companies==null)
+            CardbookApp.companies=new ArrayList<Company>();
+            CardbookApp.companies.add(company);
     }
 
     public ArrayList<Campaign> getCampaigns() {
@@ -112,13 +110,13 @@ public class CardbookApp extends Application {
     }
 
     public void setCampaigns(ArrayList<Campaign> campaigns) {
-        this.campaigns = campaigns;
+        CardbookApp.campaigns = campaigns;
     }
 
     public void addCampaign(Campaign campign){
-        if(this.campaigns==null)
-            this.campaigns=new ArrayList<Campaign>();
-        this.campaigns.add(campign);
+        if(CardbookApp.campaigns==null)
+            CardbookApp.campaigns=new ArrayList<Campaign>();
+        CardbookApp.campaigns.add(campign);
     }
 
     public ArrayList<Shopping> getShoppings() {
@@ -126,17 +124,17 @@ public class CardbookApp extends Application {
     }
 
     public void setShoppings(ArrayList<Shopping> shoppings) {
-        this.shoppings = shoppings;
+        CardbookApp.shoppings = shoppings;
     }
 
     public void addShoppings(Shopping shopping){
-        if(this.shoppings==null)
-            this.shoppings=new ArrayList<Shopping>();
-        this.shoppings.add(shopping);
+        if(CardbookApp.shoppings==null)
+            CardbookApp.shoppings=new ArrayList<Shopping>();
+        CardbookApp.shoppings.add(shopping);
     }
 
     public ArrayList<Country> getCountries() {
-        if (this.countries==null || this.countries.size()==0){
+        if (CardbookApp.countries==null || CardbookApp.countries.size()==0){
             try { // SON HATA
                 MainActivity.convertAddresList(new JSONObject(AppConstants.getAdressList(getApplicationContext())));
             } catch (JSONException e) {
@@ -147,15 +145,15 @@ public class CardbookApp extends Application {
     }
 
     public void setCountries(ArrayList<Country> countries) {
-        this.countries = countries;
+        CardbookApp.countries = countries;
     }
 
     public void addCountry(Country country){
-        if(this.countries==null){
-            this.countries=new ArrayList<Country>();
+        if(CardbookApp.countries==null){
+            CardbookApp.countries=new ArrayList<Country>();
 //            this.countries.add(setDummyCountry());
         }
-            this.countries.add(country);
+            CardbookApp.countries.add(country);
     }
 
 
@@ -174,16 +172,16 @@ public class CardbookApp extends Application {
     }
 
     public void setLocationsList(HashMap<Integer, ArrayList<Location>> locationsList) {
-        this.locationsList = locationsList;
+        CardbookApp.locationsList = locationsList;
     }
 
     public void addLocation(int companyId, Location location){
 
-        if(this.locationsList==null)
+        if(CardbookApp.locationsList==null)
             locationsList=new HashMap<Integer, ArrayList<Location>>();
 
-        if(this.locationsList.containsKey(companyId)){
-            ArrayList<Location> locations=this.locationsList.get(companyId);
+        if(CardbookApp.locationsList.containsKey(companyId)){
+            ArrayList<Location> locations=CardbookApp.locationsList.get(companyId);
             if(locations==null){
                 locations=new ArrayList<Location>();
             }
@@ -192,13 +190,13 @@ public class CardbookApp extends Application {
         else{
             ArrayList<Location> locations=new ArrayList<Location>();
             locations.add(location);
-            this.locationsList.put(companyId, locations);
+            CardbookApp.locationsList.put(companyId, locations);
         }
     }
 
     public ArrayList<Location> getLocationsForCompany(int companyId){
         if(locationsList!=null)
-            return this.locationsList.get(companyId);
+            return CardbookApp.locationsList.get(companyId);
         else
             return null;
     }

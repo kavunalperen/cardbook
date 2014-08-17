@@ -30,12 +30,12 @@ import android.graphics.drawable.BitmapDrawable;
 import android.media.RingtoneManager;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 
 import com.cardbook.android.R;
 import com.cardbook.android.activities.AppMainTabActivity;
 import com.cardbook.android.adapters.NotificationListener;
 import com.cardbook.android.common.AppConstants;
+import com.cardbook.android.common.Log;
 import com.cardbook.android.models.CBNotification;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
@@ -77,7 +77,7 @@ public class GcmIntentService extends IntentService implements NotificationListe
              * not interested in, or that you don't recognize.
              */
         	
-        	Log.v("MEssage", extras.toString());
+        	Log.i("MEssage"+extras.toString());
 //            if (GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR.equals(messageType)) {
 //                sendNotification("Send error: " + extras.toString());
 //            } else if (GoogleCloudMessaging.MESSAGE_TYPE_DELETED.equals(messageType)) {
@@ -87,7 +87,7 @@ public class GcmIntentService extends IntentService implements NotificationListe
               if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
                   AppConstants.notificationListener=this;
                   AppConstants.getCompanyList(null, true);
-                Log.i(TAG, "Received: " + extras.toString());
+                Log.i("Received: " + extras.toString());
             }
         }
         // Release the wake lock provided by the WakefulBroadcastReceiver.
@@ -98,6 +98,9 @@ public class GcmIntentService extends IntentService implements NotificationListe
     // This is just one simple example of what you might choose to do with
     // a GCM message.
     private void sendNotification() {
+    	
+    	Log.i("sendNotification is started");
+    	
        AppConstants.notificationListener=null;
     	Resources res = getResources();
 //    	BitmapDrawable icon = new BitmapDrawable(res,"ic_launcher.png");
@@ -108,6 +111,7 @@ public class GcmIntentService extends IntentService implements NotificationListe
         try {
             jNotification=new JSONObject(extras.getString("message"));
         } catch (JSONException e) {
+        	Log.i("Noll POinter Exception: jNOtification");
             e.printStackTrace();
         }
 
@@ -118,30 +122,38 @@ public class GcmIntentService extends IntentService implements NotificationListe
 
 
 
-            Intent intent=new Intent(this, AppMainTabActivity.class);
-
-            intent.putExtra(CBNotification.NOTIFICATION_TYPE,notificaiton.getNotificationType());
-            intent.putExtra(CBNotification.DETAIL_ID,notificaiton.getDetailId());
-
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP| Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            PendingIntent contentIntent = PendingIntent.getActivity(this, 0,intent, PendingIntent.FLAG_CANCEL_CURRENT);
-
-
-            NotificationCompat.Builder mBuilder =
-                    new NotificationCompat.Builder(this)
-            .setSmallIcon(R.drawable.app_icon)
-            .setLargeIcon(icon2)
-            .setContentTitle("CardBook")
-            .setContentText(notificaiton.getAlert())
-            .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
-    //        .setAutoCancel(true);
-    //        .setFullScreenIntent(contentIntent, true);
-    //        .setSound(RingtoneManager.getDefaultUri(CBNotification.DEFAULT_SOUND))
-
-            mBuilder.setContentIntent(contentIntent);
-            Notification ntf=mBuilder.build();
-            ntf.flags=Notification.FLAG_AUTO_CANCEL;
-            mNotificationManager.notify(NOTIFICATION_ID, ntf);
+            try{
+            	Log.i("in intent try");
+	            Intent intent=new Intent(this, AppMainTabActivity.class);
+	
+	            intent.putExtra(CBNotification.NOTIFICATION_TYPE,notificaiton.getNotificationType());
+	            intent.putExtra(CBNotification.DETAIL_ID,notificaiton.getDetailId());
+	
+	            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP| Intent.FLAG_ACTIVITY_SINGLE_TOP);
+	            PendingIntent contentIntent = PendingIntent.getActivity(this, 0,intent, PendingIntent.FLAG_CANCEL_CURRENT);
+	
+	
+	            NotificationCompat.Builder mBuilder =
+	                    new NotificationCompat.Builder(this)
+	            .setSmallIcon(R.drawable.app_icon)
+	            .setLargeIcon(icon2)
+	            .setContentTitle("CardBook")
+	            .setContentText(notificaiton.getAlert())
+	            .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+	    //        .setAutoCancel(true);
+	    //        .setFullScreenIntent(contentIntent, true);
+	    //        .setSound(RingtoneManager.getDefaultUri(CBNotification.DEFAULT_SOUND))
+	
+	            mBuilder.setContentIntent(contentIntent);
+	            Notification ntf=mBuilder.build();
+	            ntf.flags=Notification.FLAG_AUTO_CANCEL;
+	            mNotificationManager.notify(NOTIFICATION_ID, ntf);
+            
+            }
+            catch(Exception e){
+            	Log.i("NUll POinter Exception");
+            }
+            
         }
     }
     

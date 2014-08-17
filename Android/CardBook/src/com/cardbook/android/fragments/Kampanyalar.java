@@ -25,6 +25,7 @@ import com.cardbook.android.common.AppConstants;
 import com.cardbook.android.common.Font;
 import com.cardbook.android.common.Log;
 import com.cardbook.android.connectivity.ConnectionManager;
+import com.cardbook.android.models.CBNotification;
 import com.cardbook.android.models.Campaign;
 
 import org.json.JSONException;
@@ -138,8 +139,21 @@ public class Kampanyalar extends BaseFragment implements OnItemClickListener, Ka
         super.onAttach(activity);
 
         ((AppMainTabActivity)this.getActivity()).kampanyaListener=this;
+        String data=AppConstants.getNotificationsData(this.getActivity());
+        
+        
+        if(data!=null){
+        	
+        	if(data.length()==0)
+        		return;
+	        String[] array=data.split(",");
+	       
+	        if(array[0].contains(CBNotification.NOTIFICATION_TYPE_CAMPAIGN)){
+	        	 openCampaignDetail(array[1]);
+	        	AppConstants.setNotificationsData(this.getActivity(), "");
+	        }
 
-
+        }
     }
 
     public void setList(ArrayList<Campaign> campaigns){
@@ -153,7 +167,7 @@ public class Kampanyalar extends BaseFragment implements OnItemClickListener, Ka
 
         Bundle data=new Bundle();
         Campaign campaign=adapter.getItem(position);
-        Log.i("AÃ§Ä±lan Kampanya: "+campaign.getName());
+        Log.i("Açýlan Kampanya: "+campaign.getName());
         data.putSerializable(Campaign.CAMPAIGN,campaign);
         KampanyaDetail detail=new KampanyaDetail();
         detail.setArguments(data);
@@ -174,8 +188,17 @@ public class Kampanyalar extends BaseFragment implements OnItemClickListener, Ka
 
     @Override
     public void openCampaignDetail(String campaignId) {
-
+    	Log.i("openCampaignDetail is started: campaignID: "+campaignId);
+    	
         ArrayList<Campaign> campaigns=CardbookApp.getInstance().getCampaigns();
+        
+        if(campaigns!=null)
+        	Log.i("openCampaignDetail campaigns size: "+campaigns.size());
+        else{
+        	Log.i("openCampaignDetail campagns is null");
+        	return;
+        }
+        
         Campaign campaign=null;
 
         for(Campaign c:campaigns){

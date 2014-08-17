@@ -28,6 +28,7 @@ import com.cardbook.android.common.Font;
 import com.cardbook.android.common.Log;
 import com.cardbook.android.connectivity.ConnectionManager;
 import com.cardbook.android.connectivity.RequestCallBack;
+import com.cardbook.android.models.CBNotification;
 import com.cardbook.android.models.Shopping;
 
 import org.json.JSONException;
@@ -121,6 +122,17 @@ public class AlisVeris extends BaseFragment implements OnItemClickListener, Alis
         super.onAttach(activity);
 
         ((AppMainTabActivity)this.getActivity()).alisverisListener=this;
+        
+        String data=AppConstants.getNotificationsData(this.getActivity());
+        
+        if(data!=null){
+	        String[] array=data.split(",");
+	        
+	        if(array[0].contains(CBNotification.NOTIFICATION_TYPE_SHOPPING)){
+	     	   openShoppingDetail(array[1]);
+	     	   AppConstants.setNotificationsData(this.getActivity(), "");
+	        }
+        }
     }
 
     public void setList(ArrayList<Shopping> item){
