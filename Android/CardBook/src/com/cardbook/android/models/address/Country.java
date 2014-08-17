@@ -2,6 +2,7 @@ package com.cardbook.android.models.address;
 
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -15,9 +16,13 @@ import java.util.ArrayList;
  */
 
 
-public class Country {
+public class Country implements Serializable{
 
-    public static String COUNTRY_LIST="CountryList";
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public static String COUNTRY_LIST="CountryList";
     public static String COUNTRY_ID="CountryId";
     public static String COUNTRY_NAME="CountryName";
 

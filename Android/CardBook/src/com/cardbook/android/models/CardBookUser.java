@@ -12,15 +12,20 @@ import com.cardbook.android.models.address.Address;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CardBookUser {
+public class CardBookUser implements Serializable{
 
-    public static String ID="UserId";
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public static String ID="UserId";
     public static String FACEBOOK_ID="FacebookId";
     public static String DEVICE_ID="MobileDeviceId";
     public static String NAME="Name";

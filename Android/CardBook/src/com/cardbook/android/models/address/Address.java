@@ -3,32 +3,37 @@ package com.cardbook.android.models.address;
 /*
 "CountryList":[
 	{"CountryId":2,"CountryName":"Almanya"},
-	{"CountryId":1,"CountryName":"Türkiye"}],
+	{"CountryId":1,"CountryName":"TÃ¼rkiye"}],
 
 "CityList":[
 	{"CityId":2,"CityName":"Ankara","CountryId":1},
 	{"CityId":4,"CityName":"Berlin","CountryId":2},
 	{"CityId":3,"CityName":"Bursa","CountryId":1},
-	{"CityId":1,"CityName":"İstanbul","CountryId":1},
-	{"CityId":5,"CityName":"München","CountryId":2}],
+	{"CityId":1,"CityName":"Ä°stanbul","CountryId":1},
+	{"CityId":5,"CityName":"MÃ¼nchen","CountryId":2}],
 
 "CountyList":[
-	{"CountyId":2,"CountyName":"Beşiktaş","CityId":1},
-	{"CountyId":5,"CountyName":"Çankaya","CityId":2},
-	{"CountyId":1,"CountyName":"Gaziosmanpaşa","CityId":1},
-	{"CountyId":4,"CountyName":"Keçiören","CityId":2},
+	{"CountyId":2,"CountyName":"BeÅŸiktaÅŸ","CityId":1},
+	{"CountyId":5,"CountyName":"Ã‡ankaya","CityId":2},
+	{"CountyId":1,"CountyName":"GaziosmanpaÅŸa","CityId":1},
+	{"CountyId":4,"CountyName":"KeÃ§iÃ¶ren","CityId":2},
 	{"CountyId":7,"CountyName":"Mudanya","CityId":3},
 	{"CountyId":6,"CountyName":"Osmangazi","CityId":3},
-	{"CountyId":3,"CountyName":"Şişli","CityId":1
+	{"CountyId":3,"CountyName":"Å�iÅŸli","CityId":1
  */
 
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Address {
+public class Address  implements Serializable{
 
-    public static String COUNTRY_ID="CountryId";
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public static String COUNTRY_ID="CountryId";
     public static String CITY_ID="CityId";
     public static String COUNTY_ID="CountyId";
     public static String COUNTRY="Country";
@@ -39,12 +44,12 @@ public class Address {
 
     public static ArrayList<Country> countArray;
 
-	private int countryId;  // Ülke
-	private int cityId;     // Şehir
-	private int countId;    // İlçe
+	private int countryId;  // Ãœlke
+	private int cityId;     // Å�ehir
+	private int countId;    // Ä°lÃ§e
 
-    private String country;  // Ülke
-    private String city;     // Şehir
+    private String country;  // Ãœlke
+    private String city;     // Å�ehir
     private String county;
 	private String addressLine;
 

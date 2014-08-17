@@ -2,6 +2,7 @@ package com.cardbook.android.models.address;
 
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -15,9 +16,13 @@ import java.util.ArrayList;
         {"CityId":1,"CityName":"İstanbul","CountryId":1},
         {"CityId":5,"CityName":"München","CountryId":2}],
         */
-public class City {
+public class City implements Serializable {
 
-    public static String CIYTY_LIST="CityList";
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public static String CIYTY_LIST="CityList";
     public static String CITY_ID="CityId";
     public static String CITY_NAME="CityName";
 

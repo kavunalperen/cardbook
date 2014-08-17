@@ -36,7 +36,14 @@ import com.cardbook.android.common.Log;
 import com.cardbook.android.connectivity.ConnectionManager;
 import com.cardbook.android.fragments.*;
 import com.cardbook.android.models.CBNotification;
+import com.cardbook.android.models.Campaign;
+import com.cardbook.android.models.CardBookUser;
+import com.cardbook.android.models.CardBookUserCard;
 import com.cardbook.android.models.Company;
+import com.cardbook.android.models.CompanyInfo;
+import com.cardbook.android.models.Location;
+import com.cardbook.android.models.Shopping;
+import com.cardbook.android.models.address.Country;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -46,6 +53,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
 import java.util.Timer;
@@ -100,9 +109,43 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
         return lastinstance;
     }
 
-    protected void onCreate(Bundle savedInstanceState) {
+    @SuppressWarnings("unchecked")
+	protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.lastinstance=this;
+        
+        Log.i("Activity AppMainTabActivity: onCreate");
+        
+        if(savedInstanceState!=null){
+        	Log.i("Activity AppMainTabActivity: Bundle is not null");
+        	
+        	if(savedInstanceState.getSerializable(CardbookApp.USER)!=null)
+        		CardbookApp.getInstance().setUser((CardBookUser) savedInstanceState.getSerializable(CardbookApp.USER));
+        	
+        	if(savedInstanceState.getSerializable(CardbookApp.USER_CARD)!=null)
+        		CardbookApp.getInstance().setUserCards((ArrayList<CardBookUserCard>) savedInstanceState.getSerializable(CardbookApp.USER_CARD));
+        	
+        	if(savedInstanceState.getSerializable(CardbookApp.COMPANIES)!=null)
+        		CardbookApp.getInstance().setCompanies((ArrayList<Company>) savedInstanceState.getSerializable(CardbookApp.COMPANIES));
+        	
+        	if(savedInstanceState.getSerializable(CardbookApp.COUNTRIES)!=null)
+        		CardbookApp.getInstance().setCountries( (ArrayList<Country>) savedInstanceState.getSerializable(CardbookApp.COUNTRIES));
+        	
+        	if(savedInstanceState.getSerializable(CardbookApp.CAMPAIGNS)!=null)
+        		CardbookApp.getInstance().setCampaigns((ArrayList<Campaign>) savedInstanceState.getSerializable(CardbookApp.CAMPAIGNS));
+        	
+        	if(savedInstanceState.getSerializable(CardbookApp.SHOPPINGS)!=null)
+           		CardbookApp.getInstance().setShoppings((ArrayList<Shopping>) savedInstanceState.getSerializable(CardbookApp.SHOPPINGS));
+        	
+        	if(savedInstanceState.getSerializable(CardbookApp.LOCATION_LIST)!=null)
+           		CardbookApp.getInstance().setLocationsList((HashMap<Integer, ArrayList<Location>>) savedInstanceState.getSerializable(CardbookApp.LOCATION_LIST));
+            	
+        	if(savedInstanceState.getSerializable(CardbookApp.COMPANY_INFO_LIST)!=null)
+           		CardbookApp.setCompanyInfoList( (HashMap<Integer, CompanyInfo>) savedInstanceState.getSerializable(CardbookApp.COMPANY_INFO_LIST));
+        }
+       
+       
+        
+        AppMainTabActivity.lastinstance=this;
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -175,13 +218,14 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
             Log.i("No valid Google Play Services APK found.");
         }
 
-        this.lastinstance=this;
+        AppMainTabActivity.lastinstance=this;
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        Log.i("Activity AppMainTabActivity: onResume");
         CardbookApp cardbookApp =(CardbookApp)getApplicationContext();
 //        Log.i("Company length: "+ cardbookApp.getCompanies().size());
     }
@@ -229,20 +273,48 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
     }
     
     @Override
+    protected void onSaveInstanceState(Bundle state) {
+    	super.onSaveInstanceState(state);
+    	state.putSerializable(CardbookApp.USER, (Serializable) CardbookApp.getInstance().getUser());
+    	state.putSerializable(CardbookApp.USER_CARD, (Serializable) CardbookApp.getInstance().getUserCards());
+    	state.putSerializable(CardbookApp.COMPANIES, (Serializable) CardbookApp.getInstance().getCompanies());
+    	state.putSerializable(CardbookApp.COUNTRIES, (Serializable) CardbookApp.getInstance().getCountries());
+    	state.putSerializable(CardbookApp.CAMPAIGNS, (Serializable) CardbookApp.getInstance().getCampaigns());
+    	state.putSerializable(CardbookApp.SHOPPINGS, (Serializable) CardbookApp.getInstance().getShoppings());
+    	state.putSerializable(CardbookApp.LOCATION_LIST, (Serializable) CardbookApp.getInstance().getLocationsList());
+    	state.putSerializable(CardbookApp.COMPANY_INFO_LIST, (Serializable) CardbookApp.getCompanyInfoList());
+    	
+    }
+    
+    @Override
     public void onStart() {
         super.onStart();
-
+        Log.i("Activity AppMainTabActivity: onStart");
 //        EasyTracker.getInstance().activityStart(this);  // Add this method.
     }
 
+    
     @Override
+	protected void onPause() {
+		super.onPause();
+		Log.i("Activity AppMainTabActivity: onPause");
+	}
+
+	@Override
     public void onStop() {
         super.onStop();
-
+        Log.i("Activity AppMainTabActivity: onStop");
 //        EasyTracker.getInstance().activityStop(this);  // Add this method.
     }
 
-    private View createTabView(final int id, final String menuText) {
+    @Override
+	protected void onDestroy() {
+		super.onDestroy();
+		
+		Log.i("Activity AppMainTabActivity: onDestroy");
+	}
+
+	private View createTabView(final int id, final String menuText) {
         View view = LayoutInflater.from(this).inflate(R.layout.tabs_icon, null);
         ImageView imageView = (ImageView) view.findViewById(R.id.tab_icon);
         imageView.setImageDrawable(getResources().getDrawable(id));
@@ -311,7 +383,6 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
 
     }
 
-
     public void changeColor(int id){
     	TextView tv;
     	ImageView img;
@@ -334,7 +405,6 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
     public void setCurrentTab(int val){
           this.mTabHost.setCurrentTab(val);
     }
-
 
     /*
      *      To add fragment to a tab.
@@ -376,8 +446,6 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
       ft.commit();
     }
 
-
-//    @Override
     public void onBackPressed() {
 
         BaseFragment baseFragment= (BaseFragment)pageAdapter.getItem(mViewPager.getCurrentItem());
@@ -432,12 +500,10 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
         mStacks.get(mCurrentTab).lastElement().onActivityResult(requestCode, resultCode, data);
     }
 
-
 	@Override
 	public synchronized void onPageScrollStateChanged(int arg0) {
         Log.i("onPageScrolllStateChanged int: "+arg0);
 	}
-
 
 	@Override
 	public synchronized void onPageScrolled(int arg0, float arg1, int arg2) {
@@ -449,12 +515,10 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
         Log.i("onPageScrolled. Pos: "+pos);
 	}
 
-
 	@Override
 	public synchronized void onPageSelected(int arg0) {
 		
 	}
-
 
 	@Override
 	public synchronized  void onTabChanged(String tabId) {
@@ -508,7 +572,6 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
 
 	}
 
-
 	@Override
 	public void onClick(View v) {
 		System.out.println("ONCLICK view: "+v.getClass());
@@ -519,7 +582,7 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
 	}
 
 
-   public synchronized void openCampaign(Company company){
+	public synchronized void openCampaign(Company company){
         kampanyaListener.openCampaign(company.getCompanyId());
    }
 
@@ -541,7 +604,6 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
         alisverisListener.openShopping(company.getCompanyId());
     }
 
-
     private boolean checkPlayServices() {
         int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
         if (resultCode != ConnectionResult.SUCCESS) {
@@ -556,6 +618,7 @@ public class AppMainTabActivity extends FragmentActivity implements OnTabChangeL
         }
         return true;
     }
+    
     private void registerInBackground() {
         new AsyncTask<Void, Void, String>() {
             @Override

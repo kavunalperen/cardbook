@@ -1,5 +1,7 @@
 package com.cardbook.android.models.address;
 
+import java.io.Serializable;
+
 import org.json.JSONObject;
 
 /**
@@ -8,17 +10,21 @@ import org.json.JSONObject;
 
 /*
 "CountyList":[
-	{"CountyId":2,"CountyName":"Beşiktaş","CityId":1},
-	{"CountyId":5,"CountyName":"Çankaya","CityId":2},
-	{"CountyId":1,"CountyName":"Gaziosmanpaşa","CityId":1},
-	{"CountyId":4,"CountyName":"Keçiören","CityId":2},
+	{"CountyId":2,"CountyName":"BeÅŸiktaÅŸ","CityId":1},
+	{"CountyId":5,"CountyName":"Ã‡ankaya","CityId":2},
+	{"CountyId":1,"CountyName":"GaziosmanpaÅŸa","CityId":1},
+	{"CountyId":4,"CountyName":"KeÃ§iÃ¶ren","CityId":2},
 	{"CountyId":7,"CountyName":"Mudanya","CityId":3},
 	{"CountyId":6,"CountyName":"Osmangazi","CityId":3},
-	{"CountyId":3,"CountyName":"Şişli","CityId":1}]
+	{"CountyId":3,"CountyName":"Å�iÅŸli","CityId":1}]
  */
-public class County {
+public class County implements Serializable{
 
-    public static String COUNTY_LIST="CountyList";
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public static String COUNTY_LIST="CountyList";
     public static String COUNTY_ID="CountyId";
     public static String COUNTY_NAME="CountyName";
 

@@ -51,6 +51,9 @@ public class Kartlarim extends BaseFragment implements OnItemClickListener, Requ
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
+    	
+    	Log.i("Fragment Kartlarým: onCreateView");
+    	
         View view = inflater.inflate(R.layout.kartlarim, container, false);
 
         LinearLayout layout = (LinearLayout) view.findViewById(R.id.kartlarimLayoutLinear);
@@ -79,16 +82,45 @@ public class Kartlarim extends BaseFragment implements OnItemClickListener, Requ
         return view;
     }
 
-
 	@Override
 	public void onStart() {
-		// TODO Auto-generated method stub
 		super.onStart();
 
+		Log.i("Fragment Kartlarým: onStart");
+		
 		listView.setClickable(true);
 		listView.setEnabled(true);
 		listView.setFocusable(true);
 		listView.setOnItemClickListener(this);
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		
+		Log.i("Fragment Kartlarým: onResume");
+	}
+	
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		
+		Log.i("Fragment Kartlarým: onPause");
+	}
+
+	
+	@Override
+	public void onStop() {
+		super.onStop();
+		Log.i("Fragment Kartlarým: onStop");
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		
+		Log.i("Fragment Kartlarým: onDestroy");
 	}
 
 	public void setList(ArrayList<Company> cards){
@@ -97,7 +129,8 @@ public class Kartlarim extends BaseFragment implements OnItemClickListener, Requ
 		listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 	}
-    @Override
+    
+	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position,
 			long arg3) {
 //		Toast.makeText(getActivity(), "Clicked at positon = " + position, Toast.LENGTH_SHORT).show();
@@ -117,7 +150,6 @@ public class Kartlarim extends BaseFragment implements OnItemClickListener, Requ
         ConnectionManager.postData(getActivity(), this, AppConstants.SM_GET_COMPANY_DETAIL, list);
 
     }
-
 
     @Override
     public void onRequestStart() {

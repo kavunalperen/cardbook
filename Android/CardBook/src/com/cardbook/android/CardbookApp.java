@@ -29,6 +29,15 @@ import java.util.HashMap;
  */
 public class CardbookApp extends Application {
 
+	public static String USER="user";
+	public static String USER_CARD="userCard";
+	public static String COMPANIES="companies";
+	public static String COUNTRIES="countries";
+	public static String CAMPAIGNS="campaings";
+	public static String SHOPPINGS="shoppings";
+	public static String LOCATION_LIST="locationList";
+	public static String COMPANY_INFO_LIST="companyInfoList";
+	
     private static CardBookUser user;
     private static ArrayList<CardBookUserCard> userCards;
     private static ArrayList<Company> companies;
@@ -41,6 +50,11 @@ public class CardbookApp extends Application {
     private static CardbookApp singleton;
     private RequestQueue requestQuee;
 
+    public CardbookApp() {
+        super();
+        Log.i("CardbookApp constructor is called ");
+    }
+    
     @Override
     public void onCreate() {
         super.onCreate();
@@ -57,11 +71,6 @@ public class CardbookApp extends Application {
            e.printStackTrace();
         }
         Log.i("app is created");
-    }
-
-    public CardbookApp() {
-        super();
-        Log.i("CardbookApp constructor is called ");
     }
 
     public static CardbookApp getInstance(){
@@ -156,7 +165,6 @@ public class CardbookApp extends Application {
             CardbookApp.countries.add(country);
     }
 
-
     public Country setDummyCountry(){
         Country country=new Country(0,"Ãœlke");
         City city=new City(0,"Å�ehir",0);
@@ -194,7 +202,16 @@ public class CardbookApp extends Application {
         }
     }
 
-    public ArrayList<Location> getLocationsForCompany(int companyId){
+    public static HashMap<Integer, CompanyInfo> getCompanyInfoList() {
+		return companyInfoList;
+	}
+
+	public static void setCompanyInfoList(
+			HashMap<Integer, CompanyInfo> companyInfoList) {
+		CardbookApp.companyInfoList = companyInfoList;
+	}
+
+	public ArrayList<Location> getLocationsForCompany(int companyId){
         if(locationsList!=null)
             return CardbookApp.locationsList.get(companyId);
         else
