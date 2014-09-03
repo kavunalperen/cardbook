@@ -254,10 +254,10 @@ public class Profil extends BaseFragment implements OnClickListener, UserInforma
 
         try{
             AppConstants.setUserInformation(getActivity(),null);
-            Toast.makeText(getActivity(),"HesabÄ±nÄ±z baÅŸarÄ±yla silindi.",Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(),"Hesabýnýz baþarýyla silindi.",Toast.LENGTH_LONG).show();
         }
         catch (Exception e){
-            Toast.makeText(getActivity(),"Hata oluÅŸtu; lÃ¼tfen daha sonra tekrar deneyin.",Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(),"Hata oluþtu; lütfen daha sonra tekrar deneyin.",Toast.LENGTH_LONG).show();
         }
 
     }

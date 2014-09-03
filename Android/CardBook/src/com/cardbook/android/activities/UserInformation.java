@@ -253,7 +253,7 @@ public class UserInformation extends Activity implements View.OnClickListener{
         ConnectionManager.postData(this, new RequestCallBack() {
             @Override
             public void onRequestStart() {
-                dialog.setMessage("Bilgiler yÃ¼kleniyor...");
+                dialog.setMessage("Bilgiler yükleniyor...");
                 dialog.show();
             }
 
@@ -298,7 +298,7 @@ public class UserInformation extends Activity implements View.OnClickListener{
 
                 }
                 else
-                    Toast.makeText(getApplicationContext(),"Hata oluÅŸtu: "+result.optString(ConnectionManager.RESULT_MESSAGE),Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Hata oluþtu: "+result.optString(ConnectionManager.RESULT_MESSAGE),Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -311,7 +311,7 @@ public class UserInformation extends Activity implements View.OnClickListener{
 
     private void toastForRequirements(){
         Log.i("toast validate is runned");
-        Toast.makeText(this,"LÃ¼tfen tÃ¼m alanlarÄ± doldurunuz.",Toast.LENGTH_LONG).show();
+        Toast.makeText(this,"Lütfen tüm alanlarý doldurunuz.",Toast.LENGTH_LONG).show();
     }
 
     public void showDialog(){
@@ -395,7 +395,7 @@ public class UserInformation extends Activity implements View.OnClickListener{
         ArrayList<String> item=new ArrayList<String>();
         for(int i=0; i<countries.size();i++){
             if(i==0)
-                item.add("Ãœlke SeÃ§in");
+                item.add("Ülçe Seçin");
             item.add(countries.get(i).getName());
             Log.i("Contries: "+countries.get(i).getName()+", "+countries.size());
         }
@@ -438,7 +438,7 @@ public class UserInformation extends Activity implements View.OnClickListener{
         ArrayList<String> item=new ArrayList<String>();
         for(int i=0; i<cities.size();i++){
             if(i==0)
-                item.add("Ä°l");
+                item.add("Ýl");
             item.add(cities.get(i).getName());
 //            Log.i("Cities: "+cities.get(i).getName()+", "+cities.size());
         }
@@ -487,7 +487,7 @@ public class UserInformation extends Activity implements View.OnClickListener{
         ArrayList<String> item=new ArrayList<String>();
         for(int i=0; i<countries.size();i++){
             if(i==0)
-                item.add("Ä°lÃ§e");
+                item.add("Ýlçe");
             item.add(countries.get(i).getName());
 //            Log.i("Contries: "+countries.get(i).getName()+", "+countries.size());
         }
@@ -639,7 +639,7 @@ public class UserInformation extends Activity implements View.OnClickListener{
 //            JSONObject resultUser=ConnectionManager.postData2(AppConstants.SM_CREATE_OR_UPDATE_USER,user[0].getUserInfoAsDict());
 
             if(!ConnectionManager.isOnline(UserInformation.this)){
-                Toast.makeText(UserInformation.this,"Ä°nternet baÄŸlantÄ±sÄ± bulunmuyor; lÃ¼tfen internete baÄŸlanÄ±n.",Toast.LENGTH_LONG);
+                Toast.makeText(UserInformation.this,"Ýnternet baðlantýsý bulunmuyor; lütfen internete baðlanýn.",Toast.LENGTH_LONG);
                 cancel(true);
 
             }

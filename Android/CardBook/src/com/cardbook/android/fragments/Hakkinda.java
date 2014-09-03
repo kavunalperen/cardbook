@@ -60,7 +60,7 @@ public class Hakkinda extends BaseFragment{
         setNavBarItemsStyle(view);
 
         TextView navBarText=(TextView)view.findViewById(R.id.navBarTxt);
-        navBarText.setText(company.getCompanyName()+" - HakkÄ±nda");
+        navBarText.setText(company.getCompanyName()+" - Hakkýnda");
         return view;
     }
 

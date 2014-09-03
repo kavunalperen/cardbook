@@ -73,7 +73,7 @@ public class Kartlarim extends BaseFragment implements OnItemClickListener, Requ
         else{
             Button button=new Button(getActivity());
             button.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            button.setText("GÃ¼ncelle");
+            button.setText("Güncelle");
 
             layout.addView(button);
         }
@@ -155,7 +155,7 @@ public class Kartlarim extends BaseFragment implements OnItemClickListener, Requ
     public void onRequestStart() {
 
         super.onRequestStart();
-        dialog.setMessage("Bilgiler yÃ¼kleniyor...");
+        dialog.setMessage("Bilgiler yükleniyor...");
         dialog.show();
     }
 

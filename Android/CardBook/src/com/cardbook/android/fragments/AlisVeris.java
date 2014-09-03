@@ -97,7 +97,7 @@ public class AlisVeris extends BaseFragment implements OnItemClickListener, Alis
                 setList(list);
             }
             else
-                Toast.makeText(getActivity(),"AlÄ±ÅŸveriÅŸiniz bulunmamaktadÄ±r.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"Alýþveriþiniz bulunmamaktadÄ±r.", Toast.LENGTH_SHORT).show();
 
         }else{
 
@@ -194,7 +194,7 @@ public class AlisVeris extends BaseFragment implements OnItemClickListener, Alis
     @Override
     public void onRequestStart() {
         super.onRequestStart();
-        dialog.setMessage("AlÄ±ÅŸveris detaylarÄ± yÃ¼kleniyor...");
+        dialog.setMessage("Alýþveriþ detaylarý yükleniyor...");
         dialog.show();
     }
 

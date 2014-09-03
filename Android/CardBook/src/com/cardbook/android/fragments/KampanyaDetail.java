@@ -180,8 +180,8 @@ public class KampanyaDetail extends BaseFragment{
     public String getRequiements(JSONArray requiments){
         Log.i("getRequiments: "+requiments.length());
 //        requiments=new ArrayList<String>();
-//        requiments.add("Öyle aman aman bir koşulumuz yok. Ne zaman istiyorsan gel verelim ürünü.");
-//        requiments.add("Öyle aman aman bir koşulumuz yok. Ne zaman istiyorsan gel verelim ürünü.");
+//        requiments.add("Ã–yle aman aman bir koÅŸulumuz yok. Ne zaman istiyorsan gel verelim Ã¼rÃ¼nÃ¼.");
+//        requiments.add("Ã–yle aman aman bir koÅŸulumuz yok. Ne zaman istiyorsan gel verelim Ã¼rÃ¼nÃ¼.");
 
         StringBuilder txtRequiments=new StringBuilder();
         if(requiments==null || requiments.length()==0)

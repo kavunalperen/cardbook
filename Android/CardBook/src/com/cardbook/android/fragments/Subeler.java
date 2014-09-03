@@ -77,7 +77,7 @@ public class Subeler extends BaseFragment implements OnItemClickListener, Reques
         company=((Company)getArguments().getSerializable(Company.COMPANY));
 
         TextView navBarText=(TextView)view.findViewById(R.id.navBarTxt);
-        navBarText.setText(company.getCompanyName()+" Åžubeleri");
+        navBarText.setText(company.getCompanyName()+" Þubeleri");
         setList(CardbookApp.getInstance().getLocationsForCompany(company.getCompanyId()));
 
 

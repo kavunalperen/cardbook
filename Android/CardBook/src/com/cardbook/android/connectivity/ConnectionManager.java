@@ -144,7 +144,7 @@ public class ConnectionManager {
     public static void postData(final Context context,final RequestCallBack callback, String method, JSONObject parameters  ){
 
         if(!isOnline(context)){
-            Toast.makeText(context,"Ä°nternet baÄŸlantÄ±sÄ± bulunmuyor; lÃ¼tfen internete baÄŸlanÄ±n.",Toast.LENGTH_LONG);
+            Toast.makeText(context,"İnternet bağlantısı bulunmuyor; lütfen internete bağlanın.",Toast.LENGTH_LONG);
             return;
         }
 

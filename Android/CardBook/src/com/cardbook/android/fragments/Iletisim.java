@@ -91,7 +91,7 @@ public class Iletisim extends BaseFragment implements View.OnClickListener, Requ
         company=((Company)getArguments().getSerializable(Company.COMPANY));
 
         TextView navBarText=(TextView)view.findViewById(R.id.navBarTxt);
-        navBarText.setText(company.getCompanyName()+" - Ä°letiÅŸim");
+        navBarText.setText(company.getCompanyName()+" - Ýletiþim");
 
         dialog = new ProgressDialog(getActivity());
         return view;
@@ -158,7 +158,7 @@ Message=test mesajÄ± (Mesaj)
     public void onRequestStart() {
 
         super.onRequestStart();
-        dialog.setMessage("Mesaj gÃ¶nderiliyor...");
+        dialog.setMessage("Mesaj gönderiliyor...");
         dialog.show();
     }
 
@@ -167,7 +167,7 @@ Message=test mesajÄ± (Mesaj)
         super.onRequestComplete(result);
         Log.i("onResponseComplete: "+result);
         dialog.dismiss();
-        Toast.makeText(getActivity(),"MesajÄ±nÄ±z gÃ¶nderildi.", Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(),"Mesajýnýz gönderildi.", Toast.LENGTH_LONG).show();
         etText.setText("");
         etSubject.setText("");
 
@@ -176,7 +176,7 @@ Message=test mesajÄ± (Mesaj)
     @Override
     public void onRequestError() {
         super.onRequestError();
-        Toast.makeText(getActivity(),"MesajÄ±nÄ±z gÃ¶nderilemedi; lÃ¼tfen tekrar deneyin.", Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(),"Mesajýnýz gönderilemedi; lütfen tekrar deneyin.", Toast.LENGTH_LONG).show();
         dialog.dismiss();
     }
 
@@ -195,9 +195,9 @@ Message=test mesajÄ± (Mesaj)
             i.putExtra(Intent.EXTRA_EMAIL  , new String[]{info.getMail()});
 
             try {
-                startActivity(Intent.createChooser(i, "Mesaj GÃ¶nder..."));
+                startActivity(Intent.createChooser(i, "Mesaj Gönder..."));
             } catch (android.content.ActivityNotFoundException ex) {
-                Toast.makeText(getActivity(), "CihazÄ±nÄ±zda mail gÃ¶nderme uygulama bulunmamaktadÄ±r.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Cihazýnýzda mail gönderme uygulamasý bulunmamaktadýr.", Toast.LENGTH_SHORT).show();
             }
         }
         else if(view==tvCompanyPhone){

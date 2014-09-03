@@ -218,7 +218,7 @@ public class AlisverisDetail extends BaseFragment implements View.OnClickListene
             @Override
             public void onThinking()
             {
-                dialog.setMessage("Facebook paylaÅŸÄ±mÄ± gerÃ§ekleÅŸtiriliyor...");
+                dialog.setMessage("Facebook paylaþýmý gerçekleþtiriliyor...");
                 dialog.show();
                 Log.i("Share: In progress");
             }
@@ -228,9 +228,9 @@ public class AlisverisDetail extends BaseFragment implements View.OnClickListene
             {
 
 
-                dialog.setMessage("Facebook paylaÅŸÄ±mÄ± tamamlandÄ±.");
+                dialog.setMessage("Facebook paylaþýmý tamamlandý.");
                 dialog.dismiss();
-                Toast.makeText(getActivity(),"AlÄ±ÅŸveriÅŸiniz FB Ã¼zerinde paylaÅŸÄ±ldÄ±.",Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),"Alýþveriþiniz FB üzerinde paylaþýldý.",Toast.LENGTH_LONG).show();
                 Log.i("Share Published successfully. The new post id = " + postId);
 
                 try{
@@ -248,7 +248,7 @@ public class AlisverisDetail extends BaseFragment implements View.OnClickListene
 // build feed
 
         StringBuilder str=new StringBuilder();
-        str.append("Cardbook aracÄ±lÄ±ÄŸÄ± ile ").append(shopping.getCompany().getCompanyName()).append(" maÄŸazasÄ±ndan ");
+        str.append("Cardbook aracýlýðý ile ").append(shopping.getCompany().getCompanyName()).append(" maðazasýndan ");
         ArrayList<Product> list=shopping.getProductsList();
         for(int i=0; i<list.size();i++){
             Product p=list.get(i);
@@ -257,7 +257,7 @@ public class AlisverisDetail extends BaseFragment implements View.OnClickListene
             else
                 str.append(p.getName()).append(", ");
         }
-        str.append(" aldÄ±m ve ").append(shopping.getWonCredit().getPromotionAmount()).append(" puan kazandÄ±m.");
+        str.append(" aldým ve ").append(shopping.getWonCredit().getPromotionAmount()).append(" puan kazaným.");
 
 
 

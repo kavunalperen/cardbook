@@ -161,7 +161,7 @@ public class AppConstants {
     }
 
     public static void ErrorToast(Context context){
-        Toast.makeText(context, "Sunucu kaynaklÄ± bir hata ile karÅŸÄ±laÅŸÄ±ldÄ±; lÃ¼tfen iÅŸleminizi daha sonra tekrar deneyiniz.", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "Sunucu kaynaklı bir hata ile karşılaşıldı; lütfen işleminizi daha sonra tekrar deneyiniz.", Toast.LENGTH_LONG).show();
     }
 
     public static void NotOnlineToast(Context context){
