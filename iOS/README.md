@@ -1,4 +1,0 @@
-cardbook
-========
-
-Cardbook Repository

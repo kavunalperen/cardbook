@@ -1,7 +1,6 @@
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
 .DS_Store
-
-Android/CardBook/bin/
-Android/CardBook/gen/
-Android/facebook/bin/
-Android/facebook/gen/
-out/
+/build
