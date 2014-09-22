@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@android:color/transparent"
+
+     >
+
+    <RelativeLayout
+            android:id="@+id/relativeLayout2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_navigation_bg"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp">
+
+        <TextView
+                android:id="@+id/navBarTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
+                android:text="Kartlarım"
+                android:textAlignment="gravity"
+                android:textColor="@color/navigationBarHeaderTextColor"
+                android:textSize="20dp"/>
+    </RelativeLayout>
+
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView4"
+            android:background="@drawable/listview_top_bg"
+            android:layout_gravity="center_horizontal"/>
+
+    <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/listview_content_bg"
+            style="@style/layout"
+            android:gravity="center_horizontal"
+            >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentTop="true"
+            android:id="@+id/linearLayout2"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp">
+
+        <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="90dp"
+                android:layout_weight="1"
+                android:id="@+id/kartDetailCompanyImage"
+                android:background="@drawable/kart_detail_img_bg"/>
+
+        <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:layout_marginLeft="15dp" >
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="CINEMAXIMUM"
+                    android:id="@+id/tvKartDetailCompanyName"
+                    android:phoneNumber="true"
+                    android:singleLine="true"
+                    android:textSize="14sp"
+                    android:textColor="@color/color007AFF"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text=" / 3876"
+                    android:id="@+id/tvKartDetailPuanLimit"
+                    android:layout_alignBaseline="@+id/tvKartDetailPuan"
+                    android:layout_alignBottom="@+id/tvKartDetailPuan"
+                    android:layout_toRightOf="@+id/tvKartDetailPuan"
+                    android:textSize="10sp"
+                    android:textColor="@color/color8E8E93"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="1600"
+                    android:id="@+id/tvKartDetailPuan"
+                    android:layout_below="@+id/tvKartDetailPuanHeader"
+                    android:layout_alignParentLeft="true"
+                    android:textSize="25sp"
+                    android:textColor="@color/colorFF3B30"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Müşteri Puanınız"
+                    android:id="@+id/tvKartDetailPuanHeader"
+                    android:layout_below="@+id/tvKartDetailCompanyName"
+                    android:layout_alignParentLeft="true"
+                    android:textSize="10dp"
+                    android:textColor="@color/color707074"/>
+
+
+        </RelativeLayout>
+    </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="15dp"
+            android:gravity="center"
+            style="@style/layout">
+
+            <ImageButton
+                android:id="@+id/btnHakinda"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:background="@drawable/btn_hakkinda" />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/mycard_ayrac"/>
+            <ImageButton
+                android:id="@+id/btnIletisim"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:background="@drawable/btn_iletisim" />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/mycard_ayrac"/>
+            <ImageButton
+                android:id="@+id/btnSubeler"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:background="@drawable/btn_subeler" />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/mycard_ayrac"/>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnNotificationState"
+                android:background="@drawable/notification_off"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:id="@+id/relativeLayout"
+                >
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/kart_no"
+                android:id="@+id/tvKartDetailKartNoHeader"
+                android:gravity="center_vertical"
+                android:textSize="12sp"
+                android:layout_centerVertical="true"
+                android:textColor="@color/color8E8E93"/>
+
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="22dp"
+                android:hint="0000 0000 0000 0000"
+                android:id="@+id/editKartDetailKartNo"
+                android:background="@drawable/kart_number_bg"
+                android:textSize="12sp"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_toRightOf="@+id/tvKartDetailKartNoHeader"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/color8E8E93"
+                android:inputType="number"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="70dp">
+                <requestFocus />
+                </EditText>
+
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="23dp"
+                android:text="Kaydet"
+                android:id="@+id/btnkartDetailSave"
+                android:textSize="12sp"
+                android:background="@drawable/btn_kart_detail_save"
+                android:layout_alignParentRight="true"
+                android:textColor="@android:color/white"
+                android:clickable="true"/>
+    </RelativeLayout>
+
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal"
+            android:layout_above="@+id/linearLayout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="15dp"
+            android:layout_below="@+id/relativeLayout"
+            android:layout_marginTop="15dp">
+
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView2"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/mycard_coupons_header"/>
+
+        <ListView
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:id="@+id/kartDetailListView"
+                android:layout_below="@+id/imageView2"
+                android:background="@drawable/list_bg"
+                android:scrollbars="none"
+                android:layout_alignRight="@+id/imageView2"
+                android:layout_alignLeft="@+id/imageView2"
+            android:layout_centerHorizontal="true" />
+
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView3"
+                android:src="@drawable/mycard_coupons_footer"
+                android:layout_below="@+id/kartDetailListView"
+                android:layout_alignParentLeft="false"
+                android:layout_centerHorizontal="true"/>
+
+            <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:id="@+id/linearLayoutButtons"
+                    android:layout_below="@+id/imageView3"
+                    android:layout_marginTop="15dp"
+                    android:layout_alignParentLeft="true">
+
+                <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:text="Kampanyalar"
+                        android:id="@+id/btnKartDetailKampanyalar"
+                        android:layout_gravity="left|center_vertical"
+                        android:layout_weight="1"
+                        android:layout_marginRight="7dp"
+                        android:background="@drawable/btn_kart_detail_kampanyalar"
+                        android:textSize="14sp"
+                        android:textColor="@android:color/white"
+                        android:clickable="true"
+                        android:layout_marginLeft="15dp"/>
+
+                <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:text="Alışverişler"
+                        android:id="@+id/btnkartDetailAlisveris"
+                        android:layout_gravity="right|center_vertical"
+                        android:clickable="true"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="7dp"
+                        android:background="@drawable/btn_kart_detail_alisverisler"
+                        android:textSize="14sp"
+                        android:textColor="@android:color/white"
+                        android:layout_marginRight="15dp"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView5"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/listview_bottom_bg"
+            android:layout_gravity="center_horizontal"/>
+
+</LinearLayout>

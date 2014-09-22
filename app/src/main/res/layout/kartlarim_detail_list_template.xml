@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:orientation="vertical">
+
+    <RelativeLayout
+
+            android:id="@+id/RelativeLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:paddingTop="10dp">
+
+        <ImageView
+                android:id="@+id/kartlarimListCardImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/shopping_harcama_icon"
+                android:cropToPadding="true"
+                android:layout_alignBottom="@+id/kartlarimDetailListTvCouponName"
+                android:layout_alignTop="@+id/kartlarimDetailListTvCouponName"
+                android:layout_centerHorizontal="true"/>
+
+        <TextView
+                android:id="@+id/kartlarimDetailListTvCouponName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/kartlarimListCardImage"
+                android:text="0000000"
+                android:textColor="@color/btnSaveHighlighted"
+                android:textSize="14dp"
+                android:duplicateParentState="true"/>
+
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Promosyon alanı asdasd asdasd asd a asd asd asda sdasdasd asd "
+                android:id="@+id/kartlarimDetailListTvCouponDetail"
+
+                android:layout_below="@+id/kartlarimListCardImage"
+                android:layout_alignLeft="@+id/kartlarimDetailListTvCouponName"
+                android:lines="2"
+                android:ellipsize="end"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/color8E8E93"
+                android:textSize="12sp"/>
+    </RelativeLayout>
+
+
+    <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#E5E5E5"
+            android:layout_marginTop="5dp"/>
+</LinearLayout>
