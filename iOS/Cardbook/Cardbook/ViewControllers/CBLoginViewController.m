@@ -74,7 +74,14 @@
         if (status == FBSessionStateOpen && !error) {
             [self sessionOpened];
         } else {
-#warning show user to alert
+            NSLog(@"error occured");
+//#warning show user to alert
+            UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Hata"
+                                                                message:@"Facebook bağlantınız yapılırken bir hata oluştu. Lütfen izinlerinizi ve internet bağlantınızı kontrol ederek tekrar deneyiniz."
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"Kapat"
+                                                      otherButtonTitles:nil, nil];
+            [alertView show];
         }
     }];
 }
