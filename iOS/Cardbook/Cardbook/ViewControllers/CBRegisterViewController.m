@@ -210,15 +210,15 @@
     NSTimeInterval animationDuration;
     UIViewAnimationCurve animationCurve;
     
-    CGRect keyboardBounds;
+    CGRect keyboardFrameBegin;
+    CGRect keyboardFrameEnd;
     
-    [[notif.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue: &keyboardBounds];
+    keyboardFrameBegin = [[notif.userInfo valueForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+    keyboardFrameEnd = [[notif.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     
-    // Need to translate the bounds to account for rotation.
-    keyboardBounds = [self.view convertRect:keyboardBounds toView:nil];
+    CGFloat heightChange = keyboardFrameBegin.origin.y-keyboardFrameEnd.origin.y;
     
-//    CGFloat yOffset = IS_IPHONE_5 ? -200.0 : -160.0;
-    CGFloat yOffset = -(keyboardBounds.size.height);
+    CGFloat yOffset = -heightChange;
     
     [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] getValue:&animationCurve];
     [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&animationDuration];
@@ -241,14 +241,15 @@
     NSTimeInterval animationDuration;
     UIViewAnimationCurve animationCurve;
     
-    CGRect keyboardBounds;
+    CGRect keyboardFrameBegin;
+    CGRect keyboardFrameEnd;
     
-    [[notif.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue: &keyboardBounds];
+    keyboardFrameBegin = [[notif.userInfo valueForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+    keyboardFrameEnd = [[notif.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     
-    // Need to translate the bounds to account for rotation.
-    keyboardBounds = [self.view convertRect:keyboardBounds toView:nil];
+    CGFloat heightChange = keyboardFrameBegin.origin.y-keyboardFrameEnd.origin.y;
     
-    CGFloat yOffset = -(keyboardBounds.size.height);
+    CGFloat yOffset = heightChange;
     
     [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] getValue:&animationCurve];
     [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&animationDuration];
